@@ -19,31 +19,38 @@ function TestPage() {
 
 export default TestPage;
 function convertReactNativeToReactWeb(reactNativeCode) {
-  return reactNativeCode
-    .replace(/<View>/g, "<div>")
-    .replace(/<\/View>/g, "</div>")
-    .replace(/<Text>/g, "<p>")
-    .replace(/<\/Text>/g, "</p>")
-    .replace(/<a>/g, "<span>")
-    .replace(/<\/a>/g, "</span>");
+  const tagMappings = {
+    View: "div",
+    Text: "p",
+    TextInput: "input",
+    Button: "button",
+    // Add more mappings as needed
+  };
+
+  const regexOpenTag = new RegExp(
+    `<(${Object.keys(tagMappings).join("|")})>`,
+    "g"
+  );
+  const regexCloseTag = new RegExp(
+    `<\/(${Object.keys(tagMappings).join("|")})>`,
+    "g"
+  );
+
+  const updatedCode = reactNativeCode
+    .replace(regexOpenTag, (match, p1) => `<${tagMappings[p1]}>`)
+    .replace(regexCloseTag, (match, p1) => `</${tagMappings[p1]}>`);
+
+  // Replace onPress with onClick for buttons
+  return updatedCode.replace(/onPress=/g, "onClick=");
 }
 
 const reactNativeCode = `
-  <View>
-    <Text>
-      Edit App.js to change this screen and turn it
-      into your app.
-    </Text>
-    <Text>
-      Press Cmd + R inside the simulator to reload
-      your app’s code.
-    </Text>
-    <Text>
-      Press Cmd + M or Shake your device to open the
-      React Native Debug Menu.
-    </Text>
-    <Text>
-      Read the docs to discover what to do next:
-    </Text>
-  </View>
-  `;
+<View>
+  <Text>
+    Edit App.js to change this screen and turn it
+    into your app.
+  </Text>
+  <TextInput placeholder="Type here..." />
+  <Button title="Press me" onPress={() => console.log('Button pressed')} />
+</View>
+`;

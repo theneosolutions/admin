@@ -4,7 +4,7 @@ import facebook from "../../../Assets/Images/facebook.svg";
 import youtube from "../../../Assets/Images/youtube.svg";
 import Insta from "../../../Assets/Images/insta.svg";
 import Twitter from "../../../Assets/Images/twitter.svg";
-import User from "../../../Assets/Images/user.svg";
+// import User from "../../../Assets/Images/user.svg";
 
 function AntiFraud() {
   return (
@@ -17,7 +17,7 @@ function AntiFraud() {
             <div className="flex flex-row">
               <a className="w-2/5 text-gray-700 ">Profile Picture </a>
               <a className="text-gray-700 font-semibold flex flex-row space-x-5 rtl:space-x-reverse">
-                <img className="rounded-full h-20 w-20" src={User} />
+                {/* <img className="rounded-full h-20 w-20" src={User} /> */}
               </a>
             </div>
             <div className="flex flex-row">

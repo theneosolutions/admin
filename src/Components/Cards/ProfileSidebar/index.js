@@ -5,7 +5,7 @@ import Insta from "../../../Assets/Images/insta.svg";
 import Twitter from "../../../Assets/Images/twitter.svg";
 
 import Youtube from "../../../Assets/Images/youtube.svg";
-import User from "../../../Assets/Images/user.svg";
+// import User from "../../../Assets/Images/user.svg";
 import { FaMobileAlt } from "react-icons/fa";
 import { AiOutlineNumber } from "react-icons/ai";
 import { MdOutlineMailOutline } from "react-icons/md";
@@ -17,7 +17,7 @@ function ProfileSidebar() {
   return (
     <div className="border border-primary px-2 	 py-6 bg-white rounded-lg">
       <div className="items-center justify-center  flex ">
-        <img className="h-32 w-32 rounded-full" src={User} />
+        {/* <img className="h-32 w-32 rounded-full" src={User} /> */}
       </div>
       <div className="flex flex-col items-center">
         <div className="mt-2 font-semibold underline">Huzaifa Nabigh</div>
