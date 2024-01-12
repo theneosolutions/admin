@@ -29,6 +29,7 @@ const initialState = {
   getScreensSets: {},
   getApplications: [],
   getLoanTax: {},
+  getAppFlow: {},
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -120,6 +121,10 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getLoanTax = data;
     },
+    GetappFlow: (state, action) => {
+      const { data } = action.payload;
+      state.getAppFlow = data;
+    },
   },
 });
 export const {
@@ -144,6 +149,7 @@ export const {
   GetScreenSets,
   GetApplications,
   GetLoanTax,
+  GetappFlow,
 } = Reducer.actions;
 
 export default Reducer.reducer;

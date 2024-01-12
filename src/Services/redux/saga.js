@@ -5,6 +5,7 @@ import * as action from "./reducer";
 var baseUrlUser = "https://6066-82-167-87-137.ngrok-free.app";
 var baseUrlDecisions = "https://6066-82-167-87-137.ngrok-free.app/api/v1/dms";
 var baseUrlLos = "https://6066-82-167-87-137.ngrok-free.app/api/v1/los";
+var baseUrlCms = "https://6066-82-167-87-137.ngrok-free.app/api/v1/cms";
 
 const axiosInstance = axios.create({
   headers: {
@@ -520,7 +521,22 @@ function* GetLoanTypeTax(payload) {
     // yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
-
+function* GetAppFlow(payload) {
+  console.log("payload");
+  try {
+    yield put(action.Loading({ Loading: true }));
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlCms + `/apiFlow/getAppFlow?brandId=123`
+    );
+    yield put(action.GetappFlow(response));
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    const message = error.response.data.message;
+    yield put(action.Loading({ Loading: false }));
+    // yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -550,4 +566,5 @@ export default function* HomeSaga() {
 
   yield takeLatest("GET_LOAN_APPLICATIONS", GetLoanApplications);
   yield takeLatest("GET_ALL_LOAN_REASONS", GetAllLoanReasons);
+  yield takeLatest("GET_APP_FLOW", GetAppFlow);
 }
