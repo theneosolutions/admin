@@ -2,10 +2,14 @@ import axios from "axios";
 import { call, put, takeLatest } from "@redux-saga/core/effects";
 import * as action from "./reducer";
 
-var baseUrlUser = "https://6066-82-167-87-137.ngrok-free.app";
-var baseUrlDecisions = "https://6066-82-167-87-137.ngrok-free.app/api/v1/dms";
-var baseUrlLos = "https://6066-82-167-87-137.ngrok-free.app/api/v1/los";
-var baseUrlCms = "https://6066-82-167-87-137.ngrok-free.app/api/v1/cms";
+var baseUrlUser =
+  "https://725c-2a00-5400-e053-7ddb-99ed-8b5-73a8-c511.ngrok-free.app";
+var baseUrlDecisions =
+  "https://725c-2a00-5400-e053-7ddb-99ed-8b5-73a8-c511.ngrok-free.app/api/v1/dms";
+var baseUrlLos =
+  "https://725c-2a00-5400-e053-7ddb-99ed-8b5-73a8-c511.ngrok-free.app/api/v1/los";
+var baseUrlCms =
+  "https://725c-2a00-5400-e053-7ddb-99ed-8b5-73a8-c511.ngrok-free.app/api/v1/cms";
 
 const axiosInstance = axios.create({
   headers: {
