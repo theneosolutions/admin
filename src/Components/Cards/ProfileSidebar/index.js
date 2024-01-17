@@ -13,34 +13,88 @@ import { TbGenderNeutrois } from "react-icons/tb";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import { IoLocationOutline } from "react-icons/io5";
 
-function ProfileSidebar() {
+function ProfileSidebar({ userData }) {
+  console.log("this is user data", userData);
   return (
     <div className="border border-primary px-2 	 py-6 bg-white rounded-lg">
       <div className="items-center justify-center  flex ">
         {/* <img className="h-32 w-32 rounded-full" src={User} /> */}
       </div>
       <div className="flex flex-col items-center">
-        <div className="mt-2 font-semibold underline">Huzaifa Nabigh</div>
+        <div className="mt-2 font-semibold underline">
+          {userData?.firstName + " " + userData?.lastName}
+        </div>
+        <div className="flex flex-row mt-6 w-full rtl:space-x-reverse items-center">
+          <div className="flex flex-row justify-between w-14 ">
+            <div></div>
+            <div className=" font-semibold text-gray-700  text-sm   px-2">
+              <FaMobileAlt />
+            </div>
+          </div>
 
-        {data?.map((v, k) => {
-          return (
-            <>
-              <div className="flex flex-row mt-6 w-full rtl:space-x-reverse items-center">
-                <div className="flex flex-row justify-between w-14 ">
-                  <div></div>
-                  <div className=" font-semibold text-gray-700  text-sm   px-2">
-                    {v?.icon}
-                  </div>
-                </div>
+          <a className="text-sm text-gray-700">{userData.mobileNumber}</a>
+        </div>
+        <div className=" w-full bg-gray-100 mt-3" style={{ height: 1 }}></div>
 
-                <a className="text-sm text-gray-700">{v.name}</a>
-              </div>
-              <div
-                className=" w-full bg-gray-100 mt-3"
-                style={{ height: 1 }}></div>
-            </>
-          );
-        })}
+        <div className="flex flex-row mt-6 w-full rtl:space-x-reverse items-center">
+          <div className="flex flex-row justify-between w-14 ">
+            <div></div>
+            <div className=" font-semibold text-gray-700  text-sm   px-2">
+              <AiOutlineNumber />
+            </div>
+          </div>
+
+          <a className="text-sm text-gray-700">{userData.idNumber}</a>
+        </div>
+        <div className=" w-full bg-gray-100 mt-3" style={{ height: 1 }}></div>
+
+        <div className="flex flex-row mt-6 w-full rtl:space-x-reverse items-center">
+          <div className="flex flex-row justify-between w-14 ">
+            <div></div>
+            <div className=" font-semibold text-gray-700  text-sm   px-2">
+              <MdOutlineMailOutline />
+            </div>
+          </div>
+
+          <a className="text-sm text-gray-700">{userData.email}</a>
+        </div>
+        <div className=" w-full bg-gray-100 mt-3" style={{ height: 1 }}></div>
+
+        <div className="flex flex-row mt-6 w-full rtl:space-x-reverse items-center">
+          <div className="flex flex-row justify-between w-14 ">
+            <div></div>
+            <div className=" font-semibold text-gray-700  text-sm   px-2">
+              <TbGenderNeutrois />
+            </div>
+          </div>
+
+          <a className="text-sm text-gray-700">{userData.gender}</a>
+        </div>
+        <div className=" w-full bg-gray-100 mt-3" style={{ height: 1 }}></div>
+
+        <div className="flex flex-row mt-6 w-full rtl:space-x-reverse items-center">
+          <div className="flex flex-row justify-between w-14 ">
+            <div></div>
+            <div className=" font-semibold text-gray-700  text-sm   px-2">
+              <LiaBirthdayCakeSolid />
+            </div>
+          </div>
+
+          <a className="text-sm text-gray-700">{userData.dateOfBirth}</a>
+        </div>
+        <div className=" w-full bg-gray-100 mt-3" style={{ height: 1 }}></div>
+
+        <div className="flex flex-row mt-6 w-full rtl:space-x-reverse items-center">
+          <div className="flex flex-row justify-between w-14 ">
+            <div></div>
+            <div className=" font-semibold text-gray-700  text-sm   px-2">
+              <IoLocationOutline />
+            </div>
+          </div>
+
+          <a className="text-sm text-gray-700">4140 Rd. Allentown</a>
+        </div>
+        <div className=" w-full bg-gray-100 mt-3" style={{ height: 1 }}></div>
 
         <div className="flex flex-row space-x-3 mt-12 rtl:space-x-reverse">
           <img src={facebook} />
@@ -53,12 +107,3 @@ function ProfileSidebar() {
   );
 }
 export default ProfileSidebar;
-
-const data = [
-  { name: "+232 4334 2343", icon: <FaMobileAlt /> },
-  { name: "239945354", icon: <AiOutlineNumber /> },
-  { name: "Dav45@gmail.com", icon: <MdOutlineMailOutline /> },
-  { name: "Male", icon: <TbGenderNeutrois /> },
-  { name: "March 23,1995", icon: <LiaBirthdayCakeSolid /> },
-  { name: "4140 Rd. Allentown", icon: <IoLocationOutline /> },
-];

@@ -6,14 +6,14 @@ function Avatar({ icon, onClick }) {
   const navigate = useNavigate();
   return (
     <div
-      onClick={() => navigate("/profile")}
+      onClick={onClick}
       className="image-container relative inline-block duration-300 h-10 w-10">
       <img
-        onClick={onClick}
+        // onClick={onClick}
         src={icon}
         className="avatar h-10 w-10 rounded-full cursor-pointer"
       />
-      <div className="hover-icon" onClick={onClick}>
+      <div className="hover-icon">
         <FaRegEye className="text-xl" />
       </div>
     </div>

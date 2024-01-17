@@ -28,7 +28,6 @@ function VerifiedUsers() {
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
-  console.log("users", users);
   function onDelete() {
     setModelOpen(true);
   }
@@ -42,7 +41,7 @@ function VerifiedUsers() {
     });
   }
   function CheckEligibility(other, numeric) {
-    if (other && numeric) {
+    if (other === true && numeric === true) {
       return (
         <div className="flex flex-row font-semibold space-x-1 text-green-700 items-center">
           <MdVerified className="text-xl" />
@@ -107,21 +106,25 @@ function VerifiedUsers() {
                       icon={
                         "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes-thumbnail.png"
                       }
-                      onClick={() => navigate("/profile")}
+                      onClick={() => navigate(`/profile?id=${v?.user.id}`)}
                     />
 
-                    <a>{v.userId}</a>
+                    {/* <a>{v.eligibilityResult.userId}</a> */}
                   </td>
                   <td scope="row" className="px-3 py-4">
-                    {v.otherQuestionEligibility ? "Pass" : "Fail"}
+                    {v?.eligibilityResult?.otherQuestionEligibility
+                      ? "Pass"
+                      : "Fail"}
                   </td>
                   <td className="px-3 py-4">
-                    {v.numericQuestionEligibility ? "Pass" : "Fail"}
+                    {v?.eligibilityResult?.numericQuestionEligibility
+                      ? "Pass"
+                      : "Fail"}
                   </td>
                   <td className="px-3 py-4">
                     {CheckEligibility(
-                      v.otherQuestionEligibility,
-                      v.numericQuestionEligibility
+                      v?.eligibilityResult.otherQuestionEligibility,
+                      v?.eligibilityResult.numericQuestionEligibility
                     )}
                   </td>
                   <td className="px-3 py-4">

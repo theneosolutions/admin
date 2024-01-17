@@ -10,6 +10,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { RxUpdate } from "react-icons/rx";
 import { BiMessageSquareDetail } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
 
 import { MdDeleteOutline } from "react-icons/md";
 import ProfileSidebar from "Components/Cards/ProfileSidebar";
@@ -26,9 +27,12 @@ import { RiHistoryFill } from "react-icons/ri";
 function Template() {
   const navigate = useNavigate();
   const location = useLocation();
+  const users = useSelector((state) => state.getAllUsers);
+  console.log("users", users);
 
   const queryParams = new URLSearchParams(location.search);
   const oldState = queryParams.get("name");
+  const id = queryParams.get("id");
 
   const [state, setState] = useState("");
   useEffect(() => {
@@ -36,9 +40,11 @@ function Template() {
       setState(oldState);
     } else {
       setState("Profile");
-      navigate(location.pathname + `?name=Profile`);
+      navigate(location.pathname + `?id=${id}&name=Profile`);
     }
   }, []);
+  const userData = users.find((item) => item.user.id === 9);
+  console.log("userData", userData);
   const getTab = () => {
     const activeItem = data.find((item) => item.label === state);
     return activeItem
@@ -50,12 +56,12 @@ function Template() {
       return navigate("/user-detail?name=Anti fraud Detail");
     }
     setState(stateValue);
-    navigate(location.pathname + `?name=${stateValue}`);
+    navigate(location.pathname + `?id=${id}&name=${stateValue}`);
   }
   return (
     <div className="flex flex-col">
       <div className="bg-white px-5 py-3 flex flex-row space-x-7">
-        {data.map((v, k) => {
+        {data?.map((v, k) => {
           return (
             <div
               onClick={() => setNavigation(v.label)}
@@ -72,10 +78,10 @@ function Template() {
       <div className="flex flex-col   w-full">
         <div className="flex flex-row space-x-6 mt-6">
           <div className="w-1/4">
-            <ProfileSidebar />
+            <ProfileSidebar userData={userData?.user} />
           </div>
           <div className="w-9/12">
-            <div className="flex flex-row  	"></div>
+            <div className="flex flex-row"></div>
             <div className="flex flex-row space-x-5  ">{getTab()}</div>
           </div>
         </div>
