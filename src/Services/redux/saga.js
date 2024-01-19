@@ -415,6 +415,7 @@ function* CreateLoanType({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
 function* GetAllLoanReasons() {
   try {
     yield put(action.Loading({ Loading: true }));
