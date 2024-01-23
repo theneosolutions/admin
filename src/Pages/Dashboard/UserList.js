@@ -54,7 +54,7 @@ function App() {
   }
   return (
     <div className="container mx-auto mt-5 space-y-6">
-      <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row 2xl:flex-row md:space-x-4">
+      <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row 2xl:flex-row md:space-x-4 rtl:space-x-reverse">
         <Notifications
           value="$120000"
           heading="Total Deposite Amount"

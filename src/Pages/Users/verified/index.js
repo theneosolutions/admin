@@ -106,7 +106,9 @@ function VerifiedUsers() {
                       icon={
                         "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes-thumbnail.png"
                       }
-                      onClick={() => navigate(`/profile?id=${v?.user.id}`)}
+                      onClick={() =>
+                        navigate(`/profile?id=${v?.user.idNumber}`)
+                      }
                     />
 
                     {/* <a>{v.eligibilityResult.userId}</a> */}

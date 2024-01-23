@@ -32,7 +32,7 @@ function ProfileSidebar({ userData }) {
             </div>
           </div>
 
-          <a className="text-sm text-gray-700">{userData.mobileNumber}</a>
+          <a className="text-sm text-gray-700">{userData?.mobileNumber}</a>
         </div>
         <div className=" w-full bg-gray-100 mt-3" style={{ height: 1 }}></div>
 
@@ -44,7 +44,7 @@ function ProfileSidebar({ userData }) {
             </div>
           </div>
 
-          <a className="text-sm text-gray-700">{userData.idNumber}</a>
+          <a className="text-sm text-gray-700">{userData?.idNumber}</a>
         </div>
         <div className=" w-full bg-gray-100 mt-3" style={{ height: 1 }}></div>
 
@@ -56,7 +56,7 @@ function ProfileSidebar({ userData }) {
             </div>
           </div>
 
-          <a className="text-sm text-gray-700">{userData.email}</a>
+          <a className="text-sm text-gray-700">{userData?.email}</a>
         </div>
         <div className=" w-full bg-gray-100 mt-3" style={{ height: 1 }}></div>
 
@@ -68,7 +68,7 @@ function ProfileSidebar({ userData }) {
             </div>
           </div>
 
-          <a className="text-sm text-gray-700">{userData.gender}</a>
+          <a className="text-sm text-gray-700">{userData?.gender}</a>
         </div>
         <div className=" w-full bg-gray-100 mt-3" style={{ height: 1 }}></div>
 
@@ -80,7 +80,7 @@ function ProfileSidebar({ userData }) {
             </div>
           </div>
 
-          <a className="text-sm text-gray-700">{userData.dateOfBirth}</a>
+          <a className="text-sm text-gray-700">{userData?.dateOfBirth}</a>
         </div>
         <div className=" w-full bg-gray-100 mt-3" style={{ height: 1 }}></div>
 

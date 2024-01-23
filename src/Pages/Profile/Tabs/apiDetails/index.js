@@ -1,20 +1,27 @@
 import React, { useState } from "react";
 
 import Antifraud from "./companyTabs/antiFraud";
+import Gosi from "./companyTabs/gosi";
+
 import Absher from "./companyTabs/absher";
 import Nafath from "./companyTabs/nafath";
 import AmlDetails from "./companyTabs/amlDetails";
 import Sima from "./companyTabs/sima";
 import TakwaDetails from "./companyTabs/takwadetails";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
 function Template() {
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
 
-  const [state, setState] = useState("Anti fraud Detail");
+  const [state, setState] = useState("Gosi");
+  const id = queryParams.get("id");
 
   const getTab = () => {
     const activeItem = data.find((item) => item.label === state);
@@ -23,8 +30,21 @@ function Template() {
       : "Select an item to see the description.";
   };
   function setNavigation(stateValue) {
+    if (stateValue === "Gosi") {
+      getGosi();
+    }
     setState(stateValue);
     // navigate(location.pathname + `?name=${stateValue}`);
+  }
+  useEffect(() => {
+    getGosi();
+  }, []);
+  function getGosi() {
+    console.log("Gosi");
+    dispatch({
+      type: "GET_GOSI_API",
+      payload: id,
+    });
   }
   return (
     <div className=" w-full bg-white  border border-primary w-full rounded-lg ">
@@ -57,14 +77,17 @@ export default Template;
 
 const data = [
   {
-    label: "Anti fraud Detail",
-    tab: <Antifraud />,
+    label: "Gosi",
+    tab: <Gosi />,
   },
   {
     label: "Absher Detail",
     tab: <Absher />,
   },
-
+  {
+    label: "Anti fraud Detail",
+    tab: <Antifraud />,
+  },
   {
     label: "AML Details",
     tab: <AmlDetails />,

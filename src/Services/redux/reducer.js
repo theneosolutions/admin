@@ -30,6 +30,7 @@ const initialState = {
   getApplications: [],
   getLoanTax: {},
   getAppFlow: {},
+  getGosiData: [],
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -125,6 +126,10 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getAppFlow = data;
     },
+    GetGosiData: (state, action) => {
+      const { data } = action.payload;
+      state.getGosiData = data;
+    },
   },
 });
 export const {
@@ -150,6 +155,7 @@ export const {
   GetApplications,
   GetLoanTax,
   GetappFlow,
+  GetGosiData,
 } = Reducer.actions;
 
 export default Reducer.reducer;

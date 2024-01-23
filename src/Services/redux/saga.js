@@ -542,6 +542,23 @@ function* GetAppFlow(payload) {
     // yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+function* GetGosiApi(payload) {
+  console.log("payload", payload.payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+    const response = yield call(
+      axiosInstance.get,
+      `https://b751-182-188-103-104.ngrok-free.app/api/v1/dms/formula/getGosiByUserId?idNumber=1069282455`
+    );
+    console.log("resssssssssssssssssssssssss", response);
+    yield put(action.GetGosiData(response));
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    const message = error.response.data.message;
+    yield put(action.Loading({ Loading: false }));
+    // yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -572,4 +589,5 @@ export default function* HomeSaga() {
   yield takeLatest("GET_LOAN_APPLICATIONS", GetLoanApplications);
   yield takeLatest("GET_ALL_LOAN_REASONS", GetAllLoanReasons);
   yield takeLatest("GET_APP_FLOW", GetAppFlow);
+  yield takeLatest("GET_GOSI_API", GetGosiApi);
 }

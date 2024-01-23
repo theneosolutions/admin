@@ -10,8 +10,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Alert, Snackbar } from "@mui/material";
 import * as action from "../../Services/redux/reducer";
 import WaveAnimation from "../../Components/Loading"; // Adjust the path based on your file structure
+import { useTranslation } from "react-i18next";
 
 function CreateUser() {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -135,7 +138,7 @@ function CreateUser() {
         value={setId}
         className="mb-4 p-2 px-4 border rounded mt-4 w-full border-primary cursor-pointer"
         onChange={(e) => setSelectedSetData(e.target.value)}>
-        {setId ? null : <option value="Select">Select Set</option>}
+        {setId ? null : <option value="Select">{t("Select Set")}</option>}
 
         {allSets?.map((v, k) => {
           return (
@@ -147,12 +150,12 @@ function CreateUser() {
       </select>
       {setId && (
         <form onSubmit={handleSubmit}>
-          <CardMain width="w-full" heading={"Response for Eligibility 1"}>
+          <CardMain width="w-full">
             <div className="flex flex-row space-x-20 rtl:space-x-reverse mt-5">
               <div className="w-1/2 space-y-10 items-center bg-green-50 flex flex-col py-12">
                 <a className="text-lg text-primary underline">
                   {" "}
-                  For Success Response
+                  {t("For Success Response")}
                 </a>
 
                 <div
@@ -164,13 +167,13 @@ function CreateUser() {
                   )}
                 </div>
                 <InputField
-                  heading="Message"
+                  heading={t("Message")}
                   value={messageSuccess}
                   onChange={(e) => setMessageSuccesss(e)}
                   style="w-52"
                 />
                 <InputField
-                  heading="Description"
+                  heading={t("Description")}
                   value={desSuccess}
                   onChange={(e) => setDesSuccess(e)}
                   style="w-72"
@@ -178,8 +181,7 @@ function CreateUser() {
               </div>
               <div className="w-1/2 space-y-10 items-center bg-red-50 flex flex-col py-12">
                 <a className="text-lg text-red-600 underline">
-                  {" "}
-                  For Error Response
+                  {t("For Error Response")}
                 </a>
 
                 <div
@@ -191,14 +193,13 @@ function CreateUser() {
                   )}
                 </div>
                 <InputField
-                  id="firstName"
-                  heading="Message"
+                  heading={t("Message")}
                   value={messageError}
                   onChange={(e) => setMessageError(e)}
                   style="w-52"
                 />
                 <InputField
-                  heading="Description"
+                  heading={t("Description")}
                   value={desError}
                   onChange={(e) => setDesError(e)}
                   style="w-72"
@@ -208,7 +209,7 @@ function CreateUser() {
             <div className="flex flex-row justify-end mt-10">
               <Button
                 type="submit"
-                buttonValue="Submit"
+                buttonValue={t("Submit")}
                 buttonStyle="px-20 py-2"
               />
             </div>
@@ -245,13 +246,15 @@ function CreateUser() {
 export default CreateUser;
 
 function InputField({ heading, value, onChange, type, style }) {
+  const { t } = useTranslation();
+
   return (
     <div className={`flex flex-col ${style}`}>
       <input
         required
         type={type || "text"}
         value={value}
-        placeholder={heading}
+        placeholder={t(heading)}
         onChange={(e) => onChange(e.target.value)}
         className="border-primary border rounded-md px-3 py-2 outline-none mt-2 w-full"
       />

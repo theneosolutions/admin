@@ -43,7 +43,7 @@ function Template() {
       navigate(location.pathname + `?id=${id}&name=Profile`);
     }
   }, []);
-  const userData = users.find((item) => item.user.id === 9);
+  const userData = users.find((item) => item.user.idNumber === id);
   console.log("userData", userData);
   const getTab = () => {
     const activeItem = data.find((item) => item.label === state);
