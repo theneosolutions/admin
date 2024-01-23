@@ -15,8 +15,7 @@ function Absher() {
   const queryParams = new URLSearchParams(location.search);
 
   const id = queryParams.get("id");
-  const userData = users.find((item) => item.user.idNumber === id);
-  console.log("users absher", userData.user.ownerVerification);
+  const userData = users.find((item) => item?.user?.idNumber === id);
 
   return (
     <div className=" w-full flex flex-row space-x-5 rtl:space-x-reverse">
@@ -50,19 +49,6 @@ function Absher() {
                 )}
               </a>
             </div>
-            {/* <div className="flex flex-row">
-              <a className="w-2/5 text-gray-700 ">Client Id</a>
-              <a className="text-gray-700 font-semibold">100012312</a>
-            </div>
-            <div className="flex flex-row">
-              <a className="w-2/5 text-gray-700 ">Customer Id</a>
-              <a className="text-gray-700 font-semibold">32</a>
-            </div>
-
-            <div className="flex flex-row">
-              <a className="w-2/5 text-gray-700 ">Transaction Id</a>
-              <a className="text-gray-700 font-semibold">10-33-112-3331</a>
-            </div> */}
           </div>
         </CardMain>
       </div>

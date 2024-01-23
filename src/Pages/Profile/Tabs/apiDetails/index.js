@@ -30,9 +30,9 @@ function Template() {
       : "Select an item to see the description.";
   };
   function setNavigation(stateValue) {
-    if (stateValue === "Gosi") {
-      getGosi();
-    }
+    // if (stateValue === "Gosi") {
+    getGosi();
+    // }
     setState(stateValue);
     // navigate(location.pathname + `?name=${stateValue}`);
   }
@@ -80,10 +80,12 @@ const data = [
     label: "Gosi",
     tab: <Gosi />,
   },
+
   {
     label: "Absher Detail",
     tab: <Absher />,
   },
+
   {
     label: "Anti fraud Detail",
     tab: <Antifraud />,
