@@ -15,10 +15,7 @@ function Absher() {
   const [state, setState] = useState({});
   const gosi = useSelector((state) => state?.getGosiData || {});
 
-  // Use optional chaining to safely access nested properties
   const employmentStatusInfo = gosi?.employmentStatusInfo || [];
-
-  // Check if the array has elements before accessing the first element
 
   useEffect(() => {
     if (employmentStatusInfo.length > 0) {
