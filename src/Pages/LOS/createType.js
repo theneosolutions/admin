@@ -27,9 +27,9 @@ function App() {
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
-  // useEffect(() => {
-  //   getAllReasons();
-  // }, []);
+  useEffect(() => {
+    getAllReasons();
+  }, []);
   function getAllReasons() {
     dispatch({
       type: "GET_ALL_LOAN_REASONS",
