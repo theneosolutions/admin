@@ -2,14 +2,10 @@ import axios from "axios";
 import { call, put, takeLatest } from "@redux-saga/core/effects";
 import * as action from "./reducer";
 
-var baseUrlUser =
-  "https://725c-2a00-5400-e053-7ddb-99ed-8b5-73a8-c511.ngrok-free.app";
-var baseUrlDecisions =
-  "https://725c-2a00-5400-e053-7ddb-99ed-8b5-73a8-c511.ngrok-free.app/api/v1/dms";
-var baseUrlLos =
-  "https://725c-2a00-5400-e053-7ddb-99ed-8b5-73a8-c511.ngrok-free.app/api/v1/los";
-var baseUrlCms =
-  "https://725c-2a00-5400-e053-7ddb-99ed-8b5-73a8-c511.ngrok-free.app/api/v1/cms";
+var baseUrlUser = "https://seulah.ngrok.app";
+var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
+var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
+var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
 
 const axiosInstance = axios.create({
   headers: {
@@ -20,7 +16,6 @@ const axiosInstance = axios.create({
     "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
     "Access-Control-Allow-Headers":
       "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers",
-    // Add any other common headers here
   },
 });
 
@@ -31,12 +26,6 @@ function* GetAllQuestionsData() {
     const response = yield call(
       axiosInstance.get,
       baseUrlDecisions + "/eligibilityQuestions/getAllQuestions"
-      // {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "ngrok-skip-browser-warning": "69420",
-      //   },
-      // }
     );
     yield put(action.GetAllQuestions(response.data));
     yield put(action.Loading({ Loading: false }));
@@ -335,11 +324,25 @@ function* UserLogin({ payload }) {
 function* SetDecisionResponse({ payload }) {
   try {
     yield put(action.Loading({ Loading: true }));
+    const formData = new FormData();
+    formData.append("successImage", payload.successImage);
+    formData.append("successMessage", payload.successMessage);
+    formData.append("successDescription", payload.successDescription);
+    formData.append("errorImage", payload.errorImage);
+    formData.append("errorMessage", payload.errorMessage);
+    formData.append("errorDescription", payload.errorDescription);
+    formData.append("setId", payload.setId);
     const response1 = yield call(
-      axiosInstance.post,
-      baseUrlDecisions + `/apiResponse/create`,
-      payload
+      axios.post,
+      baseUrlDecisions + "/apiResponse/create",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
+
     yield put(
       action.Message({
         message: response1.data.message,
@@ -466,11 +469,13 @@ function* GetResponseOfSet(payload) {
     );
     yield put(action.GetSetResponse(response));
     yield put(action.Loading({ Loading: false }));
+    yield put(action.Message({ message: "", open: false, error: false }));
   } catch (error) {
     const message = error.response.data.message;
     yield put(action.Loading({ Loading: false }));
+    yield put(action.Message({ message: "", open: false, error: true }));
 
-    yield put(action.Message({ message: message, open: true, error: true }));
+    // yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
 function* GetScreenSet(payload) {
@@ -548,7 +553,7 @@ function* GetGosiApi(payload) {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
       axiosInstance.get,
-      `https://b751-182-188-103-104.ngrok-free.app/api/v1/dms/formula/getGosiByUserId?idNumber=1069282455`
+      baseUrlDecisions + `/formula/getGosiByUserId?idNumber=${payload.payload}`
     );
     console.log("resssssssssssssssssssssssss", response);
     yield put(action.GetGosiData(response));

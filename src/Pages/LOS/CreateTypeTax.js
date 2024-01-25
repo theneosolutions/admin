@@ -150,12 +150,14 @@ function App() {
     <div className="container mx-auto mt-5 space-y-6">
       <WaveAnimation show={loading} />
       <div className="flex flex-col md:flex-row md:space-x-6 rtl:space-x-reverse w-full ">
-        <CardMain width="w-full md:mt-0 mt-4" heading={t("Create Reason")}>
+        <CardMain
+          width="w-full md:mt-0 mt-4"
+          heading={t("Amount And Taxes As Per Month")}>
           <div className=" px-3  space-y-3 ">
             <div className="flex flex-row"></div>
-            <div className="flex flex-col w-full">
+            {/* <div className="flex flex-col w-full">
               <a className="text-sm text-gray-700 font-semibold">Reason</a>
-            </div>
+            </div> */}
             <Fees
               processingFee={processingFee}
               vatFee={vatFee}

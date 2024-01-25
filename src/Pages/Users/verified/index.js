@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { MdVerified } from "react-icons/md";
 import { RxCrossCircled } from "react-icons/rx";
 
-import Data from "./_data";
 import CardMain from "../../../Components/Cards/main";
 import Edit from "../../../Assets/Images/edit.svg";
 import Delete from "../../../Assets/Images/delete.svg";
@@ -110,8 +109,6 @@ function VerifiedUsers() {
                         navigate(`/profile?id=${v?.user.idNumber}`)
                       }
                     />
-
-                    {/* <a>{v.eligibilityResult.userId}</a> */}
                   </td>
                   <td scope="row" className="px-3 py-4">
                     {v?.eligibilityResult?.otherQuestionEligibility

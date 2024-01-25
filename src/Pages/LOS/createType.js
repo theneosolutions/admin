@@ -27,9 +27,9 @@ function App() {
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
-  useEffect(() => {
-    getAllReasons();
-  }, []);
+  // useEffect(() => {
+  //   getAllReasons();
+  // }, []);
   function getAllReasons() {
     dispatch({
       type: "GET_ALL_LOAN_REASONS",
@@ -97,16 +97,25 @@ function App() {
     if (e.target.files && e.target.files[0]) {
       const selectedImage = e.target.files[0];
 
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const img = new Image();
-        img.src = event.target.result;
-      };
+      if (
+        selectedImage.type === "image/png" ||
+        selectedImage.type === "image/x-icon"
+      ) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const img = new Image();
+          img.src = event.target.result;
+        };
 
-      reader.readAsDataURL(selectedImage);
+        reader.readAsDataURL(selectedImage);
 
-      setImage(selectedImage);
-      setImage2(URL.createObjectURL(selectedImage));
+        setImage(selectedImage);
+        setImage2(URL.createObjectURL(selectedImage));
+      } else {
+        alert("Please upload a PNG or ICO file.");
+        // Optionally, you can reset the file input to clear the selected file
+        e.target.value = null;
+      }
     }
   }
   useEffect(() => {
@@ -124,15 +133,15 @@ function App() {
     <div className="container mx-auto mt-5 space-y-6">
       <WaveAnimation show={loading} />
 
-      <div className="flex flex-col md:flex-row md:space-x-6 rtl:space-x-reverse w-full ">
+      <div className="flex flex-col   w-full ">
         <CardMain
-          width="w-full h-max md:w-1/2 md:mt-0 mt-4"
-          heading={t("Create Reason")}>
-          <div className=" px-3  space-y-3">
-            <div className="flex flex-row">
+          width="w-full h-max  md:mt-0 mt-4"
+          heading={t("Create Loan Type")}>
+          <div className=" px-3   flex flex-row space-x-4">
+            <div className="flex flex-row w-1/2">
               <div
                 onClick={handleClick}
-                className="w-48 border  bg-secondry rounded-md border-dashed	 border-slate-200 items-center flex flex-col justify-center px-4 py-8">
+                className="w-full border  bg-secondry rounded-md border-dashed	 border-slate-200 items-center flex flex-col justify-center px-4 py-8">
                 {!image2 && <img src={UplaodIcon} />}
 
                 {image2 && <img src={image2} />}
@@ -146,94 +155,102 @@ function App() {
                 </a>
               </div>
             </div>
-            <div className="flex flex-col w-full">
-              <a className="text-sm text-gray-700 font-semibold">Reason</a>
+            <div className="w-1/2">
+              <div className="flex flex-col w-full">
+                <a className="text-sm text-gray-700 font-semibold">
+                  Loan Reason
+                </a>
+
+                <input
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                  className="border-primary rounded-md border  px-3 py-1.5 outline-none mt-2 w-full"
+                />
+              </div>
 
               <input
-                value={reason}
-                onChange={(e) => setReason(e.target.value)}
-                className="border-primary rounded-md border  px-3 py-2 outline-none mt-2 w-full"
+                ref={fileInputRef}
+                type="file"
+                onChange={handleSelectImage}
+                style={{ display: "none" }}
               />
-            </div>
 
-            <input
-              ref={fileInputRef}
-              type="file"
-              onChange={handleSelectImage}
-              style={{ display: "none" }}
-            />
+              <div className=" py-3   bg-secondry rounded-md 	 border-slate-200 ">
+                <a className="text-sm text-gray-700 font-semibold">Tensures </a>
 
-            <div className="px-4 py-3 border  bg-secondry rounded-md border-dashed	 border-slate-200 ">
-              <a className="text-sm text-gray-700 font-semibold">Tensures </a>
+                <div className="mt-4">
+                  {formData?.map((data, index) => (
+                    <div key={index} className="mb-4 flex space-x-2">
+                      <div className="flex flex-col w-1/2 ">
+                        <a className="text-sm text-gray-700">Months</a>
 
-              <div className="mt-4">
-                {formData?.map((data, index) => (
-                  <div key={index} className="mb-4 flex space-x-2">
-                    <div className="flex flex-col w-1/2 ">
-                      <a className="text-sm text-gray-700">Months</a>
+                        <input
+                          type="number"
+                          value={data.key || ""}
+                          onChange={(e) =>
+                            handleChange(index, "key", e.target.value)
+                          }
+                          className="border-primary border rounded-md  px-3 py-1.5 outline-none mt-2 w-full"
+                          placeholder="Key"
+                        />
+                      </div>
 
-                      <input
-                        type="number"
-                        value={data.key || ""}
-                        onChange={(e) =>
-                          handleChange(index, "key", e.target.value)
-                        }
-                        className="border-primary border rounded-md  px-3 py-2 outline-none mt-2 w-full"
-                        placeholder="Key"
-                      />
+                      <div className="flex flex-col w-1/2 ">
+                        <a className="text-sm text-gray-700">Ratio</a>
+
+                        <input
+                          type="number"
+                          value={data.value || ""}
+                          onChange={(e) =>
+                            handleChange(index, "value", e.target.value)
+                          }
+                          className="border-primary border rounded-md  px-3 py-1.5 outline-none mt-2 w-full"
+                          placeholder="Value"
+                        />
+                      </div>
                     </div>
+                  ))}
+                </div>
 
-                    <div className="flex flex-col w-1/2 ">
-                      <a className="text-sm text-gray-700">Ratio</a>
-
-                      <input
-                        type="number"
-                        value={data.value || ""}
-                        onChange={(e) =>
-                          handleChange(index, "value", e.target.value)
-                        }
-                        className="border-primary border rounded-md  px-3 py-2 outline-none mt-2 w-full"
-                        placeholder="Value"
-                      />
-                    </div>
+                <div className="flex flex-col">
+                  <div className="flex flex row items-end justify-end">
+                    <button
+                      onClick={handleAddMore}
+                      className={`w-max rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}>
+                      Add More Tenures
+                    </button>
                   </div>
-                ))}
-              </div>
-
-              <div className="flex flex-col">
-                <div className="flex flex row items-end justify-end">
-                  <button
-                    onClick={handleAddMore}
-                    className={`w-max rounded-lg text-white text-sm px-10 py-2.5   hover:bg-opacity-90 bg-primary`}>
-                    Add More Tenures
-                  </button>
                 </div>
               </div>
-            </div>
-            <div className="flex flex-col">
-              <button
-                onClick={handleSubmit}
-                className={`mt-5 rounded-lg text-white text-sm px-10 py-2.5   hover:bg-opacity-90 bg-primary`}>
-                Submit
-              </button>
+              <div className="flex flex-col">
+                <button
+                  onClick={handleSubmit}
+                  className={`mt-5 rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}>
+                  Submit
+                </button>
+              </div>
             </div>
           </div>
         </CardMain>
-        <CardMain
-          width="w-full md:w-1/2 md:mt-0 mt-4 h-max"
-          heading={t("All Reasons")}>
-          {loanReasons?.map((v, k) => {
-            return (
-              <div
-                key={k}
-                onClick={() =>
-                  navigate(`/los/create-loan-tax?id=${v?.loanTypeDetail?.id}`)
-                }
-                className="w-full bg-gray-200 text-center mt-4 py-6 rounded-md hover:bg-gray-300 duration-300 cursor-pointer">
-                {v?.loanTypeDetail?.reason}
+        <CardMain width="w-full mt-4 h-max pb-8" heading={t("All Loan Types")}>
+          <div className="flex flex-wrap ">
+            {loanReasons?.map((v, k) => (
+              <div className="md:px-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
+                <div
+                  key={k}
+                  onClick={() =>
+                    navigate(`/los/create-loan-tax?id=${v?.loanTypeDetail?.id}`)
+                  }
+                  className=" flex flex-row justify-center space-x-2 items-center border-dashed border border-gray-300  text-center mt-4 py-6 rounded-md hover:bg-gray-300 duration-300 cursor-pointer">
+                  <img
+                    src={`data:image/jpeg;base64,${v.icon}`}
+                    className="h-7"
+                  />
+                  <h1>{v?.loanTypeDetail?.reason}</h1>
+                </div>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </CardMain>
       </div>
 
