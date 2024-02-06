@@ -43,12 +43,14 @@ function TestPage() {
                           o?.navigationLink
                             ? o?.navigationLink
                             : "Navigation Not Set"
-                        }>
+                        }
+                      >
                         <button
                           onClick={() => (handleSidebarToggle(), setActive(v))}
                           className={`border border-gray-200 rounded-lg text-sm w-full py-1 ${
                             o?.navigationLink && "bg-green-200"
-                          }`}>
+                          }`}
+                        >
                           <a className="text-sm">{o.name}</a>
                           {/* <a>{"Key: " + o.id}</a> */}
                         </button>
@@ -115,7 +117,8 @@ function Select({ heading, value, onChange, type }) {
       <select
         onChange={(e) => onChange(e.target.value)}
         value={value}
-        className="border-primary border rounded-md px-3 py-2 outline-none mt-2 w-full">
+        className="border-primary border rounded-md px-3 py-2 outline-none mt-2 w-full"
+      >
         {options.map((option, index) => (
           <option key={index} value={option.value}>
             {option.label}

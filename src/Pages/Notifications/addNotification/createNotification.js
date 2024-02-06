@@ -19,11 +19,13 @@ function CreateUser() {
   const error = useSelector((state) => state.error);
   const loading = useSelector((state) => state.Loading);
 
-  const [name, setName] = useState("");
-  const [link, setLink] = useState("");
-  const [notificationType, setNotificationType] = useState("option1");
   const [description, setDescription] = useState(null);
+  const [subject, setSubject] = useState(null);
+  const [link, setLink] = useState("");
   const [image, setImage] = useState(null);
+  const [imageBlob, setImageBlob] = useState(null);
+
+  const [notificationType, setNotificationType] = useState("option1");
 
   const handleClose = () => {
     dispatch(action.Message({ open: false })); // Closing the message
@@ -31,103 +33,125 @@ function CreateUser() {
 
   const fileInputRef = useRef(null); // Create a ref for the file input
 
-  function handleSelectImage(e) {
-    console.log("slec", e.target.files);
-    if (e.target.files && e.target.files[0]) {
-      setImage(URL.createObjectURL(e.target.files[0]));
-    }
-  }
   function handleClick() {
     fileInputRef.current.click();
   }
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(
-      "name",
-      name,
-      "link",
-      link,
-      "description",
-      description,
-      "notificationType",
-      notificationType
-    );
-    // dispatch({
-    //   type: "Add_NEW_USER",
-    //   payload: {
-    //     email: email,
-    //     username: username,
-    //     password: password,
-    //     name: firstName,
-    //   },
-    // });
+    // console.log(
+    //   "name",
+    //   name,
+    //   "link",
+    //   link,
+    //   "description",
+    //   description,
+    //   "notificationType",
+    //   notificationType
+    // );
+
+    dispatch({
+      type: "CREATE_NOTIFICATION",
+      payload: {
+        subject: subject,
+        content: description,
+        image: image,
+        data: {
+          key1: "value1",
+          key2: "value2",
+        },
+      },
+    });
+  }
+
+  function handleSelectImage(e) {
+    if (e.target.files && e.target.files[0]) {
+      const selectedImage = e.target.files[0];
+      if (
+        selectedImage.type === "image/png" ||
+        selectedImage.type === "image/svg+xml"
+      ) {
+        const imageURL = URL.createObjectURL(selectedImage);
+        setImageBlob(imageURL);
+        setImage(selectedImage);
+      } else {
+        alert("Please upload a PNG or SVG file.");
+        e.target.value = null;
+      }
+    }
   }
 
   return (
-    <div className="md:mt-0 mt-5">
-      <WaveAnimation show={loading} />
-      <form onSubmit={handleSubmit}>
-        <CardMain width="w-full" heading={"Create Notification"}>
-          {/* <div className="flex flex-row justify-center ">
-            <div
-              onClick={handleClick}
-              className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer">
-              {!image && <RiImageAddLine style={{ fontSize: 70 }} />}
-              {image && <img src={image} className="h-full w-full " />}
+    <div className="items-center flex flex-col ">
+      <div className="md:mt-0 mt-5 bg-gray-200 xl:w-2/5 lg:w-1/2 md:w-full">
+        <WaveAnimation show={loading} />
+        <form onSubmit={handleSubmit}>
+          <CardMain width="w-full" heading={"Create Notification"}>
+            <div className="flex  flex-col ">
+              {" "}
+              <div
+                onClick={handleClick}
+                className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer"
+              >
+                {!imageBlob && <RiImageAddLine style={{ fontSize: 70 }} />}
+                {imageBlob && (
+                  <img src={imageBlob} className="h-full w-full " />
+                )}
+              </div>
+              <a>Notification Icon</a>
             </div>
-          </div> */}
+            <div className="flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
+              <div className=" w-full space-y-7">
+                <InputField
+                  heading={t("Subject")}
+                  value={subject}
+                  onChange={(e) => setSubject(e)}
+                />
+                <Description
+                  heading={t("Content")}
+                  handleChange={(e) => setDescription(e)}
+                />
+                {/* <InputField
+                  heading={t("Navigation Link")}
+                  value={link}
+                  onChange={(e) => setLink(e)}
+                /> */}
 
-          <div className="flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
-            <div className="w-full w-full space-y-5">
-              <InputField
-                heading={t("Compaign Name")}
-                value={name}
-                onChange={(e) => setName(e)}
-              />
-              <InputField
-                heading={t("Navigation Link")}
-                value={link}
-                onChange={(e) => setLink(e)}
-              />
-
-              <Select
+                {/* <Select
                 heading={t("Notification Type")}
                 type="select"
                 // value={role}
                 options={t(notificationType)}
                 onChange={(e) => setNotificationType(e)}
-              />
-              <Description
-                heading={t("Description")}
-                handleChange={(e) => setDescription(e)}
+              /> */}
+              </div>
+            </div>
+            <div className="flex flex-row justify-end mt-20">
+              <Button
+                type="submit"
+                buttonValue={t("Submit")}
+                buttonStyle="px-14 py-2 w-full md:w-max"
               />
             </div>
-          </div>
-          <div className="flex flex-row justify-end mt-10">
-            <Button
-              type="submit"
-              buttonValue={t("Submit")}
-              buttonStyle="px-20 py-2 w-full md:w-max"
-            />
-          </div>
-        </CardMain>
-      </form>
-      <div className="w-full">
-        <input
-          ref={fileInputRef}
-          type="file"
-          onChange={handleSelectImage}
-          style={{ display: "none" }}
-        />
+          </CardMain>
+        </form>
+        <div className="w-full">
+          <input
+            ref={fileInputRef}
+            type="file"
+            onChange={handleSelectImage}
+            style={{ display: "none" }}
+          />
+        </div>
+        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity={!error ? "success" : "error"}
+            sx={{ width: "100%" }}
+          >
+            {message}
+          </Alert>
+        </Snackbar>
       </div>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }
@@ -151,7 +175,8 @@ function Select({ heading, value, onChange, type }) {
         <select
           onChange={(e) => onChange(e.target.value)}
           value={value}
-          className="border-primary border rounded-md px-3 py-2 outline-none mt-2 md:w-3/4	w-full">
+          className="border-primary border rounded-md px-3 py-2 outline-none mt-2 md:w-3/4	w-full"
+        >
           {options.map((option, index) => (
             <option key={index} value={option.value}>
               {t(option.label)}
@@ -165,17 +190,16 @@ function Select({ heading, value, onChange, type }) {
 
 function InputField({ heading, value, onChange, type }) {
   return (
-    <div className="flex md:flex-row flex-col w-full">
-      <div className="md:w-1/3 w-full flex flex-row md:justify-between items-center ">
-        <a></a>
-        <a className="text-sm text-gray-700 mx-6">{heading} :</a>
+    <div className="flex flex-col w-full">
+      <div className=" flex flex-row  ">
+        <a className="text-sm text-gray-700 ">{heading}</a>
       </div>
-      <div className="md:w-2/3	w-full">
+      <div className="	w-full">
         <input
           type={type || "text"}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="border-primary border rounded-md px-3 py-1.5 outline-none mt-2 md:w-3/4	w-full	"
+          className="border-primary border rounded-md px-3 py-1.5 outline-none mt-2 	w-full	"
         />
       </div>
     </div>
@@ -184,15 +208,12 @@ function InputField({ heading, value, onChange, type }) {
 
 function Description({ heading, value, onChange, type, handleChange }) {
   return (
-    <div className="flex md:flex-row flex-col w-full">
-      <div className="md:w-1/3 w-full  flex flex-row md:justify-between items-center ">
-        <a></a>
-        <a className="text-sm text-gray-700 mx-6">{heading} :</a>
+    <div className="flex flex-col w-full">
+      <div className=" flex flex-row  ">
+        <a className="text-sm text-gray-700 ">{heading}</a>
       </div>
-      <div className="md:w-2/3	w-full">
-        <div className="md:w-3/4 w-full">
-          <TextEditor handleChange={(e) => handleChange(e)} />
-        </div>
+      <div className="	w-full mt-2">
+        <TextEditor handleChange={(e) => handleChange(e)} />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import axios from "axios";
 import { call, put, takeLatest } from "@redux-saga/core/effects";
 import * as action from "./reducer";
 
-var baseUrlUser = "https://seulah.ngrok.app";
+var baseUrlUser = "https://seulah.ngrok.app/api/v1/auth";
 var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
 var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
 var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
@@ -278,7 +278,7 @@ function* AddNewUser({ payload }) {
 
     const response1 = yield call(
       axiosInstance.post,
-      baseUrlUser + `/api/auth/signup`,
+      baseUrlUser + `/signup`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -301,7 +301,7 @@ function* UserLogin({ payload }) {
 
     const response = yield call(
       axiosInstance.post,
-      baseUrlUser + `/api/auth/signin`,
+      baseUrlUser + `/signin`,
       payload
     );
     if (response.data.accessToken) {
@@ -564,6 +564,155 @@ function* GetGosiApi(payload) {
     // yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* CreateNotification({ payload }) {
+  console.log("noti", payload);
+  try {
+    const formData = new FormData();
+    formData.append("subject", payload.subject);
+    formData.append("content", payload.content);
+    formData.append("file", payload.image);
+    formData.append(
+      "topic",
+      "dKmakUsaR3GIRJ1Apfkk7R:APA91bFFJizSKS5Z2OIlCwyZPmM9Ce6D6eNsLzvRljb0-756-fu4VHQ3hDHA0VOBHq2ivSIOVxN-4WBIWH08aG3b1PQJI9aX5lz3JnTw7Jf4EPSCvJQ4r0jkfDDirjkfCgnQaCvB44xB"
+    );
+    const response = yield call(
+      axiosInstance.post,
+      baseUrlCms + `/notification`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    console.log("response", response);
+    yield put(
+      action.Message({
+        message: "Notification Sent!",
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* AddNewProduct({ payload }) {
+  console.log("PRODUCT", payload);
+  try {
+    const formData = new FormData();
+    formData.append("title", payload.title);
+    formData.append("desc", payload.desc);
+    formData.append("price", payload.price);
+    formData.append("months", payload.months);
+    formData.append("file", payload.image);
+
+    const response = yield call(
+      axios.post,
+      baseUrlCms + "/addCardInstallment",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    if (response?.status === 200) {
+      yield put(
+        action.Message({
+          message: "Product Added Successfully !",
+          open: true,
+          error: false,
+        })
+      );
+    }
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* GetAllCards() {
+  console.log("cards");
+  try {
+    yield put(action.Loading({ Loading: true }));
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlCms + `/getAllCardInstallment`
+    );
+    console.log("resssssssssssssssssssssssss", response);
+    yield put(action.GetAllCards(response));
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    const message = error.response.data.message;
+    yield put(action.Loading({ Loading: false }));
+    // yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
+function* SetStatusOfApplication({ payload }) {
+  console.log("SetStatusOfApplication", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.patch,
+      baseUrlLos +
+        `/loanTypeFormula/createLoanTypeCalculation?id=${payload?.id}&status=${payload?.status}`
+    );
+    console.log("response", response);
+    yield put(action.Loading({ Loading: false }));
+
+    yield put(
+      action.Message({
+        message: response?.data?.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
+function* GetUserApllicationData({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlLos + `/loanTypeFormula/getLoanDetailsByUser?userId=${payload}`
+    );
+    yield put(action.GetUserApplication(response?.data));
+    console.log("resposne", response);
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* GetUserById({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlUser + `/user/getUserById?userId=${payload}`
+    );
+    yield put(action.GetUserById(response));
+    console.log("resposne", response);
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -595,4 +744,10 @@ export default function* HomeSaga() {
   yield takeLatest("GET_ALL_LOAN_REASONS", GetAllLoanReasons);
   yield takeLatest("GET_APP_FLOW", GetAppFlow);
   yield takeLatest("GET_GOSI_API", GetGosiApi);
+  yield takeLatest("CREATE_NOTIFICATION", CreateNotification);
+  yield takeLatest("Add_NEW_PRODUCT", AddNewProduct);
+  yield takeLatest("GET_ALL_CARDS", GetAllCards);
+  yield takeLatest("SET_STATUS_OF_APPLICATION", SetStatusOfApplication);
+  yield takeLatest("GET_USER_APPLICATION_DATA", GetUserApllicationData);
+  yield takeLatest("GET_USER_BY_ID", GetUserById);
 }

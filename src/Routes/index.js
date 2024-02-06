@@ -16,6 +16,7 @@ import ViewScreen from "Pages/Decision/ViewScreens";
 import UserLoanApplications from "Pages/LOS/userLoanApplication";
 import CreateNotification from "Pages/Notifications/addNotification/createNotification";
 import UserProfile from "Pages/Users/userProfile";
+import AddNewProduct from "Pages/LOS/installments/addNewProduct";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           {routes}
           <Route path="/profile" element={<Profile />} />
-          <Route path="/test" element={<TestPage />} />
+          {/* <Route path="/test" element={<TestPage />} /> */}
           <Route path="/applications" element={<Applications />} />
           <Route path="/user-detail" element={<UserDetail />} />
           <Route path="/my-account" element={<MyAccount />} />
@@ -38,10 +39,12 @@ function App() {
             element={<CreateNotification />}
           />
           <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/add-Product" element={<AddNewProduct />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/otp" element={<Otp />} />
         <Route path="/apitree" element={<ReactFlow />} />
+        <Route path="/test" element={<TestPage />} />
       </Routes>
     </BrowserRouter>
   );

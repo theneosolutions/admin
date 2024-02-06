@@ -31,6 +31,9 @@ const initialState = {
   getLoanTax: {},
   getAppFlow: {},
   getGosiData: [],
+  getAllCards: [],
+  getUserApplication: {},
+  getUserById: {},
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -130,6 +133,18 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getGosiData = data;
     },
+    GetAllCards: (state, action) => {
+      const { data } = action.payload;
+      state.getAllCards = data;
+    },
+    GetUserApplication: (state, action) => {
+      const { data } = action.payload;
+      state.getUserApplication = data;
+    },
+    GetUserById: (state, action) => {
+      const { data } = action.payload;
+      state.getUserById = data;
+    },
   },
 });
 export const {
@@ -156,6 +171,9 @@ export const {
   GetLoanTax,
   GetappFlow,
   GetGosiData,
+  GetAllCards,
+  GetUserApplication,
+  GetUserById,
 } = Reducer.actions;
 
 export default Reducer.reducer;

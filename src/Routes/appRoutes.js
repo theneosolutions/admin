@@ -26,6 +26,8 @@ import LoanApplications from "Pages/LOS/loanApplications";
 import UserProfile from "Pages/Users/userProfile";
 import Notifications from "Pages/Notifications/notificationsDashboard";
 import UserDashboard from "Pages/Users/dashboard";
+import AllInstallments from "Pages/LOS/installments/allinstallments";
+
 const appRoutes = [
   {
     index: true,
@@ -172,6 +174,14 @@ const appRoutes = [
         state: "los.applications",
         sidebarProps: {
           displayText: "Loan Applications",
+        },
+      },
+      {
+        path: "/los/installments",
+        element: <AllInstallments />,
+        state: "los.insallments",
+        sidebarProps: {
+          displayText: "Installments",
         },
       },
     ],

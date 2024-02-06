@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useState } from "react";
 import { PiCheckFatThin } from "react-icons/pi";
 import CardMain from "Components/Cards/main";
 import { Model } from "Components";
@@ -9,21 +8,54 @@ import { Alert, Snackbar } from "@mui/material";
 import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 import { RxCross2 } from "react-icons/rx";
 import { CgArrowsExchange } from "react-icons/cg";
-
+import { useLocation } from "react-router-dom";
+import moment from "moment";
 function LaonApplication() {
   const dispatch = useDispatch();
-  const { t } = useTranslation();
   const [modelOpen, setModelOpen] = useState(false);
-  const [active, setActive] = useState("Approve");
+  const [active, setActive] = useState("Pending");
+  const [data, setData] = useState("");
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
   const loading = useSelector((state) => state.Loading);
 
+  const getUserApplication = useSelector((state) => state.getUserApplication);
+  const user = useSelector((state) => state.getUserById);
+
+  console.log("getUserApplication", getUserApplication);
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
+  useEffect(() => {
+    setData(getUserApplication);
+  }, [getUserApplication]);
 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const userId = queryParams.get("id");
+
+  useEffect(() => {
+    getUserLoanDetail();
+  }, []);
+
+  function SetStatus() {
+    dispatch({
+      type: "SET_STATUS_OF_APPLICATION",
+      payload: { status: active, id: userId },
+    });
+  }
+  function getUserLoanDetail() {
+    dispatch({
+      type: "GET_USER_APPLICATION_DATA",
+      payload: userId,
+    });
+    dispatch({
+      type: "GET_USER_BY_ID",
+      payload: userId,
+    });
+  }
+  console.log("usrerrr", user);
   return (
     <div className="py-5">
       <WaveAnimation show={loading} />
@@ -31,7 +63,8 @@ function LaonApplication() {
       <CardMain
         width="w-full"
         iconStyle="text-3xl text-primary "
-        headerDisable={true}>
+        headerDisable={true}
+      >
         <div className="">
           <div className="flex flex-row justify-between items-center border-b-2	 border-gray-200 pb-3 pt-1 ">
             <div className="flex flex-row">
@@ -41,19 +74,42 @@ function LaonApplication() {
               />
               <div className="flex flex-col mx-3 space-y-0.5">
                 <a className="text-xs text-gray-400">Name</a>
-                <a className="text-sm text-gray-700 font-semibold">Rakesh Kr</a>
-                <a className="text-xs text-gray-400">Assistant Manager</a>
+                <a className="text-sm text-gray-700 font-semibold">
+                  {user?.firstName + " " + user?.lastName}
+                </a>
+                <a
+                  className={`text-xs ${
+                    user?.active ? "text-green-500" : "text-red-500"
+                  }`}
+                >
+                  {user?.active ? "Active" : "Not Active"}
+                </a>
               </div>
             </div>
             <div className="flex flex-row">
-              <Text heading="Loan Amount" value={"30,000"} />
-              <Text heading="Monthly Income" value={"30,000"} />{" "}
-              <Text heading="Tenure" value={"36 Months"} />{" "}
-              <Text heading="CIBIL Score" value={"30,000"} />{" "}
-              <Text heading="Application Number" value={"PL1000134"} />{" "}
+              <Text
+                heading="Loan Amount"
+                value={data?.loanAmount || 0}
+                style="text-green-600"
+              />
+              <Text
+                heading="After Interest"
+                value={data?.amountAfterInterest || 0}
+              />{" "}
+              <Text
+                heading="With Tax And Interest"
+                value={data?.amountAfterInterestAndTex || 0}
+              />{" "}
+              <Text
+                heading="Tenure"
+                value={data?.month ? +data?.month + " Months" : "0 Months"}
+              />{" "}
+              <Text heading="Application Number" value={data?.id || 0} />{" "}
             </div>
             <div>
-              <a className="text-xs text-gray-400 px-2">2 Days ago</a>
+              <a className=" text-green-600 px-2 text-md font-semibold uppercase">
+                {data?.status}
+              </a>
             </div>
           </div>
           <div className="flex flex-row pt-7">
@@ -63,7 +119,21 @@ function LaonApplication() {
                   <div className="flex flex-col">
                     <a className="text-xs text-gray-400">User ID</a>
                     <a className="text-sm text-gray-700 font-semibold opacity-90">
-                      PL1000134
+                      {userId}
+                    </a>
+                  </div>
+                  <div className="flex flex-col ">
+                    <a className="text-xs text-gray-400 ">Account Locked</a>
+                    <a className="text-sm text-gray-700  opacity-90">
+                      {user?.accountNonLocked ? "Locked" : "Not Locked"}
+                    </a>
+                  </div>
+                  <div className="flex flex-col ">
+                    <a className="text-xs uppercase text-green-400">
+                      Absher Verified{" "}
+                    </a>
+                    <a className="text-sm text-gray-700  opacity-90">
+                      {user?.ownerVerification ? "Verified" : "Not Verified"}
                     </a>
                   </div>
 
@@ -92,21 +162,14 @@ function LaonApplication() {
                     <a className="text-sm text-gray-700  opacity-90">5</a>
                   </div>
                   <div className="flex flex-col ">
-                    <a className="text-xs text-gray-400 uppercase text-green-400">
+                    <a className="text-xs uppercase text-green-400">
                       E-verified{" "}
                     </a>
                     <a className="text-sm text-gray-700  opacity-90">
                       Pan Card &nbsp; 2139912
                     </a>
                   </div>
-                  <div className="flex flex-col ">
-                    <a className="text-xs text-gray-400 uppercase text-green-400">
-                      E-verified{" "}
-                    </a>
-                    <a className="text-sm text-gray-700  opacity-90">
-                      Adhaar &nbsp; #J2139912
-                    </a>
-                  </div>
+
                   <div className="flex flex-col ">
                     <a className="text-xs text-gray-400 ">Contact Details</a>
                     <a className="text-sm text-gray-700  opacity-90">
@@ -184,9 +247,42 @@ function LaonApplication() {
                     </a>
                   </div>
                   <div className="flex flex-col">
-                    <a className="text-xs text-gray-400 uppercase">FOIR</a>
+                    <a className="text-xs text-gray-400 uppercase">
+                      Intrest Ratio
+                    </a>
                     <a className="text-xl text-gray-600 font-semibold opacity-90">
-                      12%
+                      {data?.interestRatio + " %"}
+                    </a>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <a className="text-xs text-gray-400">Apply Data</a>
+                    <a className="text-md text-gray-500  opacity-90">
+                      {moment(MillisecondsToDate(data?.maturityDate))
+                        .startOf("hour")
+                        .fromNow()}
+                    </a>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <a className="text-xs text-gray-400">
+                      1st Installment Date
+                    </a>
+                    <a className="text-md text-gray-500  opacity-90">
+                      {moment(
+                        MillisecondsToDate(data?.firstInstallmentDate)
+                      ).format("LL")}
+                    </a>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <a className="text-xs text-gray-400">
+                      Last Installment Date
+                    </a>
+                    <a className="text-md text-gray-500  opacity-90">
+                      {moment(
+                        MillisecondsToDate(data?.lastInstallmentDate)
+                      ).format("LL")}
                     </a>
                   </div>
                 </div>
@@ -204,30 +300,43 @@ function LaonApplication() {
 
                 <Progress
                   heading="Tenure"
-                  value="48 Months"
-                  progressValue="80%"
+                  value={data?.month + " Months"}
+                  progressValue="20%"
                   min="Min 6 Months"
                   max="Min 36 Months"
                 />
               </div>
 
               <div className="flex flex-row mt-6">
-                <Text2 heading="Intrest Rate" value={"10%"} />
-                <Text2 heading="Fees" value={"30,000"} />{" "}
-                <Text2 heading="EMI" value={"3500"} />{" "}
+                <Text2
+                  heading="Monthly Installment"
+                  value={data?.installmentPerMonth}
+                />
+                <Text2
+                  heading="Monthly Installment With Intrest"
+                  value={data?.installmentPerMonthAfterInterest}
+                />{" "}
+                <Text2
+                  heading="Monthly Installment With Tax And Intrest"
+                  value={data?.installmentPerMonthAfterInterestAndTex}
+                />{" "}
               </div>
-
+              <div className="flex flex-row mt-6">
+                <Text2 heading="Processing Fee" value={data?.processingFee} />
+                <Text2 heading="Total Fee" value={data?.totalFee} />{" "}
+                <Text2 heading="Vat on Fee" value={data?.vatOnFee} />{" "}
+              </div>
               <div className="flex flex-row justify-between mt-10">
                 <Button
                   setActive={(e) => setActive(e)}
                   active={active}
-                  value="Approve"
+                  value="Pending"
                   icon={<PiCheckFatThin className="text-2xl" />}
                 />
                 <Button
                   setActive={(e) => setActive(e)}
                   active={active}
-                  value="Follow UP"
+                  value="Approved"
                   icon={<CgArrowsExchange className="text-2xl" />}
                 />
                 <Button
@@ -245,7 +354,9 @@ function LaonApplication() {
                 <div></div>
 
                 <div
-                  className={` w-min text-white bg-blue-500 hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-2 rounded-md  items-center flex flex-col   `}>
+                  onClick={() => SetStatus()}
+                  className={` w-min text-white bg-blue-500 hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-2 rounded-md  items-center flex flex-col   `}
+                >
                   <div className="uppercase text-xs font-semibold">Submit</div>
                 </div>
               </div>
@@ -263,7 +374,8 @@ function LaonApplication() {
         action1Value="Cancel"
         action2Value="Delete"
         action2={() => setModelOpen(false)}
-        action1={() => setModelOpen(!modelOpen)}>
+        action1={() => setModelOpen(!modelOpen)}
+      >
         <a className=" text-xl text-gray-800 ">
           Are You Sure To Delete
           <span className="font-semibold"> Ali Imtayaz</span> ?
@@ -273,7 +385,8 @@ function LaonApplication() {
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>
@@ -281,6 +394,9 @@ function LaonApplication() {
   );
 }
 export default LaonApplication;
+function MillisecondsToDate(seconds) {
+  return moment(seconds, "x").format("DD MMM YYYY hh:mm a");
+}
 
 function Button({ value, icon, active, setActive }) {
   return (
@@ -288,7 +404,8 @@ function Button({ value, icon, active, setActive }) {
       onClick={() => setActive(value)}
       className={`${
         active == value ? "text-white bg-blue-400" : "text-blue-400"
-      } hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-4 rounded-md  items-center flex flex-col   `}>
+      } hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-4 rounded-md  items-center flex flex-col   `}
+    >
       {icon}
       <div className="uppercase text-xs font-semibold">{value}</div>
     </div>
@@ -304,14 +421,17 @@ function Progress({ heading, value, progressValue, min, max }) {
       <div className="relative mt-1">
         <div
           className="w-full bg-gray-400  absolute rounded-full"
-          style={{ height: 1 }}></div>
+          style={{ height: 1 }}
+        ></div>
         <div className="" style={{ marginTop: -5 }}>
           <div
             className="relative items-center flex justify-end "
-            style={{ width: progressValue }}>
+            style={{ width: progressValue }}
+          >
             <div
               className="w-full bg-blue-500  flex flex-row justify-between absolute rounded-full"
-              style={{ height: 1 }}></div>
+              style={{ height: 1 }}
+            ></div>
 
             <div className="h-3  w-3 bg-blue-500 rounded-full"></div>
           </div>
@@ -325,11 +445,13 @@ function Progress({ heading, value, progressValue, min, max }) {
   );
 }
 
-function Text({ heading, value }) {
+function Text({ heading, value, style }) {
   return (
     <div className="flex flex-col mx-3 space-y-0.5 px-1">
       <a className="text-xs text-gray-400">{heading}</a>
-      <a className="text-sm text-gray-700 font-semibold opacity-90 p-1">
+      <a
+        className={`text-sm text-gray-700 font-semibold opacity-90 p-1 ${style}`}
+      >
         {value}
       </a>
     </div>
