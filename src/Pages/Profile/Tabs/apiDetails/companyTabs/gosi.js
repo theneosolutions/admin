@@ -23,7 +23,6 @@ function Absher() {
       setState(employmentStatusInfo[0]);
     }
   }, [employmentStatusInfo]);
-  console.log("dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", gosi);
   return (
     <div className=" w-full flex flex-row space-x-5 rtl:space-x-reverse">
       <div className="w-full px-5">

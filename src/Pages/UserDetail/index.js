@@ -48,7 +48,8 @@ function Template() {
                 state === v.label
                   ? "bg-primary text-white"
                   : "bg-white text-gray-800"
-              }`}>
+              }`}
+            >
               {v.label}
             </button>
           );

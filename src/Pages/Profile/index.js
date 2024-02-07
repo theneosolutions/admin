@@ -1,29 +1,18 @@
 import React, { useState } from "react";
-
-import ProfileTab from "./Tabs/profile";
 import Applications from "./Tabs/application";
-import Documents from "./Tabs/documents";
-import OtheReport from "./Tabs/otherReports";
 import Product from "./Tabs/product";
-import Reports from "./Tabs/reports";
 import { Alert, Snackbar } from "@mui/material";
 import * as action from "Services/redux/reducer";
-
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { RxUpdate } from "react-icons/rx";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-
-import { MdDeleteOutline } from "react-icons/md";
 import ProfileSidebar from "Components/Cards/ProfileSidebar";
 import UserProfile from "./Tabs/userProfile";
 import ApiDetails from "./Tabs/apiDetails";
 import History from "./Tabs/history";
 import { FaUserAlt } from "react-icons/fa";
-import { LiaWpforms } from "react-icons/lia";
 import { MdFormatListBulleted } from "react-icons/md";
-import { MdOutlineHistoryToggleOff } from "react-icons/md";
 import { FaCodeCompare } from "react-icons/fa6";
 import { RiHistoryFill } from "react-icons/ri";
 import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
@@ -50,7 +39,6 @@ function Template() {
     } else {
     }
   }, []);
-  // const userData = users.find((item) => item.user.idNumber === id);
   const getTab = () => {
     const activeItem = data.find((item) => item.label === state);
     return activeItem

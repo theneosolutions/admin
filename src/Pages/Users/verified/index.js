@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { MdVerified } from "react-icons/md";
 import { RxCrossCircled } from "react-icons/rx";
-
 import CardMain from "../../../Components/Cards/main";
 import Edit from "../../../Assets/Images/edit.svg";
 import Delete from "../../../Assets/Images/delete.svg";

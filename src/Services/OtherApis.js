@@ -1,7 +1,6 @@
 import axios from "axios";
 
-var baseUrlDecisions =
-  "https://84b7-2a00-5400-e053-7ddb-814-655e-5ad6-8116.ngrok-free.app/api/v1/dms";
+var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
 
 async function CheckQuestionStatusInScreen(id) {
   try {

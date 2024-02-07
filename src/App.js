@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import PrivateRoutes from "./Routes/privateRoutes";
 import LocalesConfig from "./Localization/LocalesConfig";
 import { store } from "./Services/redux/store";
 import { Provider } from "react-redux";
@@ -27,10 +26,7 @@ function App() {
     //HTML5Backend For Drag and drop Component in Applications page
     <html dir={dir}>
       <Provider store={store}>
-        <DndProvider backend={HTML5Backend}>
-          {/* <PrivateRoutes /> */}
-          {<Routes />}
-        </DndProvider>
+        <DndProvider backend={HTML5Backend}>{<Routes />}</DndProvider>
       </Provider>
     </html>
   );

@@ -230,12 +230,6 @@ function* GetAllDecisions(payload) {
 }
 function* AddUsersAnswersToSet({ payload }) {
   try {
-    const response1 = yield call(
-      axiosInstance.post,
-      baseUrlDecisions + `/questionSet/updateUserAnswer?id=${payload.id}`,
-      payload.data
-    );
-
     const response2 = yield call(
       axiosInstance.post,
       baseUrlDecisions +
@@ -271,8 +265,6 @@ function* GetAllUsers(payload) {
 }
 
 function* AddNewUser({ payload }) {
-  console.log("data", payload);
-
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -496,7 +488,6 @@ function* GetScreenSet(payload) {
   }
 }
 function* GetLoanApplications(payload) {
-  console.log(" loan applications running ");
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -531,8 +522,7 @@ function* GetLoanTypeTax(payload) {
     // yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
-function* GetAppFlow(payload) {
-  console.log("payload");
+function* GetAppFlow() {
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
@@ -548,25 +538,21 @@ function* GetAppFlow(payload) {
   }
 }
 function* GetGosiApi(payload) {
-  console.log("payload", payload.payload);
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
       axiosInstance.get,
       baseUrlDecisions + `/formula/getGosiByUserId?idNumber=${payload.payload}`
     );
-    console.log("resssssssssssssssssssssssss", response);
     yield put(action.GetGosiData(response));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     const message = error.response.data.message;
     yield put(action.Loading({ Loading: false }));
-    // yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
 
 function* CreateNotification({ payload }) {
-  console.log("noti", payload);
   try {
     const formData = new FormData();
     formData.append("subject", payload.subject);
@@ -601,7 +587,6 @@ function* CreateNotification({ payload }) {
   }
 }
 function* AddNewProduct({ payload }) {
-  console.log("PRODUCT", payload);
   try {
     const formData = new FormData();
     formData.append("title", payload.title);
@@ -636,14 +621,12 @@ function* AddNewProduct({ payload }) {
   }
 }
 function* GetAllCards() {
-  console.log("cards");
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
       axiosInstance.get,
       baseUrlCms + `/getAllCardInstallment`
     );
-    console.log("resssssssssssssssssssssssss", response);
     yield put(action.GetAllCards(response));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
@@ -654,7 +637,6 @@ function* GetAllCards() {
 }
 
 function* SetStatusOfApplication({ payload }) {
-  console.log("SetStatusOfApplication", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -663,7 +645,6 @@ function* SetStatusOfApplication({ payload }) {
       baseUrlLos +
         `/loanTypeFormula/createLoanTypeCalculation?id=${payload?.id}&status=${payload?.status}`
     );
-    console.log("response", response);
     yield put(action.Loading({ Loading: false }));
 
     yield put(
@@ -688,7 +669,6 @@ function* GetUserApllicationData({ payload }) {
       baseUrlLos + `/loanTypeFormula/getLoanDetailsByUser?userId=${payload}`
     );
     yield put(action.GetUserApplication(response?.data));
-    console.log("resposne", response);
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     yield put(action.Loading({ Loading: false }));
@@ -705,7 +685,6 @@ function* GetUserById({ payload }) {
       baseUrlUser + `/user/getUserById?userId=${payload}`
     );
     yield put(action.GetUserById(response));
-    console.log("resposne", response);
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     yield put(action.Loading({ Loading: false }));

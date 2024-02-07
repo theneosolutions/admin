@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { MdVerified } from "react-icons/md";
 import { RxCrossCircled } from "react-icons/rx";
 
-import Data from "./_data";
 import CardMain from "Components/Cards/main";
 import Edit from "Assets/Images/edit.svg";
 import Delete from "Assets/Images/delete.svg";
@@ -28,7 +27,6 @@ function LaonApplication() {
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
-  console.log("users", users);
   function onDelete() {
     setModelOpen(true);
   }

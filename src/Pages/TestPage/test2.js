@@ -6,27 +6,23 @@ import { useDispatch, useSelector } from "react-redux";
 function TestPage() {
   const dispatch = useDispatch();
   const getAppFlowData = useSelector((state) => state.getAppFlow);
-  console.log("getAppFlowgetAppFlow", getAppFlowData);
 
   const [isSidebarOpen, setSidebarOpen] = React.useState(false);
   const [active, setActive] = useState();
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
   };
-  console.log("active", active);
-  const [role, setRole] = useState("option1");
   useEffect(() => {
     getAppFlow();
   }, []);
   function getAppFlow() {
-    console.log("helo");
     dispatch({
       type: "GET_APP_FLOW",
       payload: "helo",
     });
   }
   return (
-    <div className="flex p-4  bg-gray-100 flex flex-row space-x-4">
+    <div className=" p-4  bg-gray-100 flex flex-row space-x-4">
       <div className="flex flex-wrap ">
         {getAppFlowData?.appFlow?.screenFlow?.map((v, k) => {
           return (
@@ -52,7 +48,6 @@ function TestPage() {
                           }`}
                         >
                           <a className="text-sm">{o.name}</a>
-                          {/* <a>{"Key: " + o.id}</a> */}
                         </button>
                       </Tooltip>
                     );
@@ -67,20 +62,12 @@ function TestPage() {
       <div>
         <Sidebar isOpen={isSidebarOpen} onClose={handleSidebarToggle}>
           <div className="w-full  ">
-            <a className="w-full text-center  justify-center flex text-gray-800 text-semibold text-primary underline text-xl">
+            <a className="w-full text-center  justify-center flex text-semibold text-primary underline text-xl">
               {active?.name}
             </a>
             <div className="flex flex-col space-y-2">
               {active?.button?.map((v, k) => {
                 return (
-                  // <Select
-                  //   heading={v.name}
-                  //   type="select"
-                  //   // value={role}
-                  //   options={role}
-                  //   onChange={(e) => setRole(e)}
-                  // />
-
                   <InputField
                     heading={v.name}
                     onChange={(e) => console.log(e)}
@@ -105,29 +92,6 @@ function TestPage() {
 
 export default TestPage;
 
-function Select({ heading, value, onChange, type }) {
-  var options = [
-    { value: "option1", label: "Moderater" },
-    { value: "option1", label: "Admin" },
-    { value: "option2", label: "User" },
-  ];
-  return (
-    <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700">{heading}</a>{" "}
-      <select
-        onChange={(e) => onChange(e.target.value)}
-        value={value}
-        className="border-primary border rounded-md px-3 py-2 outline-none mt-2 w-full"
-      >
-        {options.map((option, index) => (
-          <option key={index} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
 const data = [
   {
     name: "Splash1",

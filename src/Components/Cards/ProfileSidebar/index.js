@@ -14,7 +14,6 @@ import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import { IoLocationOutline } from "react-icons/io5";
 
 function ProfileSidebar({ userData }) {
-  console.log("this is user data", userData);
   return (
     <div className="border border-primary px-2 	 py-6 bg-white rounded-lg">
       <div className="items-center justify-center  flex ">

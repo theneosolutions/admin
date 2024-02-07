@@ -3,8 +3,6 @@ import CardMain from "Components/Cards/main";
 import { useState, useRef } from "react";
 import { Button } from "Components";
 import { RiImageAddLine } from "react-icons/ri";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Alert, Snackbar } from "@mui/material";
@@ -137,7 +135,8 @@ function CreateUser() {
       <select
         value={setId}
         className="mb-4 p-2 px-4 border rounded mt-4 w-full border-primary cursor-pointer"
-        onChange={(e) => setSelectedSetData(e.target.value)}>
+        onChange={(e) => setSelectedSetData(e.target.value)}
+      >
         {setId ? null : <option value="Select">{t("Select Set")}</option>}
 
         {allSets?.map((v, k) => {
@@ -160,7 +159,8 @@ function CreateUser() {
 
                 <div
                   onClick={handleClickSucccess}
-                  className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer">
+                  className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer"
+                >
                   {!imageSuccess && <RiImageAddLine style={{ fontSize: 70 }} />}
                   {imageSuccess && (
                     <img src={imageSuccess} className="h-full w-full " />
@@ -186,7 +186,8 @@ function CreateUser() {
 
                 <div
                   onClick={handleClickError}
-                  className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer">
+                  className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer"
+                >
                   {!imageError && <RiImageAddLine style={{ fontSize: 70 }} />}
                   {imageError && (
                     <img src={imageError} className="h-full w-full " />
@@ -236,7 +237,8 @@ function CreateUser() {
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>

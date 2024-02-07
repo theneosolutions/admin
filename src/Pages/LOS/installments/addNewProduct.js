@@ -3,8 +3,6 @@ import CardMain from "../../../Components/Cards/main";
 import { useState, useRef } from "react";
 import { Button } from "Components";
 import { RiImageAddLine } from "react-icons/ri";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, Snackbar } from "@mui/material";
@@ -33,7 +31,6 @@ function CreateUser() {
   };
 
   function handleSelectImage(e) {
-    console.log("slec", e.target.files);
     if (e.target.files && e.target.files[0]) {
       const selectedImage = e.target.files[0];
       if (
@@ -54,24 +51,31 @@ function CreateUser() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-
-    dispatch({
-      type: "Add_NEW_PRODUCT",
-      payload: {
-        title: title,
-        desc: desc,
-        price: price,
-        months: months,
-        image: image,
-      },
-    });
+    if (
+      title != "" &&
+      desc != "" &&
+      price != "" &&
+      months != "" &&
+      image != null
+    ) {
+      dispatch({
+        type: "Add_NEW_PRODUCT",
+        payload: {
+          title: title,
+          desc: desc,
+          price: price,
+          months: months,
+          image: image,
+        },
+      });
+    } else {
+      alert("All Fields Required!");
+    }
   }
 
-  console.log("imageimage", image);
   useEffect(() => {
     if (message && error === false) {
       reset();
-      console.log("reset");
     }
   }, [error, message]);
   function reset() {
@@ -93,7 +97,6 @@ function CreateUser() {
           <div className="flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse lg:px-6">
             <div className="w-full  space-y-5   ">
               <div className="flex  flex-col ">
-                {" "}
                 <div
                   onClick={handleClick}
                   className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer"
@@ -160,55 +163,12 @@ function CreateUser() {
 }
 export default CreateUser;
 
-function Select({ heading, value, onChange, type }) {
-  const { t } = useTranslation();
-
-  var options = [
-    { value: "option1", label: "Moderater" },
-    { value: "option1", label: "Admin" },
-    { value: "option2", label: "User" },
-  ];
-  return (
-    <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700">{heading}</a>{" "}
-      <select
-        onChange={(e) => onChange(e.target.value)}
-        value={value}
-        className="border-primary border rounded-md px-3 py-2 outline-none mt-2 w-full"
-      >
-        {options.map((option, index) => (
-          <option key={index} value={option.value}>
-            {t(option.label)}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
-
-function Calender({ heading, value, onChange, type }) {
-  const [startDate, setStartDate] = useState(new Date());
-
-  return (
-    <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700">{heading}</a>
-
-      <DatePicker
-        selected={value}
-        onChange={(date) => onChange(date)}
-        className="border-primary border rounded-md px-3 py-2 outline-none mt-2 w-full"
-      />
-    </div>
-  );
-}
-
 function InputField({ heading, value, onChange, type }) {
   return (
     <div className="flex flex-col w-full">
       <a className="text-sm text-gray-700">{heading}</a>
 
       <input
-        // required
         type={type || "text"}
         value={value}
         onChange={(e) => onChange(e.target.value)}

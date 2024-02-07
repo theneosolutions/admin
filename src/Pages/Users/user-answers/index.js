@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import CardMain from "Components/Cards/main";
 import { useTranslation } from "react-i18next";
 import { MdDelete } from "react-icons/md";
@@ -63,7 +63,8 @@ function App() {
                         return (
                           <div
                             key={k}
-                            className="flex flex-row space-x-2 items-center">
+                            className="flex flex-row space-x-2 items-center"
+                          >
                             <input
                               type="radio"
                               disabled={true}
@@ -104,7 +105,8 @@ function App() {
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>

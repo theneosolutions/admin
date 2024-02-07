@@ -18,8 +18,6 @@ const initialState = {
   error: false,
   Notifications: {},
   Loading: false,
-  // verify: false,
-
   islogin: false,
   user: null,
 

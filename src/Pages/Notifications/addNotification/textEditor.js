@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { render } from "react-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -39,8 +38,6 @@ const ReactQuillWrapper = ({ handleChange }) => {
     "link",
     "image",
   ];
-
-  console.log(text);
 
   return (
     <div className="">

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import CardMain from "Components/Cards/main";
-import MyTeam from "Components/Cards/MyTeam";
-import MyTask from "Components/Cards/MyTasks";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
@@ -12,30 +10,17 @@ import { PiChartScatterBold } from "react-icons/pi";
 import { BsBarChartSteps } from "react-icons/bs";
 import { FaWpforms } from "react-icons/fa";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
-import { CgCreditCard } from "react-icons/cg";
-import { MdArrowForwardIos } from "react-icons/md";
-import { MdOutlineContactSupport } from "react-icons/md";
-import { CiWallet } from "react-icons/ci";
-import { LuWallet2 } from "react-icons/lu";
-import ColumnChart from "Components/chart/ColumnChart";
 import ColumnChartBasic from "Components/chart/ColumnChartsBasic";
 import RadialBarChart from "Components/chart/RadialBarChart";
 import BarwithMarkersChart from "Components/chart/BarwithMarkersChart";
-
-import PieChart from "Components/chart/PieChart";
-import SplineChart from "Components/chart/SplineChart";
-
 import Edit from "Assets/Images/edit.svg";
 import Delete from "Assets/Images/delete.svg";
 import { useNavigate } from "react-router-dom";
 import { Model, Avatar } from "Components";
-import GroupedChart from "Components/chart/GroupedChart";
 
 function App() {
   const { t } = useTranslation();
-  const DummyData = useSelector((state) => state.dummy);
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(true);
   const users = useSelector((state) => state.getApplications);
   const navigate = useNavigate();
   const [modelOpen, setModelOpen] = useState(false);
@@ -99,7 +84,8 @@ function App() {
       <div className="flex flex-crow md:flex-row md:space-x-6 rtl:space-x-reverse">
         <CardMain
           width="w-2/3 md:mt-0 mt-4 "
-          heading={t("Monthly Activity Of Users")}>
+          heading={t("Monthly Activity Of Users")}
+        >
           <div className="">
             <ColumnChartBasic />
           </div>
@@ -149,7 +135,8 @@ function App() {
         </CardMain>
         <CardMain
           width="w-1/2	 md:mt-0 mt-4 "
-          heading={t("Users Anti Fraud History")}>
+          heading={t("Users Anti Fraud History")}
+        >
           <div className="">
             <BarwithMarkersChart />
           </div>
@@ -159,7 +146,8 @@ function App() {
       <CardMain
         width="w-full  mt-10"
         heading={t("Loan Applications")}
-        iconStyle="text-3xl text-primary">
+        iconStyle="text-3xl text-primary"
+      >
         <div className="overflow-x-auto relative  mt-4">
           <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
@@ -186,12 +174,14 @@ function App() {
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10">
+                  className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
+                >
                   {t("Phone/Email")}
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10">
+                  className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
+                >
                   {t("Edit/Delete")}
                 </th>
               </tr>
@@ -200,10 +190,12 @@ function App() {
               {users.map((v, k) => (
                 <tr
                   key={k}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
                   <td
                     scope="row"
-                    className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse">
+                    className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
+                  >
                     <Avatar
                       icon={
                         "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes-thumbnail.png"
@@ -223,7 +215,8 @@ function App() {
                   <td className="px-3 py-4">
                     <div
                       onClick={() => navigate(`/user-profile?id=${v.id}`)}
-                      className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300">
+                      className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
+                    >
                       View Details
                     </div>
                   </td>
@@ -239,7 +232,8 @@ function App() {
                   </td>
                   <th
                     scope="row"
-                    className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10">
+                    className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10"
+                  >
                     <div className="flex flex-row space-x-3 rtl:space-x-reverse">
                       <img src={Edit} className="h-6 cursor-pointer" />
                       <img
@@ -264,7 +258,8 @@ function App() {
         action1Value="Cancel"
         action2Value="Delete"
         action2={() => setModelOpen(false)}
-        action1={() => setModelOpen(!modelOpen)}>
+        action1={() => setModelOpen(!modelOpen)}
+      >
         <a className=" text-xl text-gray-800 ">
           Are You Sure To Delete
           <span className="font-semibold"> Ali Imtayaz</span> ?
@@ -274,7 +269,8 @@ function App() {
         open={open}
         autoHideDuration={5000}
         onClose={handleClose}
-        className="mt-4">
+        className="mt-4"
+      >
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
           {message}
         </Alert>
@@ -312,7 +308,8 @@ function Notifications({ heading, value, color, bg, icon }) {
         </div>
 
         <div
-          className={`text-white h-9 w-full  flex flex-row justify-between items-center justify-center px-4 ${bg}`}>
+          className={`text-white h-9 w-full  flex flex-row justify-between items-center justify-center px-4 ${bg}`}
+        >
           <div className="text-xs">% Change</div>
           <div>
             <BsGraphUpArrow className="text-sm" />

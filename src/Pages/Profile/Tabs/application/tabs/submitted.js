@@ -27,7 +27,6 @@ function LaonApplication() {
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
-  console.log("users", users);
   function onDelete() {
     setModelOpen(true);
   }
@@ -83,7 +82,8 @@ function LaonApplication() {
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10">
+                className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
+              >
                 {t("Edit/Delete")}
               </th>
             </tr>
@@ -92,10 +92,12 @@ function LaonApplication() {
             {users.map((v, k) => (
               <tr
                 key={k}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              >
                 <td
                   scope="row"
-                  className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse">
+                  className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
+                >
                   <Avatar
                     icon={
                       "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes-thumbnail.png"
@@ -113,20 +115,23 @@ function LaonApplication() {
                 <td className="px-3 py-4">
                   <div
                     onClick={() => navigate(`/user-applications?id=${v.id}`)}
-                    className="bg-green-600 text-white px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300">
+                    className="bg-green-600 text-white px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
+                  >
                     Submitted
                   </div>
                 </td>
                 <td className="px-3 py-4">
                   <div
                     onClick={() => navigate(`/user-applications?id=${v.id}`)}
-                    className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300">
+                    className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
+                  >
                     View Details
                   </div>
                 </td>
                 <th
                   scope="row"
-                  className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10">
+                  className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10"
+                >
                   <div className="flex flex-row space-x-3 rtl:space-x-reverse">
                     <img src={Edit} className="h-6 cursor-pointer" />
                     <img
@@ -151,7 +156,8 @@ function LaonApplication() {
         action1Value="Cancel"
         action2Value="Delete"
         action2={() => setModelOpen(false)}
-        action1={() => setModelOpen(!modelOpen)}>
+        action1={() => setModelOpen(!modelOpen)}
+      >
         <a className=" text-xl text-gray-800 ">
           Are You Sure To Delete
           <span className="font-semibold"> Ali Imtayaz</span> ?
@@ -161,7 +167,8 @@ function LaonApplication() {
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>

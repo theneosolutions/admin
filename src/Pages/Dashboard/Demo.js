@@ -1,23 +1,13 @@
-import React, { useState, useEffect } from "react";
-import ModeButton from "../../Components/Buttons/ModeButton";
+import React from "react";
 import MyApplication2 from "../../Components/Cards/MyApplications2";
 import CardMain from "../../Components/Cards/main";
-import MyTeam from "../../Components/Cards/MyTeam";
-import MyActivity from "../../Components/Cards/MyActivity";
-import MyTask from "../../Components/Cards/MyTasks";
-import { GiHamburgerMenu } from "react-icons/gi"; // You can use other icons from react-icons
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../Services/redux/reducer";
-
-// import { getUserAction } from "../../Services/Store/slice";
 import { Alert, Snackbar } from "@mui/material";
 function App() {
   const { t } = useTranslation();
-  const DummyData = useSelector((state) => state.dummy);
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(true);
-
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
 
@@ -31,7 +21,8 @@ function App() {
           <CardMain
             width="w-full"
             heading={t("New Applications")}
-            des={"1,406 " + t("In Process")}>
+            des={"1,406 " + t("In Process")}
+          >
             <MyApplication2 />
           </CardMain>
         </div>

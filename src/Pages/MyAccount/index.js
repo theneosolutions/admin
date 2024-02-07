@@ -1,10 +1,6 @@
 import React from "react";
 import CardMain from "Components/Cards/main";
-import { useState, useRef } from "react";
 import { Button } from "Components";
-import { RiImageAddLine } from "react-icons/ri";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { useTranslation } from "react-i18next";
 
 function MyAccount() {

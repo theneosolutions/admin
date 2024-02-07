@@ -8,7 +8,6 @@ function Template() {
   const getTab = () => {
     const activeItem = data.find((item) => item.label === state);
 
-    console.log("activeItem", activeItem);
     return activeItem ? activeItem.tab : null;
   };
 
@@ -16,7 +15,7 @@ function Template() {
     setState(stateValue);
   }
   return (
-    <div className=" w-full bg-white  border border-primary w-full rounded-lg ">
+    <div className="  bg-white  border border-primary w-full rounded-lg ">
       <div className="flex flex-row  ">
         {data?.map((v, k) => {
           return (
@@ -24,11 +23,13 @@ function Template() {
               onClick={() => setNavigation(v.label)}
               className={`px-4 cursor-pointer ${
                 state === v.label ? "text-primary " : "text-gray-600 "
-              }`}>
+              }`}
+            >
               <div
                 className={`px-3 py-4  w-max  ${
                   state === v.label ? "border-primary border-b-2" : " "
-                }`}>
+                }`}
+              >
                 <a className="text-sm">{v.label}</a>
               </div>
             </div>
@@ -37,7 +38,8 @@ function Template() {
       </div>
       <div
         className=" w-full bg-gray-200 "
-        style={{ height: 1, marginTop: -1 }}></div>
+        style={{ height: 1, marginTop: -1 }}
+      ></div>
       <div className="flex flex-row space-x-5  ">{getTab()}</div>
     </div>
   );

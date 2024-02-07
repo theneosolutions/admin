@@ -11,7 +11,7 @@ function Takwa() {
           <div className="space-y-6 my-2">
             <div className="flex flex-row">
               <a className="w-2/5 text-gray-700 ">Is Owner ?</a>
-              <a className="text-gray-700 font-semibold text-green-700">Yes</a>
+              <a className=" font-semibold text-green-700">Yes</a>
             </div>
             <div className="flex flex-row">
               <a className="w-2/5 text-gray-700 ">Refrence No.</a>
@@ -36,7 +36,7 @@ function Takwa() {
           <div className="space-y-6 my-2">
             <div className="flex flex-row">
               <a className="w-2/5 text-gray-700 ">Is Owner ?</a>
-              <a className="text-gray-700 font-semibold text-red-700">No</a>
+              <a className=" font-semibold text-red-700">No</a>
             </div>
             <div className="flex flex-row">
               <a className="w-2/5 text-gray-700 ">Refrence No.</a>

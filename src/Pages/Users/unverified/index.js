@@ -32,7 +32,8 @@ function VerifiedUsers() {
         width="w-full"
         heading={t("Un-Verified Users")}
         icon={<GoUnverified />}
-        iconStyle="text-3xl text-green-600">
+        iconStyle="text-3xl text-green-600"
+      >
         <div className="overflow-x-auto relative  mt-4">
           <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
@@ -54,7 +55,8 @@ function VerifiedUsers() {
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10">
+                  className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
+                >
                   {t("Edit/Delete")}
                 </th>
               </tr>
@@ -63,10 +65,12 @@ function VerifiedUsers() {
               {Data.map((v, k) => (
                 <tr
                   key={k}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
                   <td
                     scope="row"
-                    className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse">
+                    className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
+                  >
                     <Avatar
                       icon={v.avatar}
                       onClick={() => navigate("/profile")}
@@ -93,7 +97,8 @@ function VerifiedUsers() {
                   </td>
                   <th
                     scope="row"
-                    className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10">
+                    className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10"
+                  >
                     <div className="flex flex-row space-x-3 rtl:space-x-reverse">
                       <img src={Edit} className="h-6 cursor-pointer" />
                       <img
@@ -119,7 +124,8 @@ function VerifiedUsers() {
         action1Value="Cancel"
         action2Value="Delete"
         action2={() => setModelOpen(false)}
-        action1={() => setModelOpen(!modelOpen)}>
+        action1={() => setModelOpen(!modelOpen)}
+      >
         <a className=" text-xl text-gray-800 ">
           Are You Sure To Delete
           <span className="font-semibold"> Ali Imtayaz</span> ?
@@ -134,7 +140,8 @@ function VerifiedUsers() {
         action1Value="Cancel"
         action2Value="Approve"
         action2={() => setModelOpenApprove(false)}
-        action1={() => setModelOpenApprove(!modelOpenApprove)}>
+        action1={() => setModelOpenApprove(!modelOpenApprove)}
+      >
         <a className=" text-xl text-gray-800 ">
           Are You Sure Approve ?
           <span className="font-semibold"> Ali Imtayaz</span> ?
@@ -149,7 +156,8 @@ function VerifiedUsers() {
         action1Value="Cancel"
         action2Value="Hold"
         action2={() => setModelOpenHold(false)}
-        action1={() => setModelOpenHold(!modelOpenHold)}>
+        action1={() => setModelOpenHold(!modelOpenHold)}
+      >
         <a className=" text-xl text-gray-800 ">
           Are You Sure to Hold ?
           <span className="font-semibold"> Ali Imtayaz</span> ?

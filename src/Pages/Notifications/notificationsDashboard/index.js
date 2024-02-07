@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
 import CardMain from "../../../Components/Cards/main";
 import { IoNotifications } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +12,6 @@ function NotificationsScreen() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const users = useSelector((state) => state.getAllUsers);
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
@@ -22,13 +20,6 @@ function NotificationsScreen() {
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
-
-  function getAllUsersData() {
-    dispatch({
-      type: "GET_ALL_USERS",
-      payload: "DUMP",
-    });
-  }
 
   return (
     <div className="py-5">

@@ -225,7 +225,8 @@ function CreateUser({ setid }) {
 
                 <div
                   onClick={handleClickSucccess}
-                  className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer">
+                  className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer"
+                >
                   {!imageSuccess && <RiImageAddLine style={{ fontSize: 70 }} />}
                   {imageSuccessPng && (
                     <img src={imageSuccessPng} className="h-full w-full " />
@@ -254,7 +255,8 @@ function CreateUser({ setid }) {
 
                 <div
                   onClick={handleClickError}
-                  className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer">
+                  className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer"
+                >
                   {!imageError && <RiImageAddLine style={{ fontSize: 70 }} />}
                   {imageErrorPng && (
                     <img src={imageErrorPng} className="h-full w-full " />
@@ -305,7 +307,8 @@ function CreateUser({ setid }) {
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>

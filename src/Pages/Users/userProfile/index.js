@@ -23,7 +23,6 @@ function LaonApplication() {
   const getUserApplication = useSelector((state) => state.getUserApplication);
   const user = useSelector((state) => state.getUserById);
 
-  console.log("getUserApplication", getUserApplication);
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
@@ -55,7 +54,6 @@ function LaonApplication() {
       payload: userId,
     });
   }
-  console.log("usrerrr", user);
   return (
     <div className="py-5">
       <WaveAnimation show={loading} />

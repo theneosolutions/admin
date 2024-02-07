@@ -1,15 +1,10 @@
 import React, { useState } from "react";
-
 import Antifraud from "./companyTabs/antiFraud";
 import Gosi from "./companyTabs/gosi";
-
 import Absher from "./companyTabs/absher";
-import Nafath from "./companyTabs/nafath";
 import AmlDetails from "./companyTabs/amlDetails";
-import Sima from "./companyTabs/sima";
 import TakwaDetails from "./companyTabs/takwadetails";
-import { useDispatch, useSelector } from "react-redux";
-
+import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -30,11 +25,8 @@ function Template() {
       : "Select an item to see the description.";
   };
   function setNavigation(stateValue) {
-    // if (stateValue === "Gosi") {
     getGosi();
-    // }
     setState(stateValue);
-    // navigate(location.pathname + `?name=${stateValue}`);
   }
   useEffect(() => {
     getGosi();
@@ -47,7 +39,7 @@ function Template() {
     });
   }
   return (
-    <div className=" w-full bg-white  border border-primary w-full rounded-lg ">
+    <div className="  bg-white  border border-primary w-full rounded-lg ">
       <div className="flex flex-row  ">
         {data?.map((v, k) => {
           return (
@@ -55,11 +47,13 @@ function Template() {
               onClick={() => setNavigation(v.label)}
               className={`px-4 cursor-pointer ${
                 state === v.label ? "text-primary " : "text-gray-600 "
-              }`}>
+              }`}
+            >
               <div
                 className={`px-3 py-4  w-max  ${
                   state === v.label ? "border-primary border-b-2" : " "
-                }`}>
+                }`}
+              >
                 <a className="text-sm">{v.label}</a>
               </div>
             </div>
@@ -68,7 +62,8 @@ function Template() {
       </div>
       <div
         className=" w-full bg-gray-200 "
-        style={{ height: 1, marginTop: -1 }}></div>
+        style={{ height: 1, marginTop: -1 }}
+      ></div>
       <div className="flex flex-row space-x-5 ">{getTab()}</div>
     </div>
   );

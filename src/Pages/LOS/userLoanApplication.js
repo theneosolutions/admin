@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { MdVerified } from "react-icons/md";
 import { RxCrossCircled } from "react-icons/rx";
-
 import Data from "./_data";
 import CardMain from "Components/Cards/main";
 import Edit from "Assets/Images/edit.svg";
@@ -17,6 +16,7 @@ import { FaWpforms } from "react-icons/fa";
 import moment from "moment";
 import { useEffect } from "react";
 import LoanForm from "Components/loanForms";
+
 function LaonApplication() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,7 +40,6 @@ function LaonApplication() {
   useEffect(() => {
     if (id) {
       var data = users.filter((data) => data.id == id);
-      console.log("data", data[0]);
       setState(data[0]);
     }
   }, []);
@@ -53,7 +52,8 @@ function LaonApplication() {
       <CardMain
         width="w-full"
         iconStyle="text-3xl text-primary "
-        headerDisable={true}>
+        headerDisable={true}
+      >
         <div className="flex flex-col lg:flex-row justify-between">
           <div className="flex flex-row space-x-2 rtl:space-x-reverse items-center">
             <h1 className="font-semibold text-lg text-black ">
@@ -197,7 +197,8 @@ function LaonApplication() {
         action1Value="Cancel"
         action2Value="Delete"
         action2={() => setModelOpen(false)}
-        action1={() => setModelOpen(!modelOpen)}>
+        action1={() => setModelOpen(!modelOpen)}
+      >
         <a className=" text-xl text-gray-800 ">
           Are You Sure To Delete
           <span className="font-semibold"> Ali Imtayaz</span> ?
@@ -208,7 +209,8 @@ function LaonApplication() {
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>

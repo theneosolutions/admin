@@ -4,7 +4,6 @@ import facebook from "Assets/Images/facebook.svg";
 import youtube from "Assets/Images/youtube.svg";
 import Insta from "Assets/Images/insta.svg";
 import Twitter from "Assets/Images/twitter.svg";
-// import User from "Assets/Images/user.svg";
 
 function AntiFraud() {
   return (
@@ -12,13 +11,12 @@ function AntiFraud() {
       <div className="w-1/2">
         <CardMain
           width="w-full	"
-          heading={"Personal and Identification Information"}>
+          heading={"Personal and Identification Information"}
+        >
           <div className="space-y-3">
             <div className="flex flex-row">
               <a className="w-2/5 text-gray-700 ">Profile Picture </a>
-              <a className="text-gray-700 font-semibold flex flex-row space-x-5 rtl:space-x-reverse">
-                {/* <img className="rounded-full h-20 w-20" src={User} /> */}
-              </a>
+              <a className="text-gray-700 font-semibold flex flex-row space-x-5 rtl:space-x-reverse"></a>
             </div>
             <div className="flex flex-row">
               <a className="w-2/5 text-gray-700 ">Social Security Number</a>

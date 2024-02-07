@@ -1,6 +1,5 @@
 import React from "react";
 
-// import CompanyTabs from "./companyTabs";
 function ProfileTab() {
   return (
     <div className="w-full">
@@ -134,11 +133,11 @@ function Card1() {
       <div className="px-4 py-1 border border-primary rounded-md bg-gray-200 w-max text-sm bg-transparent">
         Loan Details
       </div>
-      <div className=" flex flex-col items-center justify-center  w-40 h-40 mt-5 rounded-full border-8 border-primary rounded-full">
+      <div className=" flex flex-col items-center justify-center  w-40 h-40 mt-5 border-8 border-primary rounded-full">
         <a>Loan Amout</a>
         <a className="text-green-400 text-2xl">7800</a>
       </div>
-      <div className="flex flex-col text-sm py-4 text-sm text-gray-500">
+      <div className="flex flex-col py-4 text-sm text-gray-500">
         <a>Remaining Amount : 4000</a>
         <a>Monthly installment : 300</a>
       </div>
@@ -152,23 +151,23 @@ function Card2() {
         User Activities
       </div>
 
-      <div className="flex flex-col text-sm py-2 text-sm text-gray-500 mt-5">
+      <div className="flex flex-col  py-2 text-sm text-gray-500 mt-5">
         <a>Your Account is logged in</a>
         <a className="font-semibold">Mac Book Pro 10:34PM</a>
       </div>
-      <div className="flex flex-col text-sm py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a>Your Account is logged in</a>
         <a className="font-semibold">Mac Book Pro 10:34PM</a>
       </div>
-      <div className="flex flex-col text-sm py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a>Your Account is logged in</a>
         <a className="font-semibold">Mac Book Pro 10:34PM</a>
       </div>
-      <div className="flex flex-col text-sm py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a>Your Account is logged in</a>
         <a className="font-semibold">Mac Book Pro 10:34PM</a>
       </div>
-      <div className="flex flex-col text-sm py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a>Your Account is logged in</a>
         <a className="font-semibold">Mac Book Pro 10:34PM</a>
       </div>
@@ -186,23 +185,23 @@ function Card3() {
         Work & Education
       </div>
 
-      <div className="flex flex-col text-sm py-2 text-sm text-gray-500 mt-5">
+      <div className="flex flex-col  py-2 text-sm text-gray-500 mt-5">
         <a className="font-semibold">Product Manger at DroitLab</a>
         <a className="text-xs">2023 - Present</a>
       </div>
-      <div className="flex flex-col text-sm py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a className="font-semibold">Ui ux designer at Drobok</a>
         <a className="text-xs">2023 - Present</a>
       </div>
-      <div className="flex flex-col text-sm py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a className="font-semibold">Student at Calloge</a>
         <a className="text-xs">2023 - Present</a>
       </div>
-      <div className="flex flex-col text-sm py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a className="font-semibold">Ui ux designer at Drobok</a>
         <a className="text-xs">2023 - Present</a>
       </div>
-      <div className="flex flex-col text-sm py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a className="font-semibold">Ui ux designer at Drobok</a>
         <a className="text-xs">2023 - Present</a>
       </div>

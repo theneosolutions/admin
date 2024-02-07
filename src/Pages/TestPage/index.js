@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,7 +12,6 @@ function TestPage() {
 
   var setId = 2;
   const handleInputChange = (id, value) => {
-    console.log("id", id);
     setInputValues((prevInputValues) => ({
       ...prevInputValues,
       [id]: [value],
@@ -51,8 +49,6 @@ function TestPage() {
   useEffect(() => {
     if (!isDataEqual(reduxData, localData)) {
       setLocalData(reduxData);
-      console.log("hshcjajhkadjkadjkadjakdjkasjk");
-      console.log("Setting localData to reduxData");
     }
   }, [reduxData]);
 
@@ -68,8 +64,6 @@ function TestPage() {
   }
 
   function AddUserAnswersToSet(id) {
-    // console.log("data", numericValues);
-    console.log("inputs", [inputValues], "numericData", [numericValues]);
     dispatch({
       type: "ADD_USER_ANSWER_TO_SET",
       payload: { id: setId, data: [inputValues], numericData: [numericValues] },
@@ -150,7 +144,8 @@ function TestPage() {
       </div>
       <div
         onClick={() => AddUserAnswersToSet()}
-        className="bg-blue-400 px-3 py-2 text-sm rounded-md text-white mt-10 cursor-pointer hover:bg-blue-600 duration-200 text-center">
+        className="bg-blue-400 px-3 py-2 text-sm rounded-md text-white mt-10 cursor-pointer hover:bg-blue-600 duration-200 text-center"
+      >
         Submit
       </div>
     </>
@@ -158,21 +153,3 @@ function TestPage() {
 }
 
 export default TestPage;
-const other = [
-  {
-    1: ["zain"],
-    2: ["malik"],
-    3: ["zain"],
-    5: ["text"],
-    7: ["Female"],
-    8: ["Yes", "Nhi Btana", "No"],
-    9: ["Yes "],
-  },
-];
-
-const numeric = [
-  {
-    salary: 2000,
-    yearlyexpense: 3000,
-  },
-];

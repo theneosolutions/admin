@@ -21,11 +21,8 @@ function CreateUser() {
 
   const [description, setDescription] = useState(null);
   const [subject, setSubject] = useState(null);
-  const [link, setLink] = useState("");
   const [image, setImage] = useState(null);
   const [imageBlob, setImageBlob] = useState(null);
-
-  const [notificationType, setNotificationType] = useState("option1");
 
   const handleClose = () => {
     dispatch(action.Message({ open: false })); // Closing the message
@@ -38,16 +35,6 @@ function CreateUser() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    // console.log(
-    //   "name",
-    //   name,
-    //   "link",
-    //   link,
-    //   "description",
-    //   description,
-    //   "notificationType",
-    //   notificationType
-    // );
 
     dispatch({
       type: "CREATE_NOTIFICATION",
@@ -110,19 +97,6 @@ function CreateUser() {
                   heading={t("Content")}
                   handleChange={(e) => setDescription(e)}
                 />
-                {/* <InputField
-                  heading={t("Navigation Link")}
-                  value={link}
-                  onChange={(e) => setLink(e)}
-                /> */}
-
-                {/* <Select
-                heading={t("Notification Type")}
-                type="select"
-                // value={role}
-                options={t(notificationType)}
-                onChange={(e) => setNotificationType(e)}
-              /> */}
               </div>
             </div>
             <div className="flex flex-row justify-end mt-20">
@@ -156,37 +130,6 @@ function CreateUser() {
   );
 }
 export default CreateUser;
-
-function Select({ heading, value, onChange, type }) {
-  const { t } = useTranslation();
-
-  var options = [
-    { value: "option1", label: "Option1" },
-    { value: "option1", label: "option1" },
-    { value: "option2", label: "option2" },
-  ];
-  return (
-    <div className="flex md:flex-row flex-col w-full">
-      <div className="md:w-1/3 w-full flex flex-row md:justify-between items-center ">
-        <a></a>
-        <a className="text-sm text-gray-700 mx-6">{heading} :</a>
-      </div>
-      <div className="md:w-2/3	w-full">
-        <select
-          onChange={(e) => onChange(e.target.value)}
-          value={value}
-          className="border-primary border rounded-md px-3 py-2 outline-none mt-2 md:w-3/4	w-full"
-        >
-          {options.map((option, index) => (
-            <option key={index} value={option.value}>
-              {t(option.label)}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
-  );
-}
 
 function InputField({ heading, value, onChange, type }) {
   return (

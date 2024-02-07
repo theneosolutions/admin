@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./login.css";
 import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 
 import Logo from "../../../Assets/Images/logo.svg";
-import { useNavigate } from "react-router-dom";
 import { Alert, Snackbar } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,12 +29,6 @@ function Login() {
       },
     });
   }
-  useEffect(() => {
-    if (islogin) {
-      console.log("logggggggggggggggggggggggg", islogin);
-      // Add any logic you want to execute when islogin changes
-    }
-  }, []); // Include islogin in the dependency array
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent default form submission behavior
@@ -56,7 +49,8 @@ function Login() {
         <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <a
             href="#"
-            class="flex flex-col items-center mb-2 mt-8 text-2xl font-semibold text-gray-900 dark:text-white">
+            class="flex flex-col items-center mb-2 mt-8 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
             {" "}
             <img class="w-48" src={Logo} alt="logo" />
           </a>
@@ -69,7 +63,8 @@ function Login() {
               <div>
                 <label
                   for="email"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
                   Your email
                 </label>
                 <input
@@ -85,7 +80,8 @@ function Login() {
               <div>
                 <label
                   for="password"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
                   Password
                 </label>
                 <input
@@ -112,28 +108,28 @@ function Login() {
                   <div class="ml-3 text-sm">
                     <label
                       for="remember"
-                      class="text-gray-500 dark:text-gray-300">
+                      class="text-gray-500 dark:text-gray-300"
+                    >
                       Remember me
                     </label>
                   </div>
                 </div>
                 <a
                   href="#"
-                  class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
+                  class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+                >
                   Forgot password?
                 </a>
               </div>
               <button
-                // onClick={() => navigate("/otp")}
                 type="submit"
-                class="w-full text-white bg-primary hover:bg-opacity-80 duration-300  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                class="w-full text-white bg-primary hover:bg-opacity-80 duration-300  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              >
                 Sign in
               </button>
               <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
-                <a
-                  onClick={() => console.log("user", user, islogin)}
-                  class="font-medium text-primary-600 hover:underline dark:text-primary-500">
+                <a class="font-medium text-primary-600 hover:underline dark:text-primary-500">
                   Sign up
                 </a>
               </p>
@@ -146,7 +142,8 @@ function Login() {
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>

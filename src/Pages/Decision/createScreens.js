@@ -87,7 +87,6 @@ function CreateQuestionsSet() {
     if (!name) {
       return alert("Please Add Screen Name");
     }
-    console.log("selectedData", selectedIds, name, id);
     dispatch({
       type: "CREATE_SCREEN",
       payload: { selectedIds, name, id },
@@ -126,7 +125,8 @@ function CreateQuestionsSet() {
                 return (
                   <tr
                     key={k}
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  >
                     <td className="px-3 py-4 cursor-pointer text-primary">
                       {v.heading || v.eligibilityQuestions?.heading}
                     </td>
@@ -141,7 +141,8 @@ function CreateQuestionsSet() {
                             v
                           )
                         }
-                        className="w-max px-10 text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10">
+                        className="w-max px-10 text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10"
+                      >
                         Add
                       </button>
                     </td>
@@ -155,7 +156,8 @@ function CreateQuestionsSet() {
           <CardMain
             heading={t("Create Screen")}
             width="md:w-2/5 md:mt-0 mt-5	h-max"
-            Component={<InputField setName={(e) => setName(e)} name={name} />}>
+            Component={<InputField setName={(e) => setName(e)} name={name} />}
+          >
             <table className="mt-4 w-full text-sm text-left text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
                 <tr>
@@ -172,7 +174,8 @@ function CreateQuestionsSet() {
                   return (
                     <tr
                       key={k}
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                    >
                       <td className="px-3 py-4">
                         {v.heading || v.eligibilityQuestions?.heading}
                       </td>
@@ -186,7 +189,8 @@ function CreateQuestionsSet() {
             </table>
             <button
               onClick={() => CreateScreen()}
-              className="w-full px-2 text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10 mt-10">
+              className="w-full px-2 text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10 mt-10"
+            >
               Add to form
             </button>
           </CardMain>
@@ -196,7 +200,8 @@ function CreateQuestionsSet() {
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>

@@ -1,19 +1,10 @@
-import React, { useState, useEffect } from "react";
-import ModeButton from "../../Components/Buttons/ModeButton";
+import React from "react";
 import MyApplication2 from "../../Components/Cards/MyApplications2";
 import CardMain from "../../Components/Cards/main";
-import MyTeam from "../../Components/Cards/MyTeam";
-import MyActivity from "../../Components/Cards/MyActivity";
-import MyTask from "../../Components/Cards/MyTasks";
-import { GiHamburgerMenu } from "react-icons/gi"; // You can use other icons from react-icons
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../Services/redux/reducer";
 import { useLocation } from "react-router-dom";
-
-// import { getUserAction } from "../../Services/Store/slice";
-import ProfileSidebar from "../../Components/Cards/ProfileSidebar";
-
 import { Alert, Snackbar } from "@mui/material";
 function App() {
   const { t } = useTranslation();

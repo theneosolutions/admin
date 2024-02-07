@@ -23,7 +23,6 @@ import ResponsePageLayout from "Pages/Response/ResponsePageLayout";
 import LosPageLayout from "Pages/LOS/LosPageLayout";
 import CreateType from "Pages/LOS/createType";
 import LoanApplications from "Pages/LOS/loanApplications";
-import UserProfile from "Pages/Users/userProfile";
 import Notifications from "Pages/Notifications/notificationsDashboard";
 import UserDashboard from "Pages/Users/dashboard";
 import AllInstallments from "Pages/LOS/installments/allinstallments";
@@ -91,11 +90,7 @@ const appRoutes = [
         element: <UserDashboard />,
         state: "users.index",
       },
-      // {
-      //   index: true,
-      //   element: <DashboardIndex />,
-      //   state: "users.index",
-      // },
+
       {
         path: "/users/dashboard",
         element: <UserDashboard />,
@@ -136,14 +131,6 @@ const appRoutes = [
           displayText: "Create User",
         },
       },
-      // {
-      //   path: "/users/user-profile",
-      //   element: <UserProfile />,
-      //   state: "users.user-profile",
-      //   sidebarProps: {
-      //     displayText: "User Profile",
-      //   },
-      // },
     ],
   },
   {

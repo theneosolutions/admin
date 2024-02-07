@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
 import { ConvertToQuery } from "../../../funtions/toQuery";
+
 function ApplicationTab() {
   const navigate = useNavigate();
   return (
@@ -65,10 +65,12 @@ function App({ heading, value, border, style, onClick }) {
   return (
     <div
       onClick={() => onClick()}
-      className={`items-center border border-primary flex flex-col  px-4 py-4 rounded-md text-center pb-8  ${style} hover:bg-gray-100 hover:shadow-2xl bg-white duration-300 cursor-pointer`}>
+      className={`items-center border border-primary flex flex-col  px-4 py-4 rounded-md text-center pb-8  ${style} hover:bg-gray-100 hover:shadow-2xl bg-white duration-300 cursor-pointer`}
+    >
       <a>{heading}</a>
       <div
-        className={` flex flex-col items-center justify-center  w-32 h-32 mt-5 rounded-full border-8 ${border} rounded-full`}>
+        className={` flex flex-col items-center justify-center  w-32 h-32 mt-5 rounded-full border-8 ${border} rounded-full`}
+      >
         <a className="text-gray-600 text-2xl">{value}</a>
       </div>
     </div>

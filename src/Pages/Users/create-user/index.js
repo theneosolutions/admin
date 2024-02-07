@@ -27,7 +27,6 @@ function CreateUser() {
   const fileInputRef = useRef(null); // Create a ref for the file input
 
   function handleSelectImage(e) {
-    console.log("slec", e.target.files);
     if (e.target.files && e.target.files[0]) {
       setImage(URL.createObjectURL(e.target.files[0]));
     }
@@ -38,17 +37,6 @@ function CreateUser() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    // console.log("helo", {
-    //   avatar: image,
-    //   firstName: firstName,
-    //   email: email,
-    //   idNumber: idNumber,
-    //   number: number,
-    //   username: username,
-    //   password: password,
-    //   dateOfBirth: date, // assuming 'date' represents the date of birth
-    //   role: role,
-    // });
     CreateNewUser();
   }
   const [firstName, setFirstName] = useState("");
@@ -112,7 +100,8 @@ function CreateUser() {
           <div className="flex flex-row justify-center ">
             <div
               onClick={handleClick}
-              className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer">
+              className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer"
+            >
               {!image && <RiImageAddLine style={{ fontSize: 70 }} />}
               {image && <img src={image} className="h-full w-full " />}
             </div>
@@ -163,7 +152,6 @@ function CreateUser() {
               <Select
                 heading={t("Choose Option")}
                 type="select"
-                // value={role}
                 options={t(role)}
                 onChange={(e) => setRole(e)}
               />
@@ -190,7 +178,8 @@ function CreateUser() {
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>
@@ -199,7 +188,7 @@ function CreateUser() {
 }
 export default CreateUser;
 
-function Select({ heading, value, onChange, type }) {
+function Select({ heading, value, onChange }) {
   const { t } = useTranslation();
 
   var options = [
@@ -213,7 +202,8 @@ function Select({ heading, value, onChange, type }) {
       <select
         onChange={(e) => onChange(e.target.value)}
         value={value}
-        className="border-primary border rounded-md px-3 py-2 outline-none mt-2 w-full">
+        className="border-primary border rounded-md px-3 py-2 outline-none mt-2 w-full"
+      >
         {options.map((option, index) => (
           <option key={index} value={option.value}>
             {t(option.label)}
@@ -224,9 +214,7 @@ function Select({ heading, value, onChange, type }) {
   );
 }
 
-function Calender({ heading, value, onChange, type }) {
-  const [startDate, setStartDate] = useState(new Date());
-
+function Calender({ heading, value, onChange }) {
   return (
     <div className="flex flex-col w-full">
       <a className="text-sm text-gray-700">{heading}</a>
@@ -246,7 +234,6 @@ function InputField({ heading, value, onChange, type }) {
       <a className="text-sm text-gray-700">{heading}</a>
 
       <input
-        // required
         type={type || "text"}
         value={value}
         onChange={(e) => onChange(e.target.value)}

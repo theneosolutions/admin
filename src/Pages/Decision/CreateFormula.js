@@ -50,7 +50,6 @@ function App({ setId, formula }) {
         value: finalValue,
         setId: setId,
       };
-      console.log("obj", obj);
       dispatch({
         type: "ADD_NEW_FORMULA",
         payload: obj,
@@ -83,7 +82,8 @@ function App({ setId, formula }) {
               {selectedIds.length > 0 && (
                 <CardMain
                   heading={t(`Formula Name : ${formula.formulaName}`)}
-                  width="h-max ">
+                  width="h-max "
+                >
                   <div className="flex flex-wrap  m-1">
                     {selectedIds?.map((v, k) => {
                       return (
@@ -93,7 +93,7 @@ function App({ setId, formula }) {
                       );
                     })}
 
-                    <div className="flex flex-row text-primary items-center text-3xl rtl:space-x-reverse space-x-5 rtl:space-x-reverse mx-5 font-bold text-gray-700">
+                    <div className="flex flex-row  items-center text-3xl space-x-5 rtl:space-x-reverse mx-5 font-bold text-gray-700">
                       <a className="">
                         {formula?.operation ? formula?.operation : operation}
                       </a>
@@ -116,7 +116,8 @@ function App({ setId, formula }) {
                       onChange={(e) =>
                         handleQuestionInputChange(e.target.value, "first")
                       }
-                      value={question}>
+                      value={question}
+                    >
                       <option value={"none"}>{"none"}</option>;
                       {setData?.Numeric_Question?.length > 0 && (
                         <>
@@ -138,7 +139,8 @@ function App({ setId, formula }) {
                       onChange={(e) =>
                         handleQuestionInputChange(e.target.value, "second")
                       }
-                      value={question}>
+                      value={question}
+                    >
                       <option value="none">None</option>
                       <option value="-">-</option>
                       <option value="+">+</option>
@@ -159,7 +161,8 @@ function App({ setId, formula }) {
                   onButtonClick={HandleButtonValueChange} // Attach click handler
                   buttonStyle={`${
                     DisableButton("second") ? "bg-gray-300" : "bg-primary "
-                  }`}>
+                  }`}
+                >
                   <div className="flex flex-wrap  mt-6 m-1">
                     {selectedIds.map((v, k) => {
                       return (
@@ -186,7 +189,8 @@ function App({ setId, formula }) {
                     selectedIds.length > 0 ? (
                       <InputField setName={setName} name={name} />
                     ) : null
-                  }>
+                  }
+                >
                   <div className="flex flex-wrap  mt-6 m-1">
                     {selectedIds.map((v, k) => {
                       return (
@@ -198,9 +202,10 @@ function App({ setId, formula }) {
                     {state === "Review Formula" ? (
                       <>
                         <select
-                          className={`h-10  bg-sky-100 border rounded-md w-20 m-1 border-primary px-3  mt-4 mx-6 bg-green-300`}
+                          className={`h-10   border rounded-md w-20 m-1 border-primary px-3  mt-4 mx-6 bg-green-300`}
                           onChange={(e) => setOperation(e.target.value)}
-                          value={operation}>
+                          value={operation}
+                        >
                           <option value="none">None</option>
                           <option value="≤">≤</option>
                           <option value="≥">≥</option>
@@ -235,7 +240,7 @@ function App({ setId, formula }) {
                       );
                     })}
 
-                    <div className="flex flex-row text-primary items-center text-3xl space-x-5 rtl:space-x-reverse mx-5 font-bold text-gray-700">
+                    <div className="flex flex-row  items-center text-3xl space-x-5 rtl:space-x-reverse mx-5 font-bold text-gray-700">
                       <a className="">{operation}</a>
                       <a>{finalValue}</a>
                     </div>
@@ -248,7 +253,8 @@ function App({ setId, formula }) {
                   {selectedIds.length > 0 && (
                     <CardMain
                       heading={t(`Formula Name : ${name}`)}
-                      width="h-max ">
+                      width="h-max "
+                    >
                       <div className="flex flex-wrap  m-1">
                         {selectedIds?.map((v, k) => {
                           return (
@@ -258,7 +264,7 @@ function App({ setId, formula }) {
                           );
                         })}
 
-                        <div className="flex flex-row text-primary items-center text-3xl space-x-5 rtl:space-x-reverse mx-5 font-bold text-gray-700">
+                        <div className="flex flex-row  items-center text-3xl space-x-5 rtl:space-x-reverse mx-5 font-bold text-gray-700">
                           <a className="">
                             {formula?.operation
                               ? formula?.operation
@@ -280,7 +286,8 @@ function App({ setId, formula }) {
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>

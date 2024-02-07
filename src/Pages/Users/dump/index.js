@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
-import Data from "./_data";
 import CardMain from "../../../Components/Cards/main";
 import Edit from "../../../Assets/Images/edit.svg";
 import Delete from "../../../Assets/Images/delete.svg";
@@ -61,7 +59,8 @@ function DumpUsers() {
         width="w-full"
         heading={t("Dump Users")}
         icon={<CiCircleRemove />}
-        iconStyle="text-3xl text-red-600">
+        iconStyle="text-3xl text-red-600"
+      >
         <div className="overflow-x-auto relative  mt-4">
           <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
@@ -85,12 +84,14 @@ function DumpUsers() {
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10">
+                  className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
+                >
                   {t("Approved/Hold")}
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10">
+                  className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
+                >
                   {t("Edit/Delete")}
                 </th>
               </tr>
@@ -99,15 +100,21 @@ function DumpUsers() {
               {users.map((v, k) => (
                 <tr
                   key={k}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
                   <td
                     scope="row"
-                    className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse">
+                    className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
+                  >
                     <Avatar
                       icon={
                         "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes-thumbnail.png"
                       }
-                      onClick={() => navigate("/profile")}
+                      onClick={() =>
+                        navigate(
+                          `/profile?id=${v?.user.idNumber}&name=Profile&user=${v?.user?.id}`
+                        )
+                      }
                     />
 
                     <a>{v.userId}</a>
@@ -127,7 +134,8 @@ function DumpUsers() {
                   <td className="px-3 py-4">
                     <div
                       onClick={() => navigate("/user-answers")}
-                      className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300">
+                      className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
+                    >
                       View Answer
                     </div>
                   </td>
@@ -146,7 +154,8 @@ function DumpUsers() {
 
                   <th
                     scope="row"
-                    className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10">
+                    className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10"
+                  >
                     <div className="flex flex-row space-x-3 rtl:space-x-reverse">
                       <img src={Edit} className="h-6 cursor-pointer" />
                       <img
@@ -172,7 +181,8 @@ function DumpUsers() {
         action1Value="Cancel"
         action2Value="Delete"
         action2={() => setModelOpen(false)}
-        action1={() => setModelOpen(!modelOpen)}>
+        action1={() => setModelOpen(!modelOpen)}
+      >
         <a className=" text-xl text-gray-800 ">
           Are You Sure To Delete
           <span className="font-semibold"> Ali Imtayaz</span> ?
@@ -187,7 +197,8 @@ function DumpUsers() {
         action1Value="Cancel"
         action2Value="Approve"
         action2={() => setModelOpenApprove(false)}
-        action1={() => setModelOpenApprove(!modelOpenApprove)}>
+        action1={() => setModelOpenApprove(!modelOpenApprove)}
+      >
         <a className=" text-xl text-gray-800 ">
           Are You Sure Approve ?
           <span className="font-semibold"> Ali Imtayaz</span> ?
@@ -202,7 +213,8 @@ function DumpUsers() {
         action1Value="Cancel"
         action2Value="Hold"
         action2={() => setModelOpenHold(false)}
-        action1={() => setModelOpenHold(!modelOpenHold)}>
+        action1={() => setModelOpenHold(!modelOpenHold)}
+      >
         <a className=" text-xl text-gray-800 ">
           Are You Sure to Hold ?
           <span className="font-semibold"> Ali Imtayaz</span> ?
@@ -212,7 +224,8 @@ function DumpUsers() {
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>

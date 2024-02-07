@@ -37,7 +37,6 @@ function CreateQuestionsSet() {
   }, []);
 
   useEffect(() => {
-    // setQuestions(questionsData);
     setFilterQuestions(questionsData);
   }, [questionsData]);
 
@@ -91,7 +90,8 @@ function CreateQuestionsSet() {
             selectedIds.length > -1 ? (
               <InputField setName={setName} name={name} />
             ) : null
-          }>
+          }
+        >
           <Filter
             setFilterQuestions={(e) => setFilterQuestions(e)}
             questionsData={questionsData}
@@ -118,7 +118,8 @@ function CreateQuestionsSet() {
                   return (
                     <tr
                       key={k}
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                    >
                       <td className="px-2 py-4">
                         <input
                           type="checkbox"
@@ -137,13 +138,15 @@ function CreateQuestionsSet() {
         </CardMain>
         <CardMain
           heading={t("All List Of Sets")}
-          width="lg:w-2/5 lg:mt-0 mt-5	h-max">
+          width="lg:w-2/5 lg:mt-0 mt-5	h-max"
+        >
           {allSets?.map((v, k) => {
             return (
               <div
                 key={k}
                 onClick={() => navigate(`/create-screen?id=${v.id}`)}
-                className="w-full bg-gray-200 text-center mt-4 py-6 rounded-md hover:bg-gray-300 duration-300 cursor-pointer">
+                className="w-full bg-gray-200 text-center mt-4 py-6 rounded-md hover:bg-gray-300 duration-300 cursor-pointer"
+              >
                 {v.name} Click To Add Answers
               </div>
             );
@@ -154,7 +157,8 @@ function CreateQuestionsSet() {
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>
@@ -215,8 +219,6 @@ function Filter({ setFilterQuestions, questionsData, setState, state }) {
     setFilterQuestions(questionsData);
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
-
-    // Perform search and update filter accordingly
     const filteredQuestions = questionsData.filter(
       (question) =>
         question?.heading?.toLowerCase().includes(query) ||
@@ -237,7 +239,8 @@ function Filter({ setFilterQuestions, questionsData, setState, state }) {
                 state === v.label
                   ? "bg-primary text-white"
                   : "bg-white text-gray-800"
-              }`}>
+              }`}
+            >
               {v.label}
             </button>
           );
@@ -247,7 +250,7 @@ function Filter({ setFilterQuestions, questionsData, setState, state }) {
         onChange={handleSearchChange}
         value={searchQuery}
         placeholder={"Search"}
-        className="border-gray-300 border rounded-md px-2 py-1   outline-none w-full border-primary"
+        className=" border rounded-md px-2 py-1   outline-none w-full border-primary"
       />
     </div>
   );
