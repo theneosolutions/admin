@@ -35,19 +35,22 @@ function CreateUser() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-
-    dispatch({
-      type: "CREATE_NOTIFICATION",
-      payload: {
-        subject: subject,
-        content: description,
-        image: image,
-        data: {
-          key1: "value1",
-          key2: "value2",
+    if (subject != "" && description != "" && image != null) {
+      dispatch({
+        type: "CREATE_NOTIFICATION",
+        payload: {
+          subject: subject,
+          content: description,
+          image: image,
+          data: {
+            key1: "value1",
+            key2: "value2",
+          },
         },
-      },
-    });
+      });
+    } else {
+      alert("All Fields Required!");
+    }
   }
 
   function handleSelectImage(e) {
