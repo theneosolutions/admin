@@ -22,6 +22,8 @@ function DumpUsers() {
   const [modelOpen, setModelOpen] = useState(false);
   const [modelOpenApprove, setModelOpenApprove] = useState(false);
   const [modelOpenHold, setModelOpenHold] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(false);
+
   const users = useSelector((state) => state.getAllUsers);
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
@@ -49,6 +51,20 @@ function DumpUsers() {
       type: "GET_ALL_USERS",
       payload: "DUMP",
     });
+  }
+  function onDelete(user) {
+    console.log(user?.userId);
+    setSelectedUserId(user?.userId);
+    setModelOpen(true);
+  }
+  function DeleteUser() {
+    setModelOpen(false);
+    console.log("deleteee", selectedUserId);
+    dispatch({
+      type: "DELETE_USER_BY_ID",
+      payload: selectedUserId,
+    });
+    setTimeout(() => getAllUsersData(), 500);
   }
 
   return (
@@ -80,7 +96,7 @@ function DumpUsers() {
                   {t("Eligibilty")}
                 </th>
                 <th scope="col" className="px-3 py-3">
-                  {t("View Answers")}
+                  {t("Status")}
                 </th>
                 <th
                   scope="col"
@@ -132,12 +148,25 @@ function DumpUsers() {
                     </div>
                   </td>
                   <td className="px-3 py-4">
-                    <div
-                      onClick={() => navigate("/user-answers")}
-                      className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
-                    >
-                      View Answer
-                    </div>
+                    {v?.user?.accountStatus === "1" ? (
+                      <div
+                        onClick={() => navigate("/user-answers")}
+                        className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500"
+                      >
+                        Blocked
+                      </div>
+                    ) : v?.user?.accountStatus === "0" ? (
+                      <div
+                        onClick={() => navigate("/user-answers")}
+                        className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
+                        
+                        
+                        
+                        duration-300 text-green-500"
+                      >
+                        Active
+                      </div>
+                    ) : null}
                   </td>
                   <td className="px-3 py-4 flex flex-row space-x-5 rtl:space-x-reverse">
                     <img
@@ -161,7 +190,7 @@ function DumpUsers() {
                       <img
                         src={Delete}
                         className="h-6 cursor-pointer"
-                        onClick={() => onDelete()}
+                        onClick={() => onDelete(v?.eligibilityResult)}
                       />
                     </div>
                   </th>
@@ -180,7 +209,7 @@ function DumpUsers() {
         setState={() => setModelOpen(!modelOpen)}
         action1Value="Cancel"
         action2Value="Delete"
-        action2={() => setModelOpen(false)}
+        action2={() => DeleteUser()}
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">

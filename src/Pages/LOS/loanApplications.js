@@ -19,6 +19,15 @@ function LaonApplication() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [modelOpen, setModelOpen] = useState(false);
+  const [applications, setApplications] = useState([]);
+
+  const [allApplications, setAllApplications] = useState([]);
+  const [pending, setPending] = useState([]);
+  const [approved, setApproved] = useState([]);
+  const [rejected, setRejected] = useState([]);
+
+  const [active, setActive] = useState("All");
+
   const users = useSelector((state) => state.getApplications);
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
@@ -38,6 +47,26 @@ function LaonApplication() {
       type: "GET_LOAN_APPLICATIONS",
     });
   }
+  useEffect(() => {
+    if (users?.length > 0) {
+      const pendingLoans = users?.filter(
+        (loan) => loan.status.toLowerCase() === "pending"
+      );
+      const approvedLoans = users?.filter(
+        (loan) => loan.status.toLowerCase() === "approved"
+      );
+      const rejectedLoans = users?.filter(
+        (loan) => loan.status.toLowerCase() === "rejected"
+      );
+
+      setApplications(users);
+      setAllApplications(users);
+
+      setApproved(approvedLoans);
+      setPending(pendingLoans);
+      setRejected(rejectedLoans);
+    }
+  }, [users]);
   function CheckEligibility(other, numeric) {
     if (other && numeric) {
       return (
@@ -55,35 +84,45 @@ function LaonApplication() {
       );
     }
   }
+
+  // console.log("helooo", pendingLoans);
   return (
     <div className="py-5">
       <WaveAnimation show={loading} />
       <div className="flex md:flex-row flex-col  md:space-x-6">
         <Notifications
-          value="1200"
+          active={active === "All"}
+          onClick={() => (setApplications(allApplications), setActive("All"))}
+          value={allApplications?.length}
           heading="All Applications"
           color="text-blue-500 text-xl"
         />
         <Notifications
-          value="1200"
-          heading="In Complete"
+          active={active === "Approved"}
+          onClick={() => (setApplications(approved), setActive("Approved"))}
+          value={approved?.length || 0}
+          heading="Approved"
           color="text-green-500 text-xl"
         />
         <Notifications
-          value="1200"
-          heading="On Hold"
+          active={active === "Pending"}
+          onClick={() => (setApplications(pending), setActive("Pending"))}
+          value={pending?.length || 0}
+          heading="Pending"
           color="text-orange-500 text-xl"
         />
         <Notifications
-          value="1200"
+          active={active === "Rejected"}
+          onClick={() => (setApplications(rejected), setActive("Rejected"))}
+          value={rejected?.length || 0}
           heading="Rejected"
           color="text-red-700 text-xl"
         />
       </div>
       <CardMain
         width="w-full  mt-10"
-        heading={t("Loan Applications")}
-        icon={<MdVerified />}
+        heading={t(`${active} Loan Applications `)}
+        // icon={<MdVerified />}
         iconStyle="text-3xl text-primary"
       >
         <div className="overflow-x-auto relative  mt-4">
@@ -119,7 +158,7 @@ function LaonApplication() {
               </tr>
             </thead>
             <tbody>
-              {users.map((v, k) => (
+              {applications?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -200,9 +239,14 @@ function LaonApplication() {
   );
 }
 export default LaonApplication;
-function Notifications({ heading, value, color }) {
+function Notifications({ heading, value, color, onClick, active }) {
   return (
-    <div className="flex font-semibold flex-col bg-gray-300  px-10 py-8 text-center rounded-md md:w-1/4 w-full md:mt-0 mt-4 hover:bg-opacity-70 cursor-pointer shadow-xl duration-300">
+    <div
+      onClick={() => onClick()}
+      className={`flex font-semibold flex-col   px-10 py-8 text-center rounded-md md:w-1/4 w-full md:mt-0 mt-4 hover:bg-opacity-70 cursor-pointer shadow-xl duration-300 ${
+        active ? "bg-blue-100" : "bg-gray-200"
+      } `}
+    >
       <a className={color}>{value}</a>
       <a className="text-xs text-gray-700 mt-2">{heading}</a>
     </div>

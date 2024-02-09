@@ -692,6 +692,29 @@ function* GetUserById({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* DeleteUserById({ payload }) {
+  console.log("payload 2", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.delete,
+      baseUrlUser + `/user/deleteUser?userId=${payload}`
+    );
+    console.log("response", response);
+    yield put(
+      action.Message({ message: "User Deleted !", open: true, error: false })
+    );
+
+    // yield put(action.GetUserById(response));
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -729,4 +752,5 @@ export default function* HomeSaga() {
   yield takeLatest("SET_STATUS_OF_APPLICATION", SetStatusOfApplication);
   yield takeLatest("GET_USER_APPLICATION_DATA", GetUserApllicationData);
   yield takeLatest("GET_USER_BY_ID", GetUserById);
+  yield takeLatest("DELETE_USER_BY_ID", DeleteUserById);
 }

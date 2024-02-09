@@ -18,6 +18,8 @@ function VerifiedUsers() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [modelOpen, setModelOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(false);
+
   const users = useSelector((state) => state.getAllUsers);
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
@@ -26,10 +28,13 @@ function VerifiedUsers() {
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
-  function onDelete() {
+  function onDelete(user) {
+    console.log(user?.userId);
+    setSelectedUserId(user?.userId);
     setModelOpen(true);
   }
   useEffect(() => {
+    // DeleteUser();
     getAllUsersData();
   }, []);
   function getAllUsersData() {
@@ -37,6 +42,15 @@ function VerifiedUsers() {
       type: "GET_ALL_USERS",
       payload: "VERIFIED",
     });
+  }
+  function DeleteUser() {
+    setModelOpen(false);
+    console.log("deleteee", selectedUserId);
+    dispatch({
+      type: "DELETE_USER_BY_ID",
+      payload: selectedUserId,
+    });
+    setTimeout(() => getAllUsersData(), 500);
   }
   function CheckEligibility(other, numeric) {
     if (other === true && numeric === true) {
@@ -83,8 +97,11 @@ function VerifiedUsers() {
                 <th scope="col" className="px-3 py-3">
                   {t("Eligibilty")}
                 </th>
-                <th scope="col" className="px-3 py-3">
+                {/* <th scope="col" className="px-3 py-3">
                   {t("View Answers")}
+                </th> */}
+                <th scope="col" className="px-3 py-3">
+                  {t("Status")}
                 </th>
                 <th
                   scope="col"
@@ -131,13 +148,34 @@ function VerifiedUsers() {
                       v?.eligibilityResult.numericQuestionEligibility
                     )}
                   </td>
-                  <td className="px-3 py-4">
+                  {/* <td className="px-3 py-4">
                     <div
                       onClick={() => navigate("/user-answers")}
                       className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
                     >
                       View Answer
                     </div>
+                  </td> */}
+                  <td className="px-3 py-4">
+                    {v?.user?.accountStatus === "1" ? (
+                      <div
+                        onClick={() => navigate("/user-answers")}
+                        className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500"
+                      >
+                        Blocked
+                      </div>
+                    ) : v?.user?.accountStatus === "0" ? (
+                      <div
+                        onClick={() => navigate("/user-answers")}
+                        className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
+                        
+                        
+                        
+                        duration-300 text-green-500"
+                      >
+                        Active
+                      </div>
+                    ) : null}
                   </td>
                   <th
                     scope="row"
@@ -148,7 +186,7 @@ function VerifiedUsers() {
                       <img
                         src={Delete}
                         className="h-6 cursor-pointer"
-                        onClick={() => onDelete()}
+                        onClick={() => onDelete(v?.eligibilityResult)}
                       />
                     </div>
                   </th>
@@ -167,7 +205,7 @@ function VerifiedUsers() {
         setState={() => setModelOpen(!modelOpen)}
         action1Value="Cancel"
         action2Value="Delete"
-        action2={() => setModelOpen(false)}
+        action2={() => DeleteUser()}
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">
