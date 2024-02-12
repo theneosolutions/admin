@@ -56,23 +56,23 @@ const appRoutes = [
           displayText: "User List",
         },
       },
-      {
-        path: "/dashboard/application",
-        element: <Applications />,
-        state: "dashboard.application",
-        sidebarProps: {
-          displayText: "Applications",
-        },
-      },
+      // {
+      //   path: "/dashboard/application",
+      //   element: <Applications />,
+      //   state: "dashboard.application",
+      //   sidebarProps: {
+      //     displayText: "Applications",
+      //   },
+      // },
 
-      {
-        path: "/dashboard/demo",
-        element: <Demo />,
-        state: "dashboard.demo",
-        sidebarProps: {
-          displayText: "Demo",
-        },
-      },
+      // {
+      //   path: "/dashboard/demo",
+      //   element: <Demo />,
+      //   state: "dashboard.demo",
+      //   sidebarProps: {
+      //     displayText: "Demo",
+      //   },
+      // },
     ],
   },
 
@@ -107,14 +107,14 @@ const appRoutes = [
           displayText: "Verified",
         },
       },
-      {
-        path: "/users/unverified",
-        element: <Unverified />,
-        state: "users.unverified",
-        sidebarProps: {
-          displayText: "Unverified",
-        },
-      },
+      // {
+      //   path: "/users/unverified",
+      //   element: <Unverified />,
+      //   state: "users.unverified",
+      //   sidebarProps: {
+      //     displayText: "Unverified",
+      //   },
+      // },
       {
         path: "/users/dump",
         element: <Dump />,
@@ -227,7 +227,7 @@ const appRoutes = [
     element: <ResponsePageLayout />,
     state: "response",
     sidebarProps: {
-      displayText: "Response",
+      displayText: "Notifications",
       icon: <MdOutlineQuestionAnswer />,
     },
     child: [
@@ -236,14 +236,14 @@ const appRoutes = [
         element: <Response />,
         state: "response.index",
       },
-      {
-        path: "/response/response",
-        element: <Response />,
-        state: "response.response",
-        sidebarProps: {
-          displayText: "Decision Responses",
-        },
-      },
+      // {
+      //   path: "/response/response",
+      //   element: <Response />,
+      //   state: "response.response",
+      //   sidebarProps: {
+      //     displayText: "Decision Responses",
+      //   },
+      // },
       {
         path: "/response/notifications",
         element: <Notifications />,

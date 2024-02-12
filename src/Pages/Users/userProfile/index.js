@@ -64,7 +64,7 @@ function LaonApplication() {
         headerDisable={true}
       >
         <div className="">
-          <div className="flex flex-row justify-between items-center border-b-2	 border-gray-200 pb-3 pt-1 ">
+          <div className="flex flex-col md:flex-row justify-between md:items-center border-b-2	 border-gray-200 pb-3 pt-1 ">
             <div className="flex flex-row">
               <img
                 className="h-14 w-14 rounded-full object-cover"
@@ -84,7 +84,7 @@ function LaonApplication() {
                 </a>
               </div>
             </div>
-            <div className="flex flex-row">
+            <div className="flex flex-col md:flex-row md:mt-0 mt-4  md:space-y-0 space-y-2">
               <Text
                 heading="Loan Amount"
                 value={data?.loanAmount || 0}
@@ -105,14 +105,14 @@ function LaonApplication() {
               <Text heading="Application Number" value={data?.id || 0} />{" "}
             </div>
             <div>
-              <a className=" text-green-600 px-2 text-md font-semibold uppercase">
+              <a className=" text-green-600 md:px-2 text-md font-semibold uppercase">
                 {data?.status}
               </a>
             </div>
           </div>
-          <div className="flex flex-row pt-7">
-            <div className="flex flex-row w-1/2 ">
-              <div className="flex flex-row w-1/2 ">
+          <div className="flex lg:flex-row flex-col pt-7 ">
+            <div className="flex flex-col md:flex-row w-full lg:w-1/2 ">
+              <div className="flex flex-row w-full  md:w-1/2 ">
                 <div className="flex flex-col pb-5 space-y-5">
                   <div className="flex flex-col">
                     <a className="text-xs text-gray-400">User ID</a>
@@ -199,7 +199,7 @@ function LaonApplication() {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-row w-1/2  border-l-2	 border-r-2	 border-gray-200 px-4">
+              <div className="flex flex-row w-full  md:w-1/2  md:border-l-2	 lg:border-r-2	 border-gray-200 md:px-4">
                 <div className="flex flex-col  pb-5 space-y-6">
                   <div className="flex flex-col">
                     <a className="text-xs text-gray-400 uppercase">
@@ -286,8 +286,8 @@ function LaonApplication() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col w-1/2  px-4 ">
-              <div className="w-3/5		space-y-10">
+            <div className="flex flex-col w-full lg:w-1/2  lg:px-4 lg:mt-0 mt-5">
+              <div className="w-full lg:w-3/5		space-y-10">
                 <Progress
                   heading="Eligibility Loan Amount"
                   value="30,000"
@@ -305,7 +305,7 @@ function LaonApplication() {
                 />
               </div>
 
-              <div className="flex flex-row mt-6">
+              <div className="flex flex-col md:flex-row mt-6 space-y-2 md:space-y-0">
                 <Text2
                   heading="Monthly Installment"
                   value={data?.installmentPerMonth}
@@ -319,12 +319,12 @@ function LaonApplication() {
                   value={data?.installmentPerMonthAfterInterestAndTex}
                 />{" "}
               </div>
-              <div className="flex flex-row mt-6">
+              <div className="flex flex-col md:flex-row mt-6 space-y-2 md:space-y-0">
                 <Text2 heading="Processing Fee" value={data?.processingFee} />
                 <Text2 heading="Total Fee" value={data?.totalFee} />{" "}
                 <Text2 heading="Vat on Fee" value={data?.vatOnFee} />{" "}
               </div>
-              <div className="flex flex-row justify-between mt-10">
+              <div className="flex flex-col md:flex-row justify-between mt-10 md:space-x-2">
                 <Button
                   setActive={(e) => setActive(e)}
                   active={active}
@@ -402,7 +402,7 @@ function Button({ value, icon, active, setActive }) {
       onClick={() => setActive(value)}
       className={`${
         active == value ? "text-white bg-blue-400" : "text-blue-400"
-      } hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-4 rounded-md  items-center flex flex-col   `}
+      } hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-4 rounded-md  items-center flex flex-col md:mt-0 mt-2  `}
     >
       {icon}
       <div className="uppercase text-xs font-semibold">{value}</div>
@@ -445,10 +445,10 @@ function Progress({ heading, value, progressValue, min, max }) {
 
 function Text({ heading, value, style }) {
   return (
-    <div className="flex flex-col mx-3 space-y-0.5 px-1">
+    <div className="flex flex-col md:mx-3 space-y-0.5 px-1">
       <a className="text-xs text-gray-400">{heading}</a>
       <a
-        className={`text-sm text-gray-700 font-semibold opacity-90 p-1 ${style}`}
+        className={`text-sm text-gray-700 font-semibold opacity-90 md:p-1 ${style}`}
       >
         {value}
       </a>
@@ -458,7 +458,7 @@ function Text({ heading, value, style }) {
 
 function Text2({ heading, value }) {
   return (
-    <div className="flex flex-col space-y-0.5  w-1/3	">
+    <div className="flex flex-col space-y-0.5 w-full md:w-1/3	">
       <a className="text-xs text-gray-400">{heading}</a>
       <a className="text-sm text-gray-700  opacity-90 pt-1">{value}</a>
     </div>

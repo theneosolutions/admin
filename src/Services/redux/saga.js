@@ -715,6 +715,24 @@ function* DeleteUserById({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* GetAllNotifications({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlLos + `/getAllnotification`
+    );
+    console.log("notifications 1111111111", response);
+    yield put(action.Notifications(response));
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -753,4 +771,5 @@ export default function* HomeSaga() {
   yield takeLatest("GET_USER_APPLICATION_DATA", GetUserApllicationData);
   yield takeLatest("GET_USER_BY_ID", GetUserById);
   yield takeLatest("DELETE_USER_BY_ID", DeleteUserById);
+  yield takeLatest("GET_ALL_NOTIFICATIONS", GetAllNotifications);
 }

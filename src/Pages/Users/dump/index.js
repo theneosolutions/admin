@@ -113,7 +113,7 @@ function DumpUsers() {
               </tr>
             </thead>
             <tbody>
-              {users.map((v, k) => (
+              {users?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"

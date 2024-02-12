@@ -127,16 +127,19 @@ function App() {
           </div>
         </div>
       </div>
-      <div className="flex flex-crow md:flex-row md:space-x-6 rtl:space-x-reverse">
+      <div className=" flex flex-col md:flex-row md:space-x-6 rtl:space-x-reverse">
         <CardMain
-          width="w-1/2 md:mt-0 mt-4 "
+          width="w-full md:w-1/2 md:mt-0 mt-4 "
           heading={t("Applications Status")}
         >
           <div className="">
             <PieChart />
           </div>
         </CardMain>
-        <CardMain width="w-1/2 md:mt-0 mt-4 " heading={t("User Activity")}>
+        <CardMain
+          width="w-full md:w-1/2 md:mt-0 mt-4 "
+          heading={t("User Activity")}
+        >
           <div className="">
             <SplineChart />
           </div>

@@ -112,7 +112,7 @@ function VerifiedUsers() {
               </tr>
             </thead>
             <tbody>
-              {users.map((v, k) => (
+              {users?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -159,18 +159,15 @@ function VerifiedUsers() {
                   <td className="px-3 py-4">
                     {v?.user?.accountStatus === "1" ? (
                       <div
-                        onClick={() => navigate("/user-answers")}
+                        // onClick={() => navigate("/user-answers")}
                         className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500"
                       >
                         Blocked
                       </div>
                     ) : v?.user?.accountStatus === "0" ? (
                       <div
-                        onClick={() => navigate("/user-answers")}
+                        // onClick={() => navigate("/user-answers")}
                         className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
-                        
-                        
-                        
                         duration-300 text-green-500"
                       >
                         Active

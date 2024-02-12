@@ -81,9 +81,9 @@ function App() {
           icon={<FaWpforms className="text-3xl text-gray-500" />}
         />
       </div>
-      <div className="flex flex-crow md:flex-row md:space-x-6 rtl:space-x-reverse">
+      <div className="flex flex-col md:flex-row md:space-x-6 rtl:space-x-reverse">
         <CardMain
-          width="w-2/3 md:mt-0 mt-4 "
+          width="w-full md:w-2/3 md:mt-0 mt-4 "
           heading={t("Monthly Activity Of Users")}
         >
           <div className="">
@@ -127,14 +127,17 @@ function App() {
         </div>
       </div>
 
-      <div className="flex flex-crow md:flex-row md:space-x-6 rtl:space-x-reverse">
-        <CardMain width="w-1/2 md:mt-0 mt-4 " heading={t("Performance Score")}>
+      <div className="flex flex-col md:flex-row md:space-x-6 rtl:space-x-reverse">
+        <CardMain
+          width="w-full md:w-1/2 md:mt-0 mt-4 "
+          heading={t("Performance Score")}
+        >
           <div className="">
             <RadialBarChart />
           </div>
         </CardMain>
         <CardMain
-          width="w-1/2	 md:mt-0 mt-4 "
+          width="w-full md:w-1/2	 md:mt-0 mt-4 "
           heading={t("Users Anti Fraud History")}
         >
           <div className="">
@@ -308,7 +311,7 @@ function Notifications({ heading, value, color, bg, icon }) {
         </div>
 
         <div
-          className={`text-white h-9 w-full  flex flex-row justify-between items-center justify-center px-4 ${bg}`}
+          className={`text-white h-9 w-full  flex flex-row items-center justify-center px-4 ${bg}`}
         >
           <div className="text-xs">% Change</div>
           <div>

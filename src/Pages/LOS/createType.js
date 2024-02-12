@@ -136,12 +136,14 @@ function App() {
       <div className="flex flex-col   w-full ">
         <CardMain
           width="w-full h-max  md:mt-0 mt-4"
-          heading={t("Create Loan Type")}>
-          <div className=" px-3   flex flex-row space-x-4">
-            <div className="flex flex-row w-1/2">
+          heading={t("Create Loan Type")}
+        >
+          <div className=" px-1 md:px-3   flex flex-col md:flex-row md:space-x-4">
+            <div className="flex flex-row w-full md:w-1/2">
               <div
                 onClick={handleClick}
-                className="w-full border  bg-secondry rounded-md border-dashed	 border-slate-200 items-center flex flex-col justify-center px-4 py-8">
+                className="w-full border  bg-secondry rounded-md border-dashed	 border-slate-200 items-center flex flex-col justify-center px-4 py-8"
+              >
                 {!image2 && <img src={UplaodIcon} />}
 
                 {image2 && <img src={image2} />}
@@ -155,7 +157,7 @@ function App() {
                 </a>
               </div>
             </div>
-            <div className="w-1/2">
+            <div className="w-full md:w-1/2 mt-3 md:mt-0">
               <div className="flex flex-col w-full">
                 <a className="text-sm text-gray-700 font-semibold">
                   Loan Reason
@@ -216,7 +218,8 @@ function App() {
                   <div className="flex flex row items-end justify-end">
                     <button
                       onClick={handleAddMore}
-                      className={`w-max rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}>
+                      className={`w-max rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}
+                    >
                       Add More Tenures
                     </button>
                   </div>
@@ -225,7 +228,8 @@ function App() {
               <div className="flex flex-col">
                 <button
                   onClick={handleSubmit}
-                  className={`mt-5 rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}>
+                  className={`mt-5 rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}
+                >
                   Submit
                 </button>
               </div>
@@ -241,7 +245,8 @@ function App() {
                   onClick={() =>
                     navigate(`/los/create-loan-tax?id=${v?.loanTypeDetail?.id}`)
                   }
-                  className=" flex flex-row justify-center space-x-2 items-center border-dashed border border-gray-300  text-center mt-4 py-6 rounded-md hover:bg-gray-300 duration-300 cursor-pointer">
+                  className=" flex flex-row justify-center space-x-2 items-center border-dashed border border-gray-300  text-center mt-4 py-6 rounded-md hover:bg-gray-300 duration-300 cursor-pointer"
+                >
                   <img
                     src={`data:image/jpeg;base64,${v.icon}`}
                     className="h-7"
@@ -258,11 +263,13 @@ function App() {
         open={open}
         autoHideDuration={5000}
         onClose={handleClose}
-        className="mt-4">
+        className="mt-4"
+      >
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>

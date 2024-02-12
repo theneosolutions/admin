@@ -8,7 +8,7 @@ function MyAccount() {
 
   return (
     <div>
-      <CardMain width="w-full" heading={t("My Profile")}>
+      <CardMain width="w-full md:mt-0 mt-4" heading={t("My Profile")}>
         <div className="flex flex-row justify-center ">
           <div className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer">
             <img
@@ -20,8 +20,8 @@ function MyAccount() {
           </div>
         </div>
 
-        <div className="flex flex-row space-x-20 rtl:space-x-reverse mt-5">
-          <div className="w-1/2 space-y-5">
+        <div className="flex flex-col md:flex-row md:space-x-20 rtl:space-x-reverse mt-5">
+          <div className="md:w-1/2 w-full  space-y-5">
             <InputField
               heading={t("First Name")}
               value="Lorem Ipsum"
@@ -44,7 +44,7 @@ function MyAccount() {
               onChange={(e) => console.log("helo", e)}
             />
           </div>
-          <div className="w-1/2  space-y-5">
+          <div className="md:w-1/2 w-full  space-y-5">
             <InputField
               heading={t("Last Name")}
               value="Lorem Ipsum "
@@ -79,9 +79,9 @@ export default MyAccount;
 
 function InputField({ heading, value }) {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full ">
       <a className="text-sm text-gray-700">{heading}</a>
-      <a className=" rounded-md  py-2 outline-none mt-2 w-full bg-gray-50 px-3">
+      <a className="bg-gray-100 rounded-md  py-2 outline-none mt-2 w-full  px-3">
         {value}
       </a>
     </div>

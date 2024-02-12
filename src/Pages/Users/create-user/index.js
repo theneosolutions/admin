@@ -93,79 +93,91 @@ function CreateUser() {
     }
   };
   return (
-    <div>
+    <div className=" items-center justify-center flex flex-col w-full">
       <WaveAnimation show={loading} />
-      <form onSubmit={handleSubmit}>
-        <CardMain width="w-full" heading={"Create User"}>
-          <div className="flex flex-row justify-center ">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full items-center justify-center flex flex-col"
+      >
+        <div className="lg:mt-20 mt-6 bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-20 px-4 py-5 lg:py-20 ">
+          <div className="flex flex-col  justify-center items-center">
             <div
               onClick={handleClick}
-              className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer"
+              className="h-52 w-52 overflow-hidden rounded-full border bg-gray-300 text-center justify-center flex  flex-row items-center text-gray-900 hover:bg-gray-100 duration-200 cursor-pointer"
             >
-              {!image && <RiImageAddLine style={{ fontSize: 70 }} />}
+              {!image && <RiImageAddLine style={{ fontSize: 35 }} />}
               {image && <img src={image} className="h-full w-full " />}
+            </div>
+            <div className="border border-primary px-3 py-1 text-primary text-sm rounded-full mt-7">
+              Profile Image
             </div>
           </div>
 
-          <div className="flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
-            <div className="md:w-1/2 w-full space-y-5">
-              <InputField
-                id="firstName"
-                heading={t("First Name")}
-                value={firstName}
-                onChange={(e) => setFirstName(e)}
-              />
-              <InputField
-                heading={t("Email")}
-                value={email}
-                onChange={(e) => setEmail(e)}
-              />
-              <InputField
-                heading={t("ID number")}
-                value={idNumber}
-                onChange={(e) => setIdNumber(e)}
-              />
-              <InputField
-                type="number"
-                heading={t("Mobile Number")}
-                value={number}
-                onChange={(e) => setNumber(e)}
-              />
+          <div className="flex flex-col ">
+            <div className=" w-full  flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
+              <div className=" md:w-1/2 w-full space-y-5">
+                <InputField
+                  id="firstName"
+                  heading={t("First Name")}
+                  value={firstName}
+                  onChange={(e) => setFirstName(e)}
+                />
+                <InputField
+                  heading={t("Email")}
+                  value={email}
+                  onChange={(e) => setEmail(e)}
+                />
+                <InputField
+                  heading={t("ID number")}
+                  value={idNumber}
+                  onChange={(e) => setIdNumber(e)}
+                />
+                <InputField
+                  type="number"
+                  heading={t("Mobile Number")}
+                  value={number}
+                  onChange={(e) => setNumber(e)}
+                />
+              </div>
+              <div className="md:w-1/2 w-full md:mt-0 mt-3 space-y-5">
+                <InputField
+                  heading={t("User Name")}
+                  value={username}
+                  onChange={(e) => setUserName(e)}
+                />
+                <Calender
+                  type="calendar"
+                  heading={t("DOB")}
+                  value={date}
+                  onChange={(e) => setDate(e)}
+                />
+                <InputField
+                  heading={t("Password")}
+                  value={password}
+                  onChange={(e) => setPassword(e)}
+                />
+                <Select
+                  heading={t("Choose Option")}
+                  type="select"
+                  options={t(role)}
+                  onChange={(e) => setRole(e)}
+                />
+              </div>
             </div>
-            <div className="md:w-1/2 w-full md:mt-0 mt-3 space-y-5">
-              <InputField
-                heading={t("User Name")}
-                value={username}
-                onChange={(e) => setUserName(e)}
-              />
-              <Calender
-                type="calendar"
-                heading={t("DOB")}
-                value={date}
-                onChange={(e) => setDate(e)}
-              />
-              <InputField
-                heading={t("Password")}
-                value={password}
-                onChange={(e) => setPassword(e)}
-              />
-              <Select
-                heading={t("Choose Option")}
-                type="select"
-                options={t(role)}
-                onChange={(e) => setRole(e)}
+            <div className="flex flex-row justify-end mt-10 px-14">
+              <Button
+                type="submit"
+                buttonValue={t("Submit")}
+                buttonStyle="px-20 py-2 w-full "
               />
             </div>
           </div>
-          <div className="flex flex-row justify-end mt-10">
-            <Button
-              type="submit"
-              buttonValue={t("Submit")}
-              buttonStyle="px-20 py-2 w-full md:w-max"
-            />
-          </div>
-        </CardMain>
+        </div>
+        {/* <CardMain width=" flex flex-row space-x-20 items-center justify-center py-20"> */}
+
+        {/* </CardMain> */}
       </form>
+
       <div className="w-full">
         <input
           ref={fileInputRef}
@@ -202,7 +214,7 @@ function Select({ heading, value, onChange }) {
       <select
         onChange={(e) => onChange(e.target.value)}
         value={value}
-        className="border-primary border rounded-md px-3 py-2 outline-none mt-2 w-full"
+        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
       >
         {options.map((option, index) => (
           <option key={index} value={option.value}>
@@ -222,7 +234,7 @@ function Calender({ heading, value, onChange }) {
       <DatePicker
         selected={value}
         onChange={(date) => onChange(date)}
-        className="border-primary border rounded-md px-3 py-2 outline-none mt-2 w-full"
+        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
       />
     </div>
   );
@@ -237,7 +249,7 @@ function InputField({ heading, value, onChange, type }) {
         type={type || "text"}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="border-primary border rounded-md px-3 py-2 outline-none mt-2 w-full"
+        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
       />
     </div>
   );

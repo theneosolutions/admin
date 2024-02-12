@@ -16,10 +16,21 @@ function NotificationsScreen() {
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
   const loading = useSelector((state) => state.Loading);
+  const notifications = useSelector((state) => state.Notifications);
 
+  console.log("notificationsnotifications", notifications);
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
+
+  useEffect(() => {
+    getAllNotifictions();
+  }, []);
+  function getAllNotifictions() {
+    dispatch({
+      type: "GET_ALL_NOTIFICATIONS",
+    });
+  }
 
   return (
     <div className="py-5">
@@ -27,22 +38,22 @@ function NotificationsScreen() {
 
       <div className="flex md:flex-row flex-col  md:space-x-6">
         <Notifications
-          value="1200"
+          value={notifications?.length || 0}
           heading="Total Notifications"
           color="text-blue-500 text-xl"
         />
         <Notifications
-          value="1200"
+          value="1"
           heading="Clicked"
           color="text-green-500 text-xl"
         />
         <Notifications
-          value="1200"
+          value="3"
           heading="Delivered"
           color="text-orange-500 text-xl"
         />
         <Notifications
-          value="1200"
+          value="8"
           heading="Not Click Yet"
           color="text-red-700 text-xl"
         />
@@ -60,33 +71,35 @@ function NotificationsScreen() {
             <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("Title")}
+                  {t("Icon")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("Type")}
+                  {t("Subject")}
                 </th>
-                <th scope="col" className="px-3 py-3">
-                  {t("Date")}
-                </th>
-                <th scope="col" className="px-3 py-3">
-                  {t("Clicked")}
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("Content")}
                 </th>
               </tr>
             </thead>
             <tbody>
-              {[9, 1, 2, 1].map((v, k) => (
+              {notifications?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                 >
-                  <td scope="row" className="px-3 py-4">
-                    Test Notification
+                  <td
+                    scope="row"
+                    className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
+                  >
+                    <img
+                      src={v?.img}
+                      className="avatar h-10 w-10 rounded-full cursor-pointer"
+                    />
                   </td>
                   <td scope="row" className="px-3 py-4">
-                    BroadCast
+                    {v?.subject}
                   </td>
-                  <td className="px-3 py-4">11 May 2023</td>
-                  <td className="px-3 py-4">false</td>
+                  <td className="px-3 py-4">{v?.content}</td>
                 </tr>
               ))}
             </tbody>

@@ -217,8 +217,8 @@ function CreateUser({ setid }) {
       {setId && (
         <form onSubmit={handleSubmit}>
           <CardMain width="w-full mt-5">
-            <div className="flex flex-row space-x-20 rtl:space-x-reverse mt-5">
-              <div className="w-1/2 space-y-10 items-center bg-green-50 flex flex-col py-12">
+            <div className="flex flex-col md:flex-row md:space-x-20 rtl:space-x-reverse mt-5 ">
+              <div className="w-full md:w-1/2 space-y-10 items-center bg-green-50 flex flex-col py-12">
                 <a className="text-lg text-primary underline">
                   {t("For Success Response")}
                 </a>
@@ -248,7 +248,7 @@ function CreateUser({ setid }) {
                   style="w-72"
                 />
               </div>
-              <div className="w-1/2 space-y-10 items-center bg-red-50 flex flex-col py-12">
+              <div className="w-full md:w-1/2 space-y-10 items-center bg-red-50 flex flex-col py-12 md:mt-0 mt-4">
                 <a className="text-lg text-red-600 underline">
                   {t("For Error Response")}
                 </a>

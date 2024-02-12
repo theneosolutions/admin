@@ -101,56 +101,58 @@ function CreateQuestionsSet() {
       <div className="mt-6 flex flex-col md:flex-row md:space-x-3 rtl:space-x-reverse h-max">
         <CardMain
           heading={t("All List Of Questions in this set")}
-          width="md:w-3/5 w-full h-min"
+          width="md:w-3/5 w-full h-min "
           showButton={true}
           buttonValue={t("View All Screens")}
           onButtonClick={() => navigate(`/view-screen?id=${id}`)} // Attach click handler
         >
-          <table className="mt-4 w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
-              <tr>
-                <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("heading")}
-                </th>
-                <th scope="col" className="px-6 py-3 cursor-pointer">
-                  {t("Question")}
-                </th>
-                <th scope="col" className="px-6 py-3 cursor-pointer">
-                  {t("Action")}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {temp.map((v, k) => {
-                return (
-                  <tr
-                    key={k}
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                  >
-                    <td className="px-3 py-4 cursor-pointer text-primary">
-                      {v.heading || v.eligibilityQuestions?.heading}
-                    </td>
-                    <td className="px-6 py-4">
-                      {v.question || v.eligibilityQuestions?.question}
-                    </td>
-                    <td className="px-6 py-2">
-                      <button
-                        onClick={() =>
-                          handleCheckboxChange(
-                            v.id || v.eligibilityQuestions?.id,
-                            v
-                          )
-                        }
-                        className="w-max px-10 text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10"
-                      >
-                        Add
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div className="w-full flex flex-col mt-3 overflow-x-auto">
+            <table className="mt-4 w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
+                <tr>
+                  <th scope="col" className="px-3 py-3 cursor-pointer">
+                    {t("heading")}
+                  </th>
+                  <th scope="col" className="px-6 py-3 cursor-pointer">
+                    {t("Question")}
+                  </th>
+                  <th scope="col" className="px-6 py-3 cursor-pointer">
+                    {t("Action")}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {temp.map((v, k) => {
+                  return (
+                    <tr
+                      key={k}
+                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                    >
+                      <td className="px-3 py-4 cursor-pointer text-primary">
+                        {v.heading || v.eligibilityQuestions?.heading}
+                      </td>
+                      <td className="px-6 py-4">
+                        {v.question || v.eligibilityQuestions?.question}
+                      </td>
+                      <td className="px-6 py-2">
+                        <button
+                          onClick={() =>
+                            handleCheckboxChange(
+                              v.id || v.eligibilityQuestions?.id,
+                              v
+                            )
+                          }
+                          className="w-max px-10 text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10"
+                        >
+                          Add
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </CardMain>
         {selectedData.length > 0 && (
           <CardMain

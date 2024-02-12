@@ -16,7 +16,7 @@ const initialState = {
   message: "",
   open: false,
   error: false,
-  Notifications: {},
+  Notifications: [],
   Loading: false,
   islogin: false,
   user: null,
@@ -55,11 +55,14 @@ const Reducer = createSlice({
     },
     getLables: (state, action) => {
       const { data } = action.payload;
+
       state.getLables = data;
     },
 
     Notifications: (state, action) => {
-      state.Notifications = action.payload;
+      const { data } = action.payload;
+
+      state.Notifications = data;
     },
     Loading: (state, action) => {
       const { Loading } = action.payload;
@@ -172,6 +175,7 @@ export const {
   GetAllCards,
   GetUserApplication,
   GetUserById,
+  Notifications,
 } = Reducer.actions;
 
 export default Reducer.reducer;

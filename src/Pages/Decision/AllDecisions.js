@@ -47,7 +47,8 @@ const CreateDesicion = () => {
           <CardMain
             key={k}
             width="h-max border border-primary mt-5"
-            heading={v?.setName}>
+            heading={v?.setName}
+          >
             {v?.otherQuestions.length > 0 ? (
               <>
                 {" "}
@@ -56,78 +57,82 @@ const CreateDesicion = () => {
                     {" "}
                     Other Questions:
                   </a>
+                  <div className="w-full flex flex-col mt-3 overflow-x-auto">
+                    <table className="mt-4 w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                      <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
+                        <tr>
+                          <th scope="col" className="px-2 py-3 cursor-pointer">
+                            #
+                          </th>
+                          <th scope="col" className="px-6 py-3 cursor-pointer">
+                            Question
+                          </th>
+                          <th scope="col" className="px-6 py-3 cursor-pointer">
+                            Options
+                          </th>
 
-                  <table className="mt-4 w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
-                      <tr>
-                        <th scope="col" className="px-2 py-3 cursor-pointer">
-                          #
-                        </th>
-                        <th scope="col" className="px-6 py-3 cursor-pointer">
-                          Question
-                        </th>
-                        <th scope="col" className="px-6 py-3 cursor-pointer">
-                          Options
-                        </th>
+                          <th scope="col" className="px-6 py-3 cursor-pointer">
+                            Action
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {v?.otherQuestions?.map((o, key) => {
+                          return (
+                            <tr
+                              key={key}
+                              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                            >
+                              <td className="px-2 py-4">
+                                {o?.eligibilityQuestions.id}
+                              </td>
+                              <td className="px-6 py-4">
+                                {o?.eligibilityQuestions.question}
+                              </td>
+                              <td className="px-6 py-4 flex flex-row rtl:space-x-reverse space-x-4">
+                                {o?.eligibilityQuestions?.options?.map(
+                                  (option, index) => {
+                                    var answers = o?.answer || [];
+                                    var isActive = answers?.includes(option);
 
-                        <th scope="col" className="px-6 py-3 cursor-pointer">
-                          Action
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {v?.otherQuestions?.map((o, key) => {
-                        return (
-                          <tr
-                            key={key}
-                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td className="px-2 py-4">
-                              {o?.eligibilityQuestions.id}
-                            </td>
-                            <td className="px-6 py-4">
-                              {o?.eligibilityQuestions.question}
-                            </td>
-                            <td className="px-6 py-4 flex flex-row rtl:space-x-reverse space-x-4">
-                              {o?.eligibilityQuestions?.options?.map(
-                                (option, index) => {
-                                  var answers = o?.answer || [];
-                                  var isActive = answers?.includes(option);
+                                    return (
+                                      <div
+                                        key={index}
+                                        className="flex flex-row space-x-2 rtl:space-x-reverse items-center"
+                                      >
+                                        <input
+                                          type="radio"
+                                          checked={isActive}
+                                          disabled={true}
+                                          style={{ accentColor: "red" }}
+                                          className={`h-4 w-4 ${
+                                            isActive
+                                              ? "bg-red-300 text-red-500 bg-red-500 border-green-400"
+                                              : ""
+                                          }`}
+                                        />
+                                        <span>{option}</span>
+                                      </div>
+                                    );
+                                  }
+                                )}
+                              </td>
 
-                                  return (
-                                    <div
-                                      key={index}
-                                      className="flex flex-row space-x-2 rtl:space-x-reverse items-center">
-                                      <input
-                                        type="radio"
-                                        checked={isActive}
-                                        disabled={true}
-                                        style={{ accentColor: "red" }}
-                                        className={`h-4 w-4 ${
-                                          isActive
-                                            ? "bg-red-300 text-red-500 bg-red-500 border-green-400"
-                                            : ""
-                                        }`}
-                                      />
-                                      <span>{option}</span>
-                                    </div>
-                                  );
-                                }
-                              )}
-                            </td>
-
-                            <th
-                              scope="row"
-                              className="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                              <div className="flex flex-row space-x-3 rtl:space-x-reverse">
-                                <img src={Edit} className="h-6" />
-                                <img src={Delete} className="h-6" />
-                              </div>
-                            </th>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
+                              <th
+                                scope="row"
+                                className="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+                              >
+                                <div className="flex flex-row space-x-3 rtl:space-x-reverse">
+                                  <img src={Edit} className="h-6" />
+                                  <img src={Delete} className="h-6" />
+                                </div>
+                              </th>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
                 </>{" "}
               </>
             ) : null}
@@ -179,7 +184,8 @@ const CreateDesicion = () => {
                       return (
                         <tr
                           key={m}
-                          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                        >
                           <td className="px-2 py-4">
                             {s?.eligibilityQuestions?.id}
                           </td>
@@ -191,7 +197,8 @@ const CreateDesicion = () => {
                           </td>
                           <th
                             scope="row"
-                            className="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                            className="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+                          >
                             <div className="flex flex-row space-x-3 rtl:space-x-reverse">
                               <img src={Edit} className="h-6" />
                               <img src={Delete} className="h-6" />
@@ -212,7 +219,8 @@ const CreateDesicion = () => {
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>
