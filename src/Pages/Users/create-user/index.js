@@ -1,191 +1,135 @@
-import React from "react";
-import CardMain from "../../../Components/Cards/main";
-import { useState, useRef } from "react";
-import { Button } from "Components";
-import { RiImageAddLine } from "react-icons/ri";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import CardMain from "../../../Components/Cards/main";
+import { IoNotifications } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
+import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
+import User from "./users";
 import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
-import * as action from "Services/redux/reducer";
 
-function CreateUser() {
+function NotificationsScreen() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
   const loading = useSelector((state) => state.Loading);
+  const notifications = useSelector((state) => state.Notifications);
+  const [modelOpen, setModelOpen] = useState(false);
+
+  console.log("notificationsnotifications", notifications);
   const handleClose = () => {
-    dispatch(action.Message({ open: false })); // Closing the message
+    dispatch(action.Message({ open: false }));
   };
-  const [image, setImage] = useState(null);
-  const { t } = useTranslation();
 
-  const fileInputRef = useRef(null); // Create a ref for the file input
-
-  function handleSelectImage(e) {
-    if (e.target.files && e.target.files[0]) {
-      setImage(URL.createObjectURL(e.target.files[0]));
-    }
+  useEffect(() => {
+    getAllNotifictions();
+  }, []);
+  function getAllNotifictions() {
+    dispatch({
+      type: "GET_ALL_NOTIFICATIONS",
+    });
   }
-  function handleClick() {
-    fileInputRef.current.click();
+  function reset() {
+    setModelOpen(false);
+    console.log("reset");
   }
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    CreateNewUser();
-  }
-  const [firstName, setFirstName] = useState("");
-  const [email, setEmail] = useState("");
-  const [idNumber, setIdNumber] = useState("");
-  const [number, setNumber] = useState("");
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [date, setDate] = useState(new Date());
-  const [role, setRole] = useState("option1");
-
-  function CreateNewUser() {
-    if (validatePassword()) {
-      dispatch({
-        type: "Add_NEW_USER",
-        payload: {
-          email: email,
-          username: username,
-          password: password,
-          name: firstName,
-        },
-      });
-    } else {
-      dispatch(
-        action.Message({
-          message: "Password does not meet requirements",
-          open: true,
-          error: true,
-        })
-      ); // Closing the message
-
-      // You can display an error message or take other actions based on your requirements.
-    }
-  }
-  const validatePassword = () => {
-    // Password requirements
-    const minLength = 8;
-    const hasUppercase = /[A-Z]/.test(password);
-    const hasLowercase = /[a-z]/.test(password);
-    const hasDigit = /\d/.test(password);
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-
-    // Check if all requirements are met
-    if (
-      password.length >= minLength &&
-      hasUppercase &&
-      hasLowercase &&
-      hasDigit &&
-      hasSpecialChar
-    ) {
-      return true; // Password is valid
-    } else {
-      return false; // Password is not valid
-    }
-  };
   return (
-    <div className=" items-center justify-center flex flex-col w-full">
+    <div className="py-5">
       <WaveAnimation show={loading} />
-      <form
-        onSubmit={handleSubmit}
-        className="w-full items-center justify-center flex flex-col"
-      >
-        <div className="lg:mt-20 mt-6 bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-20 px-4 py-5 lg:py-20 ">
-          <div className="flex flex-col  justify-center items-center">
-            <div
-              onClick={handleClick}
-              className="h-52 w-52 overflow-hidden rounded-full border bg-gray-300 text-center justify-center flex  flex-row items-center text-gray-900 hover:bg-gray-100 duration-200 cursor-pointer"
-            >
-              {!image && <RiImageAddLine style={{ fontSize: 35 }} />}
-              {image && <img src={image} className="h-full w-full " />}
-            </div>
-            <div className="border border-primary px-3 py-1 text-primary text-sm rounded-full mt-7">
-              Profile Image
-            </div>
-          </div>
 
-          <div className="flex flex-col ">
-            <div className=" w-full  flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
-              <div className=" md:w-1/2 w-full space-y-5">
-                <InputField
-                  id="firstName"
-                  heading={t("First Name")}
-                  value={firstName}
-                  onChange={(e) => setFirstName(e)}
-                />
-                <InputField
-                  heading={t("Email")}
-                  value={email}
-                  onChange={(e) => setEmail(e)}
-                />
-                <InputField
-                  heading={t("ID number")}
-                  value={idNumber}
-                  onChange={(e) => setIdNumber(e)}
-                />
-                <InputField
-                  type="number"
-                  heading={t("Mobile Number")}
-                  value={number}
-                  onChange={(e) => setNumber(e)}
-                />
-              </div>
-              <div className="md:w-1/2 w-full md:mt-0 mt-3 space-y-5">
-                <InputField
-                  heading={t("User Name")}
-                  value={username}
-                  onChange={(e) => setUserName(e)}
-                />
-                <Calender
-                  type="calendar"
-                  heading={t("DOB")}
-                  value={date}
-                  onChange={(e) => setDate(e)}
-                />
-                <InputField
-                  heading={t("Password")}
-                  value={password}
-                  onChange={(e) => setPassword(e)}
-                />
-                <Select
-                  heading={t("Choose Option")}
-                  type="select"
-                  options={t(role)}
-                  onChange={(e) => setRole(e)}
-                />
-              </div>
-            </div>
-            <div className="flex flex-row justify-end mt-10 px-14">
-              <Button
-                type="submit"
-                buttonValue={t("Submit")}
-                buttonStyle="px-20 py-2 w-full "
-              />
-            </div>
-          </div>
-        </div>
-        {/* <CardMain width=" flex flex-row space-x-20 items-center justify-center py-20"> */}
-
-        {/* </CardMain> */}
-      </form>
-
-      <div className="w-full">
-        <input
-          ref={fileInputRef}
-          type="file"
-          onChange={handleSelectImage}
-          style={{ display: "none" }}
+      {/* <div className="flex md:flex-row flex-col  md:space-x-6">
+        <Notifications
+          value={notifications?.length || 0}
+          heading="Total Notifications"
+          color="text-blue-500 text-xl"
         />
-      </div>
+        <Notifications
+          value="1"
+          heading="Clicked"
+          color="text-green-500 text-xl"
+        />
+        <Notifications
+          value="3"
+          heading="Delivered"
+          color="text-orange-500 text-xl"
+        />
+        <Notifications
+          value="8"
+          heading="Not Click Yet"
+          color="text-red-700 text-xl"
+        />
+      </div> */}
+      <CardMain
+        width="w-full "
+        heading={t("All Admins and Moderators")}
+        // icon={<IoNotifications className="text-primary text-xl" />}
+        showButton={true}
+        buttonValue={"Add New User"}
+        onButtonClick={() => setModelOpen(true)}
+      >
+        <div className="overflow-x-auto relative  mt-4">
+          <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
+              <tr>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("First Name")}
+                </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("Emial")}
+                </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("Id Number")}
+                </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("Mobile Number")}
+                </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("User Name")}
+                </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("DOB")}
+                </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("Role")}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {notifications?.map((v, k) => (
+                <tr
+                  key={k}
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <td
+                    scope="row"
+                    className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
+                  >
+                    <img
+                      src={v?.img}
+                      className="avatar h-10 w-10 rounded-full cursor-pointer"
+                    />
+                  </td>
+                  <td scope="row" className="px-3 py-4">
+                    {v?.subject}
+                  </td>
+                  <td className="px-3 py-4">{v?.content}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </CardMain>
+
+      {modelOpen ? (
+        <Model setModelOpen={(e) => setModelOpen(e)} reset={() => reset()}>
+          <User setModelOpen={(e) => setModelOpen(e)} />
+        </Model>
+      ) : null}
+
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
@@ -198,59 +142,53 @@ function CreateUser() {
     </div>
   );
 }
-export default CreateUser;
-
-function Select({ heading, value, onChange }) {
-  const { t } = useTranslation();
-
-  var options = [
-    { value: "option1", label: "Moderater" },
-    { value: "option1", label: "Admin" },
-    { value: "option2", label: "User" },
-  ];
+export default NotificationsScreen;
+function Notifications({ heading, value, color }) {
   return (
-    <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700">{heading}</a>{" "}
-      <select
-        onChange={(e) => onChange(e.target.value)}
-        value={value}
-        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
-      >
-        {options.map((option, index) => (
-          <option key={index} value={option.value}>
-            {t(option.label)}
-          </option>
-        ))}
-      </select>
+    <div className="flex font-semibold flex-col bg-gray-300  px-10 py-8 text-center rounded-md md:w-1/4 w-full md:mt-0 mt-4 hover:bg-opacity-70 cursor-pointer shadow-xl duration-300">
+      <a className={color}>{value}</a>
+      <a className="text-xs text-gray-700 mt-2">{heading}</a>
     </div>
   );
 }
 
-function Calender({ heading, value, onChange }) {
+function Model({ children, setModelOpen, reset }) {
   return (
-    <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700">{heading}</a>
-
-      <DatePicker
-        selected={value}
-        onChange={(date) => onChange(date)}
-        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
-      />
-    </div>
-  );
-}
-
-function InputField({ heading, value, onChange, type }) {
-  return (
-    <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700">{heading}</a>
-
-      <input
-        type={type || "text"}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
-      />
+    <div
+      id="default-modal"
+      tabIndex="-1"
+      className="bg-gray-200 bg-opacity-30 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full flex"
+    >
+      <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+            {/* {heading} */} Add User
+          </h3>
+          <button
+            type="button"
+            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            onClick={() => reset()}
+          >
+            <svg
+              className="w-3 h-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 14"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+              />
+            </svg>
+            <span className="sr-only">Close modal</span>
+          </button>
+        </div>
+        {children}
+      </div>
     </div>
   );
 }
