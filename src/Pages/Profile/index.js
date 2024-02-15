@@ -126,7 +126,7 @@ const data = [
     icon: <MdFormatListBulleted className="text-sm" />,
   },
   {
-    label: "History",
+    label: "Agreement",
     tab: <History />,
     icon: <RiHistoryFill className="text-sm" />,
   },

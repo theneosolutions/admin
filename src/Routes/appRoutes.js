@@ -26,7 +26,7 @@ import LoanApplications from "Pages/LOS/loanApplications";
 import Notifications from "Pages/Notifications/notificationsDashboard";
 import UserDashboard from "Pages/Users/dashboard";
 import AllInstallments from "Pages/LOS/installments/allinstallments";
-
+import TermAndConditions from "Pages/Notifications/termsConditions";
 const appRoutes = [
   {
     index: true,
@@ -250,6 +250,14 @@ const appRoutes = [
         state: "response.notifications",
         sidebarProps: {
           displayText: "Notifications",
+        },
+      },
+      {
+        path: "/response/term-conditions",
+        element: <TermAndConditions />,
+        state: "response.term-conditions",
+        sidebarProps: {
+          displayText: "Term And Conditions",
         },
       },
     ],

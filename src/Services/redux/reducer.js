@@ -32,6 +32,7 @@ const initialState = {
   getAllCards: [],
   getUserApplication: {},
   getUserById: {},
+  getTermsConditions: [],
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -146,6 +147,11 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getUserById = data;
     },
+
+    GetTermsConditions: (state, action) => {
+      const { data } = action.payload;
+      state.getTermsConditions = data;
+    },
   },
 });
 export const {
@@ -176,6 +182,7 @@ export const {
   GetUserApplication,
   GetUserById,
   Notifications,
+  GetTermsConditions,
 } = Reducer.actions;
 
 export default Reducer.reducer;

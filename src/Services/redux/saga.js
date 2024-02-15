@@ -733,6 +733,50 @@ function* GetAllNotifications({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* AddTermsAndConditions({ payload }) {
+  console.log("payload", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.post,
+      baseUrlCms + `/terms/saveTerms`,
+      payload
+    );
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: response1.data.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
+function* GetAllTermsAndConditions({ payload }) {
+  console.log("payload", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlCms + `/terms/getTerms`
+    );
+    yield put(action.GetTermsConditions(response));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -772,4 +816,6 @@ export default function* HomeSaga() {
   yield takeLatest("GET_USER_BY_ID", GetUserById);
   yield takeLatest("DELETE_USER_BY_ID", DeleteUserById);
   yield takeLatest("GET_ALL_NOTIFICATIONS", GetAllNotifications);
+  yield takeLatest("ADD_TERM_CONDITIONS", AddTermsAndConditions);
+  yield takeLatest("GET_ALL_TERMS", GetAllTermsAndConditions);
 }
