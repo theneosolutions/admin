@@ -55,8 +55,8 @@ function CreateUser() {
   }
   console.log("activeDataactiveData", activeData);
   return (
-    <div className=" flex flex-row space-x-5 ">
-      <div className="md:mt-0 mt-5 bg-gray-200 md:w-1/2 w-full">
+    <div className=" flex flex-col space-y-5 ">
+      <div className="md:mt-0 mt-5 bg-gray-200  w-full">
         <WaveAnimation show={loading} />
         <form onSubmit={handleSubmit}>
           <CardMain width="w-full" heading={"Create Terms And Conditions"}>
@@ -84,7 +84,7 @@ function CreateUser() {
         </form>
       </div>
 
-      <div className="md:w-1/2 w-full ">
+      <div className=" w-full ">
         <CardMain width="w-full" heading={"All Agreements"}>
           {" "}
           <div className="overflow-x-auto relative  mt-4">
