@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CardMain from "Components/Cards/main";
 import { MdOutlineVerified } from "react-icons/md";
-import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { RiUserStarLine } from "react-icons/ri";

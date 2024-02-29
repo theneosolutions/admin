@@ -5,7 +5,9 @@ import * as action from "./reducer";
 var baseUrlUser = "https://seulah.ngrok.app/api/v1/auth";
 var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
 var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
-var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
+var baseUrlCms = "https://seulah.com/api/v1/cms";
+
+// "https://seulah.com/api/v1/cms";
 
 const axiosInstance = axios.create({
   headers: {
@@ -777,6 +779,87 @@ function* GetAllTermsAndConditions({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* GetNafithReport({ payload }) {
+  console.log("payload", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.post,
+      baseUrlCms +
+        `/nafith/downloadPDF?uuid=d30117de-7fe7-4e64-a9f1-49ff9e24f618`
+    );
+    console.log("response", response);
+    yield put(action.GetNafith(response));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
+function* GetNafithSanad({ payload }) {
+  console.log("payload", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.post,
+      baseUrlCms +
+        `/nafith/getSanadDetails?groupUid=${payload.groupUid}&sanadUid=${payload.sanadUid}`
+    );
+    console.log("response", response);
+    yield put(action.GetNafithSanad(response));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* GetNafathDetails({ payload }) {
+  console.log("payload nafath", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlUser + `/getUserInfoByNafath?userId=${payload}`
+    );
+    console.log("response", response);
+    yield put(action.GetNafathDetails(response));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
+function* GetSimahCodes({ payload }) {
+  console.log("payload sima", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.post,
+      baseUrlUser + `/getSimahCodes`
+    );
+    console.log("response", response);
+    yield put(action.GetSimahCodes(response));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -818,4 +901,8 @@ export default function* HomeSaga() {
   yield takeLatest("GET_ALL_NOTIFICATIONS", GetAllNotifications);
   yield takeLatest("ADD_TERM_CONDITIONS", AddTermsAndConditions);
   yield takeLatest("GET_ALL_TERMS", GetAllTermsAndConditions);
+  yield takeLatest("GET_NAFITH_REPORT", GetNafithReport);
+  yield takeLatest("GET_NAFITH_SANAD", GetNafithSanad);
+  yield takeLatest("GET_NAFATH_DETAILS", GetNafathDetails);
+  yield takeLatest("GET_SIMAH_CODES", GetSimahCodes);
 }

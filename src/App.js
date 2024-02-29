@@ -24,11 +24,12 @@ function App() {
 
   return (
     //HTML5Backend For Drag and drop Component in Applications page
-    <html dir={dir}>
-      <Provider store={store}>
+
+    <Provider store={store}>
+      <html dir={dir}>
         <DndProvider backend={HTML5Backend}>{<Routes />}</DndProvider>
-      </Provider>
-    </html>
+      </html>
+    </Provider>
   );
 }
 

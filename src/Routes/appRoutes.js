@@ -27,6 +27,8 @@ import Notifications from "Pages/Notifications/notificationsDashboard";
 import UserDashboard from "Pages/Users/dashboard";
 import AllInstallments from "Pages/LOS/installments/allinstallments";
 import TermAndConditions from "Pages/Notifications/termsConditions";
+import Simah from "Pages/Simah/simah";
+import SimahPageLayout from "Pages/Simah/SimahLayout";
 const appRoutes = [
   {
     index: true,
@@ -258,6 +260,30 @@ const appRoutes = [
         state: "response.term-conditions",
         sidebarProps: {
           displayText: "Term And Conditions",
+        },
+      },
+    ],
+  },
+  {
+    path: "/simah",
+    element: <SimahPageLayout />,
+    state: "simah",
+    sidebarProps: {
+      displayText: "Simah",
+      icon: <MdOutlineQuestionAnswer />,
+    },
+    child: [
+      {
+        index: true,
+        element: <Simah />,
+        state: "simah.index",
+      },
+      {
+        path: "/simah/codes",
+        element: <Simah />,
+        state: "simah.codes",
+        sidebarProps: {
+          displayText: "Simah",
         },
       },
     ],

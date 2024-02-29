@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import Antifraud from "./companyTabs/antiFraud";
 import Gosi from "./companyTabs/gosi";
 import Absher from "./companyTabs/absher";
+import Nafath from "./companyTabs/nafath";
+import Nafith from "./companyTabs/nafith";
+
 import AmlDetails from "./companyTabs/amlDetails";
 import TakwaDetails from "./companyTabs/takwadetails";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import NafithSanad from "./companyTabs/NafithSanad";
 
 function Template() {
   const dispatch = useDispatch();
@@ -25,11 +29,11 @@ function Template() {
       : "Select an item to see the description.";
   };
   function setNavigation(stateValue) {
-    getGosi();
+    // getGosi();
     setState(stateValue);
   }
   useEffect(() => {
-    getGosi();
+    // getGosi();
   }, []);
   function getGosi() {
     console.log("Gosi");
@@ -75,22 +79,34 @@ const data = [
     label: "Gosi",
     tab: <Gosi />,
   },
+  {
+    label: "Nafith",
+    tab: <Nafith />,
+  },
+  {
+    label: "Nafith Sanad",
+    tab: <NafithSanad />,
+  },
+  {
+    label: "Nafath Detail",
+    tab: <Nafath />,
+  },
 
   {
     label: "Absher Detail",
     tab: <Absher />,
   },
 
-  {
-    label: "Anti fraud Detail",
-    tab: <Antifraud />,
-  },
-  {
-    label: "AML Details",
-    tab: <AmlDetails />,
-  },
-  {
-    label: "Takwa Details",
-    tab: <TakwaDetails />,
-  },
+  // {
+  //   label: "Anti fraud Detail",
+  //   tab: <Antifraud />,
+  // },
+  // {
+  //   label: "AML Details",
+  //   tab: <AmlDetails />,
+  // },
+  // {
+  //   label: "Takwa Details",
+  //   tab: <TakwaDetails />,
+  // },
 ];

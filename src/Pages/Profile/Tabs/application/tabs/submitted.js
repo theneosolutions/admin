@@ -55,6 +55,7 @@ function LaonApplication() {
       );
     }
   }
+
   return (
     <div className="py-5  w-full">
       <WaveAnimation show={loading} />

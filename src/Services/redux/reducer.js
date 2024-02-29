@@ -33,6 +33,10 @@ const initialState = {
   getUserApplication: {},
   getUserById: {},
   getTermsConditions: [],
+  getNafith: {},
+  getNafithSanad: {},
+  getNafathDetail: {},
+  getSimahCodes: {},
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -152,6 +156,22 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getTermsConditions = data;
     },
+    GetNafith: (state, action) => {
+      const { data } = action.payload;
+      state.getNafith = data;
+    },
+    GetNafithSanad: (state, action) => {
+      const { data } = action.payload;
+      state.getNafithSanad = data;
+    },
+    GetNafathDetails: (state, action) => {
+      const { data } = action.payload;
+      state.getNafathDetail = data;
+    },
+    GetSimahCodes: (state, action) => {
+      const { data } = action.payload;
+      state.getSimahCodes = data;
+    },
   },
 });
 export const {
@@ -183,6 +203,10 @@ export const {
   GetUserById,
   Notifications,
   GetTermsConditions,
+  GetNafith,
+  GetNafithSanad,
+  GetNafathDetails,
+  GetSimahCodes,
 } = Reducer.actions;
 
 export default Reducer.reducer;
