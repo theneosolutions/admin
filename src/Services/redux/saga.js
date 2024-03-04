@@ -544,7 +544,7 @@ function* GetGosiApi(payload) {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
       axiosInstance.get,
-      baseUrlDecisions + `/formula/getGosiByUserId?idNumber=${payload.payload}`
+      baseUrlCms + `/gosi/income?customerId=${payload.payload}`
     );
     yield put(action.GetGosiData(response));
     yield put(action.Loading({ Loading: false }));

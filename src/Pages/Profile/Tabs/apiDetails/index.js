@@ -33,13 +33,13 @@ function Template() {
     setState(stateValue);
   }
   useEffect(() => {
-    // getGosi();
+    getGosi();
   }, []);
   function getGosi() {
     console.log("Gosi");
     dispatch({
       type: "GET_GOSI_API",
-      payload: id,
+      payload: 1033139781,
     });
   }
   return (
