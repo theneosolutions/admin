@@ -860,6 +860,49 @@ function* GetSimahCodes({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* GetAllUsersAll({ payload }) {
+  console.log("PALLYLYLYL", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlUser + `/user/getAllUser`
+    );
+    console.log("helo", response);
+    yield put(action.GetAllUsersAll(response));
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* ActiveDeactiveUser({ payload }) {
+  console.log("helo", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+    const response = yield call(
+      axiosInstance.post,
+      baseUrlUser +
+        `/user/deactivateAccount?idNumber=${payload?.id}&status=${payload?.value}`
+    );
+
+    yield put(
+      action.Message({
+        message: response?.data?.message,
+        open: true,
+        error: true,
+      })
+    );
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -905,4 +948,6 @@ export default function* HomeSaga() {
   yield takeLatest("GET_NAFITH_SANAD", GetNafithSanad);
   yield takeLatest("GET_NAFATH_DETAILS", GetNafathDetails);
   yield takeLatest("GET_SIMAH_CODES", GetSimahCodes);
+  yield takeLatest("GET_ALL_USERS_ALL", GetAllUsersAll);
+  yield takeLatest("ACTIVE_DEACTIVE_USER", ActiveDeactiveUser);
 }

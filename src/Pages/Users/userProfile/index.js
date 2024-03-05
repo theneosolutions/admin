@@ -33,7 +33,7 @@ function LaonApplication() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const userId = queryParams.get("id");
-
+  console.log("data", data);
   useEffect(() => {
     getUserLoanDetail();
   }, []);
@@ -41,8 +41,9 @@ function LaonApplication() {
   function SetStatus() {
     dispatch({
       type: "SET_STATUS_OF_APPLICATION",
-      payload: { status: active, id: userId },
+      payload: { status: active, id: data?.id },
     });
+    setTimeout(() => getUserLoanDetail(), 500);
   }
   function getUserLoanDetail() {
     dispatch({

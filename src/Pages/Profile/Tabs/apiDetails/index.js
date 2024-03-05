@@ -3,7 +3,7 @@ import Antifraud from "./companyTabs/antiFraud";
 import Gosi from "./companyTabs/gosi";
 import Absher from "./companyTabs/absher";
 import Nafath from "./companyTabs/nafath";
-import Nafith from "./companyTabs/nafith";
+// import Nafith from "./companyTabs/nafith";
 
 import AmlDetails from "./companyTabs/amlDetails";
 import TakwaDetails from "./companyTabs/takwadetails";
@@ -17,10 +17,11 @@ function Template() {
 
   const navigate = useNavigate();
   const location = useLocation();
+
   const queryParams = new URLSearchParams(location.search);
 
-  const [state, setState] = useState("Gosi");
   const id = queryParams.get("id");
+  const [state, setState] = useState("Gosi");
 
   const getTab = () => {
     const activeItem = data.find((item) => item.label === state);
@@ -39,7 +40,7 @@ function Template() {
     console.log("Gosi");
     dispatch({
       type: "GET_GOSI_API",
-      payload: 1033139781,
+      payload: id,
     });
   }
   return (
@@ -79,12 +80,12 @@ const data = [
     label: "Gosi",
     tab: <Gosi />,
   },
+  // {
+  //   label: "Nafith",
+  //   tab: <Nafith />,
+  // },
   {
     label: "Nafith",
-    tab: <Nafith />,
-  },
-  {
-    label: "Nafith Sanad",
     tab: <NafithSanad />,
   },
   {

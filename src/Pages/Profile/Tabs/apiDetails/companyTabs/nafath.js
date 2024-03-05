@@ -1,233 +1,211 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 function Nafath() {
+  const [address, setAddress] = useState({});
   const getNafathDetail = useSelector((state) => state.getNafathDetail);
 
   const dispatch = useDispatch();
+
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+
+  const user = queryParams.get("user");
   function GetNafathDetail() {
     dispatch({
       type: "GET_NAFATH_DETAILS",
-      payload: 1,
+      payload: user,
     });
   }
   useEffect(() => {
     GetNafathDetail();
   }, []);
-  console.log("getNafathDetail", getNafathDetail);
+  useEffect(() => {
+    console.log("national Addressss", getNafathDetail?.nationalAddress);
+    if (getNafathDetail?.nationalAddress) {
+      setAddress(getNafathDetail?.nationalAddress[0]);
+    }
+  }, [getNafathDetail?.nationalAddress]);
+
+  console.log("getNafathDetail", address);
   return (
     <div className="w-full">
-      <div className="overflow-x-auto relative">
-        <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-400 uppercase bg-gray-200 font-normal">
-            <tr>
-              <th scope="col" className="px-3 py-3">
-                aud
-              </th>
-              <th scope="col" className="px-3 py-3">
-                dateOfBirthG
-              </th>
-              <th scope="col" className="px-3 py-3">
-                dateOfBirthH
-              </th>
-              <th scope="col" className="px-3 py-3 cursor-pointer">
-                English First Name
-              </th>
-              <th scope="col" className="px-3 py-3 cursor-pointer">
-                English Last Name
-              </th>
-              <th scope="col" className="px-3 py-3">
-                English Second Name
-              </th>
-              <th scope="col" className="px-3 py-3">
-                English Third Name
-              </th>
-              <th scope="col" className="px-3 py-3">
-                exp
-              </th>
-              <th scope="col" className="px-3 py-3">
-                firstName
-              </th>
-              <th scope="col" className="px-3 py-3">
-                gender
-              </th>
-              <th scope="col" className="px-3 py-3">
-                iat
-              </th>
-              <th scope="col" className="px-3 py-3">
-                id
-              </th>
-              <th scope="col" className="px-3 py-3">
-                iqamaExpiryDateG
-              </th>
-              <th scope="col" className="px-3 py-3">
-                iqamaIssueDateG
-              </th>
-              <th scope="col" className="px-3 py-3">
-                iqamaIssueDateH
-              </th>
-              <th scope="col" className="px-3 py-3">
-                iqamaIssuePlaceCode
-              </th>
-              <th scope="col" className="px-3 py-3">
-                iqamaIssuePlaceDesc
-              </th>
-              <th scope="col" className="px-3 py-3">
-                iqamaNumber
-              </th>
-              <th scope="col" className="px-3 py-3">
-                iqamaVersionNumber
-              </th>
-              <th scope="col" className="px-3 py-3">
-                iss
-              </th>
-              <th scope="col" className="px-3 py-3">
-                jti
-              </th>
-              <th scope="col" className="px-3 py-3">
-                jwks_uri
-              </th>
-              <th scope="col" className="px-3 py-3">
-                lastName
-              </th>
-              <th scope="col" className="px-3 py-3">
-                nationalityCode
-              </th>
-              <th scope="col" className="px-3 py-3">
-                nationalityDesc
-              </th>
-              <th scope="col" className="px-3 py-3">
-                nbf
-              </th>
-              <th scope="col" className="px-3 py-3">
-                personId
-              </th>
-              <th scope="col" className="px-3 py-3">
-                secondName
-              </th>
-              <th scope="col" className="px-3 py-3">
-                serviceName
-              </th>
-              <th scope="col" className="px-3 py-3">
-                status
-              </th>
-              <th scope="col" className="px-3 py-3">
-                sub
-              </th>
-              <th scope="col" className="px-3 py-3">
-                thirdName
-              </th>{" "}
-              <th scope="col" className="px-3 py-3">
-                transId
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.aud}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.dateOfBirthG}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.dateOfBirthH}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.englishFirstName}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.englishLastName}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.englishSecondName}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.englishThirdName}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.exp}</a>
-              </td>{" "}
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.firstName}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.gender}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.iat}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.id}</a>
-              </td>{" "}
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.iqamaExpiryDateG}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.iqamaIssueDateG}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.iqamaIssueDateH}</a>
-              </td>{" "}
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.iqamaIssuePlaceCode}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.iqamaIssuePlaceDesc}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.iqamaNumber}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.iqamaVersionNumber}</a>
-              </td>{" "}
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.iss}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.jti}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.jwks_uri}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.lastName}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.nationalityCode}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.nationalityDesc}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.nbf}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.personId}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.secondName}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.serviceName}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.status}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.sub}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.thirdName}</a>
-              </td>
-              <td scope="row" className="px-3 py-4">
-                <a>{getNafathDetail?.transId}</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div>
+        {getNafathDetail && (
+          <div className="flex flex-row">
+            <div className="w-1/3">
+              <Table />
+            </div>
+            <Table2 getNafathDetail={getNafathDetail} />
+          </div>
+        )}
       </div>
+
+      {address && <div>{<Address data={address} />}</div>}
     </div>
   );
 }
 export default Nafath;
+
+function Address({ data }) {
+  return (
+    <div className="flex flex-col text-md text-gray-600 px-4 space-y-4 my-4 ">
+      <div className="flex flex-row">
+        <div className="w-1/3">Additional Number</div>
+        <div className="w-1/2 font-semibold">{data?.additionalNumber}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">Address Id</div>
+        <div className="w-1/2 font-semibold">{data?.address_id}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">Building Number</div>
+        <div className="w-1/2 font-semibold">{data?.buildingNumber}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">City</div>
+        <div className="w-1/2 font-semibold">{data?.city}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">City Id</div>
+        <div className="w-1/2 font-semibold">{data?.cityId}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">City L2</div>
+        <div className="w-1/2 font-semibold">{data?.cityL2}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">District</div>
+        <div className="w-1/2 font-semibold">{data?.district}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">District ID</div>
+        <div className="w-1/2 font-semibold">{data?.districtID}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">District L2</div>
+        <div className="w-1/2 font-semibold">{data?.districtL2}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">Is Primary Address</div>
+        <div className="w-1/2 font-semibold">{data?.isPrimaryAddress}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">Location Coordinates</div>
+        <div className="w-1/2 font-semibold">{data?.locationCoordinates}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">Post Code</div>
+        <div className="w-1/2 font-semibold">{data?.postCode}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">Region Id</div>
+        <div className="w-1/2 font-semibold">{data?.regionId}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">Region Name</div>
+        <div className="w-1/2 font-semibold">{data?.regionName}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">Region Name L2</div>
+        <div className="w-1/2 font-semibold">{data?.regionNameL2}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">Short Address</div>
+        <div className="w-1/2 font-semibold">{data?.shortAddress}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">Street L2</div>
+        <div className="w-1/2 font-semibold">{data?.streetL2}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">Street Name</div>
+        <div className="w-1/2 font-semibold">{data?.streetName}</div>
+      </div>
+      <div className="flex flex-row">
+        <div className="w-1/3">Unit Number</div>
+        <div className="w-1/2 font-semibold">{data?.unitNumber}</div>
+      </div>
+    </div>
+  );
+}
+function Table2({ getNafathDetail }) {
+  return (
+    <div className="flex flex-col text-md text-gray-600 px-4 space-y-4 my-4 font-semibold">
+      <a>{getNafathDetail?.aud || "null"}</a>
+      <a>{getNafathDetail?.dateOfBirthG || "null"}</a>
+      <a>{getNafathDetail?.dateOfBirthH || "null"}</a>
+      <a>{getNafathDetail?.englishFirstName || "null"}</a>
+      <a>{getNafathDetail?.englishLastName || "null"}</a>
+      <a>{getNafathDetail?.englishSecondName || "null"}</a>
+      <a>{getNafathDetail?.englishThirdName || "null"}</a>
+      <a>{getNafathDetail?.exp || "null"}</a>
+      <a>{getNafathDetail?.firstName || "null"}</a>
+      <a>{getNafathDetail?.gender || "null"}</a>
+      <a>{getNafathDetail?.iat || "null"}</a>
+      <a>{getNafathDetail?.id || "null"}</a>
+      <a>{getNafathDetail?.iqamaExpiryDateG || "null"}</a>
+      <a>{getNafathDetail?.iqamaIssueDateG || "null"}</a>
+      <a>{getNafathDetail?.iqamaIssueDateH || "null"}</a>{" "}
+      <a>{getNafathDetail?.iqamaIssuePlaceCode || "null"}</a>
+      <a>{getNafathDetail?.iqamaIssuePlaceDesc || "null"}</a>
+      <a>{getNafathDetail?.iqamaNumber || "null"}</a>
+      <a>{getNafathDetail?.iqamaVersionNumber || "null"}</a>
+      <a>{getNafathDetail?.iss || "null"}</a>
+      <a>{getNafathDetail?.jti || "null"}</a>
+      <a>{getNafathDetail?.jwks_uri || "null"}</a>
+      <a>{getNafathDetail?.lastName || "null"}</a>
+      <a>{getNafathDetail?.nationalityCode || "null"}</a>
+      <a>{getNafathDetail?.nationalityDesc || "null"}</a>
+      <a>{getNafathDetail?.nbf || "null"}</a>
+      <a>{getNafathDetail?.personId || "null"}</a>
+      <a>{getNafathDetail?.secondName || "null"}</a>
+      <a>{getNafathDetail?.serviceName || "null"}</a>
+      <a>{getNafathDetail?.status || "null"}</a>
+      <a>{getNafathDetail?.sub || "null"}</a>
+      <a>{getNafathDetail?.thirdName || "null"}</a>
+      <a>{getNafathDetail?.transId || "null"}</a>
+    </div>
+  );
+}
+function Table() {
+  return (
+    <div className="flex flex-col text-md text-gray-700 px-4 space-y-4 my-4">
+      <a className="">Aud</a>
+      <a className="">dateOfBirthG</a>
+      <a className="">dateOfBirthH</a>
+      <a className="">English First Name</a>
+      <a className="">English Last Name</a>
+      <a className="">English Second Name</a>
+      <a className="">English Third Name</a>
+      <a className="">exp</a>
+      <a className="">firstName</a>
+      <a className="">gender</a>
+      <a className="">iat</a>
+      <a className="">id</a>
+      <a className="">iqamaExpiryDateG</a>
+      <a className="">iqamaIssueDateG</a>
+      <a className="">iqamaIssueDateH</a>
+      <a className="">iqamaIssuePlaceCode</a>
+      <a className="">iqamaIssuePlaceDesc</a>
+      <a className="">iqamaNumber</a>
+      <a className="">iqamaVersionNumber</a>
+      <a className="">iss</a>
+      <a className="">jti</a>
+      <a className="">jwks_uri</a>
+      <a className="">lastName</a>
+      <a className="">nationalityCode</a>
+      <a className="">nationalityDesc</a>
+      <a className="">nbf</a>
+      <a className="">personId</a>
+      <a className="">secondName</a>
+      <a className="">serviceName</a>
+      <a className="">status</a>
+      <a className="">sub</a>
+      <a className="">thirdName</a>
+      <a className="">transId</a>
+    </div>
+  );
+}

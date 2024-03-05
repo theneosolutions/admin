@@ -68,7 +68,7 @@ function Template() {
   return (
     <div className="flex flex-col">
       <WaveAnimation show={loading} />
-      <div className="bg-white px-5 py-3 flex flex-row space-x-7">
+      <div className="bg-white px-5 py-3 flex flex-row space-x-7 lg:mt-0 mt-4">
         {data?.map((v, k) => {
           return (
             <div
@@ -85,11 +85,11 @@ function Template() {
       </div>
 
       <div className="flex flex-col   w-full">
-        <div className="flex flex-row space-x-6 mt-6">
-          <div className="w-1/4">
+        <div className="flex   lg:flex-row flex-col-reverse lg:space-x-6 mt-6">
+          <div className="w-full lg:w-1/4 lg:mt-0 mt-4 ">
             {userData && <ProfileSidebar userData={userData} />}
           </div>
-          <div className="w-9/12">
+          <div className="w-full lg:w-9/12 ">
             <div className="flex flex-row"></div>
             <div className="flex flex-row space-x-5  ">{getTab()}</div>
           </div>

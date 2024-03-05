@@ -10,6 +10,8 @@ import Demo from "../Pages/Dashboard/Demo";
 import UserList from "../Pages/Dashboard/UserList";
 import UsersPageLayout from "../Pages/Users/UsersPageLayout";
 import Verified from "../Pages/Users/verified";
+import AllUsers from "../Pages/Users/AllUsers";
+
 import Unverified from "../Pages/Users/unverified";
 import Dump from "../Pages/Users/dump";
 import DecisionLayout from "../Pages/Decision/DecisionPageLayout";
@@ -99,6 +101,14 @@ const appRoutes = [
         state: "users.dashboard",
         sidebarProps: {
           displayText: "User Dashboard",
+        },
+      },
+      {
+        path: "/users/allusers",
+        element: <AllUsers />,
+        state: "users.allusers",
+        sidebarProps: {
+          displayText: "All Users",
         },
       },
       {

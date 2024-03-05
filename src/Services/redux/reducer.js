@@ -37,6 +37,7 @@ const initialState = {
   getNafithSanad: {},
   getNafathDetail: {},
   getSimahCodes: {},
+  getAllUsersAll: [],
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -172,6 +173,10 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getSimahCodes = data;
     },
+    GetAllUsersAll: (state, action) => {
+      const { data } = action.payload;
+      state.getAllUsersAll = data;
+    },
   },
 });
 export const {
@@ -207,6 +212,7 @@ export const {
   GetNafithSanad,
   GetNafathDetails,
   GetSimahCodes,
+  GetAllUsersAll,
 } = Reducer.actions;
 
 export default Reducer.reducer;

@@ -171,7 +171,11 @@ function LaonApplication() {
                       icon={
                         "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes-thumbnail.png"
                       }
-                      onClick={() => navigate(`/profile?id=${v?.id}`)}
+                      // onClick={() =>
+                      //   navigate(
+                      //     `/profile?id=${v?.user.idNumber}&name=Profile&user=${v?.user?.id}`
+                      //   )
+                      // }
                     />
 
                     <a>{v.userId}</a>
@@ -185,7 +189,7 @@ function LaonApplication() {
 
                   <td className="px-3 py-4">
                     <div
-                      onClick={() => navigate(`/user-profile?id=${v.id}`)}
+                      onClick={() => navigate(`/user-profile?id=${v.userId}`)}
                       className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
                     >
                       View Details
