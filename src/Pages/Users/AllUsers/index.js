@@ -18,8 +18,11 @@ function AllUsers() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [modelOpen, setModelOpen] = useState(false);
-  const [selectedUserId, setSelectedUserId] = useState(false);
+  const [modelOpen2, setModelOpen2] = useState(false);
 
+  const [selectedUserId, setSelectedUserId] = useState(false);
+  const [idNumber, setIdNumber] = useState("");
+  const [id, setId] = useState("");
   const users = useSelector((state) => state.getAllUsersAll);
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
@@ -52,12 +55,13 @@ function AllUsers() {
     setTimeout(() => getAllUsersData(), 500);
   }
 
-  function functionActivateUser(id, value) {
+  function functionActivateUser() {
     dispatch({
       type: "ACTIVE_DEACTIVE_USER",
-      payload: { id, value },
+      payload: { idNumber, id },
     });
     setTimeout(() => getAllUsersData(), 500);
+    setModelOpen2(false);
   }
 
   return (
@@ -154,14 +158,22 @@ function AllUsers() {
                   <td className="px-3 py-4">
                     {v?.accountStatus === "0" ? (
                       <div
-                        onClick={() => functionActivateUser(v?.idNumber, 1)}
+                        onClick={() => (
+                          setIdNumber(v?.idNumber),
+                          setId(1),
+                          setModelOpen2(true)
+                        )}
                         className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 bg-red-400  text-white"
                       >
                         De Activate
                       </div>
                     ) : v?.accountStatus === "1" ? (
                       <div
-                        onClick={() => functionActivateUser(v?.idNumber, 0)}
+                        onClick={() => (
+                          setIdNumber(v?.idNumber),
+                          setId(0),
+                          setModelOpen2(true)
+                        )}
                         className=" border border-green-400  bg-green-400  text-white px-3 py-1 w-max rounded-md cursor-pointer 
                         duration-300 "
                       >
@@ -190,13 +202,30 @@ function AllUsers() {
       </CardMain>
 
       <Model
+        heading="User Action"
+        isOpen={modelOpen2}
+        style="w-1/3"
+        innerStyle="py-10"
+        setState={() => setModelOpen2(!modelOpen2)}
+        action1Value="Cancel"
+        action2Value={id === 1 ? "Activate" : "DeActivate"}
+        action2={() => functionActivateUser()}
+        action1={() => setModelOpen2(!modelOpen2)}
+      >
+        <a className=" text-xl text-gray-800 ">
+          Are You Sure ?
+          {/* <span className="font-semibold"> Ali Imtayaz</span> ? */}
+        </a>
+      </Model>
+
+      <Model
         heading="Delete User"
         isOpen={modelOpen}
         style="w-1/3"
         innerStyle="py-10"
         setState={() => setModelOpen(!modelOpen)}
         action1Value="Cancel"
-        action2Value="Delete"
+        action2Value={"Delete"}
         action2={() => DeleteUser()}
         action1={() => setModelOpen(!modelOpen)}
       >

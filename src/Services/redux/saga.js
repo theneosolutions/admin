@@ -885,7 +885,7 @@ function* ActiveDeactiveUser({ payload }) {
     const response = yield call(
       axiosInstance.post,
       baseUrlUser +
-        `/user/deactivateAccount?idNumber=${payload?.id}&status=${payload?.value}`
+        `/user/deactivateAccount?idNumber=${payload?.idNumber}&status=${payload?.id}`
     );
 
     yield put(
