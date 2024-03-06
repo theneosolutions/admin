@@ -24,9 +24,9 @@ function Simah() {
     });
   }, []);
   return (
-    <div className="  bg-white  border border-primary w-full rounded-lg ">
+    <div className="  bg-white  border border-primary w-full rounded-lg mt-4 md:mt-0">
       <WaveAnimation show={loading} />
-      <div className="flex flex-row  ">
+      <div className="flex flex-row  overflow-x-auto">
         {data?.map((v, k) => {
           return (
             <div

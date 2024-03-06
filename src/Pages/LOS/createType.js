@@ -7,6 +7,7 @@ import { Alert, Snackbar } from "@mui/material";
 import UplaodIcon from "Assets/Images/upload.svg";
 import { useNavigate } from "react-router-dom";
 import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
+import { CiCircleRemove } from "react-icons/ci";
 
 function App() {
   const { t } = useTranslation();
@@ -129,6 +130,11 @@ function App() {
     setImage(null);
     setImage2(null);
   }
+
+  function Remove(key) {
+    const temp = formData.filter((item, index) => index !== key);
+    setFormData(temp);
+  }
   return (
     <div className="container mx-auto mt-5 space-y-6">
       <WaveAnimation show={loading} />
@@ -182,40 +188,49 @@ function App() {
 
                 <div className="mt-4">
                   {formData?.map((data, index) => (
-                    <div key={index} className="mb-4 flex space-x-2">
-                      <div className="flex flex-col w-1/2 ">
-                        <a className="text-sm text-gray-700">Months</a>
+                    <div
+                      key={index}
+                      className="mb-4 flex  flex-row justify-between items-end "
+                    >
+                      <div className="flex flex-row w-11/12	space-x-2">
+                        <div className="flex flex-col w-1/2	 ">
+                          <a className="text-sm text-gray-700">Months</a>
 
-                        <input
-                          type="number"
-                          value={data.key || ""}
-                          onChange={(e) =>
-                            handleChange(index, "key", e.target.value)
-                          }
-                          className="border-primary border rounded-md  px-3 py-1.5 outline-none mt-2 w-full"
-                          placeholder="Key"
-                        />
+                          <input
+                            type="number"
+                            value={data.key || ""}
+                            onChange={(e) =>
+                              handleChange(index, "key", e.target.value)
+                            }
+                            className="border-primary border rounded-md  px-3 py-1.5 outline-none mt-2 w-full"
+                            placeholder="Key"
+                          />
+                        </div>
+
+                        <div className="flex flex-col w-1/2	 ">
+                          <a className="text-sm text-gray-700">Ratio</a>
+
+                          <input
+                            type="number"
+                            value={data.value || ""}
+                            onChange={(e) =>
+                              handleChange(index, "value", e.target.value)
+                            }
+                            className="border-primary border rounded-md  px-3 py-1.5 outline-none mt-2 w-full"
+                            placeholder="Value"
+                          />
+                        </div>
                       </div>
-
-                      <div className="flex flex-col w-1/2 ">
-                        <a className="text-sm text-gray-700">Ratio</a>
-
-                        <input
-                          type="number"
-                          value={data.value || ""}
-                          onChange={(e) =>
-                            handleChange(index, "value", e.target.value)
-                          }
-                          className="border-primary border rounded-md  px-3 py-1.5 outline-none mt-2 w-full"
-                          placeholder="Value"
-                        />
-                      </div>
+                      <CiCircleRemove
+                        className="mb-1 text-3xl text-red-700 cursor-pointer hover:text-red-400 duration-300"
+                        onClick={() => Remove(index)}
+                      />
                     </div>
                   ))}
                 </div>
 
                 <div className="flex flex-col">
-                  <div className="flex flex row items-end justify-end">
+                  <div className=" flex row items-end justify-end">
                     <button
                       onClick={handleAddMore}
                       className={`w-max rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}
@@ -239,7 +254,7 @@ function App() {
         <CardMain width="w-full mt-4 h-max pb-8" heading={t("All Loan Types")}>
           <div className="flex flex-wrap ">
             {loanReasons?.map((v, k) => (
-              <div className="md:px-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
+              <div className="px-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
                 <div
                   key={k}
                   onClick={() =>

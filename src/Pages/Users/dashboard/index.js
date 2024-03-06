@@ -27,14 +27,15 @@ function App() {
 
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
+  const usersData = useSelector((state) => state.getAllUsersAll);
 
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
   useEffect(() => {
-    getAllUsersData();
+    getAllApplication();
   }, []);
-  function getAllUsersData() {
+  function getAllApplication() {
     dispatch({
       type: "GET_LOAN_APPLICATIONS",
     });
@@ -42,6 +43,17 @@ function App() {
   function onDelete() {
     setModelOpen(true);
   }
+
+  useEffect(() => {
+    // DeleteUser();
+    getAllUsersData();
+  }, []);
+  function getAllUsersData() {
+    dispatch({
+      type: "GET_ALL_USERS_ALL",
+    });
+  }
+  console.log("usersData", users);
   return (
     <div className="  mt-5 space-y-6">
       <div className="flex flex-wrap lg:flex-row   ">
@@ -60,13 +72,6 @@ function App() {
           icon={<PiChartScatterBold className="text-4xl text-gray-500" />}
         />
         <Notifications
-          value="6"
-          heading="Former User"
-          color="text-yellow-400 text-xl"
-          bg=" bg-gradient-to-r from-yellow-500 via-yellow-500 to-yellow-300"
-          icon={<BsBarChartSteps className="text-3xl text-gray-500" />}
-        />
-        <Notifications
           value="15"
           heading="On Hold"
           color="text-purple-400 text-xl"
@@ -81,16 +86,16 @@ function App() {
           icon={<FaWpforms className="text-3xl text-gray-500" />}
         />
       </div>
-      <div className="flex flex-col md:flex-row md:space-x-6 rtl:space-x-reverse">
+      <div className="flex flex-col lg:flex-row lg:space-x-6 rtl:space-x-reverse">
         <CardMain
-          width="w-full md:w-2/3 md:mt-0 mt-4 "
+          width="w-full lg:w-2/3 lg:mt-0 mt-4 "
           heading={t("Monthly Activity Of Users")}
         >
           <div className="">
             <ColumnChartBasic />
           </div>
         </CardMain>
-        <div className="w-full md:w-1/3 md:mt-0 mt-4">
+        <div className="w-full lg:w-1/3 lg:mt-0 mt-4">
           <div className={`bg-white rounded shadow-sm  rtl:space-x-reverse  `}>
             <div className="px-5 py-4 border-b flex flex-row  items-center justify-between">
               <div className="text-base font-semibold text-gray-700">
@@ -127,9 +132,9 @@ function App() {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row md:space-x-6 rtl:space-x-reverse">
+      <div className="flex flex-col lg:flex-row lg:space-x-6 rtl:space-x-reverse">
         <CardMain
-          width="w-full md:w-1/2 md:mt-0 mt-4 "
+          width="w-full lg:w-1/2 lg:mt-0 mt-4 "
           heading={t("Performance Score")}
         >
           <div className="">
@@ -137,7 +142,7 @@ function App() {
           </div>
         </CardMain>
         <CardMain
-          width="w-full md:w-1/2	 md:mt-0 mt-4 "
+          width="w-full lg:w-1/2	 lg:mt-0 mt-4 "
           heading={t("Users Anti Fraud History")}
         >
           <div className="">
@@ -190,7 +195,7 @@ function App() {
               </tr>
             </thead>
             <tbody>
-              {users.map((v, k) => (
+              {users?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -199,12 +204,16 @@ function App() {
                     scope="row"
                     className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
                   >
-                    <Avatar
+                    {/* <Avatar
                       icon={
                         "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes-thumbnail.png"
                       }
-                      onClick={() => navigate("/profile")}
-                    />
+                      onClick={() =>
+                        navigate(
+                          `/profile?id=${v?.idNumber}&name=Profile&user=${v?.id}`
+                        )
+                      }
+                    /> */}
 
                     <a>{v.userId}</a>
                   </td>
@@ -217,7 +226,7 @@ function App() {
 
                   <td className="px-3 py-4">
                     <div
-                      onClick={() => navigate(`/user-profile?id=${v.id}`)}
+                      onClick={() => navigate(`/user-profile?id=${v.userId}`)}
                       className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
                     >
                       View Details
@@ -301,17 +310,18 @@ function ActionCenter({ icon, heading, des, image }) {
 }
 function Notifications({ heading, value, color, bg, icon }) {
   return (
-    <div className="lg:w-1/5 w-full">
-      <div className="rounded-sm md:mt-0 mt-4  m-2	h-min  overflow-hidden bg-white hover:bg-opacity-70 cursor-pointer shadow-xl  duration-300">
+    <div className=" w-full md:w-1/2 lg:w-1/4 p-1">
+      <div className="rounded-sm md:mt-0 mt-4  overflow-hidden bg-white hover:bg-opacity-70 cursor-pointer shadow-xl  duration-300 justify-between h-max ">
         <div className="flex flex-row justify-between  px-4 py-4">
           <div className="flex font-semibold flex-col     w-full md:mt-0 mt-4  ">
             <a className={color}>{value}</a>
             <a className="text-xs text-gray-700 mt-2 opacity-70">{heading}</a>
           </div>
+          {icon}
         </div>
 
         <div
-          className={`text-white h-9 w-full  flex flex-row items-center justify-center px-4 ${bg}`}
+          className={`text-white h-9 w-full  flex flex-row justify-between items-center  px-4 ${bg}`}
         >
           <div className="text-xs">% Change</div>
           <div>

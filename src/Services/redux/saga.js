@@ -5,7 +5,7 @@ import * as action from "./reducer";
 var baseUrlUser = "https://seulah.ngrok.app/api/v1/auth";
 var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
 var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
-var baseUrlCms = "https://seulah.com/api/v1/cms";
+var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
 
 // "https://seulah.com/api/v1/cms";
 
@@ -903,6 +903,31 @@ function* ActiveDeactiveUser({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* GetBalance({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlCms + `/selaApi/getBalance`
+    );
+    console.log("ressssss", response);
+    // yield put(
+    //   action.Message({
+    //     message: response?.data?.message,
+    //     open: true,
+    //     error: true,
+    //   })
+    // );
+    // yield put(action.SelaBalance(response));
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    console.log("error", error);
+    // const message = error.response.data.message;
+    // yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -950,4 +975,5 @@ export default function* HomeSaga() {
   yield takeLatest("GET_SIMAH_CODES", GetSimahCodes);
   yield takeLatest("GET_ALL_USERS_ALL", GetAllUsersAll);
   yield takeLatest("ACTIVE_DEACTIVE_USER", ActiveDeactiveUser);
+  yield takeLatest("GET_BALANCE", GetBalance);
 }
