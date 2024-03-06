@@ -6,7 +6,6 @@ import { RiImageAddLine } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 import * as action from "Services/redux/reducer";
 
 function CreateUser() {
@@ -24,7 +23,6 @@ function CreateUser() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
 
   const handleClose = () => {
     dispatch(action.Message({ open: false })); // Closing the message
@@ -88,7 +86,6 @@ function CreateUser() {
   }
   return (
     <div className="items-center flex flex-col mt-4 md:mt-0">
-      <WaveAnimation show={loading} />
       <form
         onSubmit={handleSubmit}
         className="bg-gray-200 xl:w-2/5 lg:w-1/2 md:w-full	"

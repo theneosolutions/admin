@@ -3,15 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { MdVerified } from "react-icons/md";
 import { RxCrossCircled } from "react-icons/rx";
-
-import CardMain from "Components/Cards/main";
 import Edit from "Assets/Images/edit.svg";
 import Delete from "Assets/Images/delete.svg";
 import { Model, Avatar } from "Components";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 
 import { useEffect } from "react";
 function LaonApplication() {
@@ -23,7 +20,6 @@ function LaonApplication() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
@@ -58,8 +54,6 @@ function LaonApplication() {
 
   return (
     <div className="py-5  w-full">
-      <WaveAnimation show={loading} />
-
       <div className="overflow-x-auto relative">
         <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">

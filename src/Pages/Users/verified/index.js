@@ -10,7 +10,6 @@ import { Model, Avatar } from "../../../Components";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 
 import { useEffect } from "react";
 function VerifiedUsers() {
@@ -24,7 +23,6 @@ function VerifiedUsers() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
@@ -34,7 +32,6 @@ function VerifiedUsers() {
     setModelOpen(true);
   }
   useEffect(() => {
-    // DeleteUser();
     getAllUsersData();
   }, []);
   function getAllUsersData() {
@@ -71,8 +68,6 @@ function VerifiedUsers() {
   }
   return (
     <div className="py-5">
-      <WaveAnimation show={loading} />
-
       <CardMain
         width="w-full"
         heading={t("Verified Users")}
@@ -97,9 +92,7 @@ function VerifiedUsers() {
                 <th scope="col" className="px-3 py-3">
                   {t("Eligibilty")}
                 </th>
-                {/* <th scope="col" className="px-3 py-3">
-                  {t("View Answers")}
-                </th> */}
+
                 <th scope="col" className="px-3 py-3">
                   {t("Status")}
                 </th>
@@ -148,25 +141,14 @@ function VerifiedUsers() {
                       v?.eligibilityResult.numericQuestionEligibility
                     )}
                   </td>
-                  {/* <td className="px-3 py-4">
-                    <div
-                      onClick={() => navigate("/user-answers")}
-                      className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
-                    >
-                      View Answer
-                    </div>
-                  </td> */}
+
                   <td className="px-3 py-4">
                     {v?.user?.accountStatus === "1" ? (
-                      <div
-                        // onClick={() => navigate("/user-answers")}
-                        className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500"
-                      >
+                      <div className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500">
                         Blocked
                       </div>
                     ) : v?.user?.accountStatus === "0" ? (
                       <div
-                        // onClick={() => navigate("/user-answers")}
                         className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
                         duration-300 text-green-500"
                       >

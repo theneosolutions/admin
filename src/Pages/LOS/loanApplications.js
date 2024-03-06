@@ -11,7 +11,6 @@ import { Model, Avatar } from "Components";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 
 import { useEffect } from "react";
 function LaonApplication() {
@@ -32,7 +31,6 @@ function LaonApplication() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
@@ -85,10 +83,8 @@ function LaonApplication() {
     }
   }
 
-  // console.log("helooo", pendingLoans);
   return (
     <div className="py-5">
-      <WaveAnimation show={loading} />
       <div className="flex md:flex-row flex-col  md:space-x-6">
         <Notifications
           active={active === "All"}
@@ -122,7 +118,6 @@ function LaonApplication() {
       <CardMain
         width="w-full  mt-10"
         heading={t(`${active} Loan Applications `)}
-        // icon={<MdVerified />}
         iconStyle="text-3xl text-primary"
       >
         <div className="overflow-x-auto relative  mt-4">
@@ -171,11 +166,6 @@ function LaonApplication() {
                       icon={
                         "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes-thumbnail.png"
                       }
-                      // onClick={() =>
-                      //   navigate(
-                      //     `/profile?id=${v?.user.idNumber}&name=Profile&user=${v?.user?.id}`
-                      //   )
-                      // }
                     />
 
                     <a>{v.userId}</a>

@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Alert, Snackbar } from "@mui/material";
 import * as action from "../../Services/redux/reducer";
-import WaveAnimation from "../../Components/Loading"; // Adjust the path based on your file structure
 import { useTranslation } from "react-i18next";
 import Lottie from "lottie-react";
 import axios from "axios";
@@ -36,7 +35,6 @@ function CreateUser({ setid }) {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
 
   const getSetResponse = useSelector((state) => state.getSetResponse?.data);
 
@@ -212,8 +210,6 @@ function CreateUser({ setid }) {
 
   return (
     <div>
-      <WaveAnimation show={loading} />
-
       {setId && (
         <form onSubmit={handleSubmit}>
           <CardMain width="w-full mt-5">

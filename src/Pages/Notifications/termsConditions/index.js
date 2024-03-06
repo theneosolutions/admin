@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import CardMain from "../../../Components/Cards/main";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Button } from "Components";
-import { RiImageAddLine } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 import * as action from "Services/redux/reducer";
 import TextEditor from "./textEditor";
+
 function CreateUser() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -16,10 +15,8 @@ function CreateUser() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const conditions = useSelector((state) => state.getTermsConditions);
 
-  console.log("conditionsconditions", conditions);
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
   const [modelOpen, setModelOpen] = useState(false);
@@ -51,13 +48,10 @@ function CreateUser() {
   }, []);
   function reset() {
     setModelOpen(false);
-    console.log("reset");
   }
-  console.log("activeDataactiveData", activeData);
   return (
     <div className=" flex flex-col space-y-5 ">
       <div className="md:mt-0 mt-5 bg-gray-200  w-full">
-        <WaveAnimation show={loading} />
         <form onSubmit={handleSubmit}>
           <CardMain width="w-full" heading={"Create Terms And Conditions"}>
             <div className="flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">

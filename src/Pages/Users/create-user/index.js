@@ -1,26 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import CardMain from "../../../Components/Cards/main";
-import { IoNotifications } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
 import User from "./users";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 
 function NotificationsScreen() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const notifications = useSelector((state) => state.Notifications);
   const [modelOpen, setModelOpen] = useState(false);
 
-  console.log("notificationsnotifications", notifications);
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
@@ -35,38 +29,12 @@ function NotificationsScreen() {
   }
   function reset() {
     setModelOpen(false);
-    console.log("reset");
   }
   return (
     <div className="py-5">
-      <WaveAnimation show={loading} />
-
-      {/* <div className="flex md:flex-row flex-col  md:space-x-6">
-        <Notifications
-          value={notifications?.length || 0}
-          heading="Total Notifications"
-          color="text-blue-500 text-xl"
-        />
-        <Notifications
-          value="1"
-          heading="Clicked"
-          color="text-green-500 text-xl"
-        />
-        <Notifications
-          value="3"
-          heading="Delivered"
-          color="text-orange-500 text-xl"
-        />
-        <Notifications
-          value="8"
-          heading="Not Click Yet"
-          color="text-red-700 text-xl"
-        />
-      </div> */}
       <CardMain
         width="w-full "
         heading={t("All Admins and Moderators")}
-        // icon={<IoNotifications className="text-primary text-xl" />}
         showButton={true}
         buttonValue={"Add New User"}
         onButtonClick={() => setModelOpen(true)}
@@ -143,16 +111,8 @@ function NotificationsScreen() {
   );
 }
 export default NotificationsScreen;
-function Notifications({ heading, value, color }) {
-  return (
-    <div className="flex font-semibold flex-col bg-gray-300  px-10 py-8 text-center rounded-md md:w-1/4 w-full md:mt-0 mt-4 hover:bg-opacity-70 cursor-pointer shadow-xl duration-300">
-      <a className={color}>{value}</a>
-      <a className="text-xs text-gray-700 mt-2">{heading}</a>
-    </div>
-  );
-}
 
-function Model({ children, setModelOpen, reset }) {
+function Model({ children, reset }) {
   return (
     <div
       id="default-modal"
@@ -162,7 +122,7 @@ function Model({ children, setModelOpen, reset }) {
       <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
         <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-            {/* {heading} */} Add User
+            Add User
           </h3>
           <button
             type="button"

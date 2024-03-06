@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "../../Components/Loading"; // Adjust the path based on your file structure
 import { useTranslation } from "react-i18next";
 import CardMain from "../../Components/Cards/main";
 import { useState } from "react";
@@ -22,7 +21,6 @@ function CreateQuestionsSet() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
 
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
@@ -97,7 +95,6 @@ function CreateQuestionsSet() {
 
   return (
     <div className="">
-      <WaveAnimation show={loading} />
       <div className="mt-6 flex flex-col md:flex-row md:space-x-3 rtl:space-x-reverse h-max">
         <CardMain
           heading={t("All List Of Questions in this set")}

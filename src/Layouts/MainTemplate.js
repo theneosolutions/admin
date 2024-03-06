@@ -1,7 +1,7 @@
 import React from "react";
 import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 function MainTemplate({ children }) {
   const loading = useSelector((state) => state.Loading);

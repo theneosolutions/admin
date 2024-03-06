@@ -23,7 +23,6 @@ function Nafath() {
     GetNafathDetail();
   }, []);
   useEffect(() => {
-    console.log("national Addressss", getNafathDetail?.nationalAddress);
     if (getNafathDetail?.nationalAddress) {
       setAddress(getNafathDetail?.nationalAddress[0]);
     }

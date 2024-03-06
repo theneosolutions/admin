@@ -1,6 +1,5 @@
 import React from "react";
 import "./login.css";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 
 import Logo from "../../../Assets/Images/logo.svg";
 import { Alert, Snackbar } from "@mui/material";
@@ -16,7 +15,6 @@ function Login() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const islogin = useSelector((state) => state.islogin);
   const user = useSelector((state) => state.user);
 
@@ -44,7 +42,6 @@ function Login() {
 
   return (
     <section className="bg-fixed-full h-screen w-full">
-      <WaveAnimation show={loading} />
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <a

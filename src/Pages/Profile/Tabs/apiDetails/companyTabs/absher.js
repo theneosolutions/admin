@@ -1,10 +1,9 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import CardMain from "Components/Cards/main";
 import { MdOutlineVerified } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { useSelector } from "react-redux";
-import { MdCalendarMonth } from "react-icons/md";
 import { VscLayersActive } from "react-icons/vsc";
 import { MdDomainVerification } from "react-icons/md";
 

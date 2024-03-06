@@ -56,8 +56,6 @@ function App() {
     });
   }
 
-  console.log("selaBalance", selaBalance);
-
   const sumOfApprovedAmmount = applications?.reduce(
     (accumulator, currentItem) => {
       if (currentItem?.status === "Approved") {
@@ -67,7 +65,6 @@ function App() {
     },
     0
   );
-  console.log("sumOfApprovedAmmount", sumOfApprovedAmmount);
   return (
     <div className="container mx-auto mt-5 space-y-6">
       <div className="flex flex-wrap ">

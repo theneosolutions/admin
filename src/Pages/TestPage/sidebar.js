@@ -5,14 +5,12 @@ const Sidebar = ({ isOpen, onClose, children }) => {
   return (
     <>
       {isOpen && (
-        // Overlay covering the entire screen except for the sidebar
         <div
           className="fixed top-0 left-0 w-full h-full bg-gray-300 opacity-40 z-40"
           onClick={onClose}
         ></div>
       )}
 
-      {/* Sidebar */}
       <div
         className={`flex flex-col fixed top-0 right-0 h-full w-0 bg-white overflow-x-hidden transition-all duration-500 ${
           isOpen ? "w-72 z-50" : "z-10"

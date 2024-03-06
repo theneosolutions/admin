@@ -1,30 +1,20 @@
 import React from "react";
-import CardMain from "../../../Components/Cards/main";
 import { useState, useRef } from "react";
 import { Button } from "Components";
 import { RiImageAddLine } from "react-icons/ri";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
+import { useDispatch } from "react-redux";
 import * as action from "Services/redux/reducer";
 
 function CreateUser({ setModelOpen }) {
   const dispatch = useDispatch();
 
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
-  const handleClose = () => {
-    dispatch(action.Message({ open: false })); // Closing the message
-  };
   const [image, setImage] = useState(null);
   const { t } = useTranslation();
 
-  const fileInputRef = useRef(null); // Create a ref for the file input
+  const fileInputRef = useRef(null);
 
   function handleSelectImage(e) {
     if (e.target.files && e.target.files[0]) {
@@ -49,29 +39,8 @@ function CreateUser({ setModelOpen }) {
   const [role, setRole] = useState("ROLE_MOD");
 
   function CreateNewUser() {
-    console.log(
-      "userrr",
-      firstName,
-      username,
-      email,
-      date,
-      idNumber,
-      password,
-      number,
-      role
-    );
     if (validatePassword() && email && username && firstName) {
-      //   dispatch({
-      //     type: "Add_NEW_USER",
-      //     payload: {
-      //       email: email,
-      //       username: username,
-      //       password: password,
-      //       name: firstName,
-      //     },
-      //   });
       setModelOpen(false);
-      console.log("jewkkwkrwke");
     } else if (!validatePassword()) {
       dispatch(
         action.Message({
@@ -79,7 +48,7 @@ function CreateUser({ setModelOpen }) {
           open: true,
           error: true,
         })
-      ); // Closing the message
+      );
     } else {
       dispatch(
         action.Message({
@@ -87,7 +56,7 @@ function CreateUser({ setModelOpen }) {
           open: true,
           error: true,
         })
-      ); // Closing the message
+      );
     }
   }
   const validatePassword = () => {

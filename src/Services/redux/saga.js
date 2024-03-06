@@ -696,7 +696,6 @@ function* GetUserById({ payload }) {
 }
 
 function* DeleteUserById({ payload }) {
-  console.log("payload 2", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -726,7 +725,6 @@ function* GetAllNotifications({ payload }) {
       axiosInstance.get,
       baseUrlLos + `/getAllnotification`
     );
-    console.log("notifications 1111111111", response);
     yield put(action.Notifications(response));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
@@ -737,7 +735,6 @@ function* GetAllNotifications({ payload }) {
 }
 
 function* AddTermsAndConditions({ payload }) {
-  console.log("payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -762,7 +759,6 @@ function* AddTermsAndConditions({ payload }) {
 }
 
 function* GetAllTermsAndConditions({ payload }) {
-  console.log("payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -781,7 +777,6 @@ function* GetAllTermsAndConditions({ payload }) {
 }
 
 function* GetNafithReport({ payload }) {
-  console.log("payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -790,7 +785,6 @@ function* GetNafithReport({ payload }) {
       baseUrlCms +
         `/nafith/downloadPDF?uuid=d30117de-7fe7-4e64-a9f1-49ff9e24f618`
     );
-    console.log("response", response);
     yield put(action.GetNafith(response));
 
     yield put(action.Loading({ Loading: false }));
@@ -802,7 +796,6 @@ function* GetNafithReport({ payload }) {
 }
 
 function* GetNafithSanad({ payload }) {
-  console.log("payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -811,7 +804,6 @@ function* GetNafithSanad({ payload }) {
       baseUrlCms +
         `/nafith/getSanadDetails?groupUid=${payload.groupUid}&sanadUid=${payload.sanadUid}`
     );
-    console.log("response", response);
     yield put(action.GetNafithSanad(response));
 
     yield put(action.Loading({ Loading: false }));
@@ -822,7 +814,6 @@ function* GetNafithSanad({ payload }) {
   }
 }
 function* GetNafathDetails({ payload }) {
-  console.log("payload nafath", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -830,7 +821,6 @@ function* GetNafathDetails({ payload }) {
       axiosInstance.get,
       baseUrlUser + `/getUserInfoByNafath?userId=${payload}`
     );
-    console.log("response", response);
     yield put(action.GetNafathDetails(response));
 
     yield put(action.Loading({ Loading: false }));
@@ -842,7 +832,6 @@ function* GetNafathDetails({ payload }) {
 }
 
 function* GetSimahCodes({ payload }) {
-  console.log("payload sima", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -850,7 +839,6 @@ function* GetSimahCodes({ payload }) {
       axiosInstance.post,
       baseUrlUser + `/getSimahCodes`
     );
-    console.log("response", response);
     yield put(action.GetSimahCodes(response));
 
     yield put(action.Loading({ Loading: false }));
@@ -862,14 +850,12 @@ function* GetSimahCodes({ payload }) {
 }
 
 function* GetAllUsersAll({ payload }) {
-  console.log("PALLYLYLYL", payload);
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
       axiosInstance.get,
       baseUrlUser + `/user/getAllUser`
     );
-    console.log("helo", response);
     yield put(action.GetAllUsersAll(response));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
@@ -879,7 +865,6 @@ function* GetAllUsersAll({ payload }) {
   }
 }
 function* ActiveDeactiveUser({ payload }) {
-  console.log("helo", payload);
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
@@ -911,7 +896,6 @@ function* GetBalance({ payload }) {
       axiosInstance.get,
       baseUrlCms + `/selaApi/getBalance`
     );
-    console.log("ressssss", response);
     // yield put(
     //   action.Message({
     //     message: response?.data?.message,
@@ -954,7 +938,6 @@ export default function* HomeSaga() {
   yield takeLatest("CREATE_LOAN_TYPE", CreateLoanType);
   yield takeLatest("CREATE_LOAN_TAX", CreateLoanTax);
   yield takeLatest("GET_LOAN_TYPE_TAX", GetLoanTypeTax);
-
   yield takeLatest("GET_LOAN_APPLICATIONS", GetLoanApplications);
   yield takeLatest("GET_ALL_LOAN_REASONS", GetAllLoanReasons);
   yield takeLatest("GET_APP_FLOW", GetAppFlow);

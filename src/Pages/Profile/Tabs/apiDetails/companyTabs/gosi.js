@@ -18,7 +18,6 @@ function Absher() {
 
   useEffect(() => {
     if (employmentStatusInfo.length > 0) {
-      // Update state only if the array has elements
       setState(employmentStatusInfo[0]);
       setState2(employmentStatusInfo[1]);
     }
@@ -58,7 +57,6 @@ function Absher() {
 
               <a className="text-gray-700 font-semibold flex flex-row rtl:space-x-reverse space-x-5">
                 <a>{state?.employmentStatus}</a>
-                {/* <MdOutlineVerified className="text-3xl text-green-700" /> */}
               </a>
             </div>
             <div className="flex flex-row justify-between">
@@ -124,7 +122,6 @@ function Absher() {
 
               <a className="text-gray-700 font-semibold flex flex-row rtl:space-x-reverse space-x-5">
                 <a>{state2?.employmentStatus}</a>
-                {/* <MdOutlineVerified className="text-3xl text-green-700" /> */}
               </a>
             </div>
             <div className="flex flex-row justify-between">

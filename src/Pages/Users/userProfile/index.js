@@ -5,7 +5,6 @@ import { Model } from "Components";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 import { RxCross2 } from "react-icons/rx";
 import { CgArrowsExchange } from "react-icons/cg";
 import { useLocation } from "react-router-dom";
@@ -18,7 +17,6 @@ function LaonApplication() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
 
   const getUserApplication = useSelector((state) => state.getUserApplication);
   const user = useSelector((state) => state.getUserById);
@@ -57,8 +55,6 @@ function LaonApplication() {
   }
   return (
     <div className="py-5">
-      <WaveAnimation show={loading} />
-
       <CardMain
         width="w-full"
         iconStyle="text-3xl text-primary "

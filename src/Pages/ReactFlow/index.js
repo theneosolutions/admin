@@ -98,7 +98,6 @@ const DnDFlow = () => {
 
   const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
     edgeUpdateSuccessful.current = true;
-    // setEdges((els) => updateEdge(oldEdge, newConnection, els));
   }, []);
 
   return (
@@ -115,19 +114,22 @@ const DnDFlow = () => {
           onDrop={onDrop}
           onDragOver={onDragOver}
           onEdgeUpdate={onEdgeUpdate}
-          fitView>
+          fitView
+        >
           <Controls />
           <Background variant="dots" gap={12} size={1} />
           <Panel position="top-right ">
             <div className="px-4 rtl:space-x-reverse">
               <button
                 className="duration-200 bg-green-400 m-2  text-white  rtl:space-x-reverse py-2 px-5 rounded-md  hover:bg-green-500 cursor-pointer "
-                onClick={onSave}>
+                onClick={onSave}
+              >
                 Save
               </button>
               <button
                 className="duration-200 bg-blue-400 m-2 text-white rtl:space-x-reverse py-2 px-3 rounded-md  hover:bg-blue-500 cursor-pointer "
-                onClick={onRestore}>
+                onClick={onRestore}
+              >
                 Restore
               </button>
             </div>

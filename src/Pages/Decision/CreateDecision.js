@@ -5,7 +5,6 @@ import * as action from "../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
 import { Model } from "../../Components";
 import CreateFormula from "../../Pages/Decision/CreateFormula";
-import WaveAnimation from "../../Components/Loading"; // Adjust the path based on your file structure
 import { useNavigate, useLocation } from "react-router-dom";
 import Edit from "../../Assets/Images/edit.svg";
 import Delete from "../../Assets/Images/delete.svg";
@@ -23,7 +22,6 @@ const CreateDesicion = () => {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const setData = useSelector((state) => state.getSingleSetData);
   const singleQuestion = useSelector((state) => state.getQuestionOfSet);
   const allSets = useSelector((state) => state.getAllSets);
@@ -81,8 +79,6 @@ const CreateDesicion = () => {
   }
   return (
     <>
-      <WaveAnimation show={loading} />
-
       <CardMain heading={t("Create Decision")} width="h-max md:mt-0 mt-4">
         <select
           value={setId}

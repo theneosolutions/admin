@@ -7,7 +7,6 @@ import { Alert, Snackbar } from "@mui/material";
 import { BsGraphUpArrow } from "react-icons/bs";
 import { BiSignal4 } from "react-icons/bi";
 import { PiChartScatterBold } from "react-icons/pi";
-import { BsBarChartSteps } from "react-icons/bs";
 import { FaWpforms } from "react-icons/fa";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import ColumnChartBasic from "Components/chart/ColumnChartsBasic";
@@ -27,7 +26,6 @@ function App() {
 
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
-  const usersData = useSelector((state) => state.getAllUsersAll);
 
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
@@ -45,7 +43,6 @@ function App() {
   }
 
   useEffect(() => {
-    // DeleteUser();
     getAllUsersData();
   }, []);
   function getAllUsersData() {
@@ -53,7 +50,6 @@ function App() {
       type: "GET_ALL_USERS_ALL",
     });
   }
-  console.log("usersData", users);
   return (
     <div className="  mt-5 space-y-6">
       <div className="flex flex-wrap lg:flex-row   ">
@@ -204,17 +200,6 @@ function App() {
                     scope="row"
                     className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
                   >
-                    {/* <Avatar
-                      icon={
-                        "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes-thumbnail.png"
-                      }
-                      onClick={() =>
-                        navigate(
-                          `/profile?id=${v?.idNumber}&name=Profile&user=${v?.id}`
-                        )
-                      }
-                    /> */}
-
                     <a>{v.userId}</a>
                   </td>
                   <td scope="row" className="px-3 py-4">

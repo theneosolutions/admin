@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "../../Components/Loading"; // Adjust the path based on your file structure
 import { useTranslation } from "react-i18next";
 import CardMain from "../../Components/Cards/main";
 import { useLocation } from "react-router-dom";
@@ -14,7 +13,6 @@ function CreateQuestionsSet() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const getScreensSets = useSelector((state) => state.getScreensSets.data);
 
   const location = useLocation();
@@ -38,7 +36,6 @@ function CreateQuestionsSet() {
 
   return (
     <div className="">
-      <WaveAnimation show={loading} />
       {getScreensSets && (
         <div className="mt-6 flex flex-wrap md:flex-wrap   rtl:space-x-reverse h-max">
           {Object.entries(getScreensSets).map(([category, items]) => (
@@ -56,7 +53,8 @@ function CreateQuestionsSet() {
                     {items?.map((v, k) => (
                       <tr
                         key={k}
-                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                      >
                         <td className="px-3 py-4 cursor-pointer text-primary">
                           {v.data.question}
                         </td>
@@ -74,7 +72,8 @@ function CreateQuestionsSet() {
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>

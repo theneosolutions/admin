@@ -15,7 +15,6 @@ import { FaUserAlt } from "react-icons/fa";
 import { MdFormatListBulleted } from "react-icons/md";
 import { FaCodeCompare } from "react-icons/fa6";
 import { RiHistoryFill } from "react-icons/ri";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 
 function Template() {
   const dispatch = useDispatch();
@@ -25,7 +24,6 @@ function Template() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const [userData, setUserData] = useState({});
   const [state, setState] = useState("");
 
@@ -67,7 +65,6 @@ function Template() {
   };
   return (
     <div className="flex flex-col">
-      <WaveAnimation show={loading} />
       <div className="bg-white px-5 py-3 flex flex-row space-x-7 lg:mt-0 mt-4">
         {data?.map((v, k) => {
           return (

@@ -3,7 +3,6 @@ import CardMain from "../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "../../Components/Loading"; // Adjust the path based on your file structure
 import { useNavigate } from "react-router-dom";
 import Edit from "../../Assets/Images/edit.svg";
 import Delete from "../../Assets/Images/delete.svg";
@@ -17,7 +16,6 @@ const CreateDesicion = () => {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const setData = useSelector((state) => state.getAllDecisions);
 
   React.useEffect(() => {
@@ -35,7 +33,6 @@ const CreateDesicion = () => {
   }
   return (
     <>
-      <WaveAnimation show={loading} />
       <div className="font-semibold text-xl">{t("List Of Decisions")}</div>
       <input
         placeholder={t("Search Decision from here")}
@@ -51,10 +48,8 @@ const CreateDesicion = () => {
           >
             {v?.otherQuestions.length > 0 ? (
               <>
-                {" "}
                 <>
                   <a className="bg-gray-200 px-3 py-2  rounded-md">
-                    {" "}
                     Other Questions:
                   </a>
                   <div className="w-full flex flex-col mt-3 overflow-x-auto">
@@ -133,7 +128,7 @@ const CreateDesicion = () => {
                       </tbody>
                     </table>
                   </div>
-                </>{" "}
+                </>
               </>
             ) : null}
             {v?.formula?.formula && (
@@ -149,7 +144,7 @@ const CreateDesicion = () => {
                       );
                     })}
                   </div>
-                  <div className="flex flex-row text-primary items-center text-3xl space-x-5 rtl:space-x-reverse mx-5 font-bold text-gray-700">
+                  <div className="flex flex-row text-primary items-center text-3xl space-x-5 rtl:space-x-reverse mx-5 font-bold ">
                     <a className="">{v?.formula?.operation}</a>
                     <a>{v?.formula?.value}</a>
                   </div>

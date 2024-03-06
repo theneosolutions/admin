@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Existing from "./Tabs/existing";
 import ProductList from "./Tabs/product";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Members from "./Tabs/members";
-import WaveAnimation from "../../Components/Loading"; // Adjust the path based on your file structure
 
 function Simah() {
   const dispatch = useDispatch();
 
-  const loading = useSelector((state) => state.Loading);
   const [state, setState] = useState("SIMAH Members");
   const getTab = () => {
     const activeItem = data.find((item) => item.label === state);
@@ -25,7 +23,6 @@ function Simah() {
   }, []);
   return (
     <div className="  bg-white  border border-primary w-full rounded-lg mt-4 md:mt-0">
-      <WaveAnimation show={loading} />
       <div className="flex flex-row  overflow-x-auto">
         {data?.map((v, k) => {
           return (

@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RxCrossCircled } from "react-icons/rx";
 import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 
 function DumpUsers() {
   const navigate = useNavigate();
@@ -28,7 +27,6 @@ function DumpUsers() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
 
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
@@ -59,7 +57,6 @@ function DumpUsers() {
   }
   function DeleteUser() {
     setModelOpen(false);
-    console.log("deleteee", selectedUserId);
     dispatch({
       type: "DELETE_USER_BY_ID",
       payload: selectedUserId,
@@ -69,8 +66,6 @@ function DumpUsers() {
 
   return (
     <div className="py-5">
-      <WaveAnimation show={loading} />
-
       <CardMain
         width="w-full"
         heading={t("Dump Users")}

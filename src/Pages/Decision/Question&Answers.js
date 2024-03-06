@@ -5,7 +5,6 @@ import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "../../Components/Loading"; // Adjust the path based on your file structure
 
 function App() {
   const dispatch = useDispatch();
@@ -15,7 +14,6 @@ function App() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const questionsData = useSelector((state) => state.getAllQuestions);
 
   const handleClose = () => {
@@ -71,15 +69,14 @@ function App() {
 
   return (
     <div className="">
-      <WaveAnimation show={loading} />
-
       <div className="flex flex-col md:flex-col w-full  rtl:space-x-reverse mt-6">
         <div className="space-y-4 w-full ">
           <CardMain heading={t("Add Question")} width="h-max">
             <select
               className="mb-4 p-2 border rounded mt-4 w-full"
               onChange={(e) => setNewInfo(e.target.value)}
-              value={newInfo}>
+              value={newInfo}
+            >
               <option value="none">{t("None")}</option>
               <option value="TextBox">{t("TextBox")}</option>
               <option value="Boolean">{t("Boolean Value")}</option>
@@ -103,7 +100,8 @@ function App() {
         </div>
         <CardMain
           heading={t("Questions List")}
-          width="w-full  h-max mt-4 md:mt-5">
+          width="w-full  h-max mt-4 md:mt-5"
+        >
           <div className="w-full flex flex-col mt-3 overflow-x-auto">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
@@ -129,7 +127,8 @@ function App() {
                 {questionsData?.map((v, k) => (
                   <tr
                     key={k}
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  >
                     <td className="px-2 py-4">{v?.heading}</td>
                     <td className="px-2 py-4 overflow-wrap text-sky-700">
                       {v?.question}
@@ -138,7 +137,8 @@ function App() {
                     <td className="px-2 py-4">{v?.options?.join(", ")}</td>
                     <td
                       className="px-2 py-4 text-2xl cursor-pointer text-gray-400 hover:text-red-400 duration-300"
-                      onClick={() => DeleteQuestion(v?.id)}>
+                      onClick={() => DeleteQuestion(v?.id)}
+                    >
                       <MdDelete />
                     </td>
                   </tr>
@@ -152,7 +152,8 @@ function App() {
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>
@@ -231,7 +232,8 @@ function TextBox({ onAddElement }) {
         <div></div>
         <button
           type="submit"
-          className="px-5 w-max text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10 mt-4">
+          className="px-5 w-max text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10 mt-4"
+        >
           Add to form
         </button>
       </div>
@@ -334,7 +336,8 @@ function Boolean({ onAddElement }) {
         <div></div>
         <button
           type="submit"
-          className="px-5 w-max text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10 mt-4">
+          className="px-5 w-max text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10 mt-4"
+        >
           Add to form
         </button>
       </div>
@@ -420,7 +423,8 @@ function Checboxes({ onAddElement }) {
               <button
                 type="button"
                 onClick={() => removeOption(index)}
-                className="mx-2">
+                className="mx-2"
+              >
                 Delete
               </button>
             </div>
@@ -430,7 +434,8 @@ function Checboxes({ onAddElement }) {
           <button
             type="button"
             onClick={addOption}
-            className="px-4 text-sm bg-blue-500 text-white rounded hover:bg-blue-700 h-10   bg-sky-800 hover:bg-sky-700">
+            className="px-4 text-sm bg-blue-500 text-white rounded hover:bg-blue-700 h-10   bg-sky-800 hover:bg-sky-700"
+          >
             Add More Option
           </button>
         </div>
@@ -438,7 +443,8 @@ function Checboxes({ onAddElement }) {
           <div></div>
           <button
             type="submit"
-            className="px-5 w-max text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10 mt-4">
+            className="px-5 w-max text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10 mt-4"
+          >
             Add to form
           </button>
         </div>
@@ -527,7 +533,8 @@ function IncreaseDecrease({ onAddElement }) {
         <div></div>
         <button
           type="submit"
-          className="px-5 w-max text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10 mt-4">
+          className="px-5 w-max text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10 mt-4"
+        >
           Add to form
         </button>
       </div>

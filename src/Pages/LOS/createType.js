@@ -6,7 +6,6 @@ import * as action from "../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
 import UplaodIcon from "Assets/Images/upload.svg";
 import { useNavigate } from "react-router-dom";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 import { CiCircleRemove } from "react-icons/ci";
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
 
   const [formData, setFormData] = useState([{ key: null, value: null }]);
   const [image, setImage] = useState(null);
@@ -137,8 +135,6 @@ function App() {
   }
   return (
     <div className="container mx-auto mt-5 space-y-6">
-      <WaveAnimation show={loading} />
-
       <div className="flex flex-col   w-full ">
         <CardMain
           width="w-full h-max  md:mt-0 mt-4"

@@ -11,7 +11,8 @@ function AntiFraud() {
       <div className="w-1/2">
         <CardMain
           width="w-full	"
-          heading={"Personal Identification Information"}>
+          heading={"Personal Identification Information"}
+        >
           <div className="space-y-3">
             <div className="flex flex-row">
               <a className="w-2/5 text-gray-700 ">Photograph</a>
@@ -131,7 +132,7 @@ function AntiFraud() {
           <div className="space-y-3">
             <div className="flex flex-row">
               <a className="w-2/5 text-gray-700 ">Social Media Profiles: </a>
-              <a className="text-gray-700 font-semibold flex flex-row space-x-5 rtl:space-x-reverse flex flex-row space-x-4 rtl:space-x-reverse">
+              <a className="text-gray-700 font-semibold  flex flex-row space-x-4 rtl:space-x-reverse">
                 <img src={facebook} />
                 <img src={youtube} />
                 <img src={Insta} />

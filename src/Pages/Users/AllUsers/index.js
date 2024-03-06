@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { MdVerified } from "react-icons/md";
-import { RxCrossCircled } from "react-icons/rx";
 import CardMain from "../../../Components/Cards/main";
 import Edit from "../../../Assets/Images/edit.svg";
 import Delete from "../../../Assets/Images/delete.svg";
@@ -10,7 +8,6 @@ import { Model, Avatar } from "../../../Components";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 import { useEffect } from "react";
 
 function AllUsers() {
@@ -27,7 +24,6 @@ function AllUsers() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
@@ -66,8 +62,6 @@ function AllUsers() {
 
   return (
     <div className="py-5">
-      <WaveAnimation show={loading} />
-
       <CardMain
         width="w-full"
         heading={t("All Users")}
@@ -91,9 +85,7 @@ function AllUsers() {
                 <th scope="col" className="px-3 py-3">
                   {t("Email")}
                 </th>
-                {/* <th scope="col" className="px-3 py-3">
-                  {t("View Answers")}
-                </th> */}
+
                 <th scope="col" className="px-3 py-3">
                   {t("Status")}
                 </th>
@@ -113,7 +105,7 @@ function AllUsers() {
               </tr>
             </thead>
             <tbody>
-              {/* {users?.map((v, k) => (
+              {users?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -139,15 +131,11 @@ function AllUsers() {
                   <td>{v?.email}</td>
                   <td className="px-3 py-4">
                     {v?.accountStatus === "1" ? (
-                      <div
-                        // onClick={() => navigate("/user-answers")}
-                        className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500"
-                      >
+                      <div className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500">
                         Blocked
                       </div>
                     ) : v?.accountStatus === "0" ? (
                       <div
-                        // onClick={() => navigate("/user-answers")}
                         className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
                         duration-300 text-green-500"
                       >
@@ -195,12 +183,11 @@ function AllUsers() {
                     </div>
                   </th>
                 </tr>
-              ))} */}
+              ))}
             </tbody>
           </table>
         </div>
       </CardMain>
-
       <Model
         heading="User Action"
         isOpen={modelOpen2}
@@ -217,7 +204,6 @@ function AllUsers() {
           {/* <span className="font-semibold"> Ali Imtayaz</span> ? */}
         </a>
       </Model>
-
       <Model
         heading="Delete User"
         isOpen={modelOpen}

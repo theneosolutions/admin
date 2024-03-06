@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 
 function App() {
   const { t } = useTranslation();
@@ -16,7 +15,6 @@ function App() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const [processingFee, setProcessingFee] = useState({});
   const [vatFee, setVatFee] = useState({});
 
@@ -148,7 +146,6 @@ function App() {
 
   return (
     <div className="container mx-auto mt-5 space-y-6">
-      <WaveAnimation show={loading} />
       <div className="flex flex-col md:flex-row md:space-x-6 rtl:space-x-reverse w-full ">
         <CardMain
           width="w-full md:mt-0 mt-4"
@@ -156,9 +153,6 @@ function App() {
         >
           <div className=" px-3  space-y-3 ">
             <div className="flex flex-row"></div>
-            {/* <div className="flex flex-col w-full">
-              <a className="text-sm text-gray-700 font-semibold">Reason</a>
-            </div> */}
             <Fees
               processingFee={processingFee}
               vatFee={vatFee}

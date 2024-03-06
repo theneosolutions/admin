@@ -6,7 +6,6 @@ import { RiImageAddLine } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 import * as action from "Services/redux/reducer";
 import TextEditor from "./textEditor";
 function CreateUser() {
@@ -16,7 +15,6 @@ function CreateUser() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
 
   const [description, setDescription] = useState(null);
   const [subject, setSubject] = useState(null);
@@ -72,7 +70,6 @@ function CreateUser() {
   return (
     <div className="items-center flex flex-col ">
       <div className="md:mt-0 mt-5 bg-gray-200 xl:w-2/5 lg:w-1/2 md:w-full">
-        <WaveAnimation show={loading} />
         <form onSubmit={handleSubmit}>
           <CardMain width="w-full" heading={"Create Notification"}>
             <div className="flex  flex-col ">

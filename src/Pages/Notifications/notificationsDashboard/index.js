@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import CardMain from "../../../Components/Cards/main";
@@ -6,7 +6,6 @@ import { IoNotifications } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 
 function NotificationsScreen() {
   const { t } = useTranslation();
@@ -15,10 +14,8 @@ function NotificationsScreen() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const notifications = useSelector((state) => state.Notifications);
 
-  console.log("notificationsnotifications", notifications);
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
@@ -34,8 +31,6 @@ function NotificationsScreen() {
 
   return (
     <div className="py-5">
-      <WaveAnimation show={loading} />
-
       <div className="flex md:flex-row flex-col  md:space-x-6">
         <Notifications
           value={notifications?.length || 0}
