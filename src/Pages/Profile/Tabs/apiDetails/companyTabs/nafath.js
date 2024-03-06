@@ -28,7 +28,6 @@ function Nafath() {
     }
   }, [getNafathDetail?.nationalAddress]);
 
-  console.log("getNafathDetail", address);
   return (
     <div className="w-full">
       <div>

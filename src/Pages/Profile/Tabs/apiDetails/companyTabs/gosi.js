@@ -22,7 +22,6 @@ function Absher() {
       setState2(employmentStatusInfo[1]);
     }
   }, [employmentStatusInfo]);
-  console.log("state", state);
 
   function isEmpty(obj) {
     return Object.keys(obj).length === 0;

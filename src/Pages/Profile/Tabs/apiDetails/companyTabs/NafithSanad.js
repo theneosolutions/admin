@@ -11,7 +11,6 @@ function NafithSanad() {
   const dispatch = useDispatch();
   const getNafithSanad = useSelector((state) => state.getNafithSanad);
   const [active, setActive] = useState(false);
-  console.log("getNafithSanad", getNafithSanad?.body?.body);
   useEffect(() => {
     GetNafithSanad();
   }, []);

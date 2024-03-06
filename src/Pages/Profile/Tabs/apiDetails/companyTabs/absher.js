@@ -15,7 +15,6 @@ function Absher() {
 
   const id = queryParams.get("id");
   const userData = users.find((item) => item?.user?.idNumber === id);
-  console.log("userData", users);
   return (
     <div className=" w-full flex flex-row space-x-5 rtl:space-x-reverse">
       <div className="w-full">

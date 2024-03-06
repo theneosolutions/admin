@@ -31,7 +31,6 @@ function LaonApplication() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const userId = queryParams.get("id");
-  console.log("data", data);
   useEffect(() => {
     getUserLoanDetail();
   }, []);

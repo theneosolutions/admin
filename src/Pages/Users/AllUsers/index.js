@@ -43,7 +43,6 @@ function AllUsers() {
   }
   function DeleteUser() {
     setModelOpen(false);
-    console.log("deleteee", selectedUserId);
     dispatch({
       type: "DELETE_USER_BY_ID",
       payload: selectedUserId,
