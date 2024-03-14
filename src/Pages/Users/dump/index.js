@@ -74,7 +74,7 @@ function DumpUsers() {
       >
         <div className="overflow-x-auto relative  mt-4">
           <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
+            <thead className="text-xs text-gray-400 uppercase bg-white font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("User Id")}

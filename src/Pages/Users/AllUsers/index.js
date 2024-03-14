@@ -68,10 +68,13 @@ function AllUsers() {
       >
         <div className="overflow-x-auto relative  mt-4">
           <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
+            <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Name")}
+                </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("Guardian Name")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Id Number")}
@@ -125,6 +128,7 @@ function AllUsers() {
                     />
                     <a>{v?.firstName + " " + v?.lastName}</a>
                   </td>
+                  <td>{v?.guardianName}</td>
                   <td>{v?.idNumber}</td>
                   <td>{v?.mobileNumber}</td>
                   <td>{v?.email}</td>

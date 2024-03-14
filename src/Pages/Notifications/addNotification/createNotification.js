@@ -18,6 +18,9 @@ function CreateUser() {
 
   const [description, setDescription] = useState(null);
   const [subject, setSubject] = useState(null);
+  const [navigation, setNavigation] = useState(null);
+  const [topic, setTopic] = useState(null);
+
   const [image, setImage] = useState(null);
   const [imageBlob, setImageBlob] = useState(null);
 
@@ -32,17 +35,18 @@ function CreateUser() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    if (subject != "" && description != "" && image != null) {
+    if (
+      (subject != "" && description != "" && image != null && navigation != "",
+      topic != "")
+    ) {
       dispatch({
         type: "CREATE_NOTIFICATION",
         payload: {
           subject: subject,
           content: description,
           image: image,
-          data: {
-            key1: "value1",
-            key2: "value2",
-          },
+          navigation: navigation,
+          topic: topic,
         },
       });
     } else {
@@ -91,6 +95,16 @@ function CreateUser() {
                   heading={t("Subject")}
                   value={subject}
                   onChange={(e) => setSubject(e)}
+                />
+                <InputField
+                  heading={t("Navigation")}
+                  value={navigation}
+                  onChange={(e) => setNavigation(e)}
+                />
+                <InputField
+                  heading={t("Topic")}
+                  value={topic}
+                  onChange={(e) => setTopic(e)}
                 />
                 <Description
                   heading={t("Content")}

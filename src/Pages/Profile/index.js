@@ -65,20 +65,38 @@ function Template() {
   };
   return (
     <div className="flex flex-col">
-      <div className="bg-white px-5 py-3 flex flex-row space-x-7 lg:mt-0 mt-4">
-        {data?.map((v, k) => {
-          return (
-            <div
-              onClick={() => setNavigation(v.label)}
-              className={`cursor-pointer items-center justify-center flex w-max flex-col font-semibold ${
-                state === v.label ? "text-primary " : "text-gray-600 "
-              }`}
-            >
-              {v.icon}
-              <a className="text-xs mt-0.5">{v.label}</a>
-            </div>
-          );
-        })}
+      <div className="bg-white px-5 py-3  lg:mt-0 mt-4 justify-between flex flex-row items-center">
+        <div className="flex flex-row space-x-7">
+          {data?.map((v, k) => {
+            return (
+              <div
+                onClick={() => setNavigation(v.label)}
+                className={`cursor-pointer items-center justify-center flex w-max flex-col font-semibold ${
+                  state === v.label ? "text-primary " : "text-gray-600 "
+                }`}
+              >
+                {v.icon}
+                <a className="text-xs mt-0.5">{v.label}</a>
+              </div>
+            );
+          })}
+        </div>
+        {userData && (
+          <div>
+            {userData.accountStatus === "1" ? (
+              <div className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500">
+                Blocked
+              </div>
+            ) : userData.accountStatus === "0" ? (
+              <div
+                className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
+                        duration-300 text-green-500"
+              >
+                Active
+              </div>
+            ) : null}
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col   w-full">

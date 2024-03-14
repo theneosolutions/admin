@@ -560,10 +560,8 @@ function* CreateNotification({ payload }) {
     formData.append("subject", payload.subject);
     formData.append("content", payload.content);
     formData.append("file", payload.image);
-    formData.append(
-      "topic",
-      "dKmakUsaR3GIRJ1Apfkk7R:APA91bFFJizSKS5Z2OIlCwyZPmM9Ce6D6eNsLzvRljb0-756-fu4VHQ3hDHA0VOBHq2ivSIOVxN-4WBIWH08aG3b1PQJI9aX5lz3JnTw7Jf4EPSCvJQ4r0jkfDDirjkfCgnQaCvB44xB"
-    );
+    formData.append("topic", payload.topic);
+    formData.append("navigation", payload.navigation);
     const response = yield call(
       axiosInstance.post,
       baseUrlCms + `/notification`,

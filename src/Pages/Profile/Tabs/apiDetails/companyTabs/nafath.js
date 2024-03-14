@@ -32,178 +32,283 @@ function Nafath() {
     <div className="w-full">
       <div>
         {getNafathDetail && (
-          <div className="flex flex-row">
-            <div className="w-1/3">
-              <Table />
-            </div>
-            <Table2 getNafathDetail={getNafathDetail} />
-          </div>
+          <>
+            <Table3 getNafathDetail={getNafathDetail} data={address} />
+          </>
         )}
       </div>
-
-      {address && <div>{<Address data={address} />}</div>}
     </div>
   );
 }
 export default Nafath;
 
-function Address({ data }) {
+function Table3({ getNafathDetail, data }) {
+  const style1 = "border-b border-gray-400";
+  const style2 = "w-1/3 border-r border-gray-400 px-4 py-2 font-semibold";
+  const style3 = "w-1/2 px-2 py-2";
   return (
     <div className="flex flex-col text-md text-gray-600 px-4 space-y-4 my-4 ">
-      <div className="flex flex-row">
-        <div className="w-1/3">Additional Number</div>
-        <div className="w-1/2 font-semibold">{data?.additionalNumber}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">Address Id</div>
-        <div className="w-1/2 font-semibold">{data?.address_id}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">Building Number</div>
-        <div className="w-1/2 font-semibold">{data?.buildingNumber}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">City</div>
-        <div className="w-1/2 font-semibold">{data?.city}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">City Id</div>
-        <div className="w-1/2 font-semibold">{data?.cityId}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">City L2</div>
-        <div className="w-1/2 font-semibold">{data?.cityL2}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">District</div>
-        <div className="w-1/2 font-semibold">{data?.district}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">District ID</div>
-        <div className="w-1/2 font-semibold">{data?.districtID}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">District L2</div>
-        <div className="w-1/2 font-semibold">{data?.districtL2}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">Is Primary Address</div>
-        <div className="w-1/2 font-semibold">{data?.isPrimaryAddress}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">Location Coordinates</div>
-        <div className="w-1/2 font-semibold">{data?.locationCoordinates}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">Post Code</div>
-        <div className="w-1/2 font-semibold">{data?.postCode}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">Region Id</div>
-        <div className="w-1/2 font-semibold">{data?.regionId}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">Region Name</div>
-        <div className="w-1/2 font-semibold">{data?.regionName}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">Region Name L2</div>
-        <div className="w-1/2 font-semibold">{data?.regionNameL2}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">Short Address</div>
-        <div className="w-1/2 font-semibold">{data?.shortAddress}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">Street L2</div>
-        <div className="w-1/2 font-semibold">{data?.streetL2}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">Street Name</div>
-        <div className="w-1/2 font-semibold">{data?.streetName}</div>
-      </div>
-      <div className="flex flex-row">
-        <div className="w-1/3">Unit Number</div>
-        <div className="w-1/2 font-semibold">{data?.unitNumber}</div>
-      </div>
-    </div>
-  );
-}
-function Table2({ getNafathDetail }) {
-  return (
-    <div className="flex flex-col text-md text-gray-600 px-4 space-y-4 my-4 font-semibold">
-      <a>{getNafathDetail?.aud || "null"}</a>
-      <a>{getNafathDetail?.dateOfBirthG || "null"}</a>
-      <a>{getNafathDetail?.dateOfBirthH || "null"}</a>
-      <a>{getNafathDetail?.englishFirstName || "null"}</a>
-      <a>{getNafathDetail?.englishLastName || "null"}</a>
-      <a>{getNafathDetail?.englishSecondName || "null"}</a>
-      <a>{getNafathDetail?.englishThirdName || "null"}</a>
-      <a>{getNafathDetail?.exp || "null"}</a>
-      <a>{getNafathDetail?.firstName || "null"}</a>
-      <a>{getNafathDetail?.gender || "null"}</a>
-      <a>{getNafathDetail?.iat || "null"}</a>
-      <a>{getNafathDetail?.id || "null"}</a>
-      <a>{getNafathDetail?.iqamaExpiryDateG || "null"}</a>
-      <a>{getNafathDetail?.iqamaIssueDateG || "null"}</a>
-      <a>{getNafathDetail?.iqamaIssueDateH || "null"}</a>{" "}
-      <a>{getNafathDetail?.iqamaIssuePlaceCode || "null"}</a>
-      <a>{getNafathDetail?.iqamaIssuePlaceDesc || "null"}</a>
-      <a>{getNafathDetail?.iqamaNumber || "null"}</a>
-      <a>{getNafathDetail?.iqamaVersionNumber || "null"}</a>
-      <a>{getNafathDetail?.iss || "null"}</a>
-      <a>{getNafathDetail?.jti || "null"}</a>
-      <a>{getNafathDetail?.jwks_uri || "null"}</a>
-      <a>{getNafathDetail?.lastName || "null"}</a>
-      <a>{getNafathDetail?.nationalityCode || "null"}</a>
-      <a>{getNafathDetail?.nationalityDesc || "null"}</a>
-      <a>{getNafathDetail?.nbf || "null"}</a>
-      <a>{getNafathDetail?.personId || "null"}</a>
-      <a>{getNafathDetail?.secondName || "null"}</a>
-      <a>{getNafathDetail?.serviceName || "null"}</a>
-      <a>{getNafathDetail?.status || "null"}</a>
-      <a>{getNafathDetail?.sub || "null"}</a>
-      <a>{getNafathDetail?.thirdName || "null"}</a>
-      <a>{getNafathDetail?.transId || "null"}</a>
-    </div>
-  );
-}
-function Table() {
-  return (
-    <div className="flex flex-col text-md text-gray-700 px-4 space-y-4 my-4">
-      <a className="">Aud</a>
-      <a className="">dateOfBirthG</a>
-      <a className="">dateOfBirthH</a>
-      <a className="">English First Name</a>
-      <a className="">English Last Name</a>
-      <a className="">English Second Name</a>
-      <a className="">English Third Name</a>
-      <a className="">exp</a>
-      <a className="">firstName</a>
-      <a className="">gender</a>
-      <a className="">iat</a>
-      <a className="">id</a>
-      <a className="">iqamaExpiryDateG</a>
-      <a className="">iqamaIssueDateG</a>
-      <a className="">iqamaIssueDateH</a>
-      <a className="">iqamaIssuePlaceCode</a>
-      <a className="">iqamaIssuePlaceDesc</a>
-      <a className="">iqamaNumber</a>
-      <a className="">iqamaVersionNumber</a>
-      <a className="">iss</a>
-      <a className="">jti</a>
-      <a className="">jwks_uri</a>
-      <a className="">lastName</a>
-      <a className="">nationalityCode</a>
-      <a className="">nationalityDesc</a>
-      <a className="">nbf</a>
-      <a className="">personId</a>
-      <a className="">secondName</a>
-      <a className="">serviceName</a>
-      <a className="">status</a>
-      <a className="">sub</a>
-      <a className="">thirdName</a>
-      <a className="">transId</a>
+      <table className="w-full border border-gray-400">
+        <tbody>
+          <tr className={style1}>
+            <td className={style2}>Service Name</td>
+            <td className={style3}>{getNafathDetail?.serviceName || "null"}</td>
+          </tr>
+
+          <tr className={style1}>
+            <td className={style2}>NBF</td>
+            <td className={style3}>{getNafathDetail?.nbf || "null"}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>EXP</td>
+            <td className={style3}>{getNafathDetail?.exp || "null"}</td>
+          </tr>
+
+          <tr className={style1}>
+            <td className={style2}>IAT</td>
+            <td className={style3}>{getNafathDetail?.iat || "null"}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Sub</td>
+            <td className={style3}>{getNafathDetail?.sub || "null"}</td>
+          </tr>
+
+          <tr className={style1}>
+            <td className={style2}>Person Id</td>
+            <td className={style3}>{getNafathDetail?.personId || "null"}</td>
+          </tr>
+
+          <tr className={style1}>
+            <td className={style2}>Iqama Number</td>
+            <td className={style3}>{getNafathDetail?.iqamaNumber || "null"}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Iqama Issue DateG</td>
+            <td className={style3}>
+              {getNafathDetail?.iqamaIssueDateG || "null"}
+            </td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Iqama Issue DateH</td>
+            <td className={style3}>
+              {getNafathDetail?.iqamaIssueDateH || "null"}{" "}
+            </td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Iqama Expiry DateG</td>
+            <td className={style3}>
+              {getNafathDetail?.iqamaExpiryDateG || "null"}
+            </td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Iqama Issue Place Desc</td>
+            <td className={style3}>
+              {getNafathDetail?.iqamaIssuePlaceDesc || "null"}
+            </td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Iqama Version Number</td>
+            <td className={style3}>
+              {getNafathDetail?.iqamaVersionNumber || "null"}
+            </td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Iqama Issue Place Code</td>
+            <td className={style3}>
+              {getNafathDetail?.iqamaIssuePlaceCode || "null"}
+            </td>
+          </tr>
+
+          <tr className={style1}>
+            <td className={style2}>Nationality Desc</td>
+            <td className={style3}>
+              {getNafathDetail?.nationalityDesc || "null"}
+            </td>
+          </tr>
+
+          <tr className={style1}>
+            <td className={style2}>English First Name</td>
+            <td className={style3}>
+              {getNafathDetail?.englishFirstName || "null"}
+            </td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>English Second Name</td>
+            <td className={style3}>
+              {getNafathDetail?.englishSecondName || "null"}
+            </td>
+          </tr>
+
+          <tr className={style1}>
+            <td className={style2}>English Third Name</td>
+            <td className={style3}>
+              {getNafathDetail?.englishThirdName || "null"}
+            </td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>English Last Name</td>
+            <td className={style3}>
+              {getNafathDetail?.englishLastName || "null"}
+            </td>
+          </tr>
+
+          <tr className={style1}>
+            <td className={style2}>First Name</td>
+            <td className={style3}>{getNafathDetail?.firstName || "null"}</td>
+          </tr>
+
+          <tr className={style1}>
+            <td className={style2}>Second Name</td>
+            <td className={style3}>{getNafathDetail?.secondName || "null"}</td>
+          </tr>
+
+          <tr className={style1}>
+            <td className={style2}>Third Name</td>
+            <td className={style3}>{getNafathDetail?.thirdName || "null"}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Last Name</td>
+            <td className={style3}>{getNafathDetail?.lastName || "null"}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Gender</td>
+            <td className={style3}>{getNafathDetail?.gender || "null"}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Date Of BirthG</td>
+            <td className={style3}>
+              {getNafathDetail?.dateOfBirthG || "null"}
+            </td>
+          </tr>
+
+          <tr className={style1}>
+            <td className={style2}>Date Of BirthH</td>
+            <td className={style3}>
+              {getNafathDetail?.dateOfBirthH || "null"}
+            </td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Nationality Code</td>
+            <td className={style3}>
+              {getNafathDetail?.nationalityCode || "null"}
+            </td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>City</td>
+            <td className={style3}>{data?.city}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Short Address</td>
+            <td className={style3}>{data?.shortAddress}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Additional Number</td>
+            <td className={style3}>{data?.additionalNumber} </td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Region Name</td>
+            <td className={style3}>{data?.regionName}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Region Name L2</td>
+            <td className={style3}>{data?.regionNameL2} </td>
+          </tr>
+
+          <tr className={style1}>
+            <td className={style2}>Unit Number</td>
+            <td className={style3}>{data?.unitNumber}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Is Primary Address</td>
+            <td className={style3}>{data?.isPrimaryAddress}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>City Id</td>
+            <td className={style3}>{data?.cityL2}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Region Name L2</td>
+            <td className={style3}>{data?.regionNameL2 || "null"}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>District L2</td>
+            <td className={style3}>{data?.districtL2}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Street Name</td>
+            <td className={style3}>{data?.streetL2}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>District ID</td>
+            <td className={style3}>
+              <td className={style3}>{data?.districtID} </td>
+            </td>
+          </tr>
+
+          <tr className={style1}>
+            <td className={style2}>Region Id</td>
+            <td className={style3}>{data?.regionId}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>District</td>
+            <td className={style3}>{data?.district}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Building Number</td>
+            <td className={style3}>{data?.buildingNumber}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Post Code</td>
+            <td className={style3}>{data?.postCode}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Location Coordinates</td>
+            <td className={style3}>{data?.locationCoordinates}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>City L2</td>
+            <td className={style3}>{data?.cityL2}</td>
+          </tr>
+
+          <tr className={style1}>
+            <td className={style2}>Address Id </td>
+            <td className={style3}>{data?.address_id} </td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Street L2 </td>
+            <td className={style3}>{data?.streetL2} </td>
+          </tr>
+
+          <tr className={style1}>
+            <td className={style2}>Trans Id</td>
+            <td className={style3}>{getNafathDetail?.transId || "null"}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Status</td>
+            <td className={style3}>{getNafathDetail?.status || "null"}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>JTI</td>
+            <td className={style3}>{getNafathDetail?.jti || "null"}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>ISS</td>
+            <td className={style3}>{getNafathDetail?.iss || "null"}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Aud</td>
+            <td className={style3}>{getNafathDetail?.aud || "null"}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Jwks uri</td>
+            <td className={style3}>{getNafathDetail?.jwks_uri || "null"}</td>
+          </tr>
+          <tr className={style1}>
+            <td className={style2}>Id</td>
+            <td className={style3}>{getNafathDetail?.id || "null"}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
