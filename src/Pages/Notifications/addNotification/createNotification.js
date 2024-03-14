@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CardMain from "../../../Components/Cards/main";
 import { useState, useRef } from "react";
 import { Button } from "Components";
@@ -15,11 +15,16 @@ function CreateUser() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
+  const getScreenName = useSelector(
+    (state) => state.getScreenName?.appFlow?.screenFlow || []
+  );
+  console.log("getScreenNamegetScreenName", getScreenName);
 
   const [description, setDescription] = useState(null);
   const [subject, setSubject] = useState(null);
-  const [navigation, setNavigation] = useState(null);
+  const [navigation, setNavigation] = useState("ROLE_MOD");
   const [topic, setTopic] = useState(null);
+  const [role, setRole] = useState();
 
   const [image, setImage] = useState(null);
   const [imageBlob, setImageBlob] = useState(null);
@@ -70,7 +75,15 @@ function CreateUser() {
       }
     }
   }
-
+  useEffect(() => {
+    GetScreens();
+  }, []);
+  function GetScreens() {
+    dispatch({
+      type: "GET_SCREENS",
+      payload: 222,
+    });
+  }
   return (
     <div className="items-center flex flex-col ">
       <div className="md:mt-0 mt-5 bg-gray-200 xl:w-2/5 lg:w-1/2 md:w-full">
@@ -96,11 +109,14 @@ function CreateUser() {
                   value={subject}
                   onChange={(e) => setSubject(e)}
                 />
-                <InputField
-                  heading={t("Navigation")}
-                  value={navigation}
+                <Select
+                  data={getScreenName}
+                  heading={t("Choose Navigation")}
+                  type="select"
+                  options={t(navigation)}
                   onChange={(e) => setNavigation(e)}
                 />
+
                 <InputField
                   heading={t("Topic")}
                   value={topic}
@@ -144,6 +160,30 @@ function CreateUser() {
 }
 export default CreateUser;
 
+function Select({ heading, value, onChange, data }) {
+  const { t } = useTranslation();
+
+  var options = [
+    { value: "ROLE_MOD", label: "Moderater" },
+    { value: "ROLE_ADMIN", label: "Admin" },
+  ];
+  return (
+    <div className="flex flex-col w-full">
+      <a className="text-sm text-gray-700">{heading}</a>{" "}
+      <select
+        onChange={(e) => onChange(e.target.value)}
+        value={value}
+        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
+      >
+        {data.map((option, index) => (
+          <option key={index} value={option.name}>
+            {t(option.name)}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
 function InputField({ heading, value, onChange, type }) {
   return (
     <div className="flex flex-col w-full">

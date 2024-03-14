@@ -39,6 +39,8 @@ const initialState = {
   getSimahCodes: {},
   getAllUsersAll: [],
   selaBalance: {},
+  getAgreement: {},
+  getScreenName: {},
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -158,6 +160,7 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getTermsConditions = data;
     },
+
     GetNafith: (state, action) => {
       const { data } = action.payload;
       state.getNafith = data;
@@ -181,6 +184,14 @@ const Reducer = createSlice({
     SelaBalance: (state, action) => {
       const { data } = action.payload;
       state.selaBalance = data;
+    },
+    GetAgreement: (state, action) => {
+      const { data } = action.payload;
+      state.getAgreement = data;
+    },
+    GetScreenName: (state, action) => {
+      const { data } = action.payload;
+      state.getScreenName = data;
     },
   },
 });
@@ -219,6 +230,8 @@ export const {
   GetSimahCodes,
   GetAllUsersAll,
   SelaBalance,
+  GetAgreement,
+  GetScreenName,
 } = Reducer.actions;
 
 export default Reducer.reducer;

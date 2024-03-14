@@ -31,6 +31,8 @@ import AllInstallments from "Pages/LOS/installments/allinstallments";
 import TermAndConditions from "Pages/Notifications/termsConditions";
 import Simah from "Pages/Simah/simah";
 import SimahPageLayout from "Pages/Simah/SimahLayout";
+import Aggreement from "Pages/Notifications/termsConditions/agreement";
+
 const appRoutes = [
   {
     index: true,
@@ -270,6 +272,14 @@ const appRoutes = [
         state: "response.term-conditions",
         sidebarProps: {
           displayText: "Term And Conditions",
+        },
+      },
+      {
+        path: "/response/aggrement",
+        element: <Aggreement />,
+        state: "response.aggrement",
+        sidebarProps: {
+          displayText: "Aggrement",
         },
       },
     ],

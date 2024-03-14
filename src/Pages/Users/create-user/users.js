@@ -39,8 +39,31 @@ function CreateUser({ setModelOpen }) {
   const [role, setRole] = useState("ROLE_MOD");
 
   function CreateNewUser() {
-    if (validatePassword() && email && username && firstName) {
-      setModelOpen(false);
+    if (
+      validatePassword() &&
+      email &&
+      username &&
+      firstName &&
+      number &&
+      idNumber &&
+      role &&
+      date
+    ) {
+      dispatch({
+        type: "Add_NEW_USER",
+        payload: {
+          firstName: firstName,
+          username: username,
+          mobileNumber: number,
+          idNumber: idNumber,
+          email: email,
+          role: [role],
+          password: password,
+          dateOfBirth: date,
+        },
+      });
+
+      // setModelOpen(false);
     } else if (!validatePassword()) {
       dispatch(
         action.Message({
@@ -84,7 +107,7 @@ function CreateUser({ setModelOpen }) {
       className="items-center justify-center flex flex-col"
     >
       <div className=" bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-20 px-4 py-5 ">
-        <div className="flex flex-col  justify-center items-center">
+        {/* <div className="flex flex-col  justify-center items-center">
           <div
             onClick={handleClick}
             className="h-52 w-52 overflow-hidden rounded-full border bg-gray-300 text-center justify-center flex  flex-row items-center text-gray-900 hover:bg-gray-100 duration-200 cursor-pointer"
@@ -95,7 +118,7 @@ function CreateUser({ setModelOpen }) {
           <div className="border border-primary px-3 py-1 text-primary text-sm rounded-full mt-7">
             Profile Image
           </div>
-        </div>
+        </div> */}
 
         <div className="flex flex-col ">
           <div className=" w-full  flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">

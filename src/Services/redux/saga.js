@@ -267,12 +267,13 @@ function* GetAllUsers(payload) {
 }
 
 function* AddNewUser({ payload }) {
+  console.log("elooo", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
     const response1 = yield call(
       axiosInstance.post,
-      baseUrlUser + `/signup`,
+      baseUrlUser + `/user/admin/signup`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -910,6 +911,66 @@ function* GetBalance({ payload }) {
     // yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* AddAgreement({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.post,
+      baseUrlCms + `/terms/saveAgreement`,
+      payload
+    );
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: response1.data.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
+function* GetAgreement({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlCms + `/terms/getAgreement`
+    );
+    yield put(action.GetAgreement(response));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* GetScreens({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlCms + `/screenFlow/getAppFlow?brandId=65cde20b06ee9e18a9569228`
+    );
+    console.log("responseresponse", response);
+    yield put(action.GetScreenName(response));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -957,4 +1018,7 @@ export default function* HomeSaga() {
   yield takeLatest("GET_ALL_USERS_ALL", GetAllUsersAll);
   yield takeLatest("ACTIVE_DEACTIVE_USER", ActiveDeactiveUser);
   yield takeLatest("GET_BALANCE", GetBalance);
+  yield takeLatest("ADD_AGREEMENT", AddAgreement);
+  yield takeLatest("GET_AGREEMENT", GetAgreement);
+  yield takeLatest("GET_SCREENS", GetScreens);
 }

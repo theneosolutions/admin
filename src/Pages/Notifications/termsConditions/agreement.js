@@ -8,14 +8,14 @@ import { Alert, Snackbar } from "@mui/material";
 import * as action from "Services/redux/reducer";
 import TextEditor from "./textEditor";
 
-function CreateUser() {
+function Aggrement() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const conditions = useSelector((state) => state.getTermsConditions);
+  const conditions = useSelector((state) => state.getAgreement);
 
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
@@ -30,25 +30,25 @@ function CreateUser() {
     e.preventDefault();
     if (description != "") {
       dispatch({
-        type: "ADD_TERM_CONDITIONS",
+        type: "ADD_AGREEMENT",
         payload: {
-          title: "Terms And Conditions",
+          title: "Agreement",
           desc: description,
         },
       });
 
-      setTimeout(() => getTerms(), 1000);
+      setTimeout(() => getAgreement(), 1000);
     } else {
       alert("All Fields Required!");
     }
   }
-  function getTerms() {
+  function getAgreement() {
     dispatch({
-      type: "GET_ALL_TERMS",
+      type: "GET_AGREEMENT",
     });
   }
   useEffect(() => {
-    getTerms();
+    getAgreement();
   }, []);
   function reset() {
     setModelOpen(false);
@@ -58,7 +58,7 @@ function CreateUser() {
     <div className=" flex flex-col space-y-5 ">
       <div className="md:mt-0 mt-5 bg-gray-200  w-full">
         <form onSubmit={handleSubmit}>
-          <CardMain width="w-full" heading={"Create Terms And Conditions"}>
+          <CardMain width="w-full" heading={"Create Agreement"}>
             <div className="flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
               <div className=" w-full space-y-7">
                 {/* <InputField
@@ -67,7 +67,7 @@ function CreateUser() {
                   onChange={(e) => setSubject(e)}
                 /> */}
                 <Description
-                  heading={t("Conditions")}
+                  heading={t("Agreement")}
                   handleChange={(e) => setDescription(e)}
                 />
               </div>
@@ -112,7 +112,7 @@ function CreateUser() {
     </div>
   );
 }
-export default CreateUser;
+export default Aggrement;
 function Model({ children, setModelOpen, reset }) {
   return (
     <div
