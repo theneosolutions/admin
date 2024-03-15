@@ -2,17 +2,12 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { FaUser } from "react-icons/fa";
 import { IoMdCheckboxOutline } from "react-icons/io";
 import { MdOutlineQuestionAnswer } from "react-icons/md";
-
 import DashboardIndex from "../Pages/Dashboard/DashboardIndex";
 import DashboardPageLayout from "../Pages/Dashboard/DashboardPageLayout";
-import Applications from "../Pages/Dashboard/Applications";
-import Demo from "../Pages/Dashboard/Demo";
 import UserList from "../Pages/Dashboard/UserList";
 import UsersPageLayout from "../Pages/Users/UsersPageLayout";
 import Verified from "../Pages/Users/verified";
 import AllUsers from "../Pages/Users/AllUsers";
-
-import Unverified from "../Pages/Users/unverified";
 import Dump from "../Pages/Users/dump";
 import DecisionLayout from "../Pages/Decision/DecisionPageLayout";
 import QuestionsAnswers from "../Pages/Decision/Question&Answers";
@@ -32,6 +27,7 @@ import TermAndConditions from "Pages/Notifications/termsConditions";
 import Simah from "Pages/Simah/simah";
 import SimahPageLayout from "Pages/Simah/SimahLayout";
 import Aggreement from "Pages/Notifications/termsConditions/agreement";
+import { ROLES } from "../constants/roles";
 
 const appRoutes = [
   {
@@ -39,8 +35,8 @@ const appRoutes = [
     element: <UserList />,
     state: "home",
   },
-
   {
+    roles: [ROLES.ADMIN, ROLES.SALES], // Example roles allowed to access this route
     path: "/dashboard",
     element: <DashboardPageLayout />,
     state: "dashboard",
@@ -62,27 +58,11 @@ const appRoutes = [
           displayText: "User List",
         },
       },
-      // {
-      //   path: "/dashboard/application",
-      //   element: <Applications />,
-      //   state: "dashboard.application",
-      //   sidebarProps: {
-      //     displayText: "Applications",
-      //   },
-      // },
-
-      // {
-      //   path: "/dashboard/demo",
-      //   element: <Demo />,
-      //   state: "dashboard.demo",
-      //   sidebarProps: {
-      //     displayText: "Demo",
-      //   },
-      // },
     ],
   },
 
   {
+    roles: [ROLES.ADMIN, ROLES.CUSTOMER_CARE, ROLES.COMPLIANCE], // Example roles allowed to access this route
     path: "/users",
     element: <UsersPageLayout />,
     state: "users",
@@ -148,6 +128,8 @@ const appRoutes = [
     ],
   },
   {
+    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER], // Example roles allowed to access this route
+
     path: "/los",
     element: <DecisionLayout />,
     state: "los",
@@ -188,6 +170,8 @@ const appRoutes = [
     ],
   },
   {
+    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER, ROLES.MODERATOR], // Example roles allowed to access this route
+
     path: "/decisions",
     element: <DecisionLayout />,
     state: "decisions",
@@ -237,6 +221,8 @@ const appRoutes = [
     ],
   },
   {
+    roles: [ROLES.ADMIN, ROLES.CUSTOMER_CARE], // Example roles allowed to access this route
+
     path: "/response",
     element: <ResponsePageLayout />,
     state: "response",
@@ -285,6 +271,8 @@ const appRoutes = [
     ],
   },
   {
+    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER], // Example roles allowed to access this route
+
     path: "/simah",
     element: <SimahPageLayout />,
     state: "simah",

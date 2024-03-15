@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Alert, Snackbar } from "@mui/material";
 import * as action from "Services/redux/reducer";
 import TextEditor from "./textEditor";
-
+import withAuthorization from "../../../constants/authorization";
+import { ROLES } from "../../../constants/roles";
 function CreateUser() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -112,7 +113,10 @@ function CreateUser() {
     </div>
   );
 }
-export default CreateUser;
+export default withAuthorization(CreateUser, [
+  ROLES.ADMIN,
+  ROLES.CUSTOMER_CARE,
+]);
 function Model({ children, setModelOpen, reset }) {
   return (
     <div

@@ -6,7 +6,8 @@ import CardMain from "../../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-
+import withAuthorization from "../../../constants/authorization";
+import { ROLES } from "../../../constants/roles";
 function InstallmentsScreen() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -98,4 +99,7 @@ function InstallmentsScreen() {
     </div>
   );
 }
-export default InstallmentsScreen;
+export default withAuthorization(InstallmentsScreen, [
+  ROLES.ADMIN,
+  ROLES.UNDER_WRITER,
+]);

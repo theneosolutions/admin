@@ -8,6 +8,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Alert, Snackbar } from "@mui/material";
 import * as action from "../../Services/redux/reducer";
 import { useTranslation } from "react-i18next";
+import withAuthorization from "../../constants/authorization";
+import { ROLES } from "../../constants/roles";
 
 function CreateUser() {
   const { t } = useTranslation();
@@ -241,8 +243,10 @@ function CreateUser() {
     </div>
   );
 }
-export default CreateUser;
-
+export default withAuthorization(CreateUser, [
+  ROLES.ADMIN,
+  ROLES.CUSTOMER_CARE,
+]);
 function InputField({ heading, value, onChange, type, style }) {
   const { t } = useTranslation();
 

@@ -22,7 +22,7 @@ function CreateUser() {
 
   const [description, setDescription] = useState(null);
   const [subject, setSubject] = useState(null);
-  const [navigation, setNavigation] = useState("ROLE_MOD");
+  const [navigation, setNavigation] = useState("");
   const [topic, setTopic] = useState(null);
   const [role, setRole] = useState();
 
@@ -41,9 +41,19 @@ function CreateUser() {
   function handleSubmit(e) {
     e.preventDefault();
     if (
-      (subject != "" && description != "" && image != null && navigation != "",
-      topic != "")
+      subject != "" &&
+      description != "" &&
+      image != null &&
+      navigation != "" &&
+      topic != ""
     ) {
+      console.log("slack", {
+        subject: subject,
+        content: description,
+        image: image,
+        navigation: navigation,
+        topic: topic,
+      });
       dispatch({
         type: "CREATE_NOTIFICATION",
         payload: {
@@ -90,7 +100,6 @@ function CreateUser() {
         <form onSubmit={handleSubmit}>
           <CardMain width="w-full" heading={"Create Notification"}>
             <div className="flex  flex-col ">
-              {" "}
               <div
                 onClick={handleClick}
                 className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer"
@@ -163,10 +172,6 @@ export default CreateUser;
 function Select({ heading, value, onChange, data }) {
   const { t } = useTranslation();
 
-  var options = [
-    { value: "ROLE_MOD", label: "Moderater" },
-    { value: "ROLE_ADMIN", label: "Admin" },
-  ];
   return (
     <div className="flex flex-col w-full">
       <a className="text-sm text-gray-700">{heading}</a>{" "}

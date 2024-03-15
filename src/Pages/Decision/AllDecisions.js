@@ -8,7 +8,8 @@ import Edit from "../../Assets/Images/edit.svg";
 import Delete from "../../Assets/Images/delete.svg";
 import { Button, CheckOperaterStyle } from "Components";
 import { useTranslation } from "react-i18next";
-
+import withAuthorization from "../../constants/authorization";
+import { ROLES } from "../../constants/roles";
 const CreateDesicion = () => {
   const { t } = useTranslation();
 
@@ -223,7 +224,11 @@ const CreateDesicion = () => {
   );
 };
 
-export default CreateDesicion;
+export default withAuthorization(CreateDesicion, [
+  ROLES.ADMIN,
+  ROLES.UNDER_WRITER,
+  ROLES.MODERATOR,
+]);
 
 function NoDecisionFound() {
   const navigate = useNavigate();

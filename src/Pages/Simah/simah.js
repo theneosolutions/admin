@@ -3,6 +3,8 @@ import Existing from "./Tabs/existing";
 import ProductList from "./Tabs/product";
 import { useDispatch } from "react-redux";
 import Members from "./Tabs/members";
+import withAuthorization from "../../constants/authorization";
+import { ROLES } from "../../constants/roles";
 
 function Simah() {
   const dispatch = useDispatch();
@@ -48,8 +50,8 @@ function Simah() {
     </div>
   );
 }
-export default Simah;
 
+export default withAuthorization(Simah, [ROLES.ADMIN, ROLES.UNDER_WRITER]);
 const data = [
   {
     label: "SIMAH Members",

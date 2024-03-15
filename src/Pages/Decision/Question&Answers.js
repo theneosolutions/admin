@@ -5,7 +5,8 @@ import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-
+import withAuthorization from "../../constants/authorization";
+import { ROLES } from "../../constants/roles";
 function App() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -160,8 +161,11 @@ function App() {
     </div>
   );
 }
-
-export default App;
+export default withAuthorization(App, [
+  ROLES.ADMIN,
+  ROLES.UNDER_WRITER,
+  ROLES.MODERATOR,
+]);
 
 function TextBox({ onAddElement }) {
   const { t } = useTranslation();

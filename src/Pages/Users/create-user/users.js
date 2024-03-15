@@ -198,8 +198,11 @@ function Select({ heading, value, onChange }) {
   const { t } = useTranslation();
 
   var options = [
-    { value: "ROLE_MOD", label: "Moderater" },
-    { value: "ROLE_ADMIN", label: "Admin" },
+    { value: "mod", label: "ROLE_MODE" },
+    { value: "compliance", label: "ROLE_COMPLIANCE" },
+    { value: "customer", label: "ROLE_CUSTOMER" },
+    { value: "admin", label: "ROLE_ADMIN" },
+    { value: "sales", label: "ROLE_SALES" },
   ];
   return (
     <div className="flex flex-col w-full">

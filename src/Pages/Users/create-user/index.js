@@ -6,6 +6,8 @@ import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
 import User from "./users";
 
+import withAuthorization from "../../../constants/authorization";
+import { ROLES } from "../../../constants/roles";
 function NotificationsScreen() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -110,7 +112,12 @@ function NotificationsScreen() {
     </div>
   );
 }
-export default NotificationsScreen;
+
+export default withAuthorization(NotificationsScreen, [
+  ROLES.ADMIN,
+  ROLES.CUSTOMER_CARE,
+  ROLES.COMPLIANCE,
+]);
 
 function Model({ children, reset }) {
   return (

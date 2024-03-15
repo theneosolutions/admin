@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RxCrossCircled } from "react-icons/rx";
 import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
+import withAuthorization from "../../../constants/authorization";
+import { ROLES } from "../../../constants/roles";
 
 function DumpUsers() {
   const navigate = useNavigate();
@@ -256,4 +258,9 @@ function DumpUsers() {
     </div>
   );
 }
-export default DumpUsers;
+
+export default withAuthorization(DumpUsers, [
+  ROLES.ADMIN,
+  ROLES.CUSTOMER_CARE,
+  ROLES.COMPLIANCE,
+]);

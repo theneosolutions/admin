@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
 
+import withAuthorization from "../../../constants/authorization";
+import { ROLES } from "../../../constants/roles";
 function NotificationsScreen() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -114,7 +116,10 @@ function NotificationsScreen() {
     </div>
   );
 }
-export default NotificationsScreen;
+export default withAuthorization(NotificationsScreen, [
+  ROLES.ADMIN,
+  ROLES.CUSTOMER_CARE,
+]);
 function Notifications({ heading, value, color }) {
   return (
     <div className="flex font-semibold flex-col bg-gray-300  px-10 py-8 text-center rounded-md md:w-1/4 w-full md:mt-0 mt-4 hover:bg-opacity-70 cursor-pointer shadow-xl duration-300">

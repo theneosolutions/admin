@@ -11,7 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
 import { useEffect } from "react";
-
+import withAuthorization from "../../../constants/authorization";
+import { ROLES } from "../../../constants/roles";
 function VerifiedUsers() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -203,4 +204,9 @@ function VerifiedUsers() {
     </div>
   );
 }
-export default VerifiedUsers;
+
+export default withAuthorization(VerifiedUsers, [
+  ROLES.ADMIN,
+  ROLES.CUSTOMER_CARE,
+  ROLES.COMPLIANCE,
+]);

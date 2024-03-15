@@ -7,7 +7,8 @@ import { Alert, Snackbar } from "@mui/material";
 import UplaodIcon from "Assets/Images/upload.svg";
 import { useNavigate } from "react-router-dom";
 import { CiCircleRemove } from "react-icons/ci";
-
+import withAuthorization from "../../constants/authorization";
+import { ROLES } from "../../constants/roles";
 function App() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -288,4 +289,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthorization(App, [ROLES.ADMIN, ROLES.UNDER_WRITER]);

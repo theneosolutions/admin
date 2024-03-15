@@ -18,6 +18,7 @@ import CreateNotification from "Pages/Notifications/addNotification/createNotifi
 import UserProfile from "Pages/Users/userProfile";
 import AddNewProduct from "Pages/LOS/installments/addNewProduct";
 import MainTemplate from "Layouts/MainTemplate";
+import NotFound from "Pages/NotFound";
 function App() {
   return (
     <MainTemplate>
@@ -33,6 +34,8 @@ function App() {
             <Route path="/create-screen" element={<CreateScreens />} />
             <Route path="/los/create-loan-tax" element={<CreateLaonTax />} />
             <Route path="/view-screen" element={<ViewScreen />} />
+            <Route path="/404" element={<NotFound />} />
+
             <Route
               path="/user-applications"
               element={<UserLoanApplications />}

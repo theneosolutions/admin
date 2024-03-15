@@ -20,7 +20,7 @@ const initialState = {
   Loading: false,
   islogin: false,
   user: null,
-
+  role: "sales",
   //Loan start
   getAllLoanReasons: [],
   getSetResponse: {},

@@ -10,6 +10,9 @@ import Edit from "../../Assets/Images/edit.svg";
 import Delete from "../../Assets/Images/delete.svg";
 import { useTranslation } from "react-i18next";
 import Response from "./response";
+import withAuthorization from "../../constants/authorization";
+import { ROLES } from "../../constants/roles";
+
 const CreateDesicion = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -280,7 +283,12 @@ const CreateDesicion = () => {
   );
 };
 
-export default CreateDesicion;
+export default withAuthorization(CreateDesicion, [
+  ROLES.ADMIN,
+  ROLES.UNDER_WRITER,
+  ROLES.MODERATOR,
+]);
+
 function Checboxes({ singleQuestion, checkedValues, setCheckedValues }) {
   const handleSubmit = (event) => {
     event.preventDefault();

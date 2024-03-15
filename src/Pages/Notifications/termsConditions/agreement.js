@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Alert, Snackbar } from "@mui/material";
 import * as action from "Services/redux/reducer";
 import TextEditor from "./textEditor";
-
+import withAuthorization from "../../../constants/authorization";
+import { ROLES } from "../../../constants/roles";
 function Aggrement() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -112,7 +113,8 @@ function Aggrement() {
     </div>
   );
 }
-export default Aggrement;
+
+export default withAuthorization(Aggrement, [ROLES.ADMIN, ROLES.CUSTOMER_CARE]);
 function Model({ children, setModelOpen, reset }) {
   return (
     <div

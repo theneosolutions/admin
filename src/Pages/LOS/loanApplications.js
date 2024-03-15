@@ -11,8 +11,10 @@ import { Model, Avatar } from "Components";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-
 import { useEffect } from "react";
+import withAuthorization from "../../constants/authorization";
+import { ROLES } from "../../constants/roles";
+
 function LaonApplication() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -232,7 +234,12 @@ function LaonApplication() {
     </div>
   );
 }
-export default LaonApplication;
+
+export default withAuthorization(LaonApplication, [
+  ROLES.ADMIN,
+  ROLES.UNDER_WRITER,
+]);
+
 function Notifications({ heading, value, color, onClick, active }) {
   return (
     <div

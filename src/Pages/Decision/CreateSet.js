@@ -7,7 +7,8 @@ import CardMain from "../../Components/Cards/main";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import withAuthorization from "../../constants/authorization";
+import { ROLES } from "../../constants/roles";
 function CreateQuestionsSet() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -163,7 +164,11 @@ function CreateQuestionsSet() {
   );
 }
 
-export default CreateQuestionsSet;
+export default withAuthorization(CreateQuestionsSet, [
+  ROLES.ADMIN,
+  ROLES.UNDER_WRITER,
+  ROLES.MODERATOR,
+]);
 
 function InputField({ name, setName }) {
   const { t } = useTranslation();
