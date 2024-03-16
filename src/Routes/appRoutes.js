@@ -30,6 +30,7 @@ import Aggreement from "Pages/Notifications/termsConditions/agreement";
 import { ROLES } from "../constants/roles";
 import CalculationsPageLayout from "Pages/Calculations/CalculationsPageLayout";
 import Calculations from "Pages/Calculations";
+import BareMinimumExpense from "Pages/Calculations/BareMinimumExpense";
 
 const appRoutes = [
   {
@@ -314,11 +315,19 @@ const appRoutes = [
         state: "calculations.index",
       },
       {
-        path: "/calculations",
+        path: "/calculations/dbr",
         element: <Calculations />,
-        state: "calculations  ",
+        state: "calculations.dbr",
         sidebarProps: {
-          displayText: "calculations",
+          displayText: "DBR",
+        },
+      },
+      {
+        path: "/calculations/bare-minimum-expense",
+        element: <BareMinimumExpense />,
+        state: "calculations.bare-minimum-expense",
+        sidebarProps: {
+          displayText: "Bare Minimum Expense",
         },
       },
     ],

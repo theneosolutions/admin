@@ -13,22 +13,24 @@ function CreateUser({ setModelOpen }) {
     e.preventDefault();
     CreateNewUser();
   }
-
-  const [firstName, setFirstName] = useState("");
-  const [email, setEmail] = useState("");
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [bracketStart, setBracketStart] = useState("");
+  const [bracketEnd, setBracketEnd] = useState("");
+  const [level, setLevel] = useState("");
+  const [gdbrWithout, setGdbrWithout] = useState("");
+  const [dbr, setDbr] = useState("");
+  const [gdbrInclude, setGdbrInclude] = useState("");
 
   function CreateNewUser() {
-    if (email && username && firstName) {
+    if (
+      bracketStart != "" &&
+      bracketEnd != "" &&
+      level != "" &&
+      gdbrWithout != "" &&
+      dbr != "" &&
+      gdbrInclude != ""
+    ) {
       dispatch({
         type: "Add_NEW_USER",
-        payload: {
-          firstName: firstName,
-          username: username,
-          email: email,
-          password: password,
-        },
       });
     } else {
       dispatch(
@@ -43,7 +45,7 @@ function CreateUser({ setModelOpen }) {
 
   return (
     <form
-      onSubmit={handleSubmit}
+      //   onSubmit={handleSubmit}
       className="items-center justify-center flex flex-col"
     >
       <div className=" bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-20 px-4 py-5 ">
@@ -53,15 +55,15 @@ function CreateUser({ setModelOpen }) {
             <div className=" justify-between flex flex-row items-center border-gray-300 border rounded-md px-1.5 py-1.5 outline-none mt-2 w-full">
               <input
                 type="number"
-                // value={value}
-                // onChange={(e) => onChange(e.target.value)}
+                value={bracketStart}
+                onChange={(e) => setBracketStart(e.target.value)}
                 className="bg-gray-100 rounded-md px-3 py-1 outline-none w-5/12	"
               />
               <a className="text-sm">TO</a>
               <input
                 type="number"
-                // value={value}
-                // onChange={(e) => onChange(e.target.value)}
+                value={bracketEnd}
+                onChange={(e) => setBracketEnd(e.target.value)}
                 className="bg-gray-100 rounded-md px-3 py-1 outline-none w-5/12	"
               />
             </div>
@@ -71,29 +73,29 @@ function CreateUser({ setModelOpen }) {
               <InputField
                 id="firstName"
                 heading={t("Product Level")}
-                value={firstName}
-                onChange={(e) => setFirstName(e)}
+                value={level}
+                onChange={(e) => setLevel(e)}
               />
               <InputField
                 heading={t("Customer DBR")}
-                value={email}
-                onChange={(e) => setEmail(e)}
+                value={dbr}
+                onChange={(e) => setDbr(e)}
               />
             </div>
             <div className="md:w-1/2 w-full md:mt-0 mt-3 space-y-5">
               <InputField
                 heading={t("GDBR (Without MTG)")}
-                value={username}
-                onChange={(e) => setUserName(e)}
+                value={gdbrWithout}
+                onChange={(e) => setGdbrWithout(e)}
               />
               <InputField
                 heading={t("GDBR (Include MTG)")}
-                value={password}
-                onChange={(e) => setPassword(e)}
+                value={gdbrInclude}
+                onChange={(e) => setGdbrInclude(e)}
               />
             </div>
           </div>
-          <div className="flex flex-row justify-end mt-10 px-14">
+          <div className="flex flex-row justify-end mt-10 mb-5 px-14">
             <Button
               type="submit"
               buttonValue={t("Submit")}
