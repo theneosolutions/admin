@@ -146,7 +146,7 @@ const data = [
     icon: <RiHistoryFill className="text-sm" />,
   },
   {
-    label: "Compare",
+    label: "Financial Reports",
     tab: <Product />,
     icon: <FaCodeCompare className="text-xs" />,
   },

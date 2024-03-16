@@ -38,18 +38,18 @@ function CreateUser() {
         },
       });
 
-      // setTimeout(() => getTerms(), 1000);
+      setTimeout(() => getTerms(), 1000);
     } else {
       alert("All Fields Required!");
     }
   }
-  // function getTerms() {
-  //   dispatch({
-  //     type: "GET_ALL_TERMS",
-  //   });
-  // }
+  function getTerms() {
+    dispatch({
+      type: "GET_ALL_TERMS",
+    });
+  }
   useEffect(() => {
-    // getTerms();
+    getTerms();
   }, []);
   function reset() {
     setModelOpen(false);

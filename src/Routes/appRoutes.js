@@ -28,6 +28,8 @@ import Simah from "Pages/Simah/simah";
 import SimahPageLayout from "Pages/Simah/SimahLayout";
 import Aggreement from "Pages/Notifications/termsConditions/agreement";
 import { ROLES } from "../constants/roles";
+import CalculationsPageLayout from "Pages/Calculations/CalculationsPageLayout";
+import Calculations from "Pages/Calculations";
 
 const appRoutes = [
   {
@@ -292,6 +294,31 @@ const appRoutes = [
         state: "simah.codes",
         sidebarProps: {
           displayText: "Simah",
+        },
+      },
+    ],
+  },
+  {
+    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER], // Example roles allowed to access this route
+    path: "/calculations",
+    element: <CalculationsPageLayout />,
+    state: "calculations",
+    sidebarProps: {
+      displayText: "calculations",
+      icon: <MdOutlineQuestionAnswer />,
+    },
+    child: [
+      {
+        index: true,
+        element: <Calculations />,
+        state: "calculations.index",
+      },
+      {
+        path: "/calculations",
+        element: <Calculations />,
+        state: "calculations  ",
+        sidebarProps: {
+          displayText: "calculations",
         },
       },
     ],
