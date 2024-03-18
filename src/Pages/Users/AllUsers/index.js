@@ -21,7 +21,7 @@ function AllUsers() {
   const [selectedUserId, setSelectedUserId] = useState(false);
   const [idNumber, setIdNumber] = useState("");
   const [id, setId] = useState("");
-  const users = useSelector((state) => state.getAllUsersAll);
+  const users = useSelector((state) => state.getAllUsersAll || []);
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
@@ -59,7 +59,7 @@ function AllUsers() {
     setTimeout(() => getAllUsersData(), 500);
     setModelOpen2(false);
   }
-
+  console.log("users");
   return (
     <div className="py-5">
       <CardMain

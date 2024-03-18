@@ -15,18 +15,14 @@ function App({ isOpen, toggleSidebar }) {
 
   const userRole = useSelector((state) => state.role); // Assuming the user role is stored in the Redux state under `user.role`
 
-  console.log("role", userRole);
   // Filter routes based on user role
   const filteredRoutes = appRoutes.filter((route) => {
     // Assuming each route has a `roles` property containing an array of roles
     if (route.roles) {
-      console.log("helo", route.roles);
       return route.roles.includes(userRole);
     }
     return false; // Include routes without roles or sidebarProps
   });
-
-  console.log("filter routes", filteredRoutes);
 
   return (
     <div className="flex  flex-col bg-greeen-400">

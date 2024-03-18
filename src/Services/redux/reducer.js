@@ -20,7 +20,9 @@ const initialState = {
   Loading: false,
   islogin: false,
   user: null,
-  role: "admin",
+  role: null,
+  token: null,
+  verificationOtp: null,
   //Loan start
   getAllLoanReasons: [],
   getSetResponse: {},
@@ -64,18 +66,14 @@ const Reducer = createSlice({
     },
     getLables: (state, action) => {
       const { data } = action.payload;
-
       state.getLables = data;
     },
-
     Notifications: (state, action) => {
       const { data } = action.payload;
-
       state.Notifications = data;
     },
     Loading: (state, action) => {
       const { Loading } = action.payload;
-
       state.Loading = Loading;
     },
     SetAppState: (state, action) => {
@@ -109,11 +107,12 @@ const Reducer = createSlice({
       state.open = open;
       state.error = error;
     },
-
     Auth: (state, action) => {
-      const { user, islogin } = action.payload;
+      const { user, islogin, role, token } = action.payload;
       state.islogin = islogin;
       state.user = user;
+      state.role = role;
+      state.token = token;
     },
     GetAllLoanReasons: (state, action) => {
       const { data } = action.payload;
@@ -155,12 +154,10 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getUserById = data;
     },
-
     GetTermsConditions: (state, action) => {
       const { data } = action.payload;
       state.getTermsConditions = data;
     },
-
     GetNafith: (state, action) => {
       const { data } = action.payload;
       state.getNafith = data;
@@ -192,6 +189,10 @@ const Reducer = createSlice({
     GetScreenName: (state, action) => {
       const { data } = action.payload;
       state.getScreenName = data;
+    },
+    VerificationOtp: (state, action) => {
+      const { otp } = action.payload;
+      state.verificationOtp = otp;
     },
   },
 });
@@ -232,6 +233,7 @@ export const {
   SelaBalance,
   GetAgreement,
   GetScreenName,
+  VerificationOtp,
 } = Reducer.actions;
 
 export default Reducer.reducer;

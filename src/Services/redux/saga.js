@@ -1,6 +1,7 @@
 import axios from "axios";
 import { call, put, takeLatest } from "@redux-saga/core/effects";
 import * as action from "./reducer";
+import { store } from "./store"; // Import your Redux store
 
 var baseUrlUser = "https://seulah.ngrok.app/api/v1/auth";
 var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
@@ -11,6 +12,7 @@ var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
 
 const axiosInstance = axios.create({
   headers: {
+    Authorization: token(),
     "Content-Type": "application/json",
     "ngrok-skip-browser-warning": "69420",
     "Access-Control-Allow-Origin": "*",
@@ -21,6 +23,36 @@ const axiosInstance = axios.create({
   },
 });
 
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const tokenValue = token();
+    if (tokenValue) {
+      config.headers.Authorization = tokenValue;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+function token() {
+  const storage = localStorage.getItem("user");
+  console.log("storage", storage);
+  if (storage) {
+    const user = JSON.parse(storage);
+
+    console.log("user", user);
+    if (user?.data?.token) {
+      console.log("token hai ky nahi ", user?.data?.token);
+      return user?.data?.token;
+    } else {
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
 function* GetAllQuestionsData() {
   try {
     yield put(action.Loading({ Loading: true }));
@@ -296,11 +328,25 @@ function* UserLogin({ payload }) {
 
     const response = yield call(
       axiosInstance.post,
-      baseUrlUser + `/signin`,
+      baseUrlUser + `/user/signin`,
       payload
     );
-    if (response.data.accessToken) {
-      yield put(action.Auth({ user: response.data, islogin: true }));
+    console.log("response.data", response.data);
+    if (response.data.token) {
+      console.log(
+        "response.data.accessToken",
+        response.data.token,
+        response.data.role
+      );
+
+      yield put(
+        action.Auth({
+          user: response.data,
+          islogin: true,
+          role: response.data.roles[0],
+          token: response.data.token,
+        })
+      );
       localStorage.setItem(
         "user",
         JSON.stringify({ islogin: true, data: response.data })
@@ -316,6 +362,40 @@ function* UserLogin({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+function* LoginOtpVerification({ payload }) {
+  console.log("payload otp", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+    const response = yield call(
+      axiosInstance.post,
+      baseUrlUser + `/user/otpVerification`,
+      payload
+    );
+    console.log("response", response);
+    if (response?.data?.otp) {
+      yield put(action.VerificationOtp(response.data));
+      yield put(
+        action.Message({ message: "Otp Success", open: false, error: false })
+      );
+    }
+    // if (response.data.accessToken) {
+    //   yield put(action.Auth({ user: response.data, islogin: true }));
+    //   localStorage.setItem(
+    //     "user",
+    //     JSON.stringify({ islogin: true, data: response.data })
+    //   );
+    //   yield put(
+    //     action.Message({ message: "Login Success", open: true, error: false })
+    //   );
+    // }
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    // const message = error.response.data.message;
+    yield put(action.Loading({ Loading: false }));
+    // yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
 function* SetDecisionResponse({ payload }) {
   try {
     yield put(action.Loading({ Loading: true }));
@@ -328,7 +408,7 @@ function* SetDecisionResponse({ payload }) {
     formData.append("errorDescription", payload.errorDescription);
     formData.append("setId", payload.setId);
     const response1 = yield call(
-      axios.post,
+      axiosInstance.post,
       baseUrlDecisions + "/apiResponse/create",
       formData,
       {
@@ -597,7 +677,7 @@ function* AddNewProduct({ payload }) {
     formData.append("file", payload.image);
 
     const response = yield call(
-      axios.post,
+      axiosInstance.post,
       baseUrlCms + "/addCardInstallment",
       formData,
       {
@@ -988,6 +1068,8 @@ export default function* HomeSaga() {
   yield takeLatest("GET_ALL_USERS", GetAllUsers);
   yield takeLatest("Add_NEW_USER", AddNewUser);
   yield takeLatest("LOGIN_USER", UserLogin);
+
+  yield takeLatest("LOGIN_OTP_VERIFICATION", LoginOtpVerification);
   yield takeLatest("SET_DECISION_RESPONSE", SetDecisionResponse);
   yield takeLatest("CREATE_SCREEN", CreateScreen);
   yield takeLatest("GET_RESPONSE_OF_SET", GetResponseOfSet);
