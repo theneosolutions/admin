@@ -78,7 +78,6 @@ function OptScreen({ otp, LoginFunction }) {
               <p>Didn't recieve code?</p>{" "}
               <a
                 class="flex flex-row items-center text-blue-600"
-                href="http://"
                 target="_blank"
                 rel="noopener noreferrer"
               >
