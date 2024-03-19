@@ -6,7 +6,6 @@ import * as action from "Services/redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 
 function CreateUser({ setModelOpen, data }) {
-  console.log("data", data);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -35,7 +34,7 @@ function CreateUser({ setModelOpen, data }) {
       gdbrInclude != "" &&
       income != ""
     ) {
-      const data = {
+      const temp = {
         consumerDbr: parseInt(dbr),
         gdbrIncludingMtg: parseInt(gdbrInclude),
         gdbrWithoutMtg: parseInt(gdbrWithout),
@@ -43,10 +42,21 @@ function CreateUser({ setModelOpen, data }) {
         netIncome: parseInt(income),
         productLevel: parseInt(level),
       };
-      dispatch({
-        type: "ADD_NEW_DBR",
-        payload: data,
-      });
+      if (data) {
+        const updatedTemp = {
+          ...temp, // Clone the original object
+          id: data?.id, // Add the new attribute
+        };
+        dispatch({
+          type: "UPDATE_DBR",
+          payload: updatedTemp,
+        });
+      } else {
+        dispatch({
+          type: "ADD_NEW_DBR",
+          payload: temp,
+        });
+      }
     } else {
       dispatch(
         action.Message({
@@ -62,6 +72,18 @@ function CreateUser({ setModelOpen, data }) {
       setModelOpen(false);
     }
   }, [message, error]);
+
+  useEffect(() => {
+    if (data) {
+      setBracketStart(data?.incomeBracket.split(" ")[0]);
+      setBracketEnd(data?.incomeBracket.split(" ")[2]);
+      setLevel(data?.productLevel);
+      setGdbrWithout(data?.gdbrWithoutMtg);
+      setDbr(data?.consumerDbr);
+      setGdbrInclude(data?.gdbrIncludingMtg);
+      setIncome(data?.netIncome);
+    }
+  }, [data]);
   return (
     <form
       onSubmit={handleSubmit}
@@ -118,7 +140,7 @@ function CreateUser({ setModelOpen, data }) {
             <div className="md:w-full w-full md:mt-0 mt-3 space-y-5">
               <InputField
                 heading={t("Net Income")}
-                value={income || data?.netIncome}
+                value={income}
                 onChange={(e) => setIncome(e)}
               />
             </div>
@@ -127,7 +149,7 @@ function CreateUser({ setModelOpen, data }) {
           <div className="flex flex-row justify-end mt-10 mb-5 px-14">
             <Button
               type="submit"
-              buttonValue={t("Submit")}
+              buttonValue={data ? t("Update") : t("Submit")}
               buttonStyle="px-20 py-2 w-full "
             />
           </div>

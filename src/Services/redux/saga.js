@@ -1,57 +1,15 @@
-import axios from "axios";
 import { call, put, takeLatest } from "@redux-saga/core/effects";
 import * as action from "./reducer";
-import { store } from "./store"; // Import your Redux store
+import { axiosInstance } from "../constant";
 
 var baseUrlUser = "https://seulah.ngrok.app/api/v1/auth";
 var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
 var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
 var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
-
-// "https://seulah.com/api/v1/cms";
 var baseUrlDBR = "https://7eb1-182-180-183-127.ngrok-free.app/api/v1/dbr";
 
-const axiosInstance = axios.create({
-  headers: {
-    Authorization: token(),
-    "Content-Type": "application/json",
-    "ngrok-skip-browser-warning": "69420",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Credentials": "true",
-    "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
-    "Access-Control-Allow-Headers":
-      "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers",
-  },
-});
+// "https://seulah.com/api/v1/cms";
 
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const tokenValue = token();
-    if (tokenValue) {
-      config.headers.Authorization = tokenValue;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-function token() {
-  const storage = localStorage.getItem("user");
-  if (storage) {
-    const user = JSON.parse(storage);
-
-    console.log("user", user);
-    if (user?.data?.token) {
-      return user?.data?.token;
-    } else {
-      return null;
-    }
-  } else {
-    return null;
-  }
-}
 function* GetAllQuestionsData() {
   try {
     yield put(action.Loading({ Loading: true }));
@@ -298,7 +256,6 @@ function* GetAllUsers(payload) {
 }
 
 function* AddNewUser({ payload }) {
-  console.log("elooo", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -330,14 +287,7 @@ function* UserLogin({ payload }) {
       baseUrlUser + `/user/signin`,
       payload
     );
-    console.log("response.data", response.data);
     if (response.data.token) {
-      console.log(
-        "response.data.accessToken",
-        response.data.token,
-        response.data.role
-      );
-
       yield put(
         action.Auth({
           user: response.data,
@@ -357,14 +307,11 @@ function* UserLogin({ payload }) {
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     const message = error.response.data.message;
-    console.log("error", message);
-
     yield put(action.Message({ message: message, open: true, error: true }));
     yield put(action.Loading({ Loading: false }));
   }
 }
 function* LoginOtpVerification({ payload }) {
-  console.log("payload otp", payload);
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
@@ -372,7 +319,6 @@ function* LoginOtpVerification({ payload }) {
       baseUrlUser + `/user/otpVerification`,
       payload
     );
-    console.log("response", response);
     if (response?.data?.otp) {
       yield put(action.VerificationOtp(response.data));
       yield put(
@@ -1042,7 +988,6 @@ function* GetScreens({ payload }) {
       axiosInstance.get,
       baseUrlCms + `/screenFlow/getAppFlow?brandId=65cde20b06ee9e18a9569228`
     );
-    console.log("responseresponse", response);
     yield put(action.GetScreenName(response));
 
     yield put(action.Loading({ Loading: false }));
@@ -1054,7 +999,6 @@ function* GetScreens({ payload }) {
 }
 
 function* GetAllDBR({ payload }) {
-  console.log("dbr");
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1062,7 +1006,7 @@ function* GetAllDBR({ payload }) {
       axiosInstance.get,
       baseUrlDBR + `/calculation/getall`
     );
-    console.log("responseresponse", response);
+
     yield put(action.GetAllDBR(response.data));
 
     yield put(action.Loading({ Loading: false }));
@@ -1073,7 +1017,6 @@ function* GetAllDBR({ payload }) {
   }
 }
 function* AddNewDbr({ payload }) {
-  console.log("paylaod dbr", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1097,7 +1040,6 @@ function* AddNewDbr({ payload }) {
   }
 }
 function* DeleteDbr({ payload }) {
-  console.log("helo payload ", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1112,6 +1054,30 @@ function* DeleteDbr({ payload }) {
     const message = error.response.data.message;
     yield put(action.Message({ message: message, open: true, error: true }));
     yield put(action.Loading({ Loading: false }));
+  }
+}
+
+function* UpdateDbr({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.put,
+      baseUrlDBR + `/calculation/dbrcalculation`,
+      payload
+    );
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: response1.data.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
 export default function* HomeSaga() {
@@ -1169,4 +1135,5 @@ export default function* HomeSaga() {
   yield takeLatest("GET_ALL_DBR", GetAllDBR);
   yield takeLatest("ADD_NEW_DBR", AddNewDbr);
   yield takeLatest("DELETE_DBR", DeleteDbr);
+  yield takeLatest("UPDATE_DBR", UpdateDbr);
 }

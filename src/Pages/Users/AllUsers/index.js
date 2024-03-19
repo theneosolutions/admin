@@ -29,7 +29,6 @@ function AllUsers() {
     dispatch(action.Message({ open: false }));
   };
   function onDelete(user) {
-    console.log(user?.userId);
     setSelectedUserId(user?.userId);
     setModelOpen(true);
   }
@@ -59,7 +58,6 @@ function AllUsers() {
     setTimeout(() => getAllUsersData(), 500);
     setModelOpen2(false);
   }
-  console.log("users");
   return (
     <div className="py-5">
       <CardMain

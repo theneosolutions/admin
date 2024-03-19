@@ -12,7 +12,6 @@ function MainTemplate({ children }) {
     const storage = localStorage.getItem("user");
     if (storage) {
       const user = JSON.parse(storage);
-      console.log("user", user);
       if (user?.islogin) {
         dispatch(
           action.Auth({
