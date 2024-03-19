@@ -9,6 +9,7 @@ var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
 var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
 
 // "https://seulah.com/api/v1/cms";
+var baseUrlDBR = "https://7eb1-182-180-183-127.ngrok-free.app/api/v1/dbr";
 
 const axiosInstance = axios.create({
   headers: {
@@ -38,13 +39,11 @@ axiosInstance.interceptors.request.use(
 
 function token() {
   const storage = localStorage.getItem("user");
-  console.log("storage", storage);
   if (storage) {
     const user = JSON.parse(storage);
 
     console.log("user", user);
     if (user?.data?.token) {
-      console.log("token hai ky nahi ", user?.data?.token);
       return user?.data?.token;
     } else {
       return null;
@@ -358,8 +357,10 @@ function* UserLogin({ payload }) {
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     const message = error.response.data.message;
-    yield put(action.Loading({ Loading: false }));
+    console.log("error", message);
+
     yield put(action.Message({ message: message, open: true, error: true }));
+    yield put(action.Loading({ Loading: false }));
   }
 }
 function* LoginOtpVerification({ payload }) {
@@ -390,9 +391,9 @@ function* LoginOtpVerification({ payload }) {
     // }
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
-    // const message = error.response.data.message;
+    const message = error.response.data.message;
     yield put(action.Loading({ Loading: false }));
-    // yield put(action.Message({ message: message, open: true, error: true }));
+    yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
 
@@ -1051,6 +1052,68 @@ function* GetScreens({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* GetAllDBR({ payload }) {
+  console.log("dbr");
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlDBR + `/calculation/getall`
+    );
+    console.log("responseresponse", response);
+    yield put(action.GetAllDBR(response.data));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* AddNewDbr({ payload }) {
+  console.log("paylaod dbr", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.post,
+      baseUrlDBR + `/calculation/dbrcalculation`,
+      payload
+    );
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: response1.data.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* DeleteDbr({ payload }) {
+  console.log("helo payload ", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.delete,
+      baseUrlDBR + `/calculation/delete?id=${payload}`
+    );
+    const message = response.data.message;
+    yield put(action.Message({ message: message, open: true, error: false }));
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+    yield put(action.Loading({ Loading: false }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -1103,4 +1166,7 @@ export default function* HomeSaga() {
   yield takeLatest("ADD_AGREEMENT", AddAgreement);
   yield takeLatest("GET_AGREEMENT", GetAgreement);
   yield takeLatest("GET_SCREENS", GetScreens);
+  yield takeLatest("GET_ALL_DBR", GetAllDBR);
+  yield takeLatest("ADD_NEW_DBR", AddNewDbr);
+  yield takeLatest("DELETE_DBR", DeleteDbr);
 }

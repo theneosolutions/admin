@@ -19,7 +19,6 @@ function Login() {
   const error = useSelector((state) => state.error);
   const verificationOtp = useSelector((state) => state.verificationOtp);
   const islogin = useSelector((state) => state.islogin);
-  const state = useSelector((state) => state);
 
   const role = useSelector((state) => state.role);
   const token = useSelector((state) => state.token);

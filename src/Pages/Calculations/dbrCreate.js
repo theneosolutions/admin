@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Button } from "Components";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import * as action from "Services/redux/reducer";
+import { useDispatch, useSelector } from "react-redux";
 
-function CreateUser({ setModelOpen }) {
+function CreateUser({ setModelOpen, data }) {
+  console.log("data", data);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -13,12 +14,16 @@ function CreateUser({ setModelOpen }) {
     e.preventDefault();
     CreateNewUser();
   }
+  const message = useSelector((state) => state.message);
+  const error = useSelector((state) => state.error);
+
   const [bracketStart, setBracketStart] = useState("");
   const [bracketEnd, setBracketEnd] = useState("");
   const [level, setLevel] = useState("");
   const [gdbrWithout, setGdbrWithout] = useState("");
   const [dbr, setDbr] = useState("");
   const [gdbrInclude, setGdbrInclude] = useState("");
+  const [income, setIncome] = useState("");
 
   function CreateNewUser() {
     if (
@@ -27,10 +32,20 @@ function CreateUser({ setModelOpen }) {
       level != "" &&
       gdbrWithout != "" &&
       dbr != "" &&
-      gdbrInclude != ""
+      gdbrInclude != "" &&
+      income != ""
     ) {
+      const data = {
+        consumerDbr: parseInt(dbr),
+        gdbrIncludingMtg: parseInt(gdbrInclude),
+        gdbrWithoutMtg: parseInt(gdbrWithout),
+        incomeBracket: bracketStart + " to " + bracketEnd,
+        netIncome: parseInt(income),
+        productLevel: parseInt(level),
+      };
       dispatch({
-        type: "Add_NEW_USER",
+        type: "ADD_NEW_DBR",
+        payload: data,
       });
     } else {
       dispatch(
@@ -42,10 +57,14 @@ function CreateUser({ setModelOpen }) {
       );
     }
   }
-
+  useEffect(() => {
+    if (message === "Success" && error === false) {
+      setModelOpen(false);
+    }
+  }, [message, error]);
   return (
     <form
-      //   onSubmit={handleSubmit}
+      onSubmit={handleSubmit}
       className="items-center justify-center flex flex-col"
     >
       <div className=" bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-20 px-4 py-5 ">
@@ -95,6 +114,16 @@ function CreateUser({ setModelOpen }) {
               />
             </div>
           </div>
+          <div className=" w-full  flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
+            <div className="md:w-full w-full md:mt-0 mt-3 space-y-5">
+              <InputField
+                heading={t("Net Income")}
+                value={income || data?.netIncome}
+                onChange={(e) => setIncome(e)}
+              />
+            </div>
+          </div>
+
           <div className="flex flex-row justify-end mt-10 mb-5 px-14">
             <Button
               type="submit"
@@ -115,7 +144,7 @@ function InputField({ heading, value, onChange, type }) {
       <a className="text-sm text-gray-700">{heading}</a>
 
       <input
-        type={type || "text"}
+        type={type || "number"}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"

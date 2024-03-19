@@ -7,8 +7,6 @@ function MainTemplate({ children }) {
   const dispatch = useDispatch();
 
   const loading = useSelector((state) => state.Loading);
-  const state = useSelector((state) => state);
-  console.log("state", state);
 
   useEffect(() => {
     const storage = localStorage.getItem("user");

@@ -10,32 +10,50 @@ import { useEffect } from "react";
 import withAuthorization from "../../constants/authorization";
 import { ROLES } from "../../constants/roles";
 import CreateDBR from "./dbrCreate";
+import { Model } from "../../Components";
 
 function Calculations() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const [selectedId, setSelectedId] = useState(false);
+  const [selectedData, setSelectedData] = useState(false);
 
-  const users = useSelector((state) => state.getAllUsersAll);
+  const getAllDBR = useSelector((state) => state.getAllDBR);
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-
   const [modelOpen, setModelOpen] = useState(false);
+  const [modelOpen2, setModelOpen2] = useState(false);
 
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
-
   useEffect(() => {
-    getAllUsersData();
+    getallDbrCaluculations();
   }, []);
-  function getAllUsersData() {
+  function getallDbrCaluculations() {
     dispatch({
-      type: "GET_ALL_USERS_ALL",
+      type: "GET_ALL_DBR",
     });
   }
   function reset() {
     setModelOpen(false);
+  }
+  function onDelete(id) {
+    setSelectedId(id);
+    setModelOpen2(true);
+  }
+  function DeleteUser() {
+    dispatch({
+      type: "DELETE_DBR",
+      payload: selectedId,
+    });
+    setTimeout(() => getallDbrCaluculations(), 500);
+    setModelOpen2(false);
+  }
+  function onEdit(data) {
+    setSelectedData(data);
+    setModelOpen(true);
   }
   return (
     <div className="py-5">
@@ -66,10 +84,19 @@ function Calculations() {
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("GDBR (Including MTG)")}
                 </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("Net Income")}
+                </th>
+                <th
+                  scope="col"
+                  className="px-3 py-3 cursor-pointer  sticky right-0 bg-gray-200 z-10"
+                >
+                  {t("Edit/Delete")}
+                </th>
               </tr>
             </thead>
             <tbody>
-              {data?.map((v, k) => (
+              {getAllDBR?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -78,21 +105,41 @@ function Calculations() {
                     scope="row"
                     className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
                   >
-                    <a>{v?.bracket}</a>
+                    <a>{v?.incomeBracket}</a>
                   </td>
 
                   <td className="px-3 py-4 ">
-                    <a>{v?.Level}</a>
+                    <a>{v?.productLevel + "%"}</a>
                   </td>
                   <td className="px-3 py-4 ">
-                    <a>{v?.DBR}</a>
+                    <a>{v?.consumerDbr + "%"}</a>
                   </td>
                   <td className="px-3 py-4 ">
-                    <a>{v?.GDBR_Without_MTG}</a>
+                    <a>{v?.gdbrWithoutMtg + "%"}</a>
                   </td>
                   <td className="px-3 py-4 ">
-                    <a>{v?.GDBR_Including_MTG}</a>
+                    <a>{v?.gdbrIncludingMtg + "%"}</a>
                   </td>
+                  <td className="px-3 py-4 ">
+                    <a>{v?.netIncome}</a>
+                  </td>
+                  <th
+                    scope="row"
+                    className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10"
+                  >
+                    <div className="flex flex-row space-x-3 rtl:space-x-reverse">
+                      <img
+                        onClick={() => onEdit(v)}
+                        src={Edit}
+                        className="h-6 cursor-pointer"
+                      />
+                      <img
+                        src={Delete}
+                        className="h-6 cursor-pointer"
+                        onClick={() => onDelete(v?.id)}
+                      />
+                    </div>
+                  </th>
                 </tr>
               ))}
             </tbody>
@@ -109,11 +156,26 @@ function Calculations() {
           {message}
         </Alert>
       </Snackbar>
-
+      <Model
+        heading="Delete DBR"
+        isOpen={modelOpen2}
+        style="w-1/3"
+        innerStyle="py-10"
+        setState={() => setModelOpen2(!modelOpen2)}
+        action1Value="Cancel"
+        action2Value={"Delete"}
+        action2={() => DeleteUser()}
+        action1={() => setModelOpen2(!modelOpen2)}
+      >
+        <a className=" text-xl text-gray-800 ">Are You Sure To Delete This ?</a>
+      </Model>
       {modelOpen ? (
-        <Model setModelOpen={(e) => setModelOpen(e)} reset={() => reset()}>
-          <CreateDBR setModelOpen={(e) => setModelOpen(e)} />
-        </Model>
+        <Model2 setModelOpen={(e) => setModelOpen(e)} reset={() => reset()}>
+          <CreateDBR
+            data={selectedData}
+            setModelOpen={(e) => (setModelOpen(e), getallDbrCaluculations())}
+          />
+        </Model2>
       ) : null}
     </div>
   );
@@ -122,7 +184,7 @@ export default withAuthorization(Calculations, [
   ROLES.ADMIN,
   ROLES.UNDER_WRITER,
 ]);
-function Model({ children, reset }) {
+function Model2({ children, reset }) {
   return (
     <div
       id="default-modal"
@@ -162,27 +224,3 @@ function Model({ children, reset }) {
     </div>
   );
 }
-
-const data = [
-  {
-    bracket: "0 to 15,000",
-    Level: "33%",
-    DBR: "45%",
-    GDBR_Without_MTG: "45%",
-    GDBR_Including_MTG: "55%",
-  },
-  {
-    bracket: "15,001 to 25,000",
-    Level: "33%",
-    DBR: "45%",
-    GDBR_Without_MTG: "45%",
-    GDBR_Including_MTG: "65%",
-  },
-  {
-    bracket: "More than 25,000 ",
-    Level: "33%",
-    DBR: "65%",
-    GDBR_Without_MTG: "65%",
-    GDBR_Including_MTG: "65%",
-  },
-];

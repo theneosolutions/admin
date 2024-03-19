@@ -20,7 +20,7 @@ const initialState = {
   Loading: false,
   islogin: false,
   user: null,
-  role: null,
+  role: "ROLE_ADMIN", //null
   token: null,
   verificationOtp: null,
   //Loan start
@@ -43,6 +43,7 @@ const initialState = {
   selaBalance: {},
   getAgreement: {},
   getScreenName: {},
+  getAllDBR: [],
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -194,6 +195,10 @@ const Reducer = createSlice({
       const { otp } = action.payload;
       state.verificationOtp = otp;
     },
+    GetAllDBR: (state, action) => {
+      const { data } = action.payload;
+      state.getAllDBR = data;
+    },
   },
 });
 export const {
@@ -234,6 +239,7 @@ export const {
   GetAgreement,
   GetScreenName,
   VerificationOtp,
+  GetAllDBR,
 } = Reducer.actions;
 
 export default Reducer.reducer;
