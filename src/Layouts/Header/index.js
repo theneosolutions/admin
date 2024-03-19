@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
 import { GiHamburgerMenu } from "react-icons/gi"; // You can use other icons from react-icons
+import * as action from "../../Services/redux/reducer";
 
 import Alarm from "../../Assets/Images/alarm.svg";
 import Message from "../../Assets/Images/message.svg";
@@ -9,7 +10,7 @@ import Globe from "../../Assets/Images/globe.svg";
 import SearchIcon from "../../Assets/Images/searchIcon.svg";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
+import { useDispatch, useSelector } from "react-redux";
 function Header({ isOpen, toggleSidebar, className }) {
   const { t } = useTranslation();
 
@@ -122,14 +123,15 @@ const Icons2 = ({ icon }) => {
 };
 
 const Dropdown = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null); // Ref for the dropdown container
-
+  const user = useSelector((state) => state?.user);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-
+  console.log("user #### ", user?.user?.idNumber);
   // Event listener to handle clicks outside the dropdown
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -148,6 +150,30 @@ const Dropdown = () => {
     navigate("/my-account");
     setIsOpen(!isOpen);
   }
+  function Logout() {
+    dispatch(action.Loading({ Loading: true }));
+    dispatch(
+      action.Auth({
+        user: null,
+        islogin: false,
+        role: null,
+        token: null,
+      })
+    );
+
+    localStorage.removeItem("user");
+
+    dispatch({
+      type: "LOGOUT_USER",
+      payload: user?.user?.idNumber,
+    });
+
+    setTimeout(() => {
+      navigate("/login");
+      dispatch(action.Loading({ Loading: false }));
+    }, 500);
+  }
+
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <div>
@@ -155,8 +181,6 @@ const Dropdown = () => {
           <img src={Chevron} />
         </button>
       </div>
-
-      {/* Dropdown menu */}
       {isOpen && (
         <div
           className="origin-top-right absolute right-0 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -175,10 +199,8 @@ const Dropdown = () => {
               My Account
             </a>
             <a
-              onClick={() => (
-                localStorage.removeItem("user"), navigate("/login")
-              )}
-              className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
+              onClick={() => Logout()}
+              className="cursor-pointer text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
               role="menuitem"
               tabIndex="-1"
             >

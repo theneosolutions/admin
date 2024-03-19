@@ -1080,6 +1080,30 @@ function* UpdateDbr({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* LogoutUser({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.post,
+      baseUrlUser + `/user/signout?userId=1069282455`,
+      payload
+    );
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: response1.data.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -1136,4 +1160,5 @@ export default function* HomeSaga() {
   yield takeLatest("ADD_NEW_DBR", AddNewDbr);
   yield takeLatest("DELETE_DBR", DeleteDbr);
   yield takeLatest("UPDATE_DBR", UpdateDbr);
+  yield takeLatest("LOGOUT_USER", LogoutUser);
 }

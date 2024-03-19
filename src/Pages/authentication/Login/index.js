@@ -61,6 +61,7 @@ function Login() {
   }
   useEffect(() => {
     if (islogin && role && token) {
+      setActive("login");
       navigate("/dashboard/userlist");
     }
   }, [islogin, role, token]);
