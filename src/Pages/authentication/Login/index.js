@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
 import OtpScreen from "./otp";
 import { useNavigate } from "react-router-dom";
+import { ROLES } from "../../../constants/roles";
+
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -61,8 +63,28 @@ function Login() {
   }
   useEffect(() => {
     if (islogin && role && token) {
+      console.log(role);
+      if (role === ROLES.ADMIN) {
+        navigate("/dashboard/userlist");
+      }
+      if (role === ROLES.COMPLIANCE) {
+        navigate("/users/dashboard");
+      }
+      if (role === ROLES.CUSTOMER_CARE) {
+        navigate("/users/dashboard");
+      }
+      if (role === ROLES.UNDER_WRITER) {
+        navigate("/los/applications");
+      }
+      if (role === ROLES.MODERATOR) {
+        navigate("/decisions/q/a");
+      }
+      if (role === ROLES.SALES) {
+        navigate("/dashboard/userlist");
+      } else {
+        navigate("/dashboard/userlist");
+      }
       setActive("login");
-      navigate("/dashboard/userlist");
     }
   }, [islogin, role, token]);
   return (

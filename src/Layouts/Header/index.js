@@ -131,7 +131,6 @@ const Dropdown = () => {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-  console.log("user #### ", user?.user?.idNumber);
   // Event listener to handle clicks outside the dropdown
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

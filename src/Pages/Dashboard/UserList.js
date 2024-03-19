@@ -35,7 +35,6 @@ function App() {
 
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
-  const state = useSelector((state) => state);
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
