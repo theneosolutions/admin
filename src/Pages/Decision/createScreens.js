@@ -8,6 +8,8 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { CheckQuestionStatusInScreen } from "Services/OtherApis";
+import { MdDeleteOutline } from "react-icons/md";
+
 function CreateQuestionsSet() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -16,6 +18,7 @@ function CreateQuestionsSet() {
 
   const [selectedIds, setSelectedIds] = useState([]); // State to hold selected checkbox IDs
   const [selectedData, setSelectedData] = useState([]); // State to hold selected checkbox IDs
+
   const [name, setName] = useState("");
 
   const message = useSelector((state) => state.message);
@@ -46,12 +49,20 @@ function CreateQuestionsSet() {
   }
 
   const handleCheckboxChange = (id, object) => {
+    if (object?.eligibilityQuestions) {
+    } else {
+    }
     CheckQuestionStatusInScreen(id).then((response) => {
       if (response === "No Record found") {
         if (selectedIds.includes(id)) {
         } else {
           setSelectedIds([...selectedIds, id]);
-          setSelectedData([...selectedData, object]);
+
+          if (object?.eligibilityQuestions) {
+            setSelectedData([...selectedData, object?.eligibilityQuestions]);
+          } else {
+            setSelectedData([...selectedData, object]);
+          }
         }
       } else {
         alert("Question Already Exist In ", response.screenHeading[0]);
@@ -92,7 +103,13 @@ function CreateQuestionsSet() {
     setSelectedData([]);
     setSelectedIds([]);
   }
+  function onDelete(id) {
+    const temp = selectedData.filter((item) => item?.id != id);
+    const temp2 = selectedIds.filter((item) => item != id);
 
+    setSelectedIds(temp2);
+    setSelectedData(temp);
+  }
   return (
     <div className="">
       <div className="mt-6 flex flex-col md:flex-row md:space-x-3 rtl:space-x-reverse h-max">
@@ -166,6 +183,9 @@ function CreateQuestionsSet() {
                   <th scope="col" className="px-6 py-3 cursor-pointer">
                     {t("Question")}
                   </th>
+                  <th scope="col" className="px-6 py-3 cursor-pointer">
+                    {t("Action")}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -180,6 +200,14 @@ function CreateQuestionsSet() {
                       </td>
                       <td className="px-6 py-4">
                         {v.question || v.eligibilityQuestions?.question}
+                      </td>
+                      <td
+                        className="px-6 py-4"
+                        onClick={() =>
+                          onDelete(v.id || v?.eligibilityQuestions?.id)
+                        }
+                      >
+                        <MdDeleteOutline className="text-red-400 text-2xl cursor-pointer hover:text-red-600 duration-200 " />
                       </td>
                     </tr>
                   );

@@ -29,6 +29,8 @@ function Login() {
     dispatch({
       type: "LOGIN_USER",
       payload: {
+        // idNumber: 1077899779,
+        // password: "arhamIlyas123@",
         idNumber: idNumber,
         password: password,
         otp: verificationOtp,
@@ -45,6 +47,8 @@ function Login() {
     dispatch({
       type: "LOGIN_OTP_VERIFICATION",
       payload: {
+        // idNumber: 1077899779,
+        // password: "arhamIlyas123@",
         idNumber: idNumber,
         password: password,
       },

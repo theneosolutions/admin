@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import CardMain from "../../Components/Cards/main";
 import { useState } from "react";
 import { CheckOperaterStyle } from "Components";
+import { RxCross2 } from "react-icons/rx";
+import { MdDeleteOutline } from "react-icons/md";
 
 function App({ setId, formula }) {
   const { t } = useTranslation();
@@ -72,7 +74,16 @@ function App({ setId, formula }) {
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
-
+  function deleteLast(keyy, v) {
+    if (v === "-" || v === "+" || v === "/" || v === "%" || v === "*") {
+      setLastSelectSource("first");
+    } else {
+      setLastSelectSource("second");
+    }
+    const lastIndex = selectedIds.length - 1;
+    const temp = selectedIds.slice(0, lastIndex);
+    setSelectedIds(temp);
+  }
   return (
     <div className="">
       <div className="mt-6 flex flex-col ">
@@ -163,11 +174,20 @@ function App({ setId, formula }) {
                     DisableButton("second") ? "bg-gray-300" : "bg-primary "
                   }`}
                 >
-                  <div className="flex flex-wrap  mt-6 m-1">
+                  <div className="flex flex-wrap  mt-6 m-1 items-center">
                     {selectedIds.map((v, k) => {
+                      const ids = selectedIds.length - 1;
+                      console.log("selected id length", ids, k);
                       return (
-                        <div key={k} className="m-1">
-                          {CheckOperaterStyle(v)}
+                        <div key={k} className="m-1 flex flex-col items-end">
+                          {ids === k ? (
+                            <CheckStyle
+                              operation={v}
+                              onClick={() => deleteLast(k, v)}
+                            />
+                          ) : (
+                            CheckOperaterStyle(v)
+                          )}
                         </div>
                       );
                     })}
@@ -296,6 +316,29 @@ function App({ setId, formula }) {
 }
 
 export default App;
+
+function CheckStyle({ operation, onClick }) {
+  let style;
+  if (
+    operation === "-" ||
+    operation === "+" ||
+    operation === "/" ||
+    operation === "%" ||
+    operation === "*"
+  ) {
+    style =
+      "bg-opacity-40 px-4 w-max rounded-lg text-3xl mt-3   flex flex-row items-center space-x-2 justify-center ";
+  } else {
+    style =
+      " px-4 py-2 w-max rounded-lg border-primary border mt-3  flex flex-row items-center space-x-4";
+  }
+  return (
+    <div className={style} onClick={onClick}>
+      <a>{operation}</a>
+      <MdDeleteOutline className="text-red-500 text-xl" />
+    </div>
+  );
+}
 
 function InputField({ name, setName }) {
   return (

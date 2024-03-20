@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 function OptScreen({ otp, LoginFunction }) {
   const navigate = useNavigate();
@@ -15,11 +15,26 @@ function OptScreen({ otp, LoginFunction }) {
     const maxLength = parseInt(e.target.getAttribute("maxlength"), 10);
     const currentLength = value.length;
 
-    if (currentLength >= maxLength && index < inputRefs.length - 1) {
-      inputRefs[index + 1].current.focus();
+    if (e.nativeEvent.inputType === "deleteContentBackward") {
+      // Handle backspace press
+      if (currentLength === 0 && index > 0) {
+        // If current input is empty and not the first input, move focus to the previous input
+        inputRefs[index - 1].current.focus();
+      }
+    } else {
+      // Handle regular input
+      if (currentLength >= maxLength) {
+        // If input is filled
+        if (index < inputRefs.length - 1) {
+          // If not the last input, move focus to the next input
+          inputRefs[index + 1].current.focus();
+        }
+      }
     }
   };
-
+  useEffect(() => {
+    inputRefs[0].current.focus();
+  }, []);
   const handleSubmit = (e) => {
     if (inputs.every((input) => input.trim() !== "")) {
       const all = inputs.join("");

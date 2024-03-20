@@ -8,6 +8,12 @@ var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
 var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
 var baseUrlDBR = "https://7eb1-182-180-183-127.ngrok-free.app/api/v1/dbr";
 
+// var baseUrlUser = "https://seulah.com/api/v1/auth";
+// var baseUrlDecisions = "https://seulah.com/api/v1/dms";
+// var baseUrlLos = "https://seulah.com/api/v1/los";
+// var baseUrlCms = "https://seulah.com/api/v1/cms";
+// var baseUrlDBR = "https://7eb1-182-180-183-127.ngrok-free.app/api/v1/dbr";
+
 // "https://seulah.com/api/v1/cms";
 
 function* GetAllQuestionsData() {
