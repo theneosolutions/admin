@@ -1,23 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Button } from "Components";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import * as action from "Services/redux/reducer";
+import { useDispatch, useSelector } from "react-redux";
 
-function CreateUser({ setModelOpen }) {
+function CreateUser({ setModelOpen, data }) {
   const dispatch = useDispatch();
 
+  const message = useSelector((state) => state.message);
+  const error = useSelector((state) => state.error);
+
   const { t } = useTranslation();
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState();
   const [title, setTitle] = useState("");
+  const [discription, setDiscription] = useState("");
+
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (value != "" && title != "") {
-      dispatch({
-        type: "Add_NEW_USER",
-      });
+    if (value != "" && title != "" && discription != "") {
+      const temp = {
+        description: discription,
+        expense: title,
+        expenseBareableAmount: parseInt(value),
+      };
+      if (data) {
+        const updatedTemp = {
+          ...temp, // Clone the original object
+          id: data?.id, // Add the new attribute
+        };
+        dispatch({
+          type: "UPDATE_EXPENSE",
+          payload: updatedTemp,
+        });
+      } else {
+        dispatch({
+          type: "ADD_NEW_EXPENSE",
+          payload: temp,
+        });
+      }
     } else {
       dispatch(
         action.Message({
@@ -28,10 +50,22 @@ function CreateUser({ setModelOpen }) {
       );
     }
   }
+  useEffect(() => {
+    if (message === "Success" && error === false) {
+      setModelOpen(false);
+    }
+  }, [message, error]);
 
+  useEffect(() => {
+    if (data) {
+      setValue(data?.expenseBareableAmount);
+      setTitle(data?.expense);
+      setDiscription(data?.description);
+    }
+  }, [data]);
   return (
     <form
-      //   onSubmit={handleSubmit}
+      onSubmit={handleSubmit}
       className="items-center justify-center flex flex-col"
     >
       <div className=" bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-20 px-4 py-5 ">
@@ -45,9 +79,15 @@ function CreateUser({ setModelOpen }) {
             />
 
             <InputField
+              type="number"
               heading={t("Bare Minimum Value")}
               value={value}
               onChange={(e) => setValue(e)}
+            />
+            <InputField
+              heading={t("Discription")}
+              value={discription}
+              onChange={(e) => setDiscription(e)}
             />
           </div>
           <div className="flex flex-row justify-end mt-10 mb-10 px-14">

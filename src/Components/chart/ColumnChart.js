@@ -74,7 +74,7 @@ class ApexChart extends React.Component {
         },
         yaxis: {
           title: {
-            text: "Servings",
+            text: "No Of Applications",
           },
         },
         fill: {

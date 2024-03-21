@@ -20,8 +20,8 @@ const initialState = {
   Loading: false,
   islogin: false,
   user: null,
-  // role: "ROLE_ADMIN", //null
-  role: null, //null
+  role: "ROLE_ADMIN", //null
+  // role: null, //null
 
   token: null,
   verificationOtp: null,
@@ -46,6 +46,7 @@ const initialState = {
   getAgreement: {},
   getScreenName: {},
   getAllDBR: [],
+  getAllExpense: [],
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -201,6 +202,10 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getAllDBR = data;
     },
+    GetAllExpense: (state, action) => {
+      const { data } = action.payload;
+      state.getAllExpense = data;
+    },
   },
 });
 export const {
@@ -242,6 +247,7 @@ export const {
   GetScreenName,
   VerificationOtp,
   GetAllDBR,
+  GetAllExpense,
 } = Reducer.actions;
 
 export default Reducer.reducer;

@@ -6,13 +6,14 @@ var baseUrlUser = "https://seulah.ngrok.app/api/v1/auth";
 var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
 var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
 var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
-var baseUrlDBR = "https://7eb1-182-180-183-127.ngrok-free.app/api/v1/dbr";
+var baseUrlCalculations =
+  "https://f294-182-180-181-136.ngrok-free.app/api/v1/los";
 
 // var baseUrlUser = "https://seulah.com/api/v1/auth";
 // var baseUrlDecisions = "https://seulah.com/api/v1/dms";
 // var baseUrlLos = "https://seulah.com/api/v1/los";
 // var baseUrlCms = "https://seulah.com/api/v1/cms";
-// var baseUrlDBR = "https://7eb1-182-180-183-127.ngrok-free.app/api/v1/dbr";
+// var baseUrlCalculations = "https://7eb1-182-180-183-127.ngrok-free.app/api/v1/dbr";
 
 // "https://seulah.com/api/v1/cms";
 
@@ -1010,7 +1011,7 @@ function* GetAllDBR({ payload }) {
 
     const response = yield call(
       axiosInstance.get,
-      baseUrlDBR + `/calculation/getall`
+      baseUrlCalculations + `/dbr/calculation/getall`
     );
 
     yield put(action.GetAllDBR(response.data));
@@ -1028,7 +1029,7 @@ function* AddNewDbr({ payload }) {
 
     const response1 = yield call(
       axiosInstance.post,
-      baseUrlDBR + `/calculation/dbrcalculation`,
+      baseUrlCalculations + `/dbr/calculation/dbrcalculation`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -1051,7 +1052,7 @@ function* DeleteDbr({ payload }) {
 
     const response = yield call(
       axiosInstance.delete,
-      baseUrlDBR + `/calculation/delete?id=${payload}`
+      baseUrlCalculations + `/dbr/calculation/delete?id=${payload}`
     );
     const message = response.data.message;
     yield put(action.Message({ message: message, open: true, error: false }));
@@ -1069,7 +1070,7 @@ function* UpdateDbr({ payload }) {
 
     const response1 = yield call(
       axiosInstance.put,
-      baseUrlDBR + `/calculation/dbrcalculation`,
+      baseUrlCalculations + `/dbr/calculation/dbrcalculation`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -1094,6 +1095,89 @@ function* LogoutUser({ payload }) {
     const response1 = yield call(
       axiosInstance.post,
       baseUrlUser + `/user/signout?userId=1069282455`,
+      payload
+    );
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: response1.data.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
+function* GetAllExpense({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlCalculations + `/expense/getall`
+    );
+    console.log("expense", response);
+    yield put(action.GetAllExpense(response));
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
+function* AddNewExpense({ payload }) {
+  console.log("payload", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.post,
+      baseUrlCalculations + `/expense/expense`,
+      payload
+    );
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: response1.data.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* DeleteExpense({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+    const response = yield call(
+      axiosInstance.delete,
+      baseUrlCalculations + `/expense/delete?id=${payload}`
+    );
+    const message = response.data.message;
+    yield put(action.Message({ message: message, open: true, error: false }));
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+    yield put(action.Loading({ Loading: false }));
+  }
+}
+function* UpdateExpense({ payload }) {
+  console.log("payload update response", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.put,
+      baseUrlCalculations + `/expense/expense`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -1167,4 +1251,8 @@ export default function* HomeSaga() {
   yield takeLatest("DELETE_DBR", DeleteDbr);
   yield takeLatest("UPDATE_DBR", UpdateDbr);
   yield takeLatest("LOGOUT_USER", LogoutUser);
+  yield takeLatest("GET_ALL_EXPENSE", GetAllExpense);
+  yield takeLatest("ADD_NEW_EXPENSE", AddNewExpense);
+  yield takeLatest("DELETE_EXPENSE", DeleteExpense);
+  yield takeLatest("UPDATE_EXPENSE", UpdateExpense);
 }

@@ -15,7 +15,7 @@ import { FaUserAlt } from "react-icons/fa";
 import { MdFormatListBulleted } from "react-icons/md";
 import { FaCodeCompare } from "react-icons/fa6";
 import { RiHistoryFill } from "react-icons/ri";
-
+import UserInfo from "./Tabs/userInfo";
 function Template() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ function Template() {
   const error = useSelector((state) => state.error);
   const [userData, setUserData] = useState({});
   const [state, setState] = useState("");
-
+  console.log("user data", userData);
   const queryParams = new URLSearchParams(location.search);
   const oldState = queryParams.get("name");
   const id = queryParams.get("id");
@@ -81,13 +81,13 @@ function Template() {
             );
           })}
         </div>
-        {userData && (
+        {userData?.user && (
           <div>
-            {userData.accountStatus === "1" ? (
+            {userData?.user?.accountStatus === "1" ? (
               <div className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500">
                 Blocked
               </div>
-            ) : userData.accountStatus === "0" ? (
+            ) : userData?.user.accountStatus === "0" ? (
               <div
                 className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
                         duration-300 text-green-500"
@@ -102,7 +102,7 @@ function Template() {
       <div className="flex flex-col   w-full">
         <div className="flex   lg:flex-row flex-col-reverse lg:space-x-6 mt-6">
           <div className="w-full lg:w-1/4 lg:mt-0 mt-4 ">
-            {userData && <ProfileSidebar userData={userData} />}
+            {userData?.user && <ProfileSidebar userData={userData?.user} />}
           </div>
           <div className="w-full lg:w-9/12 ">
             <div className="flex flex-row"></div>
@@ -139,6 +139,11 @@ const data = [
     label: "Applications",
     tab: <Applications />,
     icon: <MdFormatListBulleted className="text-sm" />,
+  },
+  {
+    label: "User Info",
+    tab: <UserInfo />,
+    icon: <RiHistoryFill className="text-sm" />,
   },
   {
     label: "Agreement",
