@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import * as action from "Services/redux/reducer";
+import { ROLES } from "../../../constants/roles";
 
 function CreateUser({ setModelOpen }) {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ function CreateUser({ setModelOpen }) {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [date, setDate] = useState(new Date());
-  const [role, setRole] = useState("ROLE_MOD");
+  const [role, setRole] = useState(ROLES.MODERATOR);
 
   function CreateNewUser() {
     if (
@@ -198,11 +199,12 @@ function Select({ heading, value, onChange }) {
   const { t } = useTranslation();
 
   var options = [
-    { value: "mod", label: "ROLE_MODE" },
-    { value: "compliance", label: "ROLE_COMPLIANCE" },
-    { value: "customer", label: "ROLE_CUSTOMER" },
-    { value: "admin", label: "ROLE_ADMIN" },
-    { value: "sales", label: "ROLE_SALES" },
+    { value: "mod", label: ROLES.MODERATOR },
+    { value: "compliance", label: ROLES.COMPLIANCE },
+    { value: "customer", label: ROLES.CUSTOMER_CARE },
+    { value: "admin", label: ROLES.ADMIN },
+    { value: "sale", label: ROLES.SALES },
+    { value: "credit", label: ROLES.UNDER_WRITER },
   ];
   return (
     <div className="flex flex-col w-full">

@@ -67,23 +67,20 @@ function Login() {
   }
   useEffect(() => {
     if (islogin && role && token) {
-      console.log(role);
+      console.log("role", role, ROLES.MODERATOR);
+      console.log("type=========", typeof role, typeof ROLES.MODERATOR);
+
       if (role === ROLES.ADMIN) {
         navigate("/dashboard/userlist");
-      }
-      if (role === ROLES.COMPLIANCE) {
+      } else if (role === ROLES.COMPLIANCE) {
         navigate("/users/dashboard");
-      }
-      if (role === ROLES.CUSTOMER_CARE) {
+      } else if (role === ROLES.CUSTOMER_CARE) {
         navigate("/users/dashboard");
-      }
-      if (role === ROLES.UNDER_WRITER) {
+      } else if (role === ROLES.UNDER_WRITER) {
         navigate("/los/applications");
-      }
-      if (role === ROLES.MODERATOR) {
+      } else if (role === ROLES.MODERATOR) {
         navigate("/decisions/q/a");
-      }
-      if (role === ROLES.SALES) {
+      } else if (role === ROLES.SALES) {
         navigate("/dashboard/userlist");
       } else {
         navigate("/dashboard/userlist");
@@ -184,7 +181,11 @@ function Login() {
             </div>
           )}
           {active === "otp" && (
-            <OtpScreen otp={verificationOtp} LoginFunction={() => Login()} />
+            <OtpScreen
+              otp={verificationOtp}
+              LoginFunction={() => Login()}
+              resendOtp={() => sendOtp()}
+            />
           )}
         </div>
       </div>

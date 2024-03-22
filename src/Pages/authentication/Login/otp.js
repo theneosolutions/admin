@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useRef, useEffect } from "react";
 
-function OptScreen({ otp, LoginFunction }) {
+function OptScreen({ otp, LoginFunction, resendOtp }) {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState(["", "", "", ""]);
   const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+  const [secondsLeft, setSecondsLeft] = useState(60);
 
   const handleInput = (index, e) => {
     const value = e.target.value;
@@ -49,7 +50,18 @@ function OptScreen({ otp, LoginFunction }) {
       }
     }
   };
-
+  useEffect(() => {
+    if (!secondsLeft) return;
+    const intervalId = setInterval(() => {
+      setSecondsLeft(secondsLeft - 1);
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, [secondsLeft]);
+  function ResendCode() {
+    console.log("working");
+    setSecondsLeft(60);
+    resendOtp();
+  }
   return (
     <div class="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
       <div class="mx-auto flex w-full max-w-md flex-col space-y-16">
@@ -90,14 +102,23 @@ function OptScreen({ otp, LoginFunction }) {
             </div>
 
             <div class="flex flex-row items-center justify-center text-center text-sm font-medium rtl:space-x-reverse space-x-1 text-gray-500">
-              <p>Didn't recieve code?</p>{" "}
-              <a
-                class="flex flex-row items-center text-blue-600"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Resend
-              </a>
+              <p>Didn't recieve code?</p>
+
+              {secondsLeft > 0 ? (
+                <div className="  text-sm  opacity-70">
+                  Resend code in{" "}
+                  <a className="text-blue-600">
+                    {secondsLeft < 60 ? `00:${secondsLeft}` : secondsLeft}
+                  </a>
+                </div>
+              ) : (
+                <a
+                  className="text-blue-600 hover:underline cursor-pointer"
+                  onClick={() => ResendCode()}
+                >
+                  Resend
+                </a>
+              )}
             </div>
           </div>
         </div>

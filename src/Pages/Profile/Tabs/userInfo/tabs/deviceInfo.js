@@ -2,10 +2,6 @@ import React from "react";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { RiUserStarLine } from "react-icons/ri";
 import { VscLayersActive } from "react-icons/vsc";
-import { PiCellSignalLowDuotone } from "react-icons/pi";
-import { TbMathEqualLower } from "react-icons/tb";
-import { FiDollarSign } from "react-icons/fi";
-import { MdCalendarMonth } from "react-icons/md";
 import { useSelector } from "react-redux";
 function DeviceInfo() {
   var state = null;
