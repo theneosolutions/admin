@@ -1194,6 +1194,59 @@ function* UpdateExpense({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* ResetOtpVerification({ payload }) {
+  console.log("payload", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+    const response = yield call(
+      axiosInstance.post,
+      baseUrlUser + `/user/reset-password?idNumber=${payload.idNumber}`
+    );
+    if (response?.data?.otp) {
+      console.log("helo");
+      yield put(action.ForgetVerificationOtp(response.data));
+      yield put(
+        action.Message({
+          message: "reset Otp Success",
+          open: false,
+          error: false,
+        })
+      );
+    }
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    const message = error.response.data.message;
+    yield put(action.Loading({ Loading: false }));
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
+function* ChangePassword({ payload }) {
+  console.log("payload", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+    const response = yield call(
+      axiosInstance.post,
+      baseUrlUser +
+        `/user/otpValidation?otp=${payload.otp}&idNumber=${payload.idNumber}&newPassword=${payload.newPassword}`
+    );
+    console.log("helo", response);
+    yield put(
+      action.Message({
+        message: response?.data?.message,
+        open: true,
+        error: false,
+      })
+    );
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    const message = error.response.data.message;
+    yield put(action.Loading({ Loading: false }));
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -1255,4 +1308,6 @@ export default function* HomeSaga() {
   yield takeLatest("ADD_NEW_EXPENSE", AddNewExpense);
   yield takeLatest("DELETE_EXPENSE", DeleteExpense);
   yield takeLatest("UPDATE_EXPENSE", UpdateExpense);
+  yield takeLatest("RESET_OTP_VERIFICATION", ResetOtpVerification);
+  yield takeLatest("CHANGE_PASSWORD", ChangePassword);
 }

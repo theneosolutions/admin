@@ -159,8 +159,8 @@ function Login() {
                     </div>
                   </div>
                   <a
-                    href="#"
-                    class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+                    onClick={() => navigate("/forget-password")}
+                    class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500 cursor-pointer"
                   >
                     Forgot password?
                   </a>

@@ -7,7 +7,7 @@ import Applications from "Pages/Applications";
 import UserDetail from "Pages/UserDetail";
 import MyAccount from "Pages/MyAccount";
 import Login from "Pages/authentication/Login";
-import Otp from "Pages/authentication/otp";
+import ForgetPassword from "Pages/authentication/resetpassword";
 import ReactFlow from "../Pages/ReactFlow";
 import UserAnswer from "../Pages/Users/user-answers";
 import CreateScreens from "../Pages/Decision/createScreens";
@@ -48,7 +48,7 @@ function App() {
             <Route path="/add-Product" element={<AddNewProduct />} />
           </Route>
           <Route path="/login" element={<Login />} />
-          <Route path="/otp" element={<Otp />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
           <Route path="/apitree" element={<ReactFlow />} />
           <Route path="/test" element={<TestPage />} />
         </Routes>

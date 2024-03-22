@@ -25,6 +25,7 @@ const initialState = {
 
   token: null,
   verificationOtp: null,
+  forgetVerificationOtp: null,
   //Loan start
   getAllLoanReasons: [],
   getSetResponse: {},
@@ -206,6 +207,10 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getAllExpense = data;
     },
+    ForgetVerificationOtp: (state, action) => {
+      const { otp } = action.payload;
+      state.forgetVerificationOtp = otp;
+    },
   },
 });
 export const {
@@ -248,6 +253,7 @@ export const {
   VerificationOtp,
   GetAllDBR,
   GetAllExpense,
+  ForgetVerificationOtp,
 } = Reducer.actions;
 
 export default Reducer.reducer;
