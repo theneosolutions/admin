@@ -31,6 +31,7 @@ import { ROLES } from "../constants/roles";
 import CalculationsPageLayout from "Pages/Calculations/CalculationsPageLayout";
 import Calculations from "Pages/Calculations";
 import BareMinimumExpense from "Pages/Calculations/BareMinimumExpense";
+import TermsAndRates from "Pages/Calculations/termsAndRates";
 
 const appRoutes = [
   {
@@ -328,6 +329,14 @@ const appRoutes = [
         state: "calculations.bare-minimum-expense",
         sidebarProps: {
           displayText: "Bare Minimum Expense",
+        },
+      },
+      {
+        path: "/calculations/terms-rates",
+        element: <TermsAndRates />,
+        state: "calculations.terms-rates",
+        sidebarProps: {
+          displayText: "Terms And Rates",
         },
       },
     ],

@@ -55,7 +55,7 @@ function App() {
       type: "GET_BALANCE",
     });
   }
-
+  console.log("application", applications);
   const sumOfApprovedAmmount = applications?.reduce(
     (accumulator, currentItem) => {
       if (currentItem?.status === "Approved") {

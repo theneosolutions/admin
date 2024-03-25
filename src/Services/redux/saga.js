@@ -331,16 +331,7 @@ function* LoginOtpVerification({ payload }) {
         action.Message({ message: "Otp Success", open: false, error: false })
       );
     }
-    // if (response.data.accessToken) {
-    //   yield put(action.Auth({ user: response.data, islogin: true }));
-    //   localStorage.setItem(
-    //     "user",
-    //     JSON.stringify({ islogin: true, data: response.data })
-    //   );
-    //   yield put(
-    //     action.Message({ message: "Login Success", open: true, error: false })
-    //   );
-    // }
+
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     const message = error.response.data.message;
@@ -1119,7 +1110,6 @@ function* GetAllExpense({ payload }) {
       axiosInstance.get,
       baseUrlCalculations + `/expense/getall`
     );
-    console.log("expense", response);
     yield put(action.GetAllExpense(response));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
@@ -1130,7 +1120,6 @@ function* GetAllExpense({ payload }) {
 }
 
 function* AddNewExpense({ payload }) {
-  console.log("payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1170,7 +1159,6 @@ function* DeleteExpense({ payload }) {
   }
 }
 function* UpdateExpense({ payload }) {
-  console.log("payload update response", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1195,7 +1183,6 @@ function* UpdateExpense({ payload }) {
 }
 
 function* ResetOtpVerification({ payload }) {
-  console.log("payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
@@ -1203,7 +1190,6 @@ function* ResetOtpVerification({ payload }) {
       baseUrlUser + `/user/reset-password?idNumber=${payload.idNumber}`
     );
     if (response?.data?.otp) {
-      console.log("helo");
       yield put(action.ForgetVerificationOtp(response.data));
       yield put(
         action.Message({
@@ -1222,7 +1208,6 @@ function* ResetOtpVerification({ payload }) {
 }
 
 function* ChangePassword({ payload }) {
-  console.log("payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
@@ -1230,7 +1215,6 @@ function* ChangePassword({ payload }) {
       baseUrlUser +
         `/user/otpValidation?otp=${payload.otp}&idNumber=${payload.idNumber}&newPassword=${payload.newPassword}`
     );
-    console.log("helo", response);
     yield put(
       action.Message({
         message: response?.data?.message,
@@ -1244,6 +1228,84 @@ function* ChangePassword({ payload }) {
     const message = error.response.data.message;
     yield put(action.Loading({ Loading: false }));
     yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* GetAllTermsRates({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlCalculations + `/term/rates/termandrates`
+    );
+    yield put(action.GetAllTermsRates(response));
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* AddNewTermsRates({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.post,
+      baseUrlCalculations + `/term/rates/termandrates`,
+      payload
+    );
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: response1.data.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* UpdateTermAndRates({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.put,
+      baseUrlCalculations + `/term/rates/termandrates`,
+      payload
+    );
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: response1.data.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
+function* DeleteTermsAndRate({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+    const response = yield call(
+      axiosInstance.delete,
+      baseUrlCalculations + `/term/rates/termandrates?id=${payload}`
+    );
+    const message = response.data.message;
+    yield put(action.Message({ message: message, open: true, error: false }));
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+    yield put(action.Loading({ Loading: false }));
   }
 }
 export default function* HomeSaga() {
@@ -1263,15 +1325,12 @@ export default function* HomeSaga() {
   yield takeLatest("GET_ALL_USERS", GetAllUsers);
   yield takeLatest("Add_NEW_USER", AddNewUser);
   yield takeLatest("LOGIN_USER", UserLogin);
-
   yield takeLatest("LOGIN_OTP_VERIFICATION", LoginOtpVerification);
   yield takeLatest("SET_DECISION_RESPONSE", SetDecisionResponse);
   yield takeLatest("CREATE_SCREEN", CreateScreen);
   yield takeLatest("GET_RESPONSE_OF_SET", GetResponseOfSet);
   yield takeLatest("GET_SCEENS_SET", GetScreenSet);
-
-  // Loan Start
-  yield takeLatest("CREATE_LOAN_TYPE", CreateLoanType);
+  yield takeLatest("CREATE_LOAN_TYPE", CreateLoanType); // Loan Start
   yield takeLatest("CREATE_LOAN_TAX", CreateLoanTax);
   yield takeLatest("GET_LOAN_TYPE_TAX", GetLoanTypeTax);
   yield takeLatest("GET_LOAN_APPLICATIONS", GetLoanApplications);
@@ -1309,4 +1368,8 @@ export default function* HomeSaga() {
   yield takeLatest("UPDATE_EXPENSE", UpdateExpense);
   yield takeLatest("RESET_OTP_VERIFICATION", ResetOtpVerification);
   yield takeLatest("CHANGE_PASSWORD", ChangePassword);
+  yield takeLatest("GET_ALL_TERMS_RATES", GetAllTermsRates);
+  yield takeLatest("ADD_NEW_TERM_AND_RATES", AddNewTermsRates);
+  yield takeLatest("UPDATE_TERM_AND_RATES", UpdateTermAndRates);
+  yield takeLatest("DELETE_TERMS_AND_RATES", DeleteTermsAndRate);
 }

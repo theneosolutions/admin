@@ -20,8 +20,8 @@ const initialState = {
   Loading: false,
   islogin: false,
   user: null,
-  // role: "ROLE_ADMIN", //null
-  role: null, //null
+  role: "ROLE_ADMIN", //null
+  // role: null, //null
 
   token: null,
   verificationOtp: null,
@@ -48,6 +48,7 @@ const initialState = {
   getScreenName: {},
   getAllDBR: [],
   getAllExpense: [],
+  getAllTermsRates: [],
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -211,6 +212,10 @@ const Reducer = createSlice({
       const { otp } = action.payload;
       state.forgetVerificationOtp = otp;
     },
+    GetAllTermsRates: (state, action) => {
+      const { data } = action.payload;
+      state.getAllTermsRates = data;
+    },
   },
 });
 export const {
@@ -254,6 +259,7 @@ export const {
   GetAllDBR,
   GetAllExpense,
   ForgetVerificationOtp,
+  GetAllTermsRates,
 } = Reducer.actions;
 
 export default Reducer.reducer;
