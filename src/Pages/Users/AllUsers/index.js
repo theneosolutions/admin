@@ -19,6 +19,8 @@ function AllUsers() {
   const [modelOpen2, setModelOpen2] = useState(false);
 
   const [selectedUserId, setSelectedUserId] = useState(false);
+  const [usersData, setUsersData] = useState([]);
+
   const [idNumber, setIdNumber] = useState("");
   const [id, setId] = useState("");
   const users = useSelector((state) => state.getAllUsersAll || []);
@@ -58,6 +60,15 @@ function AllUsers() {
     setTimeout(() => getAllUsersData(), 500);
     setModelOpen2(false);
   }
+  useEffect(() => {
+    console.log("users", users);
+    if (users) {
+      const data = users.filter(
+        (person) => person?.roles[0]?.name === "ROLE_USER"
+      );
+      setUsersData(data);
+    }
+  }, [users]);
   return (
     <div className="py-5">
       <CardMain
@@ -106,7 +117,7 @@ function AllUsers() {
               </tr>
             </thead>
             <tbody>
-              {users?.map((v, k) => (
+              {usersData?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"

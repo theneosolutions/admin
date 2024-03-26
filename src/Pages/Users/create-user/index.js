@@ -15,6 +15,9 @@ function NotificationsScreen() {
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
   const notifications = useSelector((state) => state.Notifications);
+  const users = useSelector((state) => state.getAllUsersAll || []);
+  const [usersData, setUsersData] = useState([]);
+
   const [modelOpen, setModelOpen] = useState(false);
 
   const handleClose = () => {
@@ -26,12 +29,22 @@ function NotificationsScreen() {
   }, []);
   function getAllNotifictions() {
     dispatch({
-      type: "GET_ALL_NOTIFICATIONS",
+      type: "GET_ALL_USERS_ALL",
     });
   }
   function reset() {
     setModelOpen(false);
   }
+
+  useEffect(() => {
+    console.log("users", users);
+    if (users) {
+      const data = users.filter(
+        (person) => person?.roles[0]?.name !== "ROLE_USER"
+      );
+      setUsersData(data);
+    }
+  }, [users]);
   return (
     <div className="py-5">
       <CardMain
@@ -49,7 +62,7 @@ function NotificationsScreen() {
                   {t("First Name")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("Emial")}
+                  {t("Email")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Id Number")}
@@ -57,19 +70,14 @@ function NotificationsScreen() {
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Mobile Number")}
                 </th>
-                <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("User Name")}
-                </th>
-                <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("DOB")}
-                </th>
+
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Role")}
                 </th>
               </tr>
             </thead>
             <tbody>
-              {notifications?.map((v, k) => (
+              {usersData?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -78,15 +86,14 @@ function NotificationsScreen() {
                     scope="row"
                     className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
                   >
-                    <img
-                      src={v?.img}
-                      className="avatar h-10 w-10 rounded-full cursor-pointer"
-                    />
+                    {v?.firstName + " " + v?.lastName}
                   </td>
                   <td scope="row" className="px-3 py-4">
-                    {v?.subject}
+                    {v?.email}
                   </td>
-                  <td className="px-3 py-4">{v?.content}</td>
+                  <td className="px-3 py-4">{v?.idNumber}</td>
+                  <td className="px-3 py-4">{v?.mobileNumber}</td>
+                  <td className="px-3 py-4">{v?.roles[0]?.name}</td>
                 </tr>
               ))}
             </tbody>

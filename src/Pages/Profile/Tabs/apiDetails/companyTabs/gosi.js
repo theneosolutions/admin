@@ -96,7 +96,7 @@ function Absher() {
               </a>
             </div>
           </div>
-          <div className="space-y-6 my-5 w-full xl:w-1/2">
+          {/* <div className="space-y-6 my-5 w-full xl:w-1/2">
             <div className="flex flex-row justify-between">
               <a className="  text-gray-700 flex flex-row items-center space-x-2">
                 <MdDriveFileRenameOutline />
@@ -160,7 +160,7 @@ function Absher() {
                 {state2?.workingMonths}
               </a>
             </div>
-          </div>
+          </div> */}
         </div>
       ) : (
         <div className="py-20 px-20 text-center w-full">

@@ -565,11 +565,13 @@ function* GetAppFlow() {
   }
 }
 function* GetGosiApi(payload) {
+  console.log("payload", payload?.payload);
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
       axiosInstance.get,
-      baseUrlCms + `/gosi/income?customerId=${payload.payload}`
+      baseUrlCms +
+        `/gosi/income?customerId=${payload?.payload?.id}&userId=${payload?.payload?.user}`
     );
     yield put(action.GetGosiData(response));
     yield put(action.Loading({ Loading: false }));

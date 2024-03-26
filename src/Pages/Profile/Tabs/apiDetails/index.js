@@ -15,6 +15,8 @@ function Template() {
   const queryParams = new URLSearchParams(location.search);
 
   const id = queryParams.get("id");
+  const user = queryParams.get("user");
+
   const [state, setState] = useState("Gosi");
 
   const getTab = () => {
@@ -32,7 +34,7 @@ function Template() {
   function getGosi() {
     dispatch({
       type: "GET_GOSI_API",
-      payload: id,
+      payload: { user, id },
     });
   }
   return (

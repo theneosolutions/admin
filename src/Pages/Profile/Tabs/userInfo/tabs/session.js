@@ -34,7 +34,11 @@ function PersonalDetailCard() {
 
                 {/* {moment(v?.loggedInTime).format("MMMM Do YYYY, h:mm:ss a")} */}
               </td>
-              <td> {moment(v?.loggedInTime).format("LLLL")}</td>
+              {v?.loggedOutTime ? (
+                <td> {moment(v?.loggedOutTime).format("LLLL")}</td>
+              ) : (
+                <td> Currently Logged In</td>
+              )}
               {/* <td>{v?.loggedOutTime}</td> */}
               <td>{v?.mid}</td>
               <td>{v?.uid}</td>
