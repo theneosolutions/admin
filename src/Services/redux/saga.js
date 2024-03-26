@@ -7,7 +7,7 @@ var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
 var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
 var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
 var baseUrlCalculations =
-  "https://5bc4-182-191-132-136.ngrok-free.app/api/v1/los";
+  "https://557e-182-188-103-2.ngrok-free.app/api/v1/los";
 // var baseUrlUser = "https://seulah.com/api/v1/auth";
 // var baseUrlDecisions = "https://seulah.com/api/v1/dms";
 // var baseUrlLos = "https://seulah.com/api/v1/los";

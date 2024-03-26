@@ -64,7 +64,7 @@ class ApexChart extends React.Component {
             "May",
             "Jun",
             "July",
-            "Aguest",
+            "August",
             "September",
             "October",
             "November",
