@@ -12,6 +12,8 @@ function App() {
   const { t } = useTranslation();
 
   const [newInfo, setNewInfo] = useState("none");
+  const [language, setLanguage] = useState("ar");
+
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
@@ -43,6 +45,7 @@ function App() {
         type: newElement.type,
         field: newElement.values.value,
         heading: newElement.heading,
+        languageCode: language,
       };
     } else {
       values = {
@@ -50,6 +53,7 @@ function App() {
         type: newElement.type,
         options: Object.values(newElement.values),
         heading: newElement.heading,
+        languageCode: language,
       };
     }
 
@@ -86,7 +90,20 @@ function App() {
             </select>
           </CardMain>
           <CardMain heading={t("Add New Question")} width=" h-max">
-            <div className="pt-4">
+            <div className="flex flex-row justify-between -mt-12">
+              <div></div>
+              <div>
+                <select
+                  className=" p-2 border rounded  w-32 "
+                  onChange={(e) => setLanguage(e.target.value)}
+                  value={language}
+                >
+                  <option value="ar">{t("AR")}</option>
+                  <option value="en">{t("EN")}</option>
+                </select>
+              </div>
+            </div>
+            <div className="mt-3">
               {newInfo === "TextBox" ? (
                 <TextBox onAddElement={handleAddElement} /> // HANDLE ALL FORM BUTTONS ON ADDELE
               ) : newInfo === "Boolean" ? (

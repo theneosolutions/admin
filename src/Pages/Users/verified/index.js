@@ -19,6 +19,7 @@ function VerifiedUsers() {
   const { t } = useTranslation();
   const [modelOpen, setModelOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(false);
+  const [username, setUsername] = useState(false);
 
   const users = useSelector((state) => state.getAllUsers);
   const message = useSelector((state) => state.message);
@@ -27,10 +28,11 @@ function VerifiedUsers() {
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
-  function onDelete(user) {
+  function onDelete(user, username) {
     console.log(user?.userId);
     setSelectedUserId(user?.userId);
     setModelOpen(true);
+    setUsername(username);
   }
   useEffect(() => {
     getAllUsersData();
@@ -66,6 +68,7 @@ function VerifiedUsers() {
       );
     }
   }
+  console.log("users", users);
   return (
     <div className="py-5">
       <CardMain
@@ -80,6 +83,9 @@ function VerifiedUsers() {
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("User Id")}
+                </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("ID NUMBER")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Questions")}
@@ -120,11 +126,21 @@ function VerifiedUsers() {
                       }
                       onClick={() =>
                         navigate(
-                          `/profile?id=${v?.user.idNumber}&name=Profile&user=${v?.user?.id}`
+                          `/profile?id=${v?.user?.user?.idNumber}&name=Profile&user=${v?.user?.user?.id}`
                         )
                       }
                     />
-                    <a>{v?.eligibilityResult?.id}</a>
+                    {v?.user?.user && (
+                      <a>
+                        {v?.user?.user?.firstName +
+                          " " +
+                          v?.user?.user?.lastName}
+                      </a>
+                    )}
+                  </td>
+
+                  <td scope="row" className="px-3 py-4">
+                    {v?.user?.user?.idNumber}
                   </td>
                   <td scope="row" className="px-3 py-4">
                     {v?.eligibilityResult?.otherQuestionEligibility
@@ -144,11 +160,11 @@ function VerifiedUsers() {
                   </td>
 
                   <td className="px-3 py-4">
-                    {v?.user?.accountStatus === "1" ? (
+                    {v?.user?.user?.accountStatus === "1" ? (
                       <div className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500">
                         Blocked
                       </div>
-                    ) : v?.user?.accountStatus === "0" ? (
+                    ) : v?.user?.user?.accountStatus === "0" ? (
                       <div
                         className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
                         duration-300 text-green-500"
@@ -166,7 +182,14 @@ function VerifiedUsers() {
                       <img
                         src={Delete}
                         className="h-6 cursor-pointer"
-                        onClick={() => onDelete(v?.eligibilityResult)}
+                        onClick={() =>
+                          onDelete(
+                            v?.eligibilityResult,
+                            v?.user?.user?.firstName +
+                              " " +
+                              v?.user?.user?.lastName
+                          )
+                        }
                       />
                     </div>
                   </th>
@@ -190,7 +213,7 @@ function VerifiedUsers() {
       >
         <a className=" text-xl text-gray-800 ">
           Are You Sure To Delete
-          <span className="font-semibold"> Ali Imtayaz</span> ?
+          <span className="font-semibold"> {username}</span> ?
         </a>
       </Model>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>

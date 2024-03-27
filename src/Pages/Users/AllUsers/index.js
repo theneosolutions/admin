@@ -164,7 +164,7 @@ function AllUsers() {
                           setId(1),
                           setModelOpen2(true)
                         )}
-                        className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 bg-red-400  text-white"
+                        className="border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 bg-red-400  text-white"
                       >
                         De Activate
                       </div>

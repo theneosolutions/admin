@@ -410,6 +410,7 @@ function* CreateLoanType({ payload }) {
   try {
     const formData = new FormData();
     formData.append("file", payload.image);
+    formData.append("languageCode", payload.language);
     formData.append("tenureTex", JSON.stringify(payload.transformedObject));
 
     const response = yield call(

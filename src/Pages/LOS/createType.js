@@ -23,7 +23,7 @@ function App() {
   const [image, setImage] = useState(null);
   const [image2, setImage2] = useState(null);
   const [reason, setReason] = useState("");
-
+  const [language, setLanguage] = useState("ar");
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
@@ -81,7 +81,7 @@ function App() {
 
     dispatch({
       type: "CREATE_LOAN_TYPE",
-      payload: { transformedObject, reason, image },
+      payload: { transformedObject, reason, image, language },
     });
     setTimeout(() => {
       getAllReasons();
@@ -161,6 +161,19 @@ function App() {
               </div>
             </div>
             <div className="w-full md:w-1/2 mt-3 md:mt-0">
+              <div className="flex flex-row justify-between -mt-12">
+                <div></div>
+                <div>
+                  <select
+                    className=" p-2 border rounded  w-32 "
+                    onChange={(e) => setLanguage(e.target.value)}
+                    value={language}
+                  >
+                    <option value="ar">{t("AR")}</option>
+                    <option value="en">{t("EN")}</option>
+                  </select>
+                </div>
+              </div>
               <div className="flex flex-col w-full">
                 <a className="text-sm text-gray-700 font-semibold">
                   Loan Reason
@@ -172,14 +185,12 @@ function App() {
                   className="border-primary rounded-md border  px-3 py-1.5 outline-none mt-2 w-full"
                 />
               </div>
-
               <input
                 ref={fileInputRef}
                 type="file"
                 onChange={handleSelectImage}
                 style={{ display: "none" }}
               />
-
               <div className=" py-3   bg-secondry rounded-md 	 border-slate-200 ">
                 <a className="text-sm text-gray-700 font-semibold">Tensures </a>
 
