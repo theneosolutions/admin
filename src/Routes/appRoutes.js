@@ -32,6 +32,8 @@ import CalculationsPageLayout from "Pages/Calculations/CalculationsPageLayout";
 import Calculations from "Pages/Calculations";
 import BareMinimumExpense from "Pages/Calculations/BareMinimumExpense";
 import TermsAndRates from "Pages/Calculations/termsAndRates";
+import AddRoles from "Pages/Administrator/AddRoles";
+import AdminPageLayout from "Pages/Administrator/AdminPageLayout";
 
 const appRoutes = [
   {
@@ -121,12 +123,45 @@ const appRoutes = [
           displayText: "Dump",
         },
       },
+      // {
+      //   path: "/users/create-user",
+      //   element: <CreateUser />,
+      //   state: "users.create-user",
+      //   sidebarProps: {
+      //     displayText: "Create User",
+      //   },
+      // },
+    ],
+  },
+  {
+    roles: [ROLES.ADMIN, ROLES.CUSTOMER_CARE, ROLES.COMPLIANCE], // Example roles allowed to access this route
+    path: "/admin",
+    element: <AdminPageLayout />,
+    state: "admin",
+    sidebarProps: {
+      displayText: "Administrator",
+      icon: <FaUser />,
+    },
+    child: [
       {
-        path: "/users/create-user",
+        index: true,
+        element: <AddRoles />,
+        state: "admin.index",
+      },
+      {
+        path: "/admin/create-admin",
         element: <CreateUser />,
-        state: "users.create-user",
+        state: "admin.create-admin",
         sidebarProps: {
-          displayText: "Create User",
+          displayText: "Create Admin",
+        },
+      },
+      {
+        path: "/admin/add-roles",
+        element: <AddRoles />,
+        state: "admin./add-roles",
+        sidebarProps: {
+          displayText: "Create Rights To User",
         },
       },
     ],
