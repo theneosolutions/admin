@@ -1,9 +1,36 @@
 import React, { useState } from "react";
+import RoleModel from "../../Components/RoleModel";
 function Roles() {
+  const [role, setRole] = useState("ROLE_COMPLIANCE");
+  const [modelOpen, setModelOpen] = useState(false);
+
   return (
     <div
       className={`bg-white rounded shadow-sm px-5 py-4 rtl:space-x-reverse space-y-4`}
     >
+      <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-col w-1/2">
+          <a>Select Role</a>
+          <select
+            className=" py-2 px-3 border rounded   mt-1"
+            onChange={(e) => setRole(e.target.value)}
+            value={role}
+          >
+            <option value="ROLE_COMPLIANCE">{"ROLE_COMPLIANCE"}</option>
+            <option value="ROLE_MODERATOR">{"ROLE_MODERATOR"}</option>
+            <option value="ROLE_CUSTOMER_CARE">{"ROLE_CUSTOMER_CARE"}</option>
+            <option value="ROLE_ADMIN">{"ROLE_ADMIN"}</option>
+            <option value="ROLE_SALES">{"ROLE_SALES"}</option>
+            <option value="ROLE_CREDIT">{"ROLE_CREDIT"}</option>
+          </select>
+        </div>
+        <RoleModel
+          y
+          setModelOpen={(e) => setModelOpen(e)}
+          modelOpen={modelOpen}
+        />
+      </div>
+
       {data?.map((v, k) => {
         return (
           <>
@@ -15,7 +42,7 @@ function Roles() {
             </div>
 
             <div className="mx-20 space-y-2 mt-2 items-center ">
-              {v?.subModule?.map((e, l) => {
+              {v?.authorizedModules?.map((e, l) => {
                 return <SubModule data={e} />;
               })}
             </div>
@@ -59,23 +86,40 @@ function Select() {
 
 const data = [
   {
+    moduleId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
     module: "Users",
-    subModule: [
+    authorizedModules: [
       {
+        subModuleId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
         name: "User Dashboard",
-        permision: null,
+        permision: {
+          name: "",
+          permissionId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
+        },
       },
       {
+        subModuleId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
         name: "All Users",
-        permision: null,
+        permision: {
+          name: "",
+          permissionId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
+        },
       },
       {
+        subModuleId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
         name: "Verified",
-        permision: null,
+        permision: {
+          name: "",
+          permissionId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
+        },
       },
       {
+        subModuleId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
         name: "Dump",
-        permision: null,
+        permision: {
+          name: "",
+          permissionId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
+        },
       },
     ],
   },
@@ -118,3 +162,31 @@ const data = [
     ],
   },
 ];
+
+const dataa = {
+  rollId: "7287fd58-24a4-4f54-9e5d-2e9ed50f8310",
+  authorizedModules: [
+    {
+      moduleId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
+      permissions: [
+        {
+          grantedPermissionId: "3ee6da09-3908-4d99-9a39-4f40d31ed328",
+        },
+        {
+          grantedPermissionId: "a959e5c6-7784-4a43-8e64-5847be770130",
+        },
+      ],
+    },
+    {
+      moduleId: "9416bc74-d4c3-4971-ae1c-78a5f31e78fc",
+      permissions: [
+        {
+          grantedPermissionId: "3ee6da09-3908-4d99-9a39-4f40d31ed328",
+        },
+        {
+          grantedPermissionId: "a959e5c6-7784-4a43-8e64-5847be770130",
+        },
+      ],
+    },
+  ],
+};

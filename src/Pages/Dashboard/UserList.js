@@ -210,17 +210,6 @@ function App() {
                     scope="row"
                     className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
                   >
-                    {/* <Avatar
-                      icon={
-                        "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes-thumbnail.png"
-                      }
-                      onClick={() =>
-                        navigate(
-                          `/profile?id=${v?.idNumber}&name=Profile&user=${v?.id}`
-                        )
-                      }
-                    /> */}
-
                     <a>{v.userId}</a>
                   </td>
                   <td scope="row" className="px-3 py-4">

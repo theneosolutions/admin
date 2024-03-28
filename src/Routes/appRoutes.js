@@ -2,6 +2,7 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { FaUser } from "react-icons/fa";
 import { IoMdCheckboxOutline } from "react-icons/io";
 import { MdOutlineQuestionAnswer } from "react-icons/md";
+import { ROLES } from "../constants/roles";
 import DashboardIndex from "../Pages/Dashboard/DashboardIndex";
 import DashboardPageLayout from "../Pages/Dashboard/DashboardPageLayout";
 import UserList from "../Pages/Dashboard/UserList";
@@ -27,13 +28,13 @@ import TermAndConditions from "Pages/Notifications/termsConditions";
 import Simah from "Pages/Simah/simah";
 import SimahPageLayout from "Pages/Simah/SimahLayout";
 import Aggreement from "Pages/Notifications/termsConditions/agreement";
-import { ROLES } from "../constants/roles";
 import CalculationsPageLayout from "Pages/Calculations/CalculationsPageLayout";
 import Calculations from "Pages/Calculations";
 import BareMinimumExpense from "Pages/Calculations/BareMinimumExpense";
 import TermsAndRates from "Pages/Calculations/termsAndRates";
 import AddRoles from "Pages/Administrator/AddRoles";
 import AdminPageLayout from "Pages/Administrator/AdminPageLayout";
+import ApplicationsPageLayout from "Pages/Applications/AdminPageLayout";
 
 const appRoutes = [
   {
@@ -47,7 +48,7 @@ const appRoutes = [
     element: <DashboardPageLayout />,
     state: "dashboard",
     sidebarProps: {
-      displayText: "Dashboard",
+      displayText: "Overview",
       icon: <LuLayoutDashboard />,
     },
     child: [
@@ -57,84 +58,95 @@ const appRoutes = [
         state: "dashboard.index",
       },
       {
-        path: "/dashboard/userlist",
+        path: "/dashboard/account",
         element: <UserList />,
-        state: "dashboard.userlist",
+        state: "dashboard.account",
         sidebarProps: {
-          displayText: "User List",
+          displayText: "Account",
         },
       },
     ],
   },
 
   {
-    roles: [ROLES.ADMIN, ROLES.CUSTOMER_CARE, ROLES.COMPLIANCE], // Example roles allowed to access this route
-    path: "/users",
-    element: <UsersPageLayout />,
-    state: "users",
+    roles: [ROLES.ADMIN, ROLES.SALES],
+    path: "/applications",
+    element: <ApplicationsPageLayout />,
+    state: "applications",
     sidebarProps: {
-      displayText: "Users",
+      displayText: "Applications",
+      icon: <LuLayoutDashboard />,
+    },
+    child: [
+      {
+        index: true,
+        element: <LoanApplications />,
+        state: "applications.index",
+      },
+      {
+        path: "/applications/loan",
+        element: <LoanApplications />,
+        state: "applications.loan",
+        sidebarProps: {
+          displayText: "Loan Applications",
+        },
+      },
+    ],
+  },
+
+  {
+    roles: [ROLES.ADMIN, ROLES.CUSTOMER_CARE, ROLES.COMPLIANCE],
+    path: "/customers",
+    element: <UsersPageLayout />,
+    state: "customers",
+    sidebarProps: {
+      displayText: "Customers",
       icon: <FaUser />,
     },
     child: [
       {
         index: true,
         element: <UserDashboard />,
-        state: "users.index",
+        state: "customers.index",
       },
 
       {
-        path: "/users/dashboard",
+        path: "/customers/dashboard",
         element: <UserDashboard />,
-        state: "users.dashboard",
+        state: "customers.dashboard",
         sidebarProps: {
-          displayText: "User Dashboard",
+          displayText: "Customers Dashboard",
         },
       },
       {
-        path: "/users/allusers",
+        path: "/customers/allcustomers",
         element: <AllUsers />,
-        state: "users.allusers",
+        state: "customers.allcustomers",
         sidebarProps: {
-          displayText: "All Users",
+          displayText: "All Customers",
         },
       },
       {
-        path: "/users/verified",
+        path: "/customers/verified",
         element: <Verified />,
-        state: "users.verified",
+        state: "customers.verified",
         sidebarProps: {
-          displayText: "Verified",
+          displayText: "Verified Customers",
         },
       },
-      // {
-      //   path: "/users/unverified",
-      //   element: <Unverified />,
-      //   state: "users.unverified",
-      //   sidebarProps: {
-      //     displayText: "Unverified",
-      //   },
-      // },
+
       {
-        path: "/users/dump",
+        path: "/customers/dump",
         element: <Dump />,
-        state: "users.dump",
+        state: "customers.dump",
         sidebarProps: {
-          displayText: "Dump",
+          displayText: "Dump Customers",
         },
       },
-      // {
-      //   path: "/users/create-user",
-      //   element: <CreateUser />,
-      //   state: "users.create-user",
-      //   sidebarProps: {
-      //     displayText: "Create User",
-      //   },
-      // },
     ],
   },
   {
-    roles: [ROLES.ADMIN, ROLES.CUSTOMER_CARE, ROLES.COMPLIANCE], // Example roles allowed to access this route
+    roles: [ROLES.ADMIN, ROLES.CUSTOMER_CARE, ROLES.COMPLIANCE],
     path: "/admin",
     element: <AdminPageLayout />,
     state: "admin",
@@ -167,7 +179,7 @@ const appRoutes = [
     ],
   },
   {
-    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER], // Example roles allowed to access this route
+    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER],
 
     path: "/los",
     element: <DecisionLayout />,
@@ -209,7 +221,7 @@ const appRoutes = [
     ],
   },
   {
-    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER, ROLES.MODERATOR], // Example roles allowed to access this route
+    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER, ROLES.MODERATOR],
 
     path: "/decisions",
     element: <DecisionLayout />,
@@ -221,7 +233,7 @@ const appRoutes = [
     child: [
       {
         index: true,
-        element: <DashboardIndex />,
+        element: <QuestionsAnswers />,
         state: "decisions.index",
       },
       {
@@ -275,14 +287,7 @@ const appRoutes = [
         element: <Response />,
         state: "response.index",
       },
-      // {
-      //   path: "/response/response",
-      //   element: <Response />,
-      //   state: "response.response",
-      //   sidebarProps: {
-      //     displayText: "Decision Responses",
-      //   },
-      // },
+
       {
         path: "/response/notifications",
         element: <Notifications />,

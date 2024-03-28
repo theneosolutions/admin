@@ -32,7 +32,7 @@ function App({ isOpen, toggleSidebar }) {
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out transform`}
       >
-        <div style={{ height: "23vh" }} className="">
+        <div style={{ height: "16vh" }} className="">
           <div className=" h-12 justify-end flex">
             <FaTimes
               size={20}
@@ -42,11 +42,14 @@ function App({ isOpen, toggleSidebar }) {
           </div>
           <div className="px-8">
             <img src={Logo} className="mb-5" />
-            <a className="mt-10  uppercase">{t("Menu")}</a>
           </div>
         </div>
 
-        <div className="mt-3 overflow-y-auto	" style={{ height: "77vh" }}>
+        <div className="mt-3 overflow-y-auto 	" style={{ height: "84vh" }}>
+          <div className="px-8">
+            <a className="mt-10  uppercase text-gray-200">{t("Menu")}</a>
+          </div>
+
           {filteredRoutes?.map((route, index) =>
             route.sidebarProps ? (
               route.child ? (
