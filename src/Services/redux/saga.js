@@ -1384,6 +1384,22 @@ function* AddModulesToRole({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* DeleteSet({ payload }) {
+  console.log("payload", payload);
+  try {
+    const response = yield call(
+      axiosInstance.delete,
+      baseUrlDecisions + `/questionSet/deleteQuestionSet?id=${payload}`
+    );
+    const message = response.data.message;
+    yield put(action.Message({ message: message, open: true, error: false }));
+    // yield put(action.GetAllQuestions(response));
+  } catch (error) {
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -1451,4 +1467,5 @@ export default function* HomeSaga() {
   yield takeLatest("ADD_NEW_ROLE_NAME", AddNewRoleName);
   yield takeLatest("GET_ALL_ROLES", GetAllRoles);
   yield takeLatest("ADD_MODULES_TO_ROLES", AddModulesToRole);
+  yield takeLatest("DELETE_SET", DeleteSet);
 }

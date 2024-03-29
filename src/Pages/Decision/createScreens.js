@@ -110,8 +110,27 @@ function CreateQuestionsSet() {
     setSelectedIds(temp2);
     setSelectedData(temp);
   }
+  function DeleteSet() {
+    console.log("set id ", id);
+    dispatch({
+      type: "DELETE_SET",
+      payload: id,
+    });
+    setTimeout(() => navigate("/decisions/create-set", 500));
+  }
   return (
     <div className="">
+      <div className="flex flex-row w-full justify-end space-x-3">
+        <div
+          onClick={() => DeleteSet()}
+          className="bg-red-400 px-7 py-1 rounded-md cursor-pointer hover:bg-red-500 duration-300 w-max text-white"
+        >
+          Delete Set
+        </div>
+        {/* <div className="bg-red-400 px-7 py-2 rounded-md cursor-pointer hover:bg-red-500 duration-300 w-max text-white">
+          Delete Set
+        </div> */}
+      </div>
       <div className="mt-6 flex flex-col md:flex-row md:space-x-3 rtl:space-x-reverse h-max">
         <CardMain
           heading={t("All List Of Questions in this set")}
