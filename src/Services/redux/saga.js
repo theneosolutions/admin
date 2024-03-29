@@ -15,6 +15,7 @@ var baseUrlCalculations = "https://seulah.ngrok.app/api/v1/los";
 // var baseUrlCalculations = "https://7eb1-182-180-183-127.ngrok-free.app/api/v1/dbr";
 
 // "https://seulah.com/api/v1/cms";
+const rolesUrl = "https://3c8c-39-45-235-223.ngrok-free.app";
 
 function* GetAllQuestionsData() {
   try {
@@ -1311,6 +1312,78 @@ function* DeleteTermsAndRate({ payload }) {
     yield put(action.Loading({ Loading: false }));
   }
 }
+
+function* AddNewRoleName({ payload }) {
+  console.log("payload", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.post,
+      rolesUrl + `/v1/roles/create`,
+      payload
+    );
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: response1.data.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* GetAllRoles({ payload }) {
+  console.log("payload", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(axiosInstance.get, rolesUrl + `/v1/roles/all`);
+    console.log("response", response1);
+    yield put(action.GetAllRoles(response1));
+
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: response1.data.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* AddModulesToRole({ payload }) {
+  console.log("payload MODULES ROLES", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.post,
+      rolesUrl + `/v1/roles/add-modules`,
+      payload
+    );
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: response.data.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -1375,4 +1448,7 @@ export default function* HomeSaga() {
   yield takeLatest("ADD_NEW_TERM_AND_RATES", AddNewTermsRates);
   yield takeLatest("UPDATE_TERM_AND_RATES", UpdateTermAndRates);
   yield takeLatest("DELETE_TERMS_AND_RATES", DeleteTermsAndRate);
+  yield takeLatest("ADD_NEW_ROLE_NAME", AddNewRoleName);
+  yield takeLatest("GET_ALL_ROLES", GetAllRoles);
+  yield takeLatest("ADD_MODULES_TO_ROLES", AddModulesToRole);
 }

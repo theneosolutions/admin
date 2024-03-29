@@ -43,6 +43,7 @@ const appRoutes = [
     state: "home",
   },
   {
+    id: "Overview",
     roles: [ROLES.ADMIN, ROLES.SALES], // Example roles allowed to access this route
     path: "/dashboard",
     element: <DashboardPageLayout />,
@@ -69,6 +70,7 @@ const appRoutes = [
   },
 
   {
+    id: "APPLICATIONS",
     roles: [ROLES.ADMIN, ROLES.SALES],
     path: "/applications",
     element: <ApplicationsPageLayout />,

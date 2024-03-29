@@ -1,15 +1,24 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
-function Component({ setModelOpen, modelOpen }) {
+function Component({ setModelOpen, modelOpen, GetAllRoles }) {
+  const dispatch = useDispatch();
+
   const [role, setRole] = useState("");
   function reset() {
     setModelOpen(false);
   }
   function AddNewRole() {
     if (role) {
-      console.log("role", role);
+      dispatch({
+        type: "ADD_NEW_ROLE_NAME",
+        payload: { roleName: role, valid: true },
+      });
+      setModelOpen(false);
+      setTimeout(() => GetAllRoles(), 500);
     }
   }
+
   return (
     <>
       <div

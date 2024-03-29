@@ -1,9 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RoleModel from "../../Components/RoleModel";
-function Roles() {
-  const [role, setRole] = useState("ROLE_COMPLIANCE");
-  const [modelOpen, setModelOpen] = useState(false);
+import { useDispatch, useSelector } from "react-redux";
 
+function Roles() {
+  const dispatch = useDispatch();
+  const [role, setRole] = useState("");
+  const [modelOpen, setModelOpen] = useState(false);
+  const [array, setArray] = useState([]);
+
+  const getAllRolesData = useSelector((state) => state.getAllRoles);
+
+  function getAllRoles() {
+    dispatch({
+      type: "GET_ALL_ROLES",
+    });
+  }
+  useEffect(() => {
+    getAllRoles();
+  }, []);
+  console.log("getAllRolesData", getAllRolesData);
+
+  function AddToArray(value) {
+    if (array.includes(value)) {
+      setArray(array.filter((item) => item !== value));
+    } else {
+      setArray([...array, value]);
+    }
+  }
+  function AddModules() {
+    const data = {
+      roleId: role,
+      modules: array,
+    };
+    dispatch({
+      type: "ADD_MODULES_TO_ROLES",
+      payload: data,
+    });
+  }
+  useEffect(() => {
+    if (getAllRolesData?.length > 0) {
+      setRole(getAllRolesData[0]?.id);
+    }
+  }, [getAllRolesData]);
   return (
     <div
       className={`bg-white rounded shadow-sm px-5 py-4 rtl:space-x-reverse space-y-4`}
@@ -16,177 +54,83 @@ function Roles() {
             onChange={(e) => setRole(e.target.value)}
             value={role}
           >
-            <option value="ROLE_COMPLIANCE">{"ROLE_COMPLIANCE"}</option>
-            <option value="ROLE_MODERATOR">{"ROLE_MODERATOR"}</option>
-            <option value="ROLE_CUSTOMER_CARE">{"ROLE_CUSTOMER_CARE"}</option>
-            <option value="ROLE_ADMIN">{"ROLE_ADMIN"}</option>
-            <option value="ROLE_SALES">{"ROLE_SALES"}</option>
-            <option value="ROLE_CREDIT">{"ROLE_CREDIT"}</option>
+            {getAllRolesData?.map((v, k) => {
+              return (
+                <option key={k} value={v?.id}>
+                  {v?.roleName}
+                </option>
+              );
+            })}
           </select>
         </div>
         <RoleModel
-          y
+          GetAllRoles={() => getAllRoles()}
           setModelOpen={(e) => setModelOpen(e)}
           modelOpen={modelOpen}
         />
       </div>
 
-      {data?.map((v, k) => {
-        return (
-          <>
-            <div className="flex flex-row items-center space-x-2">
-              <div className="flex flex-row  w-44 bg-gray-200 text-center rounded-sm items-center justify-center py-2">
-                <a>{v?.module}</a>
-              </div>
-              <input type="checkbox" className="h-5 w-5" />
+      {data?.map((v, k) => (
+        <div key={k}>
+          <div className="flex flex-row items-center space-x-2">
+            <div className="flex flex-row w-44 bg-gray-200 text-center rounded-sm items-center justify-center py-2">
+              <a>{v?.module}</a>
             </div>
-
-            <div className="mx-20 space-y-2 mt-2 items-center ">
-              {v?.authorizedModules?.map((e, l) => {
-                return <SubModule data={e} />;
-              })}
-            </div>
-          </>
-        );
-      })}
+            <input
+              type="checkbox"
+              className="h-5 w-5"
+              checked={array.includes(v?.moduleId)}
+              onChange={() => AddToArray(v?.moduleId)}
+            />
+          </div>
+        </div>
+      ))}
+      <div
+        onClick={() => AddModules()}
+        className="rounded-md text-center text-white text-sm px-5 py-2 h-min bg-blue-500 hover:bg-blue-600 cursor-pointer duration-300 w-max"
+      >
+        <a>Submit</a>
+      </div>
     </div>
   );
 }
 export default Roles;
 
-function SubModule({ data }) {
-  console.log("data", data);
-  return (
-    <div className="flex flex-row items-center space-x-3">
-      <input type="checkbox" className="h-5 w-5" />
-      <div className=" bg-gray-200 flex flex-row   text-center rounded-sm items-center justify-center py-1 w-72">
-        <a>{data?.name}</a>
-      </div>
-
-      <Select />
-    </div>
-  );
-}
-function Select() {
-  const [language, setLanguage] = useState("ar");
-
-  return (
-    <select
-      className=" py-1 px-3 border rounded  w-64 "
-      onChange={(e) => setLanguage(e.target.value)}
-      value={language}
-    >
-      <option value="read">{"READ ONLY"}</option>
-      <option value="write">{"WRITE"}</option>
-      <option value="update">{"UPDATE"}</option>
-      <option value="delete">{"DELETE"}</option>
-    </select>
-  );
-}
-
 const data = [
   {
-    moduleId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
-    module: "Users",
-    authorizedModules: [
-      {
-        subModuleId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
-        name: "User Dashboard",
-        permision: {
-          name: "",
-          permissionId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
-        },
-      },
-      {
-        subModuleId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
-        name: "All Users",
-        permision: {
-          name: "",
-          permissionId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
-        },
-      },
-      {
-        subModuleId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
-        name: "Verified",
-        permision: {
-          name: "",
-          permissionId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
-        },
-      },
-      {
-        subModuleId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
-        name: "Dump",
-        permision: {
-          name: "",
-          permissionId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
-        },
-      },
-    ],
+    moduleId: "b5b0470e-6e83-4575-99c8-9f50bc7f86e5",
+    module: "OVERVIEW",
   },
   {
-    module: "Loan Management",
-    subModule: [
-      {
-        name: "Create Type",
-        permision: null,
-      },
-      {
-        name: "Loan Applications",
-        permision: null,
-      },
-      {
-        name: "Installments",
-        permision: null,
-      },
-    ],
+    moduleId: "0d4b6412-96eb-4725-945e-5d210598bbcc",
+    module: "SIMAH",
   },
   {
-    module: "Decisions",
-    subModule: [
-      {
-        name: "Questions",
-        permision: null,
-      },
-      {
-        name: "Create Set",
-        permision: null,
-      },
-      {
-        name: "Create Decision",
-        permision: null,
-      },
-      {
-        name: "All Decisions",
-        permision: null,
-      },
-    ],
+    moduleId: "0fbed43b-3a67-4698-b2af-8cf9423b749a",
+    module: "DECISIONS",
+  },
+  {
+    moduleId: "239a2df4-6fbb-4e33-90c6-3c721ca3e5a3",
+    module: "ADMINISTRATOR",
+  },
+  {
+    moduleId: "3db7e201-389d-48e8-b27d-dafad085c3dd",
+    module: "CALCULATIONS",
+  },
+  {
+    moduleId: "518f1b7d-5582-4fa4-9761-bfe41b2e0952",
+    module: "CUSTOMERS",
+  },
+  {
+    moduleId: "620b9ea5-dc34-4909-9a03-df20bba5edff",
+    module: "APPLICATIONS",
+  },
+  {
+    moduleId: "905e7550-e845-4d3f-bd2a-bddfcdd5944a",
+    module: "LOAN_MANAGEMENT",
+  },
+  {
+    moduleId: "a7007584-fb4f-4a6f-8aad-0db2a7b8672b",
+    module: "NOTIFICATIONS",
   },
 ];
-
-const dataa = {
-  rollId: "7287fd58-24a4-4f54-9e5d-2e9ed50f8310",
-  authorizedModules: [
-    {
-      moduleId: "cc9d8328-feaf-4a5f-a3f6-7fafa8bf4d9c",
-      permissions: [
-        {
-          grantedPermissionId: "3ee6da09-3908-4d99-9a39-4f40d31ed328",
-        },
-        {
-          grantedPermissionId: "a959e5c6-7784-4a43-8e64-5847be770130",
-        },
-      ],
-    },
-    {
-      moduleId: "9416bc74-d4c3-4971-ae1c-78a5f31e78fc",
-      permissions: [
-        {
-          grantedPermissionId: "3ee6da09-3908-4d99-9a39-4f40d31ed328",
-        },
-        {
-          grantedPermissionId: "a959e5c6-7784-4a43-8e64-5847be770130",
-        },
-      ],
-    },
-  ],
-};

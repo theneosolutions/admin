@@ -71,7 +71,7 @@ function Login() {
       console.log("type=========", typeof role, typeof ROLES.MODERATOR);
 
       if (role === ROLES.ADMIN) {
-        navigate("/dashboard/userlist");
+        navigate("/dashboard/account");
       } else if (role === ROLES.COMPLIANCE) {
         navigate("/users/dashboard");
       } else if (role === ROLES.CUSTOMER_CARE) {
@@ -81,9 +81,9 @@ function Login() {
       } else if (role === ROLES.MODERATOR) {
         navigate("/decisions/q/a");
       } else if (role === ROLES.SALES) {
-        navigate("/dashboard/userlist");
+        navigate("/dashboard/account");
       } else {
-        navigate("/dashboard/userlist");
+        navigate("/dashboard/account");
       }
       setActive("login");
     }

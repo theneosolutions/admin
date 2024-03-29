@@ -22,7 +22,7 @@ const initialState = {
   user: null,
   role: "ROLE_ADMIN", //null
   // role: null, //null
-
+  roleModules: ["Overview", "APPLICATIONS"],
   token: null,
   verificationOtp: null,
   forgetVerificationOtp: null,
@@ -49,6 +49,7 @@ const initialState = {
   getAllDBR: [],
   getAllExpense: [],
   getAllTermsRates: [],
+  getAllRoles: [],
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -216,6 +217,10 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getAllTermsRates = data;
     },
+    GetAllRoles: (state, action) => {
+      const { data } = action.payload;
+      state.getAllRoles = data;
+    },
   },
 });
 export const {
@@ -260,6 +265,7 @@ export const {
   GetAllExpense,
   ForgetVerificationOtp,
   GetAllTermsRates,
+  GetAllRoles,
 } = Reducer.actions;
 
 export default Reducer.reducer;

@@ -21,7 +21,7 @@ const CreateDesicion = () => {
   const [modelOpen, setModelOpen] = useState(false);
   const [setId, setSetId] = useState();
   const [checkedValues, setCheckedValues] = useState([]);
-
+  const [singleQuestionId, setSingleQuestionId] = useState();
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
@@ -48,6 +48,8 @@ const CreateDesicion = () => {
   }
 
   function getSingleQuestion(id) {
+    setSingleQuestionId(id);
+    console.log("iddd", id);
     dispatch({
       type: "GET_QUESTION_OF_SET", // get all questions
       payload: { id: id, setid: setId },
@@ -62,7 +64,7 @@ const CreateDesicion = () => {
     var obj = {
       answers: checkedValues,
       id: setId,
-      questionId: singleQuestion.id,
+      questionId: singleQuestionId,
     };
     await dispatch({
       type: "ADD_ANSWER_THE_QUESTION", // get all questions
@@ -170,7 +172,7 @@ const CreateDesicion = () => {
                           <td className="px-6 py-4">
                             <div
                               onClick={() => {
-                                getSingleQuestion(v?.eligibilityQuestions.id);
+                                getSingleQuestion(v?.eligibilityQuestions?.id);
                                 setModelOpen(true);
                                 setCheckedValues([]);
                               }}
