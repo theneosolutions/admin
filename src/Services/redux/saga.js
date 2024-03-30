@@ -15,7 +15,7 @@ var baseUrlCalculations = "https://seulah.ngrok.app/api/v1/los";
 // var baseUrlCalculations = "https://7eb1-182-180-183-127.ngrok-free.app/api/v1/dbr";
 
 // "https://seulah.com/api/v1/cms";
-const rolesUrl = "https://3c8c-39-45-235-223.ngrok-free.app";
+const rolesUrl = "https://eb4d-182-188-103-93.ngrok-free.app";
 
 function* GetAllQuestionsData() {
   try {
@@ -1342,7 +1342,10 @@ function* GetAllRoles({ payload }) {
   try {
     yield put(action.Loading({ Loading: true }));
 
-    const response1 = yield call(axiosInstance.get, rolesUrl + `/v1/roles/all`);
+    const response1 = yield call(
+      axiosInstance.get,
+      rolesUrl + `/api/v1/roles/all`
+    );
     console.log("response", response1);
     yield put(action.GetAllRoles(response1));
 

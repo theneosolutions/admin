@@ -73,9 +73,9 @@ function Login() {
       if (role === ROLES.ADMIN) {
         navigate("/dashboard/account");
       } else if (role === ROLES.COMPLIANCE) {
-        navigate("/users/dashboard");
+        navigate("/customers/dashboard");
       } else if (role === ROLES.CUSTOMER_CARE) {
-        navigate("/users/dashboard");
+        navigate("/customers/dashboard");
       } else if (role === ROLES.UNDER_WRITER) {
         navigate("/los/applications");
       } else if (role === ROLES.MODERATOR) {
