@@ -20,8 +20,8 @@ const initialState = {
   Loading: false,
   islogin: false,
   user: null,
-  role: "ROLE_ADMIN", //null
-  // role: null, //null
+  // role: "ROLE_ADMIN", //null
+  role: null, //null
   roleModules: ["Overview", "APPLICATIONS"],
   token: null,
   verificationOtp: null,

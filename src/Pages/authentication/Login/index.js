@@ -9,6 +9,7 @@ import * as action from "Services/redux/reducer";
 import OtpScreen from "./otp";
 import { useNavigate } from "react-router-dom";
 import { ROLES } from "../../../constants/roles";
+import { IoChevronBackCircleOutline } from "react-icons/io5";
 
 function Login() {
   const navigate = useNavigate();
@@ -88,15 +89,28 @@ function Login() {
       setActive("login");
     }
   }, [islogin, role, token]);
+  function backFunction() {
+    console.log("back");
+    setActive("login");
+  }
   return (
     <section className="bg-fixed-full h-screen w-full">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <a
-            href="#"
-            class="flex flex-col items-center mb-2 mt-8 text-2xl font-semibold text-gray-900 dark:text-white"
-          >
-            <img class="w-48" src={Logo} alt="logo" />
+          <a class="flex flex-col items-center mb-2 mt-8 text-2xl font-semibold text-gray-900 dark:text-white">
+            <div className="w-full flex flex-row justify-between px-10 items-center ">
+              {active === "otp" ? (
+                <IoChevronBackCircleOutline
+                  className="text-3xl text-gray-600 hover:text-gray-800 cursor-pointer duration-300"
+                  onClick={() => backFunction()}
+                />
+              ) : (
+                <div></div>
+              )}
+
+              <img class="w-48" src={Logo} alt="logo" />
+              <div></div>
+            </div>
           </a>
           {active === "login" && (
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8 ">

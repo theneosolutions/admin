@@ -13,6 +13,8 @@ import { Alert, Snackbar } from "@mui/material";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
 import { ROLES } from "../../../constants/roles";
+import { LuSearch } from "react-icons/lu";
+
 function VerifiedUsers() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,6 +27,10 @@ function VerifiedUsers() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
+  const [search, setSearch] = useState("");
+  const [newUsersData, setNewUsersData] = useState([]);
+  const [usersData, setUsersData] = useState([]);
+
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
@@ -51,6 +57,14 @@ function VerifiedUsers() {
     });
     setTimeout(() => getAllUsersData(), 500);
   }
+  useEffect(() => {
+    if (users) {
+      const data = users.filter((person) => person?.user);
+      console.log("data", data);
+      setUsersData(data);
+      setNewUsersData(data);
+    }
+  }, [users]);
   function CheckEligibility(other, numeric) {
     if (other === true && numeric === true) {
       return (
@@ -69,8 +83,31 @@ function VerifiedUsers() {
     }
   }
   console.log("users", users);
+
+  useEffect(() => {
+    if (search === "") {
+      setNewUsersData(usersData);
+    } else {
+      const filteredData = usersData.filter((user) =>
+        user?.user?.user?.idNumber.toLowerCase().includes(search.toLowerCase())
+      );
+      console.log("dtaaa", filteredData);
+      setNewUsersData(filteredData);
+    }
+  }, [search, usersData]);
   return (
     <div className="py-5">
+      <div className="flex flex-row border border-gray-400 w-96 rounded-md  py-2 mb-2   px-2   items-center space-x-2">
+        <LuSearch className="text-gray-400" />
+
+        <input
+          type="number"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className=" outline-none bg-transparent w-full text-gray-500 no-spinners text-md"
+          placeholder="Search With Id Number"
+        />
+      </div>
       <CardMain
         width="w-full"
         heading={t("Verified Users")}
@@ -111,7 +148,7 @@ function VerifiedUsers() {
               </tr>
             </thead>
             <tbody>
-              {users?.map((v, k) => (
+              {newUsersData?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"

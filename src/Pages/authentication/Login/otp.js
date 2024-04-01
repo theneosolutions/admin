@@ -67,10 +67,10 @@ function OptScreen({ otp, LoginFunction, resendOtp }) {
       <div class="mx-auto flex w-full max-w-md flex-col space-y-16">
         <div class="flex flex-col items-center justify-center text-center space-y-2">
           <div class="font-semibold text-3xl">
-            <p>Email Verification</p>
+            <p>Id Number Verification</p>
           </div>
           <div class="flex flex-row text-sm font-medium text-gray-400">
-            <p>We have sent a code to your email ba**@dipainhouse.com</p>
+            <p>We have sent a code to your Number </p>
           </div>
         </div>
 

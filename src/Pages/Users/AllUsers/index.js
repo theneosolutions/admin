@@ -11,6 +11,8 @@ import { Alert, Snackbar } from "@mui/material";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
 import { ROLES } from "../../../constants/roles";
+import { LuSearch } from "react-icons/lu";
+
 function AllUsers() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,6 +22,8 @@ function AllUsers() {
 
   const [selectedUserId, setSelectedUserId] = useState(false);
   const [usersData, setUsersData] = useState([]);
+  const [newUsersData, setNewUsersData] = useState([]);
+  const [search, setSearch] = useState("");
 
   const [idNumber, setIdNumber] = useState("");
   const [id, setId] = useState("");
@@ -35,7 +39,6 @@ function AllUsers() {
     setModelOpen(true);
   }
   useEffect(() => {
-    // DeleteUser();
     getAllUsersData();
   }, []);
   function getAllUsersData() {
@@ -61,16 +64,40 @@ function AllUsers() {
     setModelOpen2(false);
   }
   useEffect(() => {
-    console.log("users", users);
     if (users) {
       const data = users.filter(
         (person) => person?.roles[0]?.name === "ROLE_USER"
       );
       setUsersData(data);
+      setNewUsersData(data);
     }
   }, [users]);
+
+  useEffect(() => {
+    if (search === "") {
+      setNewUsersData(usersData);
+    } else {
+      const filteredData = usersData.filter((user) =>
+        user.idNumber.toLowerCase().includes(search.toLowerCase())
+      );
+      setNewUsersData(filteredData);
+    }
+  }, [search, usersData]);
+
   return (
     <div className="py-5">
+      <div className="flex flex-row border border-gray-400 w-96 rounded-md  py-2 mb-2   px-2   items-center space-x-2">
+        <LuSearch className="text-gray-400" />
+
+        <input
+          type="number"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className=" outline-none bg-transparent w-full text-gray-500 no-spinners text-md"
+          placeholder="Search With Id Number"
+        />
+      </div>
+
       <CardMain
         width="w-full"
         heading={t("All Users")}
@@ -117,7 +144,7 @@ function AllUsers() {
               </tr>
             </thead>
             <tbody>
-              {usersData?.map((v, k) => (
+              {newUsersData?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"

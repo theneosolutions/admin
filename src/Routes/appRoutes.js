@@ -148,7 +148,7 @@ const appRoutes = [
     ],
   },
   {
-    roles: [ROLES.ADMIN, ROLES.CUSTOMER_CARE, ROLES.COMPLIANCE],
+    roles: [ROLES.ADMIN],
     path: "/admin",
     element: <AdminPageLayout />,
     state: "admin",
