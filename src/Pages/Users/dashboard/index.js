@@ -57,28 +57,28 @@ function App() {
       <div className="flex flex-wrap lg:flex-row   ">
         <Notifications
           value="400"
-          heading="Verified"
+          heading={t("Verified")}
           color="text-green-400 text-xl"
           bg=" bg-gradient-to-r from-green-500 via-green-500 to-green-300"
           icon={<BiSignal4 className="text-4xl text-gray-500" />}
         />
         <Notifications
           value="200"
-          heading="Un Verified"
+          heading={t("Un Verified")}
           color="text-red-500 text-xl"
           bg=" bg-gradient-to-r from-red-500 via-red-500 to-red-300"
           icon={<PiChartScatterBold className="text-4xl text-gray-500" />}
         />
         <Notifications
           value="15"
-          heading="On Hold"
+          heading={t("On Hold")}
           color="text-purple-400 text-xl"
           bg=" bg-gradient-to-r from-purple-500 via-purple-500 to-purple-300"
           icon={<FaWpforms className="text-3xl text-gray-500" />}
         />
         <Notifications
           value="200"
-          heading="Rejected"
+          heading={t("Rejected")}
           color="text-blue-400 text-xl"
           bg=" bg-gradient-to-r from-blue-500 via-blue-500 to-blue-300"
           icon={<FaWpforms className="text-3xl text-gray-500" />}
@@ -97,7 +97,7 @@ function App() {
           <div className={`bg-white rounded shadow-sm  rtl:space-x-reverse  `}>
             <div className="px-5 py-4 border-b flex flex-row  items-center justify-between">
               <div className="text-base font-semibold text-gray-700">
-                Recent Activities
+                {t("Recent Activities")}
               </div>
               <BiDotsHorizontalRounded className="text-gray-700" />
             </div>
@@ -169,7 +169,7 @@ function App() {
                   {t("Loan Ammount")}
                 </th>
                 <th scope="col" className="px-3 py-3">
-                  {t("Maturity Data")}
+                  {t("Maturity Date")}
                 </th>
 
                 <th scope="col" className="px-3 py-3">
@@ -178,12 +178,12 @@ function App() {
                 <th scope="col" className="px-3 py-3">
                   {t("Action")}
                 </th>
-                <th
+                {/* <th
                   scope="col"
                   className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
                 >
                   {t("Phone/Email")}
-                </th>
+                </th> */}
                 <th
                   scope="col"
                   className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
@@ -216,10 +216,10 @@ function App() {
                       onClick={() => navigate(`/user-profile?id=${v.userId}`)}
                       className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
                     >
-                      View Details
+                      {t("View Details")}
                     </div>
                   </td>
-                  <td className="px-3 py-4">
+                  {/* <td className="px-3 py-4">
                     <div className="flex flex-row space-x-3 rtl:space-x-reverse">
                       <img src={Edit} className="h-6 cursor-pointer" />
                       <img
@@ -228,7 +228,7 @@ function App() {
                         onClick={() => onDelete()}
                       />
                     </div>
-                  </td>
+                  </td> */}
                   <th
                     scope="row"
                     className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10"
@@ -300,6 +300,8 @@ function ActionCenter({ icon, heading, des, image }) {
   );
 }
 function Notifications({ heading, value, color, bg, icon }) {
+  const { t } = useTranslation();
+
   return (
     <div className=" w-full md:w-1/2 lg:w-1/4 p-1">
       <div className="rounded-sm md:mt-0 mt-4  overflow-hidden bg-white hover:bg-opacity-70 cursor-pointer shadow-xl  duration-300 justify-between h-max ">
@@ -314,7 +316,7 @@ function Notifications({ heading, value, color, bg, icon }) {
         <div
           className={`text-white h-9 w-full  flex flex-row justify-between items-center  px-4 ${bg}`}
         >
-          <div className="text-xs">% Change</div>
+          <div className="text-xs">% {t("Change")} </div>
           <div>
             <BsGraphUpArrow className="text-sm" />
           </div>

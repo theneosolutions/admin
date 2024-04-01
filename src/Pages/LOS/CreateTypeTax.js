@@ -166,7 +166,7 @@ function App() {
                 onClick={handleSubmit}
                 className={`mt-5 rounded-lg text-white text-sm px-10 py-2.5   hover:bg-opacity-90 bg-primary`}
               >
-                Submit
+                {t("Submit")}
               </button>
             </div>
           </div>
@@ -200,6 +200,8 @@ function Fees({
   setProcessingFee,
   setVatFee,
 }) {
+  const { t } = useTranslation();
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
@@ -221,7 +223,9 @@ function Fees({
   return (
     <div className="flex flex-col lg:flex-row lg:space-x-4">
       <div className="lg:w-1/2 px-4 py-3 border  bg-secondry rounded-md border-dashed	 border-slate-200 ">
-        <a className="text-sm text-gray-700 font-semibold">Processing Fee </a>
+        <a className="text-sm text-gray-700 font-semibold">
+          {t("Processing Fee")}{" "}
+        </a>
 
         <div className="mt-4">
           {processingFee?.length > 0 && (
@@ -230,9 +234,12 @@ function Fees({
                 const [key, value] = Object.entries(obj)[0]; // Extracting key-value pair
 
                 return (
-                  <div key={index} className="mb-4 flex space-x-2">
+                  <div
+                    key={index}
+                    className="mb-4 flex space-x-2 rtl:space-x-reverse"
+                  >
                     <div className="flex flex-col w-1/2">
-                      <a className="text-sm text-gray-700">Months</a>
+                      <a className="text-sm text-gray-700">{t("Months")}</a>
                       <input
                         disabled={true}
                         type="text"
@@ -246,7 +253,7 @@ function Fees({
                     </div>
 
                     <div className="flex flex-col w-1/2">
-                      <a className="text-sm text-gray-700">Fee</a>
+                      <a className="text-sm text-gray-700">{t("Fee")}</a>
                       <input
                         type="number"
                         value={value || ""}
@@ -265,7 +272,9 @@ function Fees({
         </div>
       </div>
       <div className="mt-4 lg:mt-0 lg:w-1/2 px-4 py-3 border  bg-secondry rounded-md border-dashed	 border-slate-200 ">
-        <a className="text-sm text-gray-700 font-semibold">Vat on Fee </a>
+        <a className="text-sm text-gray-700 font-semibold">
+          {t("Vat on Fee")}{" "}
+        </a>
         <div className="mt-4">
           {vatFee?.length > 0 && (
             <>
@@ -273,9 +282,12 @@ function Fees({
                 const [key, value] = Object.entries(obj)[0]; // Extracting key-value pair
 
                 return (
-                  <div key={index} className="mb-4 flex space-x-2">
+                  <div
+                    key={index}
+                    className="mb-4 flex space-x-2 rtl:space-x-reverse"
+                  >
                     <div className="flex flex-col w-1/2">
-                      <a className="text-sm text-gray-700">Months</a>
+                      <a className="text-sm text-gray-700"> {t("Months")}</a>
                       <input
                         disabled={true}
                         type="text"
@@ -289,7 +301,7 @@ function Fees({
                     </div>
 
                     <div className="flex flex-col w-1/2">
-                      <a className="text-sm text-gray-700">Fee</a>
+                      <a className="text-sm text-gray-700"> {t("Fee")}</a>
                       <input
                         type="number"
                         value={value || ""}

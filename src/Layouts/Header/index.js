@@ -16,7 +16,7 @@ function Header({ isOpen, toggleSidebar, className }) {
 
   return (
     <div
-      className={`px-3 md:px-10 py-4 flex flex-row justify-between ${className}`}
+      className={`px-3 md:px-10 py-4 flex flex-row justify-between  rtl:space-x-reverse ${className} `}
       style={{ background: "#30C1D7" }}
     >
       <div className="flex flex-row space-x-4 rtl:space-x-reverse items-center">
@@ -28,7 +28,7 @@ function Header({ isOpen, toggleSidebar, className }) {
             />
           </div>
         )}
-        <div className="flex flex-row items-center space-x-2 rtl:space-x-reverse md:flex hidden">
+        <div className=" flex-row items-center space-x-2 rtl:space-x-reverse md:flex hidden">
           <img src={SearchIcon} />
           <input
             placeholder={t("Search")}
@@ -82,6 +82,7 @@ const Icons2 = ({ icon }) => {
     localStorage.setItem("direction", direction);
     window.location.reload(true);
   };
+
   return (
     <div className={`relative inline-block text-left`} ref={dropDownRef}>
       <div
@@ -128,6 +129,8 @@ const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null); // Ref for the dropdown container
   const user = useSelector((state) => state?.user);
+  const [direction, setDirection] = useState("");
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -138,6 +141,10 @@ const Dropdown = () => {
     }
   };
 
+  useEffect(() => {
+    let dir = localStorage.getItem("direction");
+    setDirection(dir);
+  }, []);
   // useEffect to set up the event listener
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -182,7 +189,9 @@ const Dropdown = () => {
       </div>
       {isOpen && (
         <div
-          className="origin-top-right absolute right-0 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+          className={`origin-top-right absolute  ${
+            direction === "rtl" ? "left-0" : "right-0"
+          }  mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none`}
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"

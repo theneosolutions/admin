@@ -17,16 +17,17 @@ function LaonApplication() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-
+  const usersApplications = useSelector((state) => state.getApplications);
+  const [application, setApplication] = useState();
   const getUserApplication = useSelector((state) => state.getUserApplication);
   const user = useSelector((state) => state.getUserById);
 
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
-  useEffect(() => {
-    setData(getUserApplication);
-  }, [getUserApplication]);
+  // useEffect(() => {
+  //   setData(getUserApplication);
+  // }, [getUserApplication]);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -34,7 +35,14 @@ function LaonApplication() {
   useEffect(() => {
     getUserLoanDetail();
   }, []);
-
+  useEffect(() => {
+    console.log("usersApplications", usersApplications);
+    const app = usersApplications.filter(
+      (application) => application?.userId === userId
+    );
+    setData(app[0]);
+    console.log("app", app);
+  }, []);
   function SetStatus() {
     dispatch({
       type: "SET_STATUS_OF_APPLICATION",
@@ -52,6 +60,7 @@ function LaonApplication() {
       payload: userId,
     });
   }
+  console.log("application", application);
   return (
     <div className="py-5">
       <CardMain
@@ -83,21 +92,18 @@ function LaonApplication() {
             <div className="flex flex-col md:flex-row md:mt-0 mt-4  md:space-y-0 space-y-2">
               <Text
                 heading="Loan Amount"
-                value={data?.loanAmount || 0}
+                value={data?.financeAmount || 0}
                 style="text-green-600"
               />
               <Text
                 heading="After Interest"
-                value={data?.amountAfterInterest || 0}
+                value={data?.interestAmount || 0}
               />{" "}
               <Text
                 heading="With Tax And Interest"
-                value={data?.amountAfterInterestAndTex || 0}
+                value={data?.interestAmount || 0}
               />{" "}
-              <Text
-                heading="Tenure"
-                value={data?.month ? +data?.month + " Months" : "0 Months"}
-              />{" "}
+              <Text heading="Tenure" value={data?.term || 0} />{" "}
               <Text heading="Application Number" value={data?.id || 0} />{" "}
             </div>
             <div>
@@ -245,20 +251,20 @@ function LaonApplication() {
                       Intrest Ratio
                     </a>
                     <a className="text-xl text-gray-600 font-semibold opacity-90">
-                      {data?.interestRatio + " %"}
+                      {data?.interestAmount + " %"}
                     </a>
                   </div>
 
-                  <div className="flex flex-col">
+                  {/* <div className="flex flex-col">
                     <a className="text-xs text-gray-400">Apply Data</a>
                     <a className="text-md text-gray-500  opacity-90">
                       {moment(MillisecondsToDate(data?.maturityDate))
                         .startOf("hour")
                         .fromNow()}
                     </a>
-                  </div>
+                  </div> */}
 
-                  <div className="flex flex-col">
+                  {/* <div className="flex flex-col">
                     <a className="text-xs text-gray-400">
                       1st Installment Date
                     </a>
@@ -267,9 +273,9 @@ function LaonApplication() {
                         MillisecondsToDate(data?.firstInstallmentDate)
                       ).format("LL")}
                     </a>
-                  </div>
+                  </div> */}
 
-                  <div className="flex flex-col">
+                  {/* <div className="flex flex-col">
                     <a className="text-xs text-gray-400">
                       Last Installment Date
                     </a>
@@ -278,7 +284,7 @@ function LaonApplication() {
                         MillisecondsToDate(data?.lastInstallmentDate)
                       ).format("LL")}
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -286,7 +292,7 @@ function LaonApplication() {
               <div className="w-full lg:w-3/5		space-y-10">
                 <Progress
                   heading="Eligibility Loan Amount"
-                  value="30,000"
+                  value={data?.totalAmount}
                   progressValue="50%"
                   min="Min 2K"
                   max="Max 4 Lakh"
@@ -294,31 +300,21 @@ function LaonApplication() {
 
                 <Progress
                   heading="Tenure"
-                  value={data?.month + " Months"}
+                  value={data?.term + " Months"}
                   progressValue="20%"
                   min="Min 6 Months"
                   max="Min 36 Months"
                 />
               </div>
 
+              <div className="flex flex-col md:flex-row mt-6 space-y-2 md:space-y-0"></div>
               <div className="flex flex-col md:flex-row mt-6 space-y-2 md:space-y-0">
                 <Text2
                   heading="Monthly Installment"
-                  value={data?.installmentPerMonth}
+                  value={data?.emimonthlyInstallement}
                 />
-                <Text2
-                  heading="Monthly Installment With Intrest"
-                  value={data?.installmentPerMonthAfterInterest}
-                />{" "}
-                <Text2
-                  heading="Monthly Installment With Tax And Intrest"
-                  value={data?.installmentPerMonthAfterInterestAndTex}
-                />{" "}
-              </div>
-              <div className="flex flex-col md:flex-row mt-6 space-y-2 md:space-y-0">
-                <Text2 heading="Processing Fee" value={data?.processingFee} />
                 <Text2 heading="Total Fee" value={data?.totalFee} />{" "}
-                <Text2 heading="Vat on Fee" value={data?.vatOnFee} />{" "}
+                <Text2 heading="Vat on Fee" value={data?.vat} />{" "}
               </div>
               <div className="flex flex-col md:flex-row justify-between mt-10 md:space-x-2">
                 <Button

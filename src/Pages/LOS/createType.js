@@ -141,7 +141,7 @@ function App() {
           width="w-full h-max  md:mt-0 mt-4"
           heading={t("Create Loan Type")}
         >
-          <div className=" px-1 md:px-3   flex flex-col md:flex-row md:space-x-4">
+          <div className=" px-1 md:px-3 rtl:space-x-reverse  flex flex-col md:flex-row md:space-x-4">
             <div className="flex flex-row w-full md:w-1/2">
               <div
                 onClick={handleClick}
@@ -152,11 +152,11 @@ function App() {
                 {image2 && <img src={image2} />}
                 <a className="font-semibold mt-3">
                   <span className="underline text-primary font-bold cursor-pointer hover:opacity-80 duration-300">
-                    Browse
+                    {t("Browse")}
                   </span>
                 </a>
                 <a className="text-xs text-gray-600 mt-3">
-                  Supported formates: Ico, PNG
+                  {t("Supported formates: Ico, PNG")}
                 </a>
               </div>
             </div>
@@ -176,7 +176,7 @@ function App() {
               </div>
               <div className="flex flex-col w-full">
                 <a className="text-sm text-gray-700 font-semibold">
-                  Loan Reason
+                  {t("Loan Reason")}
                 </a>
 
                 <input
@@ -192,7 +192,10 @@ function App() {
                 style={{ display: "none" }}
               />
               <div className=" py-3   bg-secondry rounded-md 	 border-slate-200 ">
-                <a className="text-sm text-gray-700 font-semibold">Tensures </a>
+                <a className="text-sm text-gray-700 font-semibold">
+                  {" "}
+                  {t("Tensures")}{" "}
+                </a>
 
                 <div className="mt-4">
                   {formData?.map((data, index) => (
@@ -200,9 +203,9 @@ function App() {
                       key={index}
                       className="mb-4 flex  flex-row justify-between items-end "
                     >
-                      <div className="flex flex-row w-11/12	space-x-2">
+                      <div className="flex flex-row w-11/12	space-x-2 rtl:space-x-reverse">
                         <div className="flex flex-col w-1/2	 ">
-                          <a className="text-sm text-gray-700">Months</a>
+                          <a className="text-sm text-gray-700">{t("Months")}</a>
 
                           <input
                             type="number"
@@ -216,7 +219,7 @@ function App() {
                         </div>
 
                         <div className="flex flex-col w-1/2	 ">
-                          <a className="text-sm text-gray-700">Ratio</a>
+                          <a className="text-sm text-gray-700"> {t("Ratio")}</a>
 
                           <input
                             type="number"
@@ -243,7 +246,7 @@ function App() {
                       onClick={handleAddMore}
                       className={`w-max rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}
                     >
-                      Add More Tenures
+                      {t("Add More Tenures")}
                     </button>
                   </div>
                 </div>
@@ -253,7 +256,7 @@ function App() {
                   onClick={handleSubmit}
                   className={`mt-5 rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}
                 >
-                  Submit
+                  {t("Submit")}
                 </button>
               </div>
             </div>

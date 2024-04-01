@@ -35,7 +35,7 @@ function InstallmentsScreen() {
         width="w-full mt-2"
         heading={t("Installments Products")}
         showButton={true}
-        buttonValue={"Add New Product"}
+        buttonValue={t("Add New Product")}
         onButtonClick={() => navigate("/add-Product")}
       >
         <div className="overflow-x-auto relative ">

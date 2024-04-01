@@ -62,7 +62,7 @@ function Calculations() {
         heading={t("DBR Guidlines")}
         iconStyle="text-3xl text-primary"
         showButton={true}
-        buttonValue={"Add DBR"}
+        buttonValue={t("Add DBR")}
         onButtonClick={() => (setModelOpen(true), setSelectedData(null))}
       >
         <div className="overflow-x-auto relative  mt-4">
@@ -157,7 +157,7 @@ function Calculations() {
         </Alert>
       </Snackbar>
       <Model
-        heading="Delete DBR"
+        heading={t("Delete DBR")}
         isOpen={modelOpen2}
         style="w-1/3"
         innerStyle="py-10"
@@ -167,7 +167,9 @@ function Calculations() {
         action2={() => DeleteUser()}
         action1={() => setModelOpen2(!modelOpen2)}
       >
-        <a className=" text-xl text-gray-800 ">Are You Sure To Delete This ?</a>
+        <a className=" text-xl text-gray-800 ">
+          {t("Are You Sure To Delete This ?")}
+        </a>
       </Model>
       {modelOpen ? (
         <Model2 setModelOpen={(e) => setModelOpen(e)} reset={() => reset()}>

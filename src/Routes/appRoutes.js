@@ -35,6 +35,11 @@ import TermsAndRates from "Pages/Calculations/termsAndRates";
 import AddRoles from "Pages/Administrator/AddRoles";
 import AdminPageLayout from "Pages/Administrator/AdminPageLayout";
 import ApplicationsPageLayout from "Pages/Applications/AdminPageLayout";
+import { GrOverview } from "react-icons/gr";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { TbMoneybag } from "react-icons/tb";
+import { IoNotificationsSharp } from "react-icons/io5";
+import { AiOutlineCalculator } from "react-icons/ai";
 
 const appRoutes = [
   {
@@ -50,7 +55,7 @@ const appRoutes = [
     state: "dashboard",
     sidebarProps: {
       displayText: "Overview",
-      icon: <LuLayoutDashboard />,
+      icon: <GrOverview />,
     },
     child: [
       {
@@ -154,7 +159,7 @@ const appRoutes = [
     state: "admin",
     sidebarProps: {
       displayText: "Administrator",
-      icon: <FaUser />,
+      icon: <MdOutlineAdminPanelSettings />,
     },
     child: [
       {
@@ -188,7 +193,7 @@ const appRoutes = [
     state: "los",
     sidebarProps: {
       displayText: "Loan Management",
-      icon: <IoMdCheckboxOutline />,
+      icon: <TbMoneybag />,
     },
     child: [
       {
@@ -281,7 +286,7 @@ const appRoutes = [
     state: "response",
     sidebarProps: {
       displayText: "Notifications",
-      icon: <MdOutlineQuestionAnswer />,
+      icon: <IoNotificationsSharp />,
     },
     child: [
       {
@@ -349,7 +354,7 @@ const appRoutes = [
     state: "calculations",
     sidebarProps: {
       displayText: "calculations",
-      icon: <MdOutlineQuestionAnswer />,
+      icon: <AiOutlineCalculator />,
     },
     child: [
       {

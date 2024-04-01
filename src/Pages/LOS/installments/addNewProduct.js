@@ -90,7 +90,7 @@ function CreateUser() {
         onSubmit={handleSubmit}
         className="bg-gray-200 xl:w-2/5 lg:w-1/2 md:w-full	"
       >
-        <CardMain width="" heading={"Create Installment Product"}>
+        <CardMain width="" heading={t("Create Installment Product")}>
           <div className="flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse lg:px-6">
             <div className="w-full  space-y-5   ">
               <div className="flex  flex-col ">
@@ -103,7 +103,7 @@ function CreateUser() {
                     <img src={imageBlob} className="h-full w-full " />
                   )}
                 </div>
-                <a>Product Image</a>
+                <a> {t("Product Image")}</a>
               </div>
 
               <InputField

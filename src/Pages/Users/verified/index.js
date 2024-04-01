@@ -68,16 +68,16 @@ function VerifiedUsers() {
   function CheckEligibility(other, numeric) {
     if (other === true && numeric === true) {
       return (
-        <div className="flex flex-row font-semibold space-x-1 text-green-700 items-center">
+        <div className="flex flex-row font-semibold space-x-1  rtl:space-x-reverse text-green-700 items-center">
           <MdVerified className="text-xl" />
-          <a className="text-md ">Eligible</a>
+          <a className="text-md ">{t("Eligible")}</a>
         </div>
       );
     } else {
       return (
-        <div className="flex flex-row font-semibold space-x-1 text-red-700 items-center">
+        <div className="flex flex-row font-semibold space-x-1  rtl:space-x-reverse text-red-700 items-center">
           <RxCrossCircled className="text-xl" />
-          <a className="text-md ">Not Eligible</a>
+          <a className="text-md ">{t("Not Eligible")}</a>
         </div>
       );
     }
@@ -105,7 +105,7 @@ function VerifiedUsers() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className=" outline-none bg-transparent w-full text-gray-500 no-spinners text-md"
-          placeholder="Search With Id Number"
+          placeholder={t("Search With Id Number")}
         />
       </div>
       <CardMain
@@ -122,7 +122,7 @@ function VerifiedUsers() {
                   {t("User Id")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("ID NUMBER")}
+                  {t("Id Number")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Questions")}
@@ -181,13 +181,13 @@ function VerifiedUsers() {
                   </td>
                   <td scope="row" className="px-3 py-4">
                     {v?.eligibilityResult?.otherQuestionEligibility
-                      ? "Pass"
-                      : "Fail"}
+                      ? t("Pass")
+                      : t("Fail")}
                   </td>
                   <td className="px-3 py-4">
                     {v?.eligibilityResult?.numericQuestionEligibility
-                      ? "Pass"
-                      : "Fail"}
+                      ? t("Pass")
+                      : t("Fail")}
                   </td>
                   <td className="px-3 py-4">
                     {CheckEligibility(
@@ -199,14 +199,14 @@ function VerifiedUsers() {
                   <td className="px-3 py-4">
                     {v?.user?.user?.accountStatus === "1" ? (
                       <div className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500">
-                        Blocked
+                        {t("Blocked")}
                       </div>
                     ) : v?.user?.user?.accountStatus === "0" ? (
                       <div
                         className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
                         duration-300 text-green-500"
                       >
-                        Active
+                        {t("Active")}
                       </div>
                     ) : null}
                   </td>

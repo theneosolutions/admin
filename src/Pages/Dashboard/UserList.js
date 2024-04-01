@@ -70,28 +70,28 @@ function App() {
       <div className="flex flex-wrap ">
         <Notifications
           value="120000"
-          heading="Total Deposite Amount"
+          heading={t("Total Deposite Amount")}
           color="text-orange-400 text-xl"
           bg=" bg-gradient-to-r from-orange-500 via-orange-500 to-orange-300"
           icon={<BiSignal4 className="text-4xl text-gray-500" />}
         />
         <Notifications
           value={sumOfApprovedAmmount}
-          heading="Total Withdrawal Amount"
+          heading={t("Total Withdrawal Amount")}
           color="text-green-500 text-xl"
           bg=" bg-gradient-to-r from-green-500 via-green-500 to-green-300"
           icon={<PiChartScatterBold className="text-4xl text-gray-500" />}
         />
         <Notifications
           value="1500700"
-          heading="Balance In Account"
+          heading={t("Balance In Account")}
           color="text-red-400 text-xl"
           bg=" bg-gradient-to-r from-red-500 via-red-500 to-red-300"
           icon={<BsBarChartSteps className="text-3xl text-gray-500" />}
         />
         <Notifications
           value={applications?.length}
-          heading="Total Applications"
+          heading={t("Total Applications")}
           color="text-teal-400 text-xl"
           bg=" bg-gradient-to-r from-teal-500 via-teal-500 to-teal-300"
           icon={<FaWpforms className="text-3xl text-gray-500" />}
@@ -111,7 +111,7 @@ function App() {
           <div className={`bg-white rounded shadow-sm  rtl:space-x-reverse  `}>
             <div className="px-5 py-4 border-b flex flex-row  items-center justify-between">
               <div className="text-base font-semibold text-gray-700">
-                Action Center
+                {t("Action Center")}
               </div>
               <BiDotsHorizontalRounded className="text-gray-700" />
             </div>
@@ -183,7 +183,7 @@ function App() {
                   {t("Loan Ammount")}
                 </th>
                 <th scope="col" className="px-3 py-3">
-                  {t("Maturity Data")}
+                  {t("Maturity Date")}
                 </th>
 
                 <th scope="col" className="px-3 py-3">
@@ -224,7 +224,7 @@ function App() {
                       onClick={() => navigate(`/user-profile?id=${v.userId}`)}
                       className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
                     >
-                      View Details
+                      {t("View Details")}
                     </div>
                   </td>
                   <th
@@ -295,6 +295,8 @@ function ActionCenter({ icon, heading, des }) {
   );
 }
 function Notifications({ heading, value, color, bg, icon }) {
+  const { t } = useTranslation();
+
   return (
     <div className=" w-full md:w-1/2 lg:w-1/4 p-1">
       <div className="rounded-sm md:mt-0 mt-4  overflow-hidden bg-white hover:bg-opacity-70 cursor-pointer shadow-xl  duration-300 justify-between h-max ">
@@ -309,7 +311,7 @@ function Notifications({ heading, value, color, bg, icon }) {
         <div
           className={`text-white h-9 w-full  flex flex-row justify-between items-center  px-4 ${bg}`}
         >
-          <div className="text-xs">% Change</div>
+          <div className="text-xs">% {t("Change")}</div>
           <div>
             <BsGraphUpArrow className="text-sm" />
           </div>

@@ -16,8 +16,12 @@ import { MdFormatListBulleted } from "react-icons/md";
 import { FaCodeCompare } from "react-icons/fa6";
 import { RiHistoryFill } from "react-icons/ri";
 import UserInfo from "./Tabs/userInfo";
+import { useTranslation } from "react-i18next";
+
 function Template() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const location = useLocation();
   const user = useSelector((state) => state.getUserById);
@@ -66,7 +70,7 @@ function Template() {
   return (
     <div className="flex flex-col">
       <div className="bg-white px-5 py-3  lg:mt-0 mt-4 justify-between flex flex-row items-center">
-        <div className="flex flex-row space-x-7">
+        <div className="flex flex-row space-x-7 rtl:space-x-reverse">
           {data?.map((v, k) => {
             return (
               <div
@@ -76,7 +80,7 @@ function Template() {
                 }`}
               >
                 {v.icon}
-                <a className="text-xs mt-0.5">{v.label}</a>
+                <a className="text-xs mt-0.5">{t(v.label)}</a>
               </div>
             );
           })}
@@ -85,22 +89,22 @@ function Template() {
           <div>
             {userData?.user?.accountStatus === "1" ? (
               <div className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500">
-                Blocked
+                {t("Blocked")}
               </div>
             ) : userData?.user.accountStatus === "0" ? (
               <div
                 className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
                         duration-300 text-green-500"
               >
-                Active
+                {t("Active")}
               </div>
             ) : null}
           </div>
         )}
       </div>
 
-      <div className="flex flex-col   w-full">
-        <div className="flex   lg:flex-row flex-col-reverse lg:space-x-6 mt-6">
+      <div className="flex flex-col   w-full ">
+        <div className="flex   lg:flex-row flex-col-reverse lg:space-x-6 mt-6 rtl:space-x-reverse">
           <div className="w-full lg:w-1/4 lg:mt-0 mt-4 ">
             {userData?.user && <ProfileSidebar userData={userData?.user} />}
           </div>

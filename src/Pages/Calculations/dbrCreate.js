@@ -88,7 +88,7 @@ function CreateUser({ setModelOpen, data }) {
       <div className=" bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-20 px-4 py-5 ">
         <div className="flex flex-col ">
           <div className="flex flex-col w-full">
-            <a className="text-sm text-gray-700">Income Bracket</a>
+            <a className="text-sm text-gray-700">{t("Income Bracket")}</a>
             <div className=" justify-between flex flex-row items-center border-gray-300 border rounded-md px-1.5 py-1.5 outline-none mt-2 w-full">
               <input
                 type="number"
@@ -96,7 +96,7 @@ function CreateUser({ setModelOpen, data }) {
                 onChange={(e) => setBracketStart(e.target.value)}
                 className="bg-gray-100 rounded-md px-3 py-1 outline-none w-5/12	"
               />
-              <a className="text-sm">TO</a>
+              <a className="text-sm">{t("TO")}</a>
               <input
                 type="number"
                 value={bracketEnd}

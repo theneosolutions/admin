@@ -516,15 +516,33 @@ function* GetScreenSet(payload) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+// function* GetLoanApplications(payload) {
+//   try {
+//     yield put(action.Loading({ Loading: true }));
+
+//     const response = yield call(
+//       axiosInstance.get,
+//       baseUrlLos + `/loanTypeFormula/getAllLoanTypeFormula`
+//     );
+//     yield put(action.GetApplications(response.data));
+//     yield put(action.Loading({ Loading: false }));
+//   } catch (error) {
+//     const message = error.response.data.message;
+//     yield put(action.Loading({ Loading: false }));
+
+//     yield put(action.Message({ message: message, open: true, error: true }));
+//   }
+// }
+
 function* GetLoanApplications(payload) {
   try {
     yield put(action.Loading({ Loading: true }));
 
     const response = yield call(
       axiosInstance.get,
-      baseUrlLos + `/loanTypeFormula/getAllLoanTypeFormula`
+      baseUrlLos + `/loanTypeFormula/getAllLoanApplications`
     );
-    yield put(action.GetApplications(response.data));
+    yield put(action.GetApplications(response));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     const message = error.response.data.message;

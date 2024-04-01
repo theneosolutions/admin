@@ -86,7 +86,7 @@ function AllUsers() {
 
   return (
     <div className="py-5">
-      <div className="flex flex-row border border-gray-400 w-96 rounded-md  py-2 mb-2   px-2   items-center space-x-2">
+      <div className="flex flex-row border rtl:space-x-reverse border-gray-400 w-96 rounded-md  py-2 mb-2   px-2   items-center space-x-2 ">
         <LuSearch className="text-gray-400" />
 
         <input
@@ -94,7 +94,7 @@ function AllUsers() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className=" outline-none bg-transparent w-full text-gray-500 no-spinners text-md"
-          placeholder="Search With Id Number"
+          placeholder={t("Search With Id Number")}
         />
       </div>
 
@@ -172,14 +172,14 @@ function AllUsers() {
                   <td className="px-3 py-4">
                     {v?.accountStatus === "1" ? (
                       <div className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500">
-                        Blocked
+                        {t("Blocked")}
                       </div>
                     ) : v?.accountStatus === "0" ? (
                       <div
                         className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
                         duration-300 text-green-500"
                       >
-                        Active
+                        {t("Active")}
                       </div>
                     ) : null}
                   </td>
@@ -193,7 +193,8 @@ function AllUsers() {
                         )}
                         className="border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 bg-red-400  text-white"
                       >
-                        De Activate
+                        {" "}
+                        {t("De Activate")}
                       </div>
                     ) : v?.accountStatus === "1" ? (
                       <div
@@ -205,7 +206,7 @@ function AllUsers() {
                         className=" border border-green-400  bg-green-400  text-white px-3 py-1 w-max rounded-md cursor-pointer 
                         duration-300 "
                       >
-                        Activate
+                        {t("Activate")}
                       </div>
                     ) : null}
                   </td>

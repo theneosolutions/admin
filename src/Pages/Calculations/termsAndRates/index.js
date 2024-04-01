@@ -62,7 +62,7 @@ function Calculations() {
         heading={t("Terms And Rates")}
         iconStyle="text-3xl text-primary"
         showButton={true}
-        buttonValue={"Add Terms And Rates"}
+        buttonValue={t("Add Terms And Rates")}
         onButtonClick={() => (setModelOpen(true), setSelectedData(null))}
       >
         <div className="overflow-x-auto relative  mt-4">

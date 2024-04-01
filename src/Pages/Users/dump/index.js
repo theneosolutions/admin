@@ -133,15 +133,15 @@ function DumpUsers() {
                     <a>{v.userId}</a>
                   </td>
                   <td scope="row" className="px-3 py-4">
-                    {v.otherQuestionEligibility ? "Pass" : "Fail"}
+                    {v.otherQuestionEligibility ? t("Pass") : t("Fail")}
                   </td>
                   <td className="px-3 py-4">
-                    {v.numericQuestionEligibility ? "Pass" : "Fail"}
+                    {v.numericQuestionEligibility ? t("Pass") : t("Fail")}
                   </td>
                   <td className="px-3 py-4">
                     <div className="flex flex-row font-semibold space-x-1 text-red-700 items-center">
                       <RxCrossCircled className="text-xl" />
-                      <a className="text-md ">Not Eligible</a>
+                      <a className="text-md ">{t("Not Eligible")}</a>
                     </div>
                   </td>
                   <td className="px-3 py-4">
@@ -150,7 +150,7 @@ function DumpUsers() {
                         onClick={() => navigate("/user-answers")}
                         className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500"
                       >
-                        Blocked
+                        {t("Blocked")}
                       </div>
                     ) : v?.user?.accountStatus === "0" ? (
                       <div
@@ -161,9 +161,11 @@ function DumpUsers() {
                         
                         duration-300 text-green-500"
                       >
-                        Active
+                        {t("Active")}
                       </div>
-                    ) : null}
+                    ) : (
+                      "null"
+                    )}
                   </td>
                   <td className="px-3 py-4 flex flex-row space-x-5 rtl:space-x-reverse">
                     <img

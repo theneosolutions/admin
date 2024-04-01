@@ -51,7 +51,7 @@ function NotificationsScreen() {
         width="w-full "
         heading={t("All Admins and Moderators")}
         showButton={true}
-        buttonValue={"Add New User"}
+        buttonValue={t("Add New User")}
         onButtonClick={() => setModelOpen(true)}
       >
         <div className="overflow-x-auto relative  mt-4">
@@ -127,6 +127,8 @@ export default withAuthorization(NotificationsScreen, [
 ]);
 
 function Model({ children, reset }) {
+  const { t } = useTranslation();
+
   return (
     <div
       id="default-modal"
@@ -136,7 +138,7 @@ function Model({ children, reset }) {
       <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
         <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-            Add User
+            {t("Add User")}
           </h3>
           <button
             type="button"

@@ -65,7 +65,7 @@ function BareMinimumExpense() {
         heading={t("Bare Minimum Expense")}
         iconStyle="text-3xl text-primary"
         showButton={true}
-        buttonValue={"Add Bare Minimum Expense"}
+        buttonValue={t("Add Bare Minimum Expense")}
         onButtonClick={() => (setModelOpen(true), setSelectedData(null))}
       >
         <div className="overflow-x-auto relative  mt-4">

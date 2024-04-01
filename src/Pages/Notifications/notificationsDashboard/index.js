@@ -33,25 +33,25 @@ function NotificationsScreen() {
 
   return (
     <div className="py-5">
-      <div className="flex md:flex-row flex-col  md:space-x-6">
+      <div className="flex md:flex-row flex-col  md:space-x-6 rtl:space-x-reverse">
         <Notifications
           value={notifications?.length || 0}
-          heading="Total Notifications"
+          heading={t("Total Notifications")}
           color="text-blue-500 text-xl"
         />
         <Notifications
           value="1"
-          heading="Clicked"
+          heading={t("Clicked")}
           color="text-green-500 text-xl"
         />
         <Notifications
           value="3"
-          heading="Delivered"
+          heading={t("Delivered")}
           color="text-orange-500 text-xl"
         />
         <Notifications
           value="8"
-          heading="Not Click Yet"
+          heading={t("Not Click Yet")}
           color="text-red-700 text-xl"
         />
       </div>
@@ -60,7 +60,7 @@ function NotificationsScreen() {
         heading={t("Notifications")}
         icon={<IoNotifications className="text-primary text-xl" />}
         showButton={true}
-        buttonValue={"Add New Notification"}
+        buttonValue={t("Add New Notification")}
         onButtonClick={() => navigate("/create-notifications")}
       >
         <div className="overflow-x-auto relative  mt-4">

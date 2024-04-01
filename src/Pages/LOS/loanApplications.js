@@ -47,6 +47,7 @@ function LaonApplication() {
       type: "GET_LOAN_APPLICATIONS",
     });
   }
+
   useEffect(() => {
     if (users?.length > 0) {
       const pendingLoans = users?.filter(
@@ -59,7 +60,6 @@ function LaonApplication() {
         (loan) => loan.status.toLowerCase() === "rejected"
       );
 
-      setApplications(users);
       setAllApplications(users);
 
       setApproved(approvedLoans);
@@ -67,6 +67,8 @@ function LaonApplication() {
       setRejected(rejectedLoans);
     }
   }, [users]);
+
+  console.log("users", users);
   function CheckEligibility(other, numeric) {
     if (other && numeric) {
       return (
@@ -92,34 +94,34 @@ function LaonApplication() {
           active={active === "All"}
           onClick={() => (setApplications(allApplications), setActive("All"))}
           value={allApplications?.length}
-          heading="All Applications"
+          heading={t("All Applications")}
           color="text-blue-500 text-xl"
         />
         <Notifications
           active={active === "Approved"}
           onClick={() => (setApplications(approved), setActive("Approved"))}
           value={approved?.length || 0}
-          heading="Approved"
+          heading={t("Approved")}
           color="text-green-500 text-xl"
         />
         <Notifications
           active={active === "Pending"}
           onClick={() => (setApplications(pending), setActive("Pending"))}
           value={pending?.length || 0}
-          heading="Pending"
+          heading={t("Pending")}
           color="text-orange-500 text-xl"
         />
         <Notifications
           active={active === "Rejected"}
           onClick={() => (setApplications(rejected), setActive("Rejected"))}
           value={rejected?.length || 0}
-          heading="Rejected"
+          heading={t("Rejected")}
           color="text-red-700 text-xl"
         />
       </div>
       <CardMain
         width="w-full  mt-10"
-        heading={t(`${active} Loan Applications `)}
+        heading={t(`${t(active)} ${t("Loan Applications")} `)}
         iconStyle="text-3xl text-primary"
       >
         <div className="overflow-x-auto relative  mt-4">
@@ -130,18 +132,21 @@ function LaonApplication() {
                   {t("User Id")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("Loan Reason")}
+                  {t("Monthly installment")}
                 </th>
 
                 <th scope="col" className="px-3 py-3">
                   {t("Loan Ammount")}
                 </th>
                 <th scope="col" className="px-3 py-3">
-                  {t("Maturity Data")}
+                  {t("Intrest Ammount")}
                 </th>
 
                 <th scope="col" className="px-3 py-3">
-                  {t("Duration")}
+                  {t("Vat Fee")}
+                </th>
+                <th scope="col" className="px-3 py-3">
+                  {t("Status")}
                 </th>
                 <th scope="col" className="px-3 py-3">
                   {t("Action")}
@@ -155,7 +160,7 @@ function LaonApplication() {
               </tr>
             </thead>
             <tbody>
-              {applications?.map((v, k) => (
+              {users?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -173,18 +178,18 @@ function LaonApplication() {
                     <a>{v.userId}</a>
                   </td>
                   <td scope="row" className="px-3 py-4">
-                    {v.formulaName}
+                    {v.emimonthlyInstallement}
                   </td>
-                  <td className="px-3 py-4">{v.loanAmount}</td>
-                  <td className="px-3 py-4">{v.maturityDate}</td>
-                  <td className="px-3 py-4">{v.month + " Months"}</td>
-
+                  <td className="px-3 py-4">{v.totalAmount}</td>
+                  <td className="px-3 py-4">{v.interestAmount}</td>
+                  <td className="px-3 py-4">{v.vat}</td>
+                  <td className="px-3 py-4">{v.status}</td>
                   <td className="px-3 py-4">
                     <div
                       onClick={() => navigate(`/user-profile?id=${v.userId}`)}
                       className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
                     >
-                      View Details
+                      {t("View Details")}
                     </div>
                   </td>
                   <th
