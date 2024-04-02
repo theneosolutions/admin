@@ -19,7 +19,6 @@ function CreateUser() {
   const conditions = useSelector((state) => state.getTermsConditions);
 
   const [description, setDescription] = useState("");
-  const [subject, setSubject] = useState("");
   const [modelOpen, setModelOpen] = useState(false);
   const [activeData, setActiveData] = useState("");
 
@@ -54,7 +53,6 @@ function CreateUser() {
   function reset() {
     setModelOpen(false);
   }
-  console.log("conditionsconditions", conditions);
   return (
     <div className=" flex flex-col space-y-5 ">
       <div className="md:mt-0 mt-5 bg-gray-200  w-full">
@@ -62,11 +60,6 @@ function CreateUser() {
           <CardMain width="w-full" heading={"Create Terms And Conditions"}>
             <div className="flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
               <div className=" w-full space-y-7">
-                {/* <InputField
-                  heading={t("Title")}
-                  value={subject}
-                  onChange={(e) => setSubject(e)}
-                /> */}
                 <Description
                   heading={t("Conditions")}
                   handleChange={(e) => setDescription(e)}
@@ -93,7 +86,6 @@ function CreateUser() {
         </CardMain>
         {modelOpen ? (
           <Model setModelOpen={(e) => setModelOpen(e)} reset={() => reset()}>
-            {/* <User setModelOpen={(e) => setModelOpen(e)} /> */}
             <div
               dangerouslySetInnerHTML={{ __html: activeData }}
               className="py-5 px-5 pb-20"
@@ -117,7 +109,7 @@ export default withAuthorization(CreateUser, [
   ROLES.ADMIN,
   ROLES.CUSTOMER_CARE,
 ]);
-function Model({ children, setModelOpen, reset }) {
+function Model({ children, reset }) {
   return (
     <div
       id="default-modal"
@@ -126,9 +118,6 @@ function Model({ children, setModelOpen, reset }) {
     >
       <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
         <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-            {/* {heading} */}
-          </h3>
           <button
             type="button"
             className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -158,25 +147,7 @@ function Model({ children, setModelOpen, reset }) {
   );
 }
 
-function InputField({ heading, value, onChange, type }) {
-  return (
-    <div className="flex flex-col w-full">
-      <div className=" flex flex-row  ">
-        <a className="text-sm text-gray-700 ">{heading}</a>
-      </div>
-      <div className="	w-full">
-        <input
-          type={type || "text"}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="border-primary border rounded-md px-3 py-1.5 outline-none mt-2 	w-full	"
-        />
-      </div>
-    </div>
-  );
-}
-
-function Description({ heading, value, onChange, type, handleChange }) {
+function Description({ heading, handleChange }) {
   return (
     <div className="flex flex-col w-full">
       <div className=" flex flex-row  ">
