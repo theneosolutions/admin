@@ -139,11 +139,11 @@ const data = [
     tab: <ApiDetails />,
     icon: <BiMessageSquareDetail className="text-sm" />,
   },
-  {
-    label: "Applications",
-    tab: <Applications />,
-    icon: <MdFormatListBulleted className="text-sm" />,
-  },
+  // {
+  //   label: "Applications",
+  //   tab: <Applications />,
+  //   icon: <MdFormatListBulleted className="text-sm" />,
+  // },
   {
     label: "User Info",
     tab: <UserInfo />,

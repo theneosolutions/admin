@@ -15,6 +15,8 @@ import CreateLaonTax from "Pages/LOS/CreateTypeTax";
 import ViewScreen from "Pages/Decision/ViewScreens";
 import UserLoanApplications from "Pages/LOS/userLoanApplication";
 import CreateNotification from "Pages/Notifications/addNotification/createNotification";
+import CreateNotificationTest from "Pages/Notifications/addNotification/testCreateNotification";
+
 import UserProfile from "Pages/Users/userProfile";
 import AddNewProduct from "Pages/LOS/installments/addNewProduct";
 import MainTemplate from "Layouts/MainTemplate";
@@ -43,6 +45,10 @@ function App() {
             <Route
               path="/create-notifications"
               element={<CreateNotification />}
+            />
+            <Route
+              path="/create-notifications-test"
+              element={<CreateNotificationTest />}
             />
             <Route path="/user-profile" element={<UserProfile />} />
             <Route path="/add-Product" element={<AddNewProduct />} />
