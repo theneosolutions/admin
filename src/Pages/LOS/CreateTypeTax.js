@@ -221,7 +221,7 @@ function Fees({
   }, [getLoanTax.loanTypeId, getLoanTax?.processingFee]);
 
   return (
-    <div className="flex flex-col lg:flex-row lg:space-x-4">
+    <div className="flex flex-col lg:flex-row lg:space-x-4 rtl:space-x-reverse">
       <div className="lg:w-1/2 px-4 py-3 border  bg-secondry rounded-md border-dashed	 border-slate-200 ">
         <a className="text-sm text-gray-700 font-semibold">
           {t("Processing Fee")}{" "}

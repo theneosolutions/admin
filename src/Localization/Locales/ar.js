@@ -244,4 +244,10 @@ export default {
   "Add Answers": "إضافة الإجابات",
   "Add Answer to this Question": "إضافة إجابة على هذا السؤال",
   Answers: "الإجابات",
+  "Sign in to your account": "تسجيل الدخول إلى حسابك",
+  "Forgot password?": "هل نسيت كلمة المرور؟",
+  "Remember me": "تذكرني",
+  "Don’t have an account yet?": "لا تملك حسابًا بعد؟",
+  "Sign up": "سجل",
+  "Sign in": "تسجيل الدخول",
 };

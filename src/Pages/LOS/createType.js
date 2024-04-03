@@ -193,7 +193,6 @@ function App() {
               />
               <div className=" py-3   bg-secondry rounded-md 	 border-slate-200 ">
                 <a className="text-sm text-gray-700 font-semibold">
-                  {" "}
                   {t("Tensures")}{" "}
                 </a>
 
@@ -271,7 +270,7 @@ function App() {
                   onClick={() =>
                     navigate(`/los/create-loan-tax?id=${v?.loanTypeDetail?.id}`)
                   }
-                  className=" flex flex-row justify-center space-x-2 items-center border-dashed border border-gray-300  text-center mt-4 py-6 rounded-md hover:bg-gray-300 duration-300 cursor-pointer"
+                  className=" flex flex-row justify-center space-x-2 rtl:space-x-reverse items-center border-dashed border border-gray-300  text-center mt-4 py-6 rounded-md hover:bg-gray-300 duration-300 cursor-pointer"
                 >
                   <img
                     src={`data:image/jpeg;base64,${v.icon}`}

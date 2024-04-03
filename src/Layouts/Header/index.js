@@ -130,6 +130,7 @@ const Dropdown = () => {
   const dropdownRef = useRef(null); // Ref for the dropdown container
   const user = useSelector((state) => state?.user);
   const [direction, setDirection] = useState("");
+  const { t } = useTranslation();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -204,7 +205,7 @@ const Dropdown = () => {
               role="menuitem"
               tabIndex="-1"
             >
-              My Account
+              {t("My Account")}
             </a>
             <a
               onClick={() => Logout()}
@@ -212,7 +213,7 @@ const Dropdown = () => {
               role="menuitem"
               tabIndex="-1"
             >
-              Logout
+              {t("Logout")}
             </a>
           </div>
         </div>
