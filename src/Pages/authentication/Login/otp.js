@@ -39,13 +39,10 @@ function OptScreen({ otp, LoginFunction, resendOtp }) {
   const handleSubmit = (e) => {
     if (inputs.every((input) => input.trim() !== "")) {
       const all = inputs.join("");
-      console.log("Input values:", all);
       if (otp === all) {
-        console.log("goood ");
         LoginFunction();
         // router.push(`/resetpassword/newpin?idnumber=${idnumber}`);
       } else {
-        console.log("not good");
         alert("Invalid Otp!");
       }
     }
@@ -58,7 +55,6 @@ function OptScreen({ otp, LoginFunction, resendOtp }) {
     return () => clearInterval(intervalId);
   }, [secondsLeft]);
   function ResendCode() {
-    console.log("working");
     setSecondsLeft(60);
     resendOtp();
   }

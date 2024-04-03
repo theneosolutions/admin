@@ -68,9 +68,6 @@ function Login() {
   }
   useEffect(() => {
     if (islogin && role && token) {
-      console.log("role", role, ROLES.MODERATOR);
-      console.log("type=========", typeof role, typeof ROLES.MODERATOR);
-
       if (role === ROLES.ADMIN) {
         navigate("/dashboard/account");
       } else if (role === ROLES.COMPLIANCE) {
@@ -90,7 +87,6 @@ function Login() {
     }
   }, [islogin, role, token]);
   function backFunction() {
-    console.log("back");
     setActive("login");
   }
   return (

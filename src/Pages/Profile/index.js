@@ -30,7 +30,6 @@ function Template() {
   const error = useSelector((state) => state.error);
   const [userData, setUserData] = useState({});
   const [state, setState] = useState("");
-  console.log("user data", userData);
   const queryParams = new URLSearchParams(location.search);
   const oldState = queryParams.get("name");
   const id = queryParams.get("id");

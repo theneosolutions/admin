@@ -1,9 +1,11 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { useSelector } from "react-redux";
 
 function SimahMembers() {
   const codes = useSelector((state) => state.getSimahCodes);
+  const { t } = useTranslation();
 
   return (
     <div className="py-5  w-full">
@@ -12,14 +14,14 @@ function SimahMembers() {
           <thead className="text-xs text-gray-400 uppercase bg-gray-200 font-normal">
             <tr>
               <th scope="col" className="px-10 py-3 cursor-pointer">
-                {"Id"}
+                {t("Id")}
               </th>
               <th scope="col" className="px-3 py-3 cursor-pointer">
-                {"Creditor"}
+                {t("Creditor")}
               </th>
 
               <th scope="col" className="px-3 py-3">
-                {"Member Name"}
+                {t("Member Name")}
               </th>
             </tr>
           </thead>

@@ -51,24 +51,23 @@ const CreateDesicion = () => {
               <>
                 <>
                   <a className="bg-gray-200 px-3 py-2  rounded-md">
-                    Other Questions:
+                    {t("Other Questions")}
                   </a>
                   <div className="w-full flex flex-col mt-3 overflow-x-auto">
                     <table className="mt-4 w-full text-sm text-left text-gray-500 dark:text-gray-400">
                       <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
                         <tr>
                           <th scope="col" className="px-2 py-3 cursor-pointer">
-                            #
+                            {t("Id")}
                           </th>
                           <th scope="col" className="px-6 py-3 cursor-pointer">
-                            Question
+                            {t("Question")}
                           </th>
                           <th scope="col" className="px-6 py-3 cursor-pointer">
-                            Options
+                            {t("Options")}
                           </th>
-
                           <th scope="col" className="px-6 py-3 cursor-pointer">
-                            Action
+                            {t("Action")}
                           </th>
                         </tr>
                       </thead>
@@ -134,7 +133,9 @@ const CreateDesicion = () => {
             ) : null}
             {v?.formula?.formula && (
               <div className="mt-6">
-                <a className="bg-gray-200 px-3 py-2  rounded-md"> Formula:</a>
+                <a className="bg-gray-200 px-3 py-2  rounded-md">
+                  {t("Formula")}
+                </a>
                 <div className="flex flex-row items-center  mt-3 mb-6">
                   <div className="flex flex-wrap ">
                     {v?.formula?.formula?.map((t, key) => {
@@ -155,23 +156,22 @@ const CreateDesicion = () => {
             {v?.textQuestions?.length > 0 && (
               <div className="mt-5">
                 <a className="bg-gray-200 px-3 py-2  rounded-md">
-                  Text Questions:
+                  {t("Text Questions")}
                 </a>
                 <table className="mt-4 w-full text-sm text-left text-gray-500 dark:text-gray-400">
                   <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
                     <tr>
                       <th scope="col" className="px-2 py-3 cursor-pointer">
-                        #
+                        {t("Id")}
                       </th>
                       <th scope="col" className="px-6 py-3 cursor-pointer">
-                        Heading
+                        {t("Heading")}
                       </th>
                       <th scope="col" className="px-6 py-3 cursor-pointer">
-                        Question
+                        {t("Question")}
                       </th>
-
                       <th scope="col" className="px-6 py-3 cursor-pointer">
-                        Action
+                        {t("Action")}
                       </th>
                     </tr>
                   </thead>

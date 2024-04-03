@@ -21,12 +21,11 @@ const initialState = {
   islogin: false,
   user: null,
   // role: "ROLE_ADMIN", //null
-  role: null, //null
+  role: null,
   roleModules: ["Overview", "APPLICATIONS"],
   token: null,
   verificationOtp: null,
   forgetVerificationOtp: null,
-  //Loan start
   getAllLoanReasons: [],
   getSetResponse: {},
   getScreensSets: {},

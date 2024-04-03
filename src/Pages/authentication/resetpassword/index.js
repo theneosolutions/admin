@@ -23,7 +23,6 @@ function Login() {
   const verificationOtp = useSelector((state) => state.forgetVerificationOtp);
 
   function PasswordScreen(e) {
-    console.log("heloooooooooooooooooo", e);
     dispatch({
       type: "CHANGE_PASSWORD",
       payload: {

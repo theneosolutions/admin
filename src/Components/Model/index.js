@@ -1,5 +1,7 @@
 import React from "react";
 import { Button } from "Components";
+import { useTranslation } from "react-i18next";
+
 function Model({
   isOpen,
   setState,
@@ -12,6 +14,8 @@ function Model({
   style,
   innerStyle,
 }) {
+  const { t } = useTranslation();
+
   return (
     <div>
       {isOpen && (
@@ -50,7 +54,7 @@ function Model({
                       d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                     />
                   </svg>
-                  <span className="sr-only">Close modal</span>
+                  <span className="sr-only">{t("Close modal")}</span>
                 </button>
               </div>
               <div className={`p-4  space-y-4 ${innerStyle}`}>{children}</div>

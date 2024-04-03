@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 function MyAccount() {
   const user = useSelector((state) => state.user);
   const { t } = useTranslation();
-  console.log("user", user);
   return (
     <div>
       <CardMain width="w-full md:mt-0 mt-4" heading={t("My Profile")}>

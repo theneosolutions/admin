@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 function PersonalDetailCard() {
   const user = useSelector((state) => state.getUserById?.userMonitoring);
-  console.log("user", user);
   return (
     <div className="overflow-x-auto relative   w-full">
       <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">

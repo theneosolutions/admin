@@ -143,19 +143,19 @@ function LaonApplication() {
       </div>
 
       <Model
-        heading="Delete User"
+        heading={t("Delete User")}
         isOpen={modelOpen}
         style="w-1/3"
         innerStyle="py-10"
         setState={() => setModelOpen(!modelOpen)}
-        action1Value="Cancel"
-        action2Value="Delete"
+        action1Value={t("Cancel")}
+        action2Value={t("Delete")}
         action2={() => setModelOpen(false)}
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">
-          Are You Sure To Delete
-          <span className="font-semibold"> Ali Imtayaz</span> ?
+          {t("Are You Sure To Delete ?")}
+          <span className="font-semibold"> Ali Imtayaz</span>
         </a>
       </Model>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>

@@ -9,7 +9,10 @@ import { RxCross2 } from "react-icons/rx";
 import { CgArrowsExchange } from "react-icons/cg";
 import { useLocation } from "react-router-dom";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
+
 function LaonApplication() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [modelOpen, setModelOpen] = useState(false);
   const [active, setActive] = useState("Pending");
@@ -18,16 +21,11 @@ function LaonApplication() {
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
   const usersApplications = useSelector((state) => state.getApplications);
-  const [application, setApplication] = useState();
-  const getUserApplication = useSelector((state) => state.getUserApplication);
   const user = useSelector((state) => state.getUserById);
 
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
-  // useEffect(() => {
-  //   setData(getUserApplication);
-  // }, [getUserApplication]);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -36,12 +34,10 @@ function LaonApplication() {
     getUserLoanDetail();
   }, []);
   useEffect(() => {
-    console.log("usersApplications", usersApplications);
     const app = usersApplications.filter(
       (application) => application?.userId === userId
     );
     setData(app[0]);
-    console.log("app", app);
   }, []);
   function SetStatus() {
     dispatch({
@@ -60,7 +56,6 @@ function LaonApplication() {
       payload: userId,
     });
   }
-  console.log("application", application);
   return (
     <div className="py-5">
       <CardMain
@@ -356,19 +351,19 @@ function LaonApplication() {
       </CardMain>
 
       <Model
-        heading="Delete User"
+        heading={t("Delete User")}
         isOpen={modelOpen}
         style="w-1/3"
         innerStyle="py-10"
         setState={() => setModelOpen(!modelOpen)}
-        action1Value="Cancel"
-        action2Value="Delete"
+        action1Value={t("Cancel")}
+        action2Value={t("Delete")}
         action2={() => setModelOpen(false)}
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">
-          Are You Sure To Delete
-          <span className="font-semibold"> Ali Imtayaz</span> ?
+          {t("Are You Sure To Delete ?")}
+          <span className="font-semibold"> Ali Imtayaz</span>
         </a>
       </Model>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>

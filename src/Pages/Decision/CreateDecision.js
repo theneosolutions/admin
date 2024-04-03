@@ -49,7 +49,6 @@ const CreateDesicion = () => {
 
   function getSingleQuestion(id) {
     setSingleQuestionId(id);
-    console.log("iddd", id);
     dispatch({
       type: "GET_QUESTION_OF_SET", // get all questions
       payload: { id: id, setid: setId },
@@ -114,19 +113,19 @@ const CreateDesicion = () => {
                     <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
                       <tr>
                         <th scope="col" className="px-2 py-3 cursor-pointer">
-                          #
+                          {t("Id")}
                         </th>
                         <th scope="col" className="px-6 py-3 cursor-pointer">
-                          Question
+                          {t("Question")}
                         </th>
                         <th scope="col" className="px-6 py-3 cursor-pointer">
-                          Options
+                          {t("Options")}
                         </th>
                         <th scope="col" className="px-6 py-3 cursor-pointer">
-                          Add Answers
+                          {t("Add Answers")}
                         </th>
                         <th scope="col" className="px-6 py-3 cursor-pointer">
-                          Action
+                          {t("Action")}
                         </th>
                       </tr>
                     </thead>
@@ -150,7 +149,7 @@ const CreateDesicion = () => {
                                 return (
                                   <div
                                     key={index}
-                                    className="flex flex-row space-x-2 items-center"
+                                    className="flex flex-row space-x-2 items-center rtl:space-x-reverse"
                                   >
                                     <input
                                       type="radio"
@@ -178,7 +177,7 @@ const CreateDesicion = () => {
                               }}
                               className="bg-gray-200 w-max py-2 px-5 hover:bg-gray-300 duration-300 rounded-md text-xs cursor-pointer text-sky-800"
                             >
-                              Add Answer
+                              {t("Add Answers")}
                             </div>
                           </td>
                           <th
@@ -220,13 +219,13 @@ const CreateDesicion = () => {
                 <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
                   <tr>
                     <th scope="col" className="px-2 py-3 cursor-pointer">
-                      #
+                      {t("Id")}
                     </th>
                     <th scope="col" className="px-6 py-3 cursor-pointer">
-                      Question
+                      {t("Question")}
                     </th>
                     <th scope="col" className="px-6 py-3 cursor-pointer">
-                      Action
+                      {t("Action")}
                     </th>
                   </tr>
                 </thead>
@@ -257,11 +256,11 @@ const CreateDesicion = () => {
       )}
       <Response setid={setid} />
       <Model
-        heading="Add Answer to this Question"
+        heading={t("Add Answer to this Question")}
         isOpen={modelOpen}
         setState={() => setModelOpen(!modelOpen)}
-        action1Value="Cancel"
-        action2Value="Add Answers"
+        action1Value={t("Cancel")}
+        action2Value={t("Add Answers")}
         action2={() => addAnswersData()}
         action1={() => setModelOpen(!modelOpen)}
       >
@@ -292,6 +291,8 @@ export default withAuthorization(CreateDesicion, [
 ]);
 
 function Checboxes({ singleQuestion, checkedValues, setCheckedValues }) {
+  const { t } = useTranslation();
+
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -313,7 +314,7 @@ function Checboxes({ singleQuestion, checkedValues, setCheckedValues }) {
             </a>
           </span>
 
-          <a className="text-lg mt-4 underline">Options:</a>
+          <a className="text-lg mt-4 underline">{t("Options")}</a>
           {singleQuestion?.Option?.map((v, k) => {
             return (
               <div key={k} className="flex flex-row items-center mx-2">
@@ -322,7 +323,7 @@ function Checboxes({ singleQuestion, checkedValues, setCheckedValues }) {
               </div>
             );
           })}
-          <a className="text-lg mt-6 underline">Answers:</a>
+          <a className="text-lg mt-6 underline"> {t("Answers")}</a>
         </div>
         <>
           {singleQuestion?.Option?.map((v, k) => (

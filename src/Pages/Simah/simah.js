@@ -5,9 +5,11 @@ import { useDispatch } from "react-redux";
 import Members from "./Tabs/members";
 import withAuthorization from "../../constants/authorization";
 import { ROLES } from "../../constants/roles";
+import { useTranslation } from "react-i18next";
 
 function Simah() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const [state, setState] = useState("SIMAH Members");
   const getTab = () => {
@@ -39,7 +41,7 @@ function Simah() {
                   state === v.label ? "border-primary border-b-2" : " "
                 }`}
               >
-                <a className="text-sm">{v.label}</a>
+                <a className="text-sm">{t(v.label)}</a>
               </div>
             </div>
           );

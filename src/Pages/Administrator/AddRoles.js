@@ -18,7 +18,6 @@ function Roles() {
   useEffect(() => {
     getAllRoles();
   }, []);
-  console.log("getAllRolesData", getAllRolesData);
 
   function AddToArray(value) {
     if (array.includes(value)) {

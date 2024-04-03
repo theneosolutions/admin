@@ -7,7 +7,6 @@ function DeviceInfo() {
   var state = null;
 
   const user = useSelector((state) => state.getUserById?.deviceInfo);
-  console.log("user", user?.deviceInfo);
   return (
     <div className="">
       <div className="space-y-6 my-5   w-full ">

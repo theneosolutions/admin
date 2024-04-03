@@ -316,7 +316,7 @@ const appRoutes = [
         element: <Aggreement />,
         state: "response.aggrement",
         sidebarProps: {
-          displayText: "Aggrement",
+          displayText: "Agreement",
         },
       },
     ],

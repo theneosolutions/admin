@@ -86,7 +86,7 @@ function AllUsers() {
 
   return (
     <div className="py-5">
-      <div className="flex flex-row border rtl:space-x-reverse border-gray-400 w-96 rounded-md  py-2 mb-2   px-2   items-center space-x-2 ">
+      <div className="flex flex-row border rtl:space-x-reverse border-gray-400 md:w-1/3 w-full rounded-md  py-2 mb-2   px-2   items-center space-x-2 ">
         <LuSearch className="text-gray-400" />
 
         <input
@@ -246,19 +246,19 @@ function AllUsers() {
         </a>
       </Model>
       <Model
-        heading="Delete User"
+        heading={t("Delete User")}
         isOpen={modelOpen}
         style="w-1/3"
         innerStyle="py-10"
         setState={() => setModelOpen(!modelOpen)}
-        action1Value="Cancel"
-        action2Value={"Delete"}
+        action1Value={t("Cancel")}
+        action2Value={t("Delete")}
         action2={() => DeleteUser()}
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">
-          Are You Sure To Delete
-          <span className="font-semibold"> Ali Imtayaz</span> ?
+          {t("Are You Sure To Delete ?")}
+          <span className="font-semibold"> Ali Imtayaz</span>
         </a>
       </Model>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>

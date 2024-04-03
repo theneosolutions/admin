@@ -111,7 +111,6 @@ function CreateQuestionsSet() {
     setSelectedData(temp);
   }
   function DeleteSet() {
-    console.log("set id ", id);
     dispatch({
       type: "DELETE_SET",
       payload: id,
@@ -125,7 +124,7 @@ function CreateQuestionsSet() {
           onClick={() => DeleteSet()}
           className="bg-red-400 px-7 py-1 rounded-md cursor-pointer hover:bg-red-500 duration-300 w-max text-white"
         >
-          Delete Set
+          {t("Delete Set")}
         </div>
         {/* <div className="bg-red-400 px-7 py-2 rounded-md cursor-pointer hover:bg-red-500 duration-300 w-max text-white">
           Delete Set
@@ -177,7 +176,7 @@ function CreateQuestionsSet() {
                           }
                           className="w-max px-10 text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10"
                         >
-                          Add
+                          {t("Add")}
                         </button>
                       </td>
                     </tr>

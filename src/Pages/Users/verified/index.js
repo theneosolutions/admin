@@ -35,7 +35,6 @@ function VerifiedUsers() {
     dispatch(action.Message({ open: false }));
   };
   function onDelete(user, username) {
-    console.log(user?.userId);
     setSelectedUserId(user?.userId);
     setModelOpen(true);
     setUsername(username);
@@ -60,7 +59,6 @@ function VerifiedUsers() {
   useEffect(() => {
     if (users) {
       const data = users.filter((person) => person?.user);
-      console.log("data", data);
       setUsersData(data);
       setNewUsersData(data);
     }
@@ -82,7 +80,6 @@ function VerifiedUsers() {
       );
     }
   }
-  console.log("users", users);
 
   useEffect(() => {
     if (search === "") {
@@ -91,13 +88,12 @@ function VerifiedUsers() {
       const filteredData = usersData.filter((user) =>
         user?.user?.user?.idNumber.toLowerCase().includes(search.toLowerCase())
       );
-      console.log("dtaaa", filteredData);
       setNewUsersData(filteredData);
     }
   }, [search, usersData]);
   return (
     <div className="py-5">
-      <div className="flex flex-row border border-gray-400 w-96 rounded-md  py-2 mb-2   px-2   items-center space-x-2">
+      <div className="flex flex-row border border-gray-400 md:w-1/3 w-full rounded-md  py-2 mb-2   px-2   items-center space-x-2">
         <LuSearch className="text-gray-400" />
 
         <input
@@ -238,19 +234,19 @@ function VerifiedUsers() {
       </CardMain>
 
       <Model
-        heading="Delete User"
+        heading={t("Delete User")}
         isOpen={modelOpen}
         style="w-1/3"
         innerStyle="py-10"
         setState={() => setModelOpen(!modelOpen)}
-        action1Value="Cancel"
-        action2Value="Delete"
+        action1Value={t("Cancel")}
+        action2Value={t("Delete")}
         action2={() => DeleteUser()}
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">
-          Are You Sure To Delete
-          <span className="font-semibold"> {username}</span> ?
+          {t("Are You Sure To Delete ?")}
+          <span className="font-semibold"> {username}</span>
         </a>
       </Model>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>

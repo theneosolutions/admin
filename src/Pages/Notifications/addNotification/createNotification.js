@@ -117,7 +117,7 @@ function CreateUser() {
   return (
     <div className="items-center flex flex-col ">
       <div className="md:mt-0 mt-5 bg-gray-200 xl:w-2/5 lg:w-1/2 md:w-full">
-        <CardMain width="w-full" heading={"Create Notification"}>
+        <CardMain width="w-full" heading={t("Create Notification")}>
           <div className="flex  flex-col ">
             <div
               onClick={handleClick}
@@ -126,7 +126,7 @@ function CreateUser() {
               {!imageBlob && <RiImageAddLine style={{ fontSize: 70 }} />}
               {imageBlob && <img src={imageBlob} className="h-full w-full " />}
             </div>
-            <a>Notification Icon</a>
+            <a>{t("Notification Icon")}</a>
           </div>
           <div className="flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
             <div className=" w-full space-y-7">
@@ -261,7 +261,7 @@ function Select2({ heading, value, onChange, data }) {
         value={value}
         className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
       >
-        <option value={"none"}>none</option>
+        <option value={"none"}>{t("none")}</option>
         {data.map((option, index) => (
           <option key={index} value={option.id}>
             {t(
@@ -288,7 +288,7 @@ function Select({ heading, value, onChange, data }) {
         value={value}
         className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
       >
-        <option value={"none"}>none</option>
+        <option value={"none"}>{t("none")}</option>
         {data.map((option, index) => (
           <option key={index} value={option.name}>
             {t(option.name)}

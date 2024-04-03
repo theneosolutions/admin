@@ -30,7 +30,6 @@ function token() {
   if (storage) {
     const user = JSON.parse(storage);
 
-    console.log("user", user);
     if (user?.data?.token) {
       return user?.data?.token;
     } else {

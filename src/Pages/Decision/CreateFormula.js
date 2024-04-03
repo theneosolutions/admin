@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 import CardMain from "../../Components/Cards/main";
 import { useState } from "react";
 import { CheckOperaterStyle } from "Components";
-import { RxCross2 } from "react-icons/rx";
 import { MdDeleteOutline } from "react-icons/md";
 
 function App({ setId, formula }) {
@@ -92,7 +91,7 @@ function App({ setId, formula }) {
             <>
               {selectedIds.length > 0 && (
                 <CardMain
-                  heading={t(`Formula Name : ${formula.formulaName}`)}
+                  heading={t(`Formula Name`) + " : " + `${formula.formulaName}`}
                   width="h-max "
                 >
                   <div className="flex flex-wrap  m-1">
@@ -177,7 +176,6 @@ function App({ setId, formula }) {
                   <div className="flex flex-wrap  mt-6 m-1 items-center">
                     {selectedIds.map((v, k) => {
                       const ids = selectedIds.length - 1;
-                      console.log("selected id length", ids, k);
                       return (
                         <div key={k} className="m-1 flex flex-col items-end">
                           {ids === k ? (
@@ -245,7 +243,7 @@ function App({ setId, formula }) {
               ) : null}
               {state === "Submit Formula" ? (
                 <CardMain
-                  heading={t(`Formula Name : ${name}`)}
+                  heading={t(`Formula Name`) + " : " + `${name}`}
                   width="h-max "
                   showButton={selectedIds.length > -1 ? true : false}
                   buttonValue={state}
@@ -272,7 +270,7 @@ function App({ setId, formula }) {
                   {" "}
                   {selectedIds.length > 0 && (
                     <CardMain
-                      heading={t(`Formula Name : ${name}`)}
+                      heading={t(`Formula Name`) + " : " + `${name}`}
                       width="h-max "
                     >
                       <div className="flex flex-wrap  m-1">

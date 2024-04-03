@@ -17,7 +17,6 @@ function Roles() {
   useEffect(() => {
     getAllRoles();
   }, []);
-  console.log("getAllRolesData", rolesData);
   const updateChecked = (moduleId, checked, pageId = null) => {
     const updatedData = rolesData.map((item) => {
       if (item.moduleId === moduleId) {

@@ -13,10 +13,6 @@ function Nafith() {
       payload: "d30117de-7fe7-4e64-a9f1-49ff9e24f618",
     });
   }
-  console.log(
-    "data:application/pdf;base64,${report?.Base64}",
-    `data:application/pdf;base64,${report?.Base64}`
-  );
 
   const [pdfURL, setPdfURL] = useState("");
 
