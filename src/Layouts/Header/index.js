@@ -89,7 +89,7 @@ const Icons2 = ({ icon }) => {
         onClick={toggleDropdown}
         className="h-6 w-6 md:h-8 md:w-8 bg-white rounded-full items-center text-center justify-center flex"
       >
-        <img src={icon} className="h-4 w-4 md:h-6 md:w-6" />
+        <img src={icon} className="h-4 w-4 md:h-6 md:w-6 cursor-pointer" />
       </div>
       {isOpen && (
         <div
@@ -102,7 +102,7 @@ const Icons2 = ({ icon }) => {
           <div className="py-1" role="none">
             <a
               onClick={() => handleLanguageChange("en", "ltr")}
-              className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
+              className="cursor-pointer text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
               role="menuitem"
               tabIndex="-1"
             >
@@ -110,7 +110,7 @@ const Icons2 = ({ icon }) => {
             </a>
             <a
               onClick={() => handleLanguageChange("ar", "rtl")}
-              className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
+              className=" cursor-pointer text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
               role="menuitem"
               tabIndex="-1"
             >
@@ -192,7 +192,7 @@ const Dropdown = () => {
         <div
           className={`origin-top-right absolute  ${
             direction === "rtl" ? "left-0" : "right-0"
-          }  mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none`}
+          }  cursor-pointer mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none`}
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
@@ -201,7 +201,7 @@ const Dropdown = () => {
           <div className="py-1" role="none">
             <a
               onClick={() => handleChangeMyAccount()}
-              className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
+              className="cursor-pointer text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
               role="menuitem"
               tabIndex="-1"
             >

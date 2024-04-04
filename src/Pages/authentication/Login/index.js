@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "./login.css";
 
 import Logo from "../../../Assets/Images/logo.svg";
@@ -11,7 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { ROLES } from "../../../constants/roles";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
-
+import Globe from "../../../Assets/Images/globe.svg";
+import LanguageCom from "Components/LanguageCom";
 function Login() {
   const { t } = useTranslation();
 
@@ -92,10 +93,12 @@ function Login() {
   function backFunction() {
     setActive("login");
   }
+
   return (
     <section className="bg-fixed-full h-screen w-full">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+      <LanguageCom />
+      <div className="-mt-14 flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div class=" w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <a class="flex flex-col items-center mb-2 mt-8 text-2xl font-semibold text-gray-900 dark:text-white">
             <div className="w-full flex flex-row justify-between px-10 items-center ">
               {active === "otp" ? (
@@ -202,7 +205,6 @@ function Login() {
           )}
         </div>
       </div>
-
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert
           onClose={handleClose}

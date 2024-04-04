@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 function OptScreen({ PasswordScreen }) {
   const [password, setPassword] = useState("");
   const [retypePassword, setReTypePassword] = useState("");
+  const { t } = useTranslation();
 
   const handleSubmit = (e) => {
     if (!validatePassword(password)) {
@@ -39,10 +41,10 @@ function OptScreen({ PasswordScreen }) {
       <div class="mx-auto flex w-full max-w-md flex-col space-y-16">
         <div class="flex flex-col items-center justify-center text-center space-y-2">
           <div class="font-semibold text-3xl">
-            <p>Change Password</p>
+            <p>{t("Change Password")}</p>
           </div>
           <div class="flex flex-row text-sm font-medium text-gray-400">
-            <p>You Can Write Your New Password Here</p>
+            <p>{t("You Can Write Your")}</p>
           </div>
         </div>
 
@@ -52,7 +54,7 @@ function OptScreen({ PasswordScreen }) {
               for="password"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Password
+              {t("Password")}
             </label>
             <input
               type="password"
@@ -69,7 +71,7 @@ function OptScreen({ PasswordScreen }) {
               for="password"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Re-Type Password
+              {t("Re-Type Password")}
             </label>
             <input
               type="password"
@@ -87,7 +89,7 @@ function OptScreen({ PasswordScreen }) {
                 onClick={() => handleSubmit()}
                 class="w-full text-white bg-primary hover:bg-opacity-80 duration-300  focus:outline-none font-medium rounded-lg text-sm px-5 py-4 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Change Password
+                {t("Change Password")}
               </button>
             </div>
           </div>

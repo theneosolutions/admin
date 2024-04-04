@@ -71,7 +71,7 @@ function Roles() {
 
       {data?.map((v, k) => (
         <div key={k}>
-          <div className="flex flex-row items-center space-x-2">
+          <div className="flex flex-row items-center space-x-2 rtl:space-x-reverse">
             <div className="flex flex-row w-44 bg-gray-200 text-center rounded-sm items-center justify-center py-2">
               <a>{v?.module}</a>
             </div>

@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 function OptScreen({ otp, LoginFunction, resendOtp }) {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState(["", "", "", ""]);
   const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const [secondsLeft, setSecondsLeft] = useState(60);
+  const { t } = useTranslation();
 
   const handleInput = (index, e) => {
     const value = e.target.value;
@@ -63,10 +65,10 @@ function OptScreen({ otp, LoginFunction, resendOtp }) {
       <div class="mx-auto flex w-full max-w-md flex-col space-y-16">
         <div class="flex flex-col items-center justify-center text-center space-y-2">
           <div class="font-semibold text-3xl">
-            <p>Id Number Verification</p>
+            <p>{t("Id Number Verification")}</p>
           </div>
           <div class="flex flex-row text-sm font-medium text-gray-400">
-            <p>We have sent a code to your Number </p>
+            <p>{t("We have sent a code to your ID Number")}</p>
           </div>
         </div>
 
@@ -93,16 +95,16 @@ function OptScreen({ otp, LoginFunction, resendOtp }) {
                 onClick={() => handleSubmit()}
                 class="w-full text-white bg-primary hover:bg-opacity-80 duration-300  focus:outline-none font-medium rounded-lg text-sm px-5 py-4 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Verify Account
+                {t("Verify Account")}
               </button>
             </div>
 
             <div class="flex flex-row items-center justify-center text-center text-sm font-medium rtl:space-x-reverse space-x-1 text-gray-500">
-              <p>Didn't recieve code?</p>
+              <p>{t("Didn't recieve code?")}</p>
 
               {secondsLeft > 0 ? (
                 <div className="  text-sm  opacity-70">
-                  Resend code in{" "}
+                  {t("Resend code in")}
                   <a className="text-blue-600">
                     {secondsLeft < 60 ? `00:${secondsLeft}` : secondsLeft}
                   </a>
@@ -112,7 +114,7 @@ function OptScreen({ otp, LoginFunction, resendOtp }) {
                   className="text-blue-600 hover:underline cursor-pointer"
                   onClick={() => ResendCode()}
                 >
-                  Resend
+                  {t("Resend")}
                 </a>
               )}
             </div>

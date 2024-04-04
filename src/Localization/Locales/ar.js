@@ -250,4 +250,16 @@ export default {
   "Don’t have an account yet?": "لا تملك حسابًا بعد؟",
   "Sign up": "سجل",
   "Sign in": "تسجيل الدخول",
+  "Enter Your Id Number": "أدخل رقم الهوية الخاص بك",
+  Continue: "متابعة",
+  "We have sent a code to your ID Number":
+    "لقد قمنا بإرسال رمز إلى رقم الهوية الخاص بك",
+  "Id Number Verification": "التحقق من رقم الهوية",
+  "Verify Account": "التحقق من الحساب",
+  "Didn't recieve code?": "لم تستلم الرمز؟",
+  "Resend code in": "إعادة إرسال الرمز خلال",
+  Resend: "إعادة الإرسال",
+  "Change Password": "تغيير كلمة المرور",
+  "Re-Type Password": "إعادة كتابة كلمة المرور",
+  "You Can Write Your": "يمكنك كتابة كلمة المرور الجديدة هنا",
 };
