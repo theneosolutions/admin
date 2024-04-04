@@ -7,8 +7,11 @@ import { PiCellSignalLowDuotone } from "react-icons/pi";
 import { TbMathEqualLower } from "react-icons/tb";
 import { FiDollarSign } from "react-icons/fi";
 import { MdCalendarMonth } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 function Absher() {
+  const { t } = useTranslation();
+
   const [state, setState] = useState({});
   const [state2, setState2] = useState({});
 
@@ -164,7 +167,7 @@ function Absher() {
         </div>
       ) : (
         <div className="py-20 px-20 text-center w-full">
-          <a>Nothing To Show!</a>
+          <a>{t("Nothing To Show!")}</a>
         </div>
       )}
     </div>

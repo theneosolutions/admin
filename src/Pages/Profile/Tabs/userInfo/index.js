@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import DeviceInfo from "./tabs/deviceInfo";
 import Session from "./tabs/session";
+import { useTranslation } from "react-i18next";
 
 function Template() {
+  const { t } = useTranslation();
+
   const [state, setState] = useState("Sessions");
   const getTab = () => {
     const activeItem = data.find((item) => item.label === state);
@@ -29,7 +32,7 @@ function Template() {
                   state === v.label ? "border-primary border-b-2" : " "
                 }`}
               >
-                <a className="text-sm">{v.label}</a>
+                <a className="text-sm">{t(v.label)}</a>
               </div>
             </div>
           );

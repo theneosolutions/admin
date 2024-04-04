@@ -1,24 +1,22 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
+
 function PersonalDetailCard() {
   const user = useSelector((state) => state.getUserById?.userMonitoring);
+  const { t } = useTranslation();
+
   return (
     <div className="overflow-x-auto relative   w-full">
       <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
           <tr>
             <th scope="col" className="px-3 py-3 cursor-pointer">
-              {"Logged In Time"}
+              {t("Logged In Time")}
             </th>
             <th scope="col" className="px-3 py-3 cursor-pointer">
-              {"Logged Out Time"}
-            </th>
-            <th scope="col" className="px-3 py-3 cursor-pointer">
-              {"Mid"}
-            </th>
-            <th scope="col" className="px-3 py-3">
-              {"Uid"}
+              {t("Logged Out Time")}
             </th>
           </tr>
         </thead>
@@ -36,11 +34,9 @@ function PersonalDetailCard() {
               {v?.loggedOutTime ? (
                 <td> {moment(v?.loggedOutTime).format("LLLL")}</td>
               ) : (
-                <td> Currently Logged In</td>
+                <td>{t("Currently Logged In")} </td>
               )}
               {/* <td>{v?.loggedOutTime}</td> */}
-              <td>{v?.mid}</td>
-              <td>{v?.uid}</td>
             </tr>
           ))}
         </tbody>
