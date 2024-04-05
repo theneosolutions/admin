@@ -22,7 +22,7 @@ function LaonApplication() {
   const error = useSelector((state) => state.error);
   const usersApplications = useSelector((state) => state.getApplications);
   const user = useSelector((state) => state.getUserById);
-
+  console.log("user", user);
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
@@ -73,14 +73,14 @@ function LaonApplication() {
               <div className="flex flex-col mx-3 space-y-0.5">
                 <a className="text-xs text-gray-400">Name</a>
                 <a className="text-sm text-gray-700 font-semibold">
-                  {user?.firstName + " " + user?.lastName}
+                  {user?.user?.firstName + " " + user?.user?.lastName}
                 </a>
                 <a
                   className={`text-xs ${
-                    user?.active ? "text-green-500" : "text-red-500"
+                    user?.user?.active ? "text-green-500" : "text-red-500"
                   }`}
                 >
-                  {user?.active ? "Active" : "Not Active"}
+                  {user?.user?.active ? "Active" : "Not Active"}
                 </a>
               </div>
             </div>
@@ -93,13 +93,13 @@ function LaonApplication() {
               <Text
                 heading="After Interest"
                 value={data?.interestAmount || 0}
-              />{" "}
+              />
               <Text
                 heading="With Tax And Interest"
                 value={data?.interestAmount || 0}
-              />{" "}
-              <Text heading="Tenure" value={data?.term || 0} />{" "}
-              <Text heading="Application Number" value={data?.id || 0} />{" "}
+              />
+              <Text heading="Tenure" value={data?.term || 0} />
+              <Text heading="Application Number" value={data?.id || 0} />
             </div>
             <div>
               <a className=" text-green-600 md:px-2 text-md font-semibold uppercase">
@@ -120,7 +120,7 @@ function LaonApplication() {
                   <div className="flex flex-col ">
                     <a className="text-xs text-gray-400 ">Account Locked</a>
                     <a className="text-sm text-gray-700  opacity-90">
-                      {user?.accountNonLocked ? "Locked" : "Not Locked"}
+                      {user?.user?.accountNonLocked ? "Locked" : "Not Locked"}
                     </a>
                   </div>
                   <div className="flex flex-col ">
@@ -128,7 +128,9 @@ function LaonApplication() {
                       Absher Verified{" "}
                     </a>
                     <a className="text-sm text-gray-700  opacity-90">
-                      {user?.ownerVerification ? "Verified" : "Not Verified"}
+                      {user?.user?.ownerVerification
+                        ? "Verified"
+                        : "Not Verified"}
                     </a>
                   </div>
 
