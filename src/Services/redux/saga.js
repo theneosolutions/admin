@@ -7,6 +7,7 @@ var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
 var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
 var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
 var baseUrlCalculations = "https://seulah.ngrok.app/api/v1/los";
+var baseUrlSMS = "https://seulah.ngrok.app/api/v1/sms";
 
 // var baseUrlUser = "https://seulah.com/api/v1/auth";
 // var baseUrlDecisions = "https://seulah.com/api/v1/dms";
@@ -1368,7 +1369,6 @@ function* GetAllRoles({ payload }) {
   }
 }
 function* AddModulesToRole({ payload }) {
-  console.log("payload MODULES ROLES", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1403,6 +1403,30 @@ function* DeleteSet({ payload }) {
     yield put(action.Message({ message: message, open: true, error: false }));
     // yield put(action.GetAllQuestions(response));
   } catch (error) {
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
+function* CreateSMS({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.post,
+      baseUrlSMS + `/saveSms`,
+      payload
+    );
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: response1.data.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
     const message = error.response.data.message;
     yield put(action.Message({ message: message, open: true, error: true }));
   }
@@ -1475,4 +1499,5 @@ export default function* HomeSaga() {
   yield takeLatest("GET_ALL_ROLES", GetAllRoles);
   yield takeLatest("ADD_MODULES_TO_ROLES", AddModulesToRole);
   yield takeLatest("DELETE_SET", DeleteSet);
+  yield takeLatest("CREATE_SMS", CreateSMS);
 }

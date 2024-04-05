@@ -40,6 +40,7 @@ import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { TbMoneybag } from "react-icons/tb";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { AiOutlineCalculator } from "react-icons/ai";
+import Sms from "Pages/Notifications/sms";
 
 const appRoutes = [
   {
@@ -317,6 +318,14 @@ const appRoutes = [
         state: "response.aggrement",
         sidebarProps: {
           displayText: "Agreement",
+        },
+      },
+      {
+        path: "/response/sms",
+        element: <Sms />,
+        state: "response.sms",
+        sidebarProps: {
+          displayText: "Add SMS",
         },
       },
     ],
