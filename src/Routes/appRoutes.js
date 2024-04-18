@@ -42,6 +42,8 @@ import { IoNotificationsSharp } from "react-icons/io5";
 import { AiOutlineCalculator } from "react-icons/ai";
 import Sms from "Pages/Notifications/sms";
 
+import UserSimah from "Pages/Simah/simahUser";
+
 const appRoutes = [
   {
     index: true,
@@ -352,6 +354,14 @@ const appRoutes = [
         state: "simah.codes",
         sidebarProps: {
           displayText: "Simah",
+        },
+      },
+      {
+        path: "/simah/usercodes",
+        element: <UserSimah />,
+        state: "simah.usercodes",
+        sidebarProps: {
+          displayText: "UserSimah",
         },
       },
     ],

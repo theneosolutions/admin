@@ -34,9 +34,9 @@ function DumpUsers() {
     dispatch(action.Message({ open: false }));
   };
 
-  function onDelete() {
-    setModelOpen(true);
-  }
+  // function onDelete() {
+  //   setModelOpen(true);
+  // }
   function onApprove() {
     setModelOpenApprove(true);
   }

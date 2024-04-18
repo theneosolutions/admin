@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useRef } from "react";
 import { Button } from "Components";
-import { RiImageAddLine } from "react-icons/ri";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useTranslation } from "react-i18next";
@@ -9,7 +8,7 @@ import { useDispatch } from "react-redux";
 import * as action from "Services/redux/reducer";
 import { ROLES } from "../../../constants/roles";
 
-function CreateUser({ setModelOpen }) {
+function CreateUser({}) {
   const dispatch = useDispatch();
 
   const [image, setImage] = useState(null);

@@ -10,6 +10,8 @@ import TextEditor from "./textEditor";
 import withAuthorization from "../../../constants/authorization";
 import { ROLES } from "../../../constants/roles";
 import Model2 from "Components/Model2";
+import EnglishTerms from "./termsAndConditions/englishTerms";
+import ArabicTerms from "./termsAndConditions/arabicTerms";
 
 function CreateUser() {
   const dispatch = useDispatch();
@@ -55,46 +57,22 @@ function CreateUser() {
   function reset() {
     setModelOpen(false);
   }
+  const [language, setLanguage] = useState("ar");
+
   return (
     <div className=" flex flex-col space-y-5 ">
-      <div className="md:mt-0 mt-5 bg-gray-200  w-full">
-        <form onSubmit={handleSubmit}>
-          <CardMain width="w-full" heading={t("Create Terms And Conditions")}>
-            <div className="flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
-              <div className=" w-full space-y-7">
-                <Description
-                  heading={t("Conditions")}
-                  handleChange={(e) => setDescription(e)}
-                />
-              </div>
-            </div>
-            <div className="flex flex-row justify-end mt-20">
-              <Button
-                type="submit"
-                buttonValue={t("Submit")}
-                buttonStyle="px-14 py-2 w-full md:w-max"
-              />
-            </div>
-          </CardMain>
-        </form>
+      <div className="">
+        <select
+          className=" p-2 border rounded  w-32 bg-white"
+          onChange={(e) => setLanguage(e.target.value)}
+          value={language}
+        >
+          <option value="ar">{t("AR")}</option>
+          <option value="en">{t("EN")}</option>
+        </select>
       </div>
+      {language === "ar" ? <ArabicTerms /> : <EnglishTerms />}
 
-      <div className=" w-full ">
-        <CardMain width="w-full" heading={conditions?.title}>
-          <div
-            dangerouslySetInnerHTML={{ __html: conditions?.desc }}
-            className="py-2  pb-20"
-          ></div>
-        </CardMain>
-        {modelOpen ? (
-          <Model2 setModelOpen={(e) => setModelOpen(e)} reset={() => reset()}>
-            <div
-              dangerouslySetInnerHTML={{ __html: activeData }}
-              className="py-5 px-5 pb-20"
-            ></div>
-          </Model2>
-        ) : null}
-      </div>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
@@ -111,16 +89,3 @@ export default withAuthorization(CreateUser, [
   ROLES.ADMIN,
   ROLES.CUSTOMER_CARE,
 ]);
-
-function Description({ heading, handleChange }) {
-  return (
-    <div className="flex flex-col w-full">
-      <div className=" flex flex-row  ">
-        <a className="text-sm text-gray-700 ">{heading}</a>
-      </div>
-      <div className="	w-full mt-2">
-        <TextEditor handleChange={(e) => handleChange(e)} />
-      </div>
-    </div>
-  );
-}

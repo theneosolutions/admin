@@ -15,7 +15,7 @@ import BarwithMarkersChart from "Components/chart/BarwithMarkersChart";
 import Edit from "Assets/Images/edit.svg";
 import Delete from "Assets/Images/delete.svg";
 import { useNavigate } from "react-router-dom";
-import { Model, Avatar } from "Components";
+import { Model } from "Components";
 import withAuthorization from "../../../constants/authorization";
 import { ROLES } from "../../../constants/roles";
 
