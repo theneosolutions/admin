@@ -9,7 +9,7 @@ function PriviousIncuries({ w1, w2 }) {
       >
         <TiContacts className="text-5xl" />
 
-        <a className="text-sm mt-4">Data Provided vs Available</a>
+        <a className="text-sm mt-4">Previous Enquiries</a>
       </div>
       <div className={`${w2} px-2`}>
         <Header />
