@@ -15,8 +15,8 @@ import ContactNumbers from "./contactNumbers";
 import Disclaimer from "./disclaimer";
 
 function UserSimah() {
-  const w1 = "w-1/5";
-  const w2 = "w-4/5";
+  const w1 = "w-2/12 text-center";
+  const w2 = "w-10/12";
   return (
     <div className=" px-10 py-10 bg-white  border  w-full mt-4 md:mt-0">
       <Header />
