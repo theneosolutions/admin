@@ -1,7 +1,7 @@
 import React from "react";
 import { TiContacts } from "react-icons/ti";
 
-function PersonalNarative({ w1, w2 }) {
+function PersonalNarative({ w1, w2, data }) {
   return (
     <div className="flex flex-row border border-sky-700 w-full mt-5 text-white">
       <div
@@ -12,7 +12,7 @@ function PersonalNarative({ w1, w2 }) {
         <a className="text-sm mt-4">Personal Narratives</a>
       </div>
       <div className={`${w2} px-2`}>
-        <Header />
+        <Header data={data} />
       </div>
     </div>
   );
@@ -20,7 +20,7 @@ function PersonalNarative({ w1, w2 }) {
 
 export default PersonalNarative;
 
-function Header() {
+function Header({ data }) {
   const class1 = "text-sky-600 px-2 py-2 text-start";
   const class2 = "text-gray-700 px-2 py-1 text-start max-w-64";
 
@@ -34,15 +34,14 @@ function Header() {
         </tr>
       </thead>
       <tbody>
-        {[1, 1, 1, 1, 1, 1, 1, 1, 1]?.map(() => {
+        {data?.map((data, k) => {
           return (
             <tr>
-              <td className={class2}>01/03/2016</td>
-              <td className={class2}>Dispute - Consumer</td>
+              <td className={class2}>{data?.narrDateLoaded}</td>
               <td className={class2}>
-                Please note that enquiry No. 11002539110 by the member SABB in
-                31/01/2021 is disputed by the customer.
+                {data?.narrativeTypes?.narrativeTypeDescEn}
               </td>
+              <td className={class2}>{data?.narrTextDescEn}</td>
             </tr>
           );
         })}

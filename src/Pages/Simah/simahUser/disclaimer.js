@@ -1,7 +1,7 @@
 import React from "react";
 import { TiContacts } from "react-icons/ti";
 
-function Disclaimer({ w1, w2 }) {
+function Disclaimer({ w1, w2, data }) {
   return (
     <div className="flex flex-row border border-sky-700 w-full mt-5 text-white">
       <div
@@ -13,14 +13,10 @@ function Disclaimer({ w1, w2 }) {
       </div>
       <div className={`${w2} px-2 space-y-2 flex flex-col`}>
         <a className="text-gray-700  py-1 text-start  ">
-          <span className="font-semibold">Disclaimer</span> :This information
-          has been collated from various sources on a confidential basis and
-          doesn't represent the opinion of Saudi Credit Bureau (SIMAH). No
-          Liability (in contract or otherwise whatsoever) attaches to SIMAH as a
-          result of taking any investment and/orany other decision based on
-          information provided.
+          <span className="font-semibold">Disclaimer</span>{" "}
+          {data?.discTextDescEn}
         </a>
-        <a className="text-gray-700  py-1 text-start">
+        {/* <a className="text-gray-700  py-1 text-start">
           <span className="font-semibold">Disclosure</span> : Saudi Credit
           Bureau, SIMAH, a Closed Joint Stock Company, Capital SR 200,000,000
           Paid in Full- C.R 1010171047- Membership No.115731, Toll Free No.
@@ -28,7 +24,7 @@ function Disclaimer({ w1, w2 }) {
           Address: Riyadh, Al Shuhada, Building No. 2596, Unit No. 1, Additional
           No. 7347, Zip Code 13241. Under the Supervision and Regulation of SAMA
           with a License No. 2 / 37. www.simah.com
-        </a>
+        </a> */}
       </div>
     </div>
   );

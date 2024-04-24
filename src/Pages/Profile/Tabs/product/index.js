@@ -54,6 +54,7 @@ const data = [
     label: "Simah Labilities",
     tab: <SimahLibilities />,
   },
+
   // {
   //   label: "Family Details",
   //   tab: <Family />,

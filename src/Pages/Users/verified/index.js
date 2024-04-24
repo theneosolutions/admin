@@ -135,6 +135,9 @@ function VerifiedUsers() {
                 <th scope="col" className="px-3 py-3">
                   {t("Status")}
                 </th>
+                <th scope="col" className="px-3 py-3">
+                  {t("Simah Report")}
+                </th>
                 <th
                   scope="col"
                   className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
@@ -205,6 +208,16 @@ function VerifiedUsers() {
                         {t("Active")}
                       </div>
                     ) : null}
+                  </td>
+
+                  <td className="px-3 py-4">
+                    <div
+                      onClick={() => navigate("/simah/usercodes")}
+                      className=" border border-blue-600 px-3 py-1 w-max rounded-md cursor-pointer 
+                        duration-300 text-blue-600"
+                    >
+                      {t("View Simah Report")}
+                    </div>
                   </td>
                   <th
                     scope="row"

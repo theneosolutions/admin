@@ -1,7 +1,7 @@
 import React from "react";
 import { IoDocumentTextOutline } from "react-icons/io5";
 
-function CreditReportSummary({ w1, w2 }) {
+function CreditReportSummary({ w1, w2, data }) {
   return (
     <div className="flex flex-row border border-sky-700 w-full mt-5 text-white">
       <div
@@ -12,21 +12,45 @@ function CreditReportSummary({ w1, w2 }) {
         <a className="text-sm mt-4">Credit Report Summary</a>
       </div>
       <div className={w2}>
-        <Line1 heading="Previous Enquiries :" value="101" />
-        <Line1 heading="Enquiries for Previous 30 Days :" value="101" />
-        <Line1 heading="Credit Instruments :" value="5605000.00" />
-        <Line1 heading="Guaranteed Credit Instruments :" value="Test" />
-        <Line1 heading="Defaults :" value="Test" />
-        <Line1 heading="Earliest Issue Date :" value="Test" />
-        <Line1 heading="Total Limits : :" value="5605000.00" />
+        <Line1
+          heading="Previous Enquiries :"
+          value={data?.summPreviousEnquires}
+        />
+        <Line1
+          heading="Enquiries for Previous 30 Days :"
+          value={data?.summPreviousEnquiresThisMonth}
+        />
+        <Line1
+          heading="Credit Instruments :"
+          value={data?.summActiveCreditInstruments}
+        />
+        <Line1
+          heading="Guaranteed Credit Instruments :"
+          value={data?.summGuaranteedCreditInstruments}
+        />
+        <Line1 heading="Defaults :" value={data?.summDefaults} />
+        <Line1
+          heading="Earliest Issue Date :"
+          value={data?.summEarliestIssueDate}
+        />
+        <Line1 heading="Total Limits : :" value={data?.summTotalLimits} />
         <Line1
           heading="Total Guaranteed Limits :"
-          value="Test Test Test Test"
+          value={data?.summTotalGuaranteedLimits}
         />
-        <Line1 heading="Total Liablilites :" value="09/09/1990" />
-        <Line1 heading="Total Guaranteed Liablilites :" value="5605000.00" />
-        <Line1 heading="Total Defaults :" value="Married" />
-        <Line1 heading="Current Delinquent Balance :" value="5605000.00" />
+        <Line1
+          heading="Total Liablilites :"
+          value={data?.summTotalLiablilites}
+        />
+        <Line1
+          heading="Total Guaranteed Liablilites :"
+          value={data?.summTotalGuaranteedLiablilites}
+        />
+        <Line1 heading="Total Defaults :" value={data?.summTotalDefaults} />
+        <Line1
+          heading="Current Delinquent Balance :"
+          value={data?.summCurrentDelinquentBalance}
+        />
       </div>
     </div>
   );

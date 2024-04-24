@@ -4,7 +4,7 @@ import { PiCarProfileFill } from "react-icons/pi";
 import Progress from "./progress";
 import InstallmentDetails from "./installmentDetails";
 import JointAppication from "./jointApplication";
-function ProductDetail({ w1, w2 }) {
+function ProductDetail({ w1, w2, data }) {
   return (
     <div className="flex flex-row border border-sky-700 w-full mt-5 text-white">
       <div

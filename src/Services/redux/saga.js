@@ -1,17 +1,18 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
 import * as action from "./reducer";
 import { axiosInstance } from "../constant";
+import axios from "axios";
 
 var baseUrlUser = "https://seulah.ngrok.app/api/v1/auth";
 var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
-var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
+// var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
 var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
 var baseUrlCalculations = "https://seulah.ngrok.app/api/v1/los";
 var baseUrlSMS = "https://seulah.ngrok.app/api/v1/sms";
 
 // var baseUrlUser = "https://seulah.com/api/v1/auth";
 // var baseUrlDecisions = "https://seulah.com/api/v1/dms";
-// var baseUrlLos = "https://seulah.com/api/v1/los";
+var baseUrlLos = "https://seulah.com/api/v1/los";
 // var baseUrlCms = "https://seulah.com/api/v1/cms";
 // var baseUrlCalculations = "https://7eb1-182-180-183-127.ngrok-free.app/api/v1/dbr";
 
@@ -1431,6 +1432,33 @@ function* CreateSMS({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* GetSimahReport({ payload }) {
+  console.log("GetSimahReport payload", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.get,
+      baseUrlLos + `/simah/90/creditBureauReport`
+    );
+    console.log("response", response1?.data);
+    yield put(action.GetSimahReport(response1?.data));
+
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: response1.data.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -1500,4 +1528,6 @@ export default function* HomeSaga() {
   yield takeLatest("ADD_MODULES_TO_ROLES", AddModulesToRole);
   yield takeLatest("DELETE_SET", DeleteSet);
   yield takeLatest("CREATE_SMS", CreateSMS);
+
+  yield takeLatest("GET_SIMAH_REPORT", GetSimahReport);
 }
