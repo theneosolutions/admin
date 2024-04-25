@@ -42,7 +42,7 @@ import { IoNotificationsSharp } from "react-icons/io5";
 import { AiOutlineCalculator } from "react-icons/ai";
 import Sms from "Pages/Notifications/sms";
 
-import UserSimah from "Pages/Simah/simahUser";
+import UserSimah from "Pages/Simah/simahDownlaod";
 
 const appRoutes = [
   {

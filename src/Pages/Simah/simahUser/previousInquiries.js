@@ -21,7 +21,6 @@ export default PriviousIncuries;
 function Header({ data }) {
   const class1 = "text-sky-600 px-2 py-2 text-start";
   const class2 = "text-gray-700 px-2 py-1 text-start";
-  console.log("data 22", data);
 
   return (
     <div className="overflow-x-auto">

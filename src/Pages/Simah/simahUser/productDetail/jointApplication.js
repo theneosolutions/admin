@@ -1,12 +1,12 @@
 import React from "react";
 
-function JointAppication() {
+function JointAppication({ data }) {
   return (
     <div className="px-2 border-t py-2">
       <a className="text-black">Joint Applicant</a>
       <div className="flex flex-col">
-        <Header1 />
-        <Header2 />
+        <Header1 data={data} />
+        <Header2 data={data} />
       </div>
     </div>
   );
@@ -14,7 +14,7 @@ function JointAppication() {
 
 export default JointAppication;
 
-function Header1() {
+function Header1({ data }) {
   const class1 = "text-xs text-sky-600 px-2 py-2 text-start font-medium";
   const class2 = "text-xs text-gray-500 px-2 py-2 text-start font-medium";
   const style = { width: "20%" };
@@ -42,26 +42,26 @@ function Header1() {
       <tbody>
         <tr>
           <td className={class2} style={style}>
-            2
+            {data?.numberOfApplicants}
           </td>
           <td className={class2} style={style}>
-            2500.12
+            {data?.applicationInstalmentAmount}
           </td>
           <td className={class2} style={style}>
-            01/02/2020
+            {data?.lastPaymentDate}
           </td>
           <td className={class2} style={style}>
-            1000.00
+            {data?.lastAmountPaid}
           </td>
           <td className={class2} style={style}>
-            3000.00
+            {data?.outstandingBalance}
           </td>
         </tr>
       </tbody>
     </table>
   );
 }
-function Header2() {
+function Header2({ data }) {
   const class1 = "text-xs text-sky-600 px-2 py-2 text-start font-medium";
   const class2 = "text-xs text-gray-500 px-2 py-2 text-start font-medium";
   const style = { width: "20%" };
@@ -89,19 +89,19 @@ function Header2() {
       <tbody>
         <tr>
           <td className={class2} style={style}>
-            30.00
+            {data?.percentageAllocation}
           </td>
           <td className={class2} style={style}>
-            2500.00
+            {data?.applicantLimit}
           </td>
           <td className={class2} style={style}>
-            2500.00
+            {data?.paymentStatusCode}
           </td>
           <td className={class2} style={style}>
-            0.00
+            {data?.pastDueAmount}
           </td>
           <td className={class2} style={style}>
-            01/03/2020
+            {data?.nextPaymentDate}
           </td>
         </tr>
       </tbody>

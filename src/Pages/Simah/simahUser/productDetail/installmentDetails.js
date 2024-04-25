@@ -1,28 +1,27 @@
 import React from "react";
 
-function DataProvider() {
+function DataProvider({ data }) {
   return (
     <div className="px-2 border-t py-2">
-      <a className="text-black">
+      <a className="text-black ">
         Installments details (Ins Case Installment Change)
       </a>
-      <div className="flex flex-row">
-        <div className="flex flex-col  w-1/2 mt-3 text-white ">
-          <Line1 heading="Installment Start Date " value="01/07/2019 " />
-          <Line1 heading="Installment Start Date " value="01/07/2019 " />
-          <Line1 heading="Installment Start Date " value="01/07/2019 " />
-          <Line1 heading="Installment Start Date " value="01/07/2019 " />
-          <Line1 heading="Installment Start Date " value="01/07/2019 " />
-          <Line1 heading="Installment Start Date " value="01/07/2019 " />
-        </div>{" "}
-        <div className="flex flex-col  w-1/2   mt-5 text-white px-2">
-          <Line1 heading="Installment Amount " value="900.00" />
-          <Line1 heading="Installment Amount " value="900.00" />
-          <Line1 heading="Installment Amount " value="900.00" />
-          <Line1 heading="Installment Amount " value="900.00" />
-          <Line1 heading="Installment Amount " value="900.00" />
-          <Line1 heading="Installment Amount " value="900.00" />
-        </div>
+      <div className="mt-3">
+        {data?.map((v, k) => {
+          return (
+            <div className="flex flex-row">
+              <div className="flex flex-col  w-1/2 text-white ">
+                <Line1 heading="Installment Start Date " value={v?.startDate} />
+              </div>
+              <div className="flex flex-col  w-1/2   text-white px-2">
+                <Line1
+                  heading="Installment Amount "
+                  value={v?.instalmentAmount}
+                />
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

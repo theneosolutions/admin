@@ -12,25 +12,34 @@ function ProductDetail({ w1, w2, data }) {
       >
         <a className="text-sm mt-2">Internal Administration</a>
 
-        <PiCarProfileFill className="text-5xl mt-6" />
+        {/* <PiCarProfileFill className="text-5xl mt-6" /> */}
 
-        <a className="text-sm mt-4">Car Lease Agreement</a>
-        <a className="text-sm mt-4 text-gray-700">Closed</a>
+        <a className="text-sm mt-4">{data?.ciProductTypeDesc?.textEn}</a>
+        <a className="text-sm mt-4 text-gray-700">
+          {data?.ciStatus?.creditInstrumentStatusDescEn}
+        </a>
       </div>
+
       <div className={`${w2} px-2`}>
-        <Header1 />
-        <Header2 />
-        <Header3 />
-        <Progress />
-        <InstallmentDetails />
-        <JointAppication />
+        <Header1 data={data} />
+        <Header2 data={data} />
+        <Header3 data={data} />
+        {data?.ciSummary && <Progress data={data?.ciSummary} />}
+
+        {data?.multiInstalmentDetails &&
+          data?.multiInstalmentDetails.length > 0 && (
+            <InstallmentDetails data={data.multiInstalmentDetails} />
+          )}
+        {data?.jointApplicantDetail && (
+          <JointAppication data={data?.jointApplicantDetail} />
+        )}
       </div>
     </div>
   );
 }
 
 export default ProductDetail;
-function Header1() {
+function Header1({ data }) {
   const class1 = "text-xs text-sky-600 px-2 py-2 text-start font-medium";
   const class2 = "text-xs text-gray-500 px-2 py-2 text-start font-medium";
   const style = { width: "12%" };
@@ -67,35 +76,35 @@ function Header1() {
       <tbody>
         <tr>
           <td className={class2} style={style}>
-            TEST000SAM001
+            {data?.ciAccountNumber}
           </td>
           <td className={class2} style={style}>
-            2755.00
+            {data?.ciIssuedDate}
           </td>
           <td className={class2} style={style}>
-            54500.00
+            {data?.ciLimit}
           </td>
           <td className={class2} style={style}>
-            07/10/2019
+            {/* 07/10/2019 */}
           </td>
           <td className={class2} style={style}>
-            5900010.00
+            {data?.ciInstallmentAmount}
           </td>
           <td className={class2} style={style}>
-            0.00
+            {data?.ciPaymentFrequency?.paymentFrequencyCodeName}
           </td>
           <td className={class2} style={style}>
-            2755.00
+            {data?.ciConsumerSecurityType?.consumerSecurityTypeCode}
           </td>
           <td className={class2} style={style}>
-            07/10/2019
+            {data?.ciExpirationDate}
           </td>
         </tr>
       </tbody>
     </table>
   );
 }
-function Header2() {
+function Header2({ data }) {
   const class1 = "text-xs text-sky-600 px-2 py-2 text-start font-medium";
   const class2 = "text-xs text-gray-500 px-2 py-2 text-start font-medium";
   const style = { width: "12%" };
@@ -133,35 +142,35 @@ function Header2() {
       <tbody>
         <tr>
           <td className={class2} style={style}>
-            50000.00
+            {data?.ciOutstandingBalance}
           </td>
           <td className={class2} style={style}>
-            0.00
+            {data?.ciPastDue}
           </td>
           <td className={class2} style={style}>
-            5900.00
+            {data?.ciLastAmountPaid}
           </td>
           <td className={class2} style={style}>
-            07/10/2019
+            {data?.ciLastPaymentDate}
           </td>
           <td className={class2} style={style}>
-            06/10/2019
+            {data?.ciNextDueDate}
           </td>
           <td className={class2} style={style}>
-            0.00
+            {data?.ciAsOfDate}
           </td>
           <td className={class2} style={style}>
-            No
+            {data?.ciSalaryAssignmentFlag?.salaryAssignmentFlagCode}
           </td>
           <td className={class2} style={style}>
-            07/10/2019
+            {data?.ciClosingDate}
           </td>
         </tr>
       </tbody>
     </table>
   );
 }
-function Header3() {
+function Header3({ data }) {
   const class1 = "text-xs text-sky-600 px-2 py-2 text-start font-medium";
   const class2 = "text-xs text-gray-500 px-2 py-2 text-start font-medium";
   const style = { width: "20%" };
@@ -190,19 +199,19 @@ function Header3() {
       <tbody>
         <tr>
           <td className={class2} style={style}>
-            0.00
+            {data?.ciBalloonPayment}
           </td>
           <td className={class2} style={style}>
-            8000.00
+            {data?.ciDownPayment}
           </td>
           <td className={class2} style={style}>
-            0.00
+            {data?.ciDispensedAmount}
           </td>
           <td className={class2} style={style}>
-            2755.00
+            {data?.ciMaxInstalmentAmount}
           </td>
           <td className={class2} style={style}>
-            VEHL
+            {data?.ciSubProduct?.code}
           </td>
         </tr>
       </tbody>

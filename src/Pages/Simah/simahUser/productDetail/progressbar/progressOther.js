@@ -18,9 +18,9 @@ function ProgressOther({ value }) {
 
   return (
     <div
-      className={`${newColor} rounded-full  h-10 w-10  text-sm text-center justify-center items-center flex font-bold relative `}
+      className={`${newColor} rounded-full  h-8 w-8  text-sm text-center justify-center items-center flex font-bold relative `}
     >
-      <PiArrowCounterClockwiseFill className="h-10 w-10 absolute" />
+      <PiArrowCounterClockwiseFill className="h-8 w-8 absolute" />
       <div className="text-xs" style={{ fontSize: 9 }}>
         {value}
       </div>
