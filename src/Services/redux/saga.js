@@ -3,18 +3,17 @@ import * as action from "./reducer";
 import { axiosInstance } from "../constant";
 import axios from "axios";
 
-var baseUrlUser = "https://seulah.ngrok.app/api/v1/auth";
-var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
+// var baseUrlUser = "https://seulah.ngrok.app/api/v1/auth";
+// var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
 // var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
-var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
-var baseUrlCalculations = "https://seulah.ngrok.app/api/v1/los";
+
 var baseUrlSMS = "https://seulah.ngrok.app/api/v1/sms";
 
-// var baseUrlUser = "https://seulah.com/api/v1/auth";
-// var baseUrlDecisions = "https://seulah.com/api/v1/dms";
+// var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
+var baseUrlUser = "https://seulah.com/api/v1/auth";
+var baseUrlDecisions = "https://seulah.com/api/v1/dms";
 var baseUrlLos = "https://seulah.com/api/v1/los";
-// var baseUrlCms = "https://seulah.com/api/v1/cms";
-// var baseUrlCalculations = "https://7eb1-182-180-183-127.ngrok-free.app/api/v1/dbr";
+var baseUrlCms = "https://seulah.com/api/v1/cms";
 
 // "https://seulah.com/api/v1/cms";
 const rolesUrl = "https://3c8c-39-45-235-223.ngrok-free.app";
@@ -870,7 +869,7 @@ function* GetSimahCodes({ payload }) {
 
     const response = yield call(
       axiosInstance.post,
-      baseUrlUser + `/getSimahCodes`
+      baseUrlLos + `/getSimahCodes`
     );
     yield put(action.GetSimahCodes(response));
 
@@ -1011,7 +1010,7 @@ function* GetAllDBR({ payload }) {
 
     const response = yield call(
       axiosInstance.get,
-      baseUrlCalculations + `/dbr/calculation/getall`
+      baseUrlLos + `/dbr/calculation/getall`
     );
 
     yield put(action.GetAllDBR(response.data));
@@ -1029,7 +1028,7 @@ function* AddNewDbr({ payload }) {
 
     const response1 = yield call(
       axiosInstance.post,
-      baseUrlCalculations + `/dbr/calculation/dbrcalculation`,
+      baseUrlLos + `/dbr/calculation/dbrcalculation`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -1052,7 +1051,7 @@ function* DeleteDbr({ payload }) {
 
     const response = yield call(
       axiosInstance.delete,
-      baseUrlCalculations + `/dbr/calculation/delete?id=${payload}`
+      baseUrlLos + `/dbr/calculation/delete?id=${payload}`
     );
     const message = response.data.message;
     yield put(action.Message({ message: message, open: true, error: false }));
@@ -1070,7 +1069,7 @@ function* UpdateDbr({ payload }) {
 
     const response1 = yield call(
       axiosInstance.put,
-      baseUrlCalculations + `/dbr/calculation/dbrcalculation`,
+      baseUrlLos + `/dbr/calculation/dbrcalculation`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -1118,7 +1117,7 @@ function* GetAllExpense({ payload }) {
 
     const response = yield call(
       axiosInstance.get,
-      baseUrlCalculations + `/expense/getall`
+      baseUrlLos + `/expense/getall`
     );
     yield put(action.GetAllExpense(response));
     yield put(action.Loading({ Loading: false }));
@@ -1135,7 +1134,7 @@ function* AddNewExpense({ payload }) {
 
     const response1 = yield call(
       axiosInstance.post,
-      baseUrlCalculations + `/expense/expense`,
+      baseUrlLos + `/expense/expense`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -1157,7 +1156,7 @@ function* DeleteExpense({ payload }) {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
       axiosInstance.delete,
-      baseUrlCalculations + `/expense/delete?id=${payload}`
+      baseUrlLos + `/expense/delete?id=${payload}`
     );
     const message = response.data.message;
     yield put(action.Message({ message: message, open: true, error: false }));
@@ -1174,7 +1173,7 @@ function* UpdateExpense({ payload }) {
 
     const response1 = yield call(
       axiosInstance.put,
-      baseUrlCalculations + `/expense/expense`,
+      baseUrlLos + `/expense/expense`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -1245,7 +1244,7 @@ function* GetAllTermsRates({ payload }) {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
       axiosInstance.get,
-      baseUrlCalculations + `/term/rates/termandrates`
+      baseUrlLos + `/term/rates/termandrates`
     );
     yield put(action.GetAllTermsRates(response));
     yield put(action.Loading({ Loading: false }));
@@ -1261,7 +1260,7 @@ function* AddNewTermsRates({ payload }) {
 
     const response1 = yield call(
       axiosInstance.post,
-      baseUrlCalculations + `/term/rates/termandrates`,
+      baseUrlLos + `/term/rates/termandrates`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -1284,7 +1283,7 @@ function* UpdateTermAndRates({ payload }) {
 
     const response1 = yield call(
       axiosInstance.put,
-      baseUrlCalculations + `/term/rates/termandrates`,
+      baseUrlLos + `/term/rates/termandrates`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -1307,7 +1306,7 @@ function* DeleteTermsAndRate({ payload }) {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
       axiosInstance.delete,
-      baseUrlCalculations + `/term/rates/termandrates?id=${payload}`
+      baseUrlLos + `/term/rates/termandrates?id=${payload}`
     );
     const message = response.data.message;
     yield put(action.Message({ message: message, open: true, error: false }));
@@ -1459,6 +1458,77 @@ function* GetSimahReport({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* AddProductInSimah({ payload }) {
+  console.log("payload simah", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.post,
+      baseUrlLos + `/simah/saveProductList`,
+      payload
+    );
+    yield put(action.Loading({ Loading: false }));
+    if (response1?.data?.data === "Product successfully added in system") {
+      yield put(
+        action.Message({
+          message: response1.data.data,
+          open: true,
+          error: false,
+        })
+      );
+    } else {
+      yield put(
+        action.Message({
+          message: response1.data.data,
+          open: true,
+          error: false,
+        })
+      );
+    }
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* UpdateSimahProduct({ payload }) {
+  console.log("payload simah", payload);
+
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.post,
+      baseUrlLos +
+        `/simah/${payload.id}/updateProductList?consideration=${payload.status}`
+    );
+    yield put(action.Loading({ Loading: false }));
+    if (response?.data?.message === "Success") {
+      yield put(
+        action.Message({
+          message: response.data.message,
+          open: true,
+          error: false,
+        })
+      );
+    } else {
+      yield put(
+        action.Message({
+          message: response.data.message,
+          open: true,
+          error: true,
+        })
+      );
+    }
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -1530,4 +1600,6 @@ export default function* HomeSaga() {
   yield takeLatest("CREATE_SMS", CreateSMS);
 
   yield takeLatest("GET_SIMAH_REPORT", GetSimahReport);
+  yield takeLatest("ADD_PRODUCT_IN_SIMAH", AddProductInSimah);
+  yield takeLatest("UPDATE_PRODUCT_STATUS", UpdateSimahProduct);
 }
