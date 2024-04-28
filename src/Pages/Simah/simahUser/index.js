@@ -16,8 +16,14 @@ import Addresses from "./addresses";
 
 import Disclaimer from "./disclaimer";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+
 function UserSimah() {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const userId = queryParams.get("id");
+  console.log("userId", userId);
   const data = useSelector(
     (state) => (state.getSimahReport && state.getSimahReport[0]) || []
   );
@@ -26,7 +32,7 @@ function UserSimah() {
   useEffect(() => {
     dispatch({
       type: "GET_SIMAH_REPORT",
-      payload: 90,
+      payload: userId,
     });
   }, []);
   return (

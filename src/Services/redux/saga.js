@@ -1439,7 +1439,7 @@ function* GetSimahReport({ payload }) {
 
     const response1 = yield call(
       axiosInstance.get,
-      baseUrlLos + `/simah/90/creditBureauReport`
+      baseUrlLos + `/simah/${payload}/creditBureauReport`
     );
     console.log("response", response1?.data);
     yield put(action.GetSimahReport(response1?.data));

@@ -212,7 +212,9 @@ function VerifiedUsers() {
 
                   <td className="px-3 py-4">
                     <div
-                      onClick={() => navigate("/simah/usercodes")}
+                      onClick={() =>
+                        navigate(`/simah/usercodes?id=${v?.user?.user?.id}`)
+                      }
                       className=" border border-blue-600 px-3 py-1 w-max rounded-md cursor-pointer 
                         duration-300 text-blue-600"
                     >
