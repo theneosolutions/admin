@@ -7,7 +7,7 @@ import axios from "axios";
 // var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
 // var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
 
-var baseUrlSMS = "https://seulah.ngrok.app/api/v1/sms";
+var baseUrlSMS = "https://seulah.com/api/v1/sms";
 
 // var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
 var baseUrlUser = "https://seulah.com/api/v1/auth";
