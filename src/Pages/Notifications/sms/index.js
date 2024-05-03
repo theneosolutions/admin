@@ -41,6 +41,7 @@ function NotificationsScreen() {
       type: "DELETE_SMS",
       payload: id,
     });
+    setTimeout(() => getAllSmsOtp(), 500);
   }
   return (
     <div className="py-5">

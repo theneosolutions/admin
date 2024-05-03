@@ -1554,18 +1554,22 @@ function* GetAllSms({ payload }) {
 }
 function* DeleteSMS({ payload }) {
   console.log("Delete SMS", payload);
-  // try {
-  //   const response = yield call(
-  //     axiosInstance.delete,
-  //     baseUrlDecisions + `/questionSet/deleteQuestionSet?id=${payload}`
-  //   );
-  //   const message = response.data.message;
-  //   yield put(action.Message({ message: message, open: true, error: false }));
-  //   // yield put(action.GetAllQuestions(response));
-  // } catch (error) {
-  //   const message = error.response.data.message;
-  //   yield put(action.Message({ message: message, open: true, error: true }));
-  // }
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.delete,
+      baseUrlSMS + `/deleteRecordById?smsId=${payload}`
+    );
+    const message = response.data.message;
+    yield put(action.Message({ message: message, open: true, error: false }));
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
 }
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
