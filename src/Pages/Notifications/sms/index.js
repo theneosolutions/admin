@@ -19,7 +19,7 @@ function NotificationsScreen() {
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
   const getSmsOtp = useSelector((state) => state.getSmsOtp);
-  const [modelOpen, setModelOpen] = useState(true);
+  const [modelOpen, setModelOpen] = useState(false);
 
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
