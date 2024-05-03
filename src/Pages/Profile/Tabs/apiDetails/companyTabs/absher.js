@@ -8,13 +8,8 @@ import { VscLayersActive } from "react-icons/vsc";
 import { MdDomainVerification } from "react-icons/md";
 
 function Absher() {
-  const location = useLocation();
+  const userData = useSelector((state) => state.getUserById);
 
-  const users = useSelector((state) => state.getAllUsers);
-  const queryParams = new URLSearchParams(location.search);
-
-  const id = queryParams.get("id");
-  const userData = users.find((item) => item?.user?.idNumber === id);
   return (
     <div className=" w-full flex flex-row space-x-5 rtl:space-x-reverse">
       <div className="w-full">

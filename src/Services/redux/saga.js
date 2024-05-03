@@ -574,13 +574,14 @@ function* GetGosiApi(payload) {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
       axiosInstance.get,
-      baseUrlCms +
-        `/gosi/income?customerId=${payload?.payload?.id}&userId=${payload?.payload?.user}`
+      baseUrlCms + `/gosi/getDataById?idNumber=${payload?.payload?.id}`
     );
     yield put(action.GetGosiData(response));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     const message = error.response.data.message;
+    console.log("messssage", message);
+    yield put(action.GetGosiData({ data: null }));
     yield put(action.Loading({ Loading: false }));
   }
 }
@@ -1528,7 +1529,44 @@ function* UpdateSimahProduct({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+function* GetAllSms({ payload }) {
+  console.log("GetAllSms payload", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
 
+    const response1 = yield call(axiosInstance.get, baseUrlSMS + `/getAllSMS`);
+    console.log("response", response1?.data);
+    yield put(action.GetSmsOtp(response1?.data));
+
+    yield put(action.Loading({ Loading: false }));
+    // yield put(
+    //   action.Message({
+    //     message: response1.data.message,
+    //     open: true,
+    //     error: false,
+    //   })
+    // );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* DeleteSMS({ payload }) {
+  console.log("Delete SMS", payload);
+  // try {
+  //   const response = yield call(
+  //     axiosInstance.delete,
+  //     baseUrlDecisions + `/questionSet/deleteQuestionSet?id=${payload}`
+  //   );
+  //   const message = response.data.message;
+  //   yield put(action.Message({ message: message, open: true, error: false }));
+  //   // yield put(action.GetAllQuestions(response));
+  // } catch (error) {
+  //   const message = error.response.data.message;
+  //   yield put(action.Message({ message: message, open: true, error: true }));
+  // }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -1602,4 +1640,6 @@ export default function* HomeSaga() {
   yield takeLatest("GET_SIMAH_REPORT", GetSimahReport);
   yield takeLatest("ADD_PRODUCT_IN_SIMAH", AddProductInSimah);
   yield takeLatest("UPDATE_PRODUCT_STATUS", UpdateSimahProduct);
+  yield takeLatest("GET_ALL_SMS", GetAllSms);
+  yield takeLatest("DELETE_SMS", DeleteSMS);
 }

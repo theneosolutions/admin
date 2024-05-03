@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Gosi from "./companyTabs/gosi";
 import Absher from "./companyTabs/absher";
+import Alrajhi from "./companyTabs/Alrajhi";
+
 import Nafath from "./companyTabs/nafath";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -17,7 +19,7 @@ function Template() {
   const id = queryParams.get("id");
   const user = queryParams.get("user");
 
-  const [state, setState] = useState("Gosi");
+  const [state, setState] = useState("Al RAJHI");
 
   const getTab = () => {
     const activeItem = data.find((item) => item.label === state);
@@ -70,6 +72,10 @@ function Template() {
 export default Template;
 
 const data = [
+  {
+    label: "Al RAJHI",
+    tab: <Alrajhi />,
+  },
   {
     label: "Gosi",
     tab: <Gosi />,

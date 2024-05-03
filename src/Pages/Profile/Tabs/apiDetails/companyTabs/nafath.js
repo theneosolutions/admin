@@ -12,11 +12,12 @@ function Nafath() {
 
   const queryParams = new URLSearchParams(location.search);
 
-  const user = queryParams.get("user");
+  const ID = queryParams.get("id");
+
   function GetNafathDetail() {
     dispatch({
       type: "GET_NAFATH_DETAILS",
-      payload: user,
+      payload: ID,
     });
   }
   useEffect(() => {

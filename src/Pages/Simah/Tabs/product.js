@@ -4,12 +4,11 @@ import { Alert, Snackbar } from "@mui/material";
 import * as action from "Services/redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 
-function SimahProductList() {
+function SimahProductList({ data, GetSimahCodes }) {
   const dispatch = useDispatch();
   const message = useSelector((state) => state.message);
   const error = useSelector((state) => state.error);
   const open = useSelector((state) => state.open);
-  const codes = useSelector((state) => state.getSimahCodes);
   const { t } = useTranslation();
   function UpdateProductStatus(status, id) {
     console.log("status", status);
@@ -23,11 +22,7 @@ function SimahProductList() {
     dispatch(action.Message({ open: false }));
   };
 
-  function GetSimahCodes() {
-    dispatch({
-      type: "GET_SIMAH_CODES",
-    });
-  }
+  console.log("data", data);
   return (
     <div className="py-5  w-full">
       <div className="overflow-x-auto relative">
@@ -61,7 +56,7 @@ function SimahProductList() {
             </tr>
           </thead>
           <tbody>
-            {codes?.["SIMAH Product List"]?.map((v, k) => (
+            {data?.map((v, k) => (
               <tr
                 key={k}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"

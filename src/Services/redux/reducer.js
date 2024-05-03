@@ -50,6 +50,7 @@ const initialState = {
   getAllTermsRates: [],
   getAllRoles: [],
   getSimahReport: [],
+  getSmsOtp: [],
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -225,6 +226,10 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getSimahReport = data;
     },
+    GetSmsOtp: (state, action) => {
+      const { data } = action.payload;
+      state.getSmsOtp = data;
+    },
   },
 });
 export const {
@@ -271,6 +276,7 @@ export const {
   GetAllTermsRates,
   GetAllRoles,
   GetSimahReport,
+  GetSmsOtp,
 } = Reducer.actions;
 
 export default Reducer.reducer;

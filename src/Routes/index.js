@@ -19,6 +19,7 @@ import CreateNotificationTest from "Pages/Notifications/addNotification/testCrea
 
 import UserProfile from "Pages/Users/userProfile";
 import AddNewProduct from "Pages/LOS/installments/addNewProduct";
+import AddSms from "Pages/Notifications/sms/addSms";
 import MainTemplate from "Layouts/MainTemplate";
 import NotFound from "Pages/NotFound";
 function App() {
@@ -52,6 +53,7 @@ function App() {
             />
             <Route path="/user-profile" element={<UserProfile />} />
             <Route path="/add-Product" element={<AddNewProduct />} />
+            <Route path="/add-sms" element={<AddSms />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
