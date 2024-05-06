@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import { useDispatch, useSelector } from "react-redux";
 
 import Header from "../Layouts/Header";
 const MainLayout = () => {
+  const isLogin = useSelector((state) => state.isLogin);
+  console.log("isLogin", isLogin);
   const [isOpen, setIsOpen] = useState(true);
   const toggleSidebar = () => {
     setIsOpen(!isOpen);

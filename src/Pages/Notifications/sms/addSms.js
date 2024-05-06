@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Alert, Snackbar } from "@mui/material";
 import * as action from "Services/redux/reducer";
 import TextEditor from "./textEditor";
-function CreateAddSMS({ setModelOpen }) {
+function CreateAddSMS({ setModelOpen, selectedData }) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -31,21 +31,44 @@ function CreateAddSMS({ setModelOpen }) {
       type != "none" &&
       language !== "none"
     ) {
-      dispatch({
-        type: "CREATE_SMS",
-        payload: {
-          type: type,
-          heading: subject,
-          desc: description,
-          languageCode: language,
-        },
-      });
+      if (selectedData) {
+        console.log("selected dtaaaa", selectedData);
+        dispatch({
+          type: "CREATE_SMS",
+          payload: {
+            type: type,
+            heading: subject,
+            desc: description,
+            languageCode: language,
+            smsId: selectedData?.smsId,
+          },
+        });
+      } else {
+        // dispatch({
+        //   type: "CREATE_SMS",
+        //   payload: {
+        //     type: type,
+        //     heading: subject,
+        //     desc: description,
+        //     languageCode: language,
+        //   },
+        // });
+      }
+
       setTimeout(() => setModelOpen(false), 500);
     } else {
       alert("All Fields Required!");
     }
   }
 
+  useEffect(() => {
+    if (selectedData) {
+      setLanguage(selectedData?.languageCode);
+      setType(selectedData?.type);
+      setSubject(selectedData?.heading);
+      setDescription(selectedData?.description);
+    }
+  }, [selectedData]);
   return (
     <div className=" bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-col   w-full   px-4 py-5 lg:px-6 ">
       <div className="flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
@@ -55,6 +78,7 @@ function CreateAddSMS({ setModelOpen }) {
             heading={t("Type")}
             type="select"
             options={t(type)}
+            value={type}
             onChange={(e) => setType(e)}
           />
           <InputField
@@ -73,6 +97,7 @@ function CreateAddSMS({ setModelOpen }) {
             heading={t("Language Code")}
             type="select"
             options={t(language)}
+            value={language}
             onChange={(e) => setLanguage(e)}
           />
         </div>
@@ -130,11 +155,11 @@ function InputField({ heading, value, onChange, type }) {
 }
 const data = [
   {
-    value: "otp",
+    value: "OTP",
     name: "Otp",
   },
   {
-    value: "text",
+    value: "SMS",
     name: "Text",
   },
 ];

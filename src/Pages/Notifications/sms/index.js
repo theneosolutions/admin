@@ -11,6 +11,7 @@ import { ROLES } from "../../../constants/roles";
 import Model2 from "Components/Model2";
 import AddSms from "../sms/addSms";
 import Delete from "../../../Assets/Images/delete.svg";
+import Edit from "../../../Assets/Images/edit.svg";
 
 function NotificationsScreen() {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ function NotificationsScreen() {
   const error = useSelector((state) => state.error);
   const getSmsOtp = useSelector((state) => state.getSmsOtp);
   const [modelOpen, setModelOpen] = useState(false);
+  const [selectedData, setSelectedData] = useState(null);
 
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
@@ -43,6 +45,13 @@ function NotificationsScreen() {
     });
     setTimeout(() => getAllSmsOtp(), 500);
   }
+
+  function onEdit(data) {
+    console.log("data", data);
+    setSelectedData(data);
+    setModelOpen(true);
+  }
+  console.log("selectedDataselectedData", selectedData);
   return (
     <div className="py-5">
       <CardMain
@@ -50,7 +59,7 @@ function NotificationsScreen() {
         heading={t("Sms And Otp")}
         showButton={true}
         buttonValue={t("Add New Notification")}
-        onButtonClick={() => setModelOpen(true)}
+        onButtonClick={() => (setModelOpen(true), setSelectedData(null))}
       >
         <div className="overflow-x-auto relative  mt-4">
           <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
@@ -96,7 +105,11 @@ function NotificationsScreen() {
                     className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10"
                   >
                     <div className="flex flex-row space-x-3 rtl:space-x-reverse">
-                      {/* <img src={Edit} className="h-6 cursor-pointer" /> */}
+                      <img
+                        src={Edit}
+                        className="h-6 cursor-pointer"
+                        onClick={() => onEdit(v)}
+                      />
                       <img
                         src={Delete}
                         className="h-6 cursor-pointer"
@@ -117,7 +130,7 @@ function NotificationsScreen() {
           heading={t("Add SMS And OTP")}
         >
           <AddSms
-            // data={selectedData}
+            selectedData={selectedData}
             setModelOpen={(e) => (setModelOpen(e), getAllSmsOtp())}
           />
         </Model2>
