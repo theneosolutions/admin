@@ -1,21 +1,12 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
 import * as action from "./reducer";
 import { axiosInstance } from "../constant";
-import axios from "axios";
-
-// var baseUrlUser = "https://seulah.ngrok.app/api/v1/auth";
-// var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
-// var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
 
 var baseUrlSMS = "https://seulah.com/api/v1/sms";
-
-// var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
 var baseUrlUser = "https://seulah.com/api/v1/auth";
-var baseUrlDecisions = "https://seulah.com/api/v1/dms";
+var baseUrlDecisions = "https://d8ee-39-58-107-50.ngrok-free.app/api/v1/dms";
 var baseUrlLos = "https://seulah.com/api/v1/los";
 var baseUrlCms = "https://seulah.com/api/v1/cms";
-
-// "https://seulah.com/api/v1/cms";
 const rolesUrl = "https://3c8c-39-45-235-223.ngrok-free.app";
 
 function* GetAllQuestionsData() {

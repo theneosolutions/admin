@@ -33,7 +33,7 @@ function App() {
   }
 
   function handleAddElement(newElement) {
-    setNewInfo("none");
+    // setNewInfo("none");
     AddQuestion(newElement); // CALL ADD API ON EVERY FORM BUTTON
   }
 
@@ -41,10 +41,12 @@ function App() {
     let values;
     if (newElement.type === "textbox") {
       values = {
-        question: newElement.question,
-        type: newElement.type,
         field: newElement.values.value,
         heading: newElement.heading,
+        headingArabic: newElement.headingArabic,
+        question: newElement.question,
+        questionArabic: newElement.questionArabic,
+        type: newElement.type,
         languageCode: language,
       };
     } else {
@@ -57,6 +59,7 @@ function App() {
       };
     }
 
+    console.log("hloeee", values);
     dispatch({
       type: "ADD_QUESTION",
       payload: values,
@@ -189,7 +192,9 @@ function TextBox({ onAddElement }) {
 
   const defaultState = {
     heading: "",
+    headingArabic: "",
     question: "",
+    questionArabic: "",
     values: { value: "text" },
     type: "textbox",
   };
@@ -201,11 +206,22 @@ function TextBox({ onAddElement }) {
       heading: e.target.value,
     }));
   }
-
+  function handleArabicHeadingChange(e) {
+    setTextBoxState((prevState) => ({
+      ...prevState,
+      headingArabic: e.target.value,
+    }));
+  }
   function handleQuestionChange(e) {
     setTextBoxState((prevState) => ({
       ...prevState,
       question: e.target.value,
+    }));
+  }
+  function handleArabicQuestionChange(e) {
+    setTextBoxState((prevState) => ({
+      ...prevState,
+      questionArabic: e.target.value,
     }));
   }
 
@@ -218,37 +234,62 @@ function TextBox({ onAddElement }) {
 
   function handleSubmit(e) {
     e.preventDefault(); // Prevent default form submission behavior
+
+    // console.log("data", textBoxState);
     onAddElement(textBoxState);
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">
-      <input
-        type="text"
-        className="mb-2 p-2 border rounded"
-        placeholder="Main Heading"
-        value={textBoxState.heading}
-        onChange={handleHeadingChange}
-        required // Makes this field required
-      />
-      <textarea
-        className="mb-2 p-2 border rounded"
-        placeholder="Write Your Question Here"
-        value={textBoxState.question}
-        onChange={handleQuestionChange}
-        required // Makes this field required
-      />
+      <div className="flex flex-row space-x-10">
+        <div className="flex flex-col w-1/2">
+          <a className="pb-2 font-semibold ">English</a>
+          <input
+            type="text"
+            className="mb-2 p-2 border rounded"
+            placeholder="Main Heading"
+            value={textBoxState.heading}
+            onChange={handleHeadingChange}
+            required // Makes this field required
+          />
+          <textarea
+            className="mb-2 p-2 border rounded"
+            placeholder="Write Your Question Here"
+            value={textBoxState.question}
+            onChange={handleQuestionChange}
+            required // Makes this field required
+          />
 
-      <select
-        className="mb-4 p-2 border rounded"
-        onChange={handleValueChange}
-        value={textBoxState.values.value}
-        required // Makes this field required
-      >
-        <option value="text">text</option>
-        <option value="numeric">numeric</option>
-      </select>
+          <select
+            className="mb-4 p-2 border rounded"
+            onChange={handleValueChange}
+            value={textBoxState.values.value}
+            required // Makes this field required
+          >
+            <option value="text">text</option>
+            <option value="numeric">numeric</option>
+          </select>
+        </div>
+        <div className="flex flex-col w-1/2">
+          <a className="pb-2 font-semibold ">عربي</a>
 
+          <input
+            type="text"
+            className="mb-2 p-2 border rounded"
+            placeholder="العنوان الرئيسي"
+            value={textBoxState.headingArabic}
+            onChange={handleArabicHeadingChange}
+            required // Makes this field required
+          />
+          <textarea
+            className="mb-2 p-2 border rounded"
+            placeholder="اكتب سؤالك هنا"
+            value={textBoxState.questionArabic}
+            onChange={handleArabicQuestionChange}
+            required // Makes this field required
+          />
+        </div>
+      </div>
       <div className="flex flex-row justify-between">
         <div></div>
         <button
