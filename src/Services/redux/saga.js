@@ -1191,13 +1191,13 @@ function* UpdateExpense({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
-
+// https://seulah.com/api/v1/auth/user/forgot-password?idNumber=${idNumber}
 function* ResetOtpVerification({ payload }) {
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
       axiosInstance.post,
-      baseUrlUser + `/user/reset-password?idNumber=${payload.idNumber}`
+      baseUrlUser + `/user/forgot-password?idNumber=${payload.idNumber}`
     );
     if (response?.data?.otp) {
       yield put(action.ForgetVerificationOtp(response.data));
