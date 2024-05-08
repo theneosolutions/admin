@@ -1,10 +1,10 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
 import * as action from "./reducer";
 import { axiosInstance } from "../constant";
-
+import { getLanguage } from "functions/getLanguage";
 var baseUrlSMS = "https://seulah.com/api/v1/sms";
 var baseUrlUser = "https://seulah.com/api/v1/auth";
-var baseUrlDecisions = "https://d8ee-39-58-107-50.ngrok-free.app/api/v1/dms";
+var baseUrlDecisions = "https://686d-221-132-118-98.ngrok-free.app/api/v1/dms";
 var baseUrlLos = "https://seulah.com/api/v1/los";
 var baseUrlCms = "https://seulah.com/api/v1/cms";
 const rolesUrl = "https://3c8c-39-45-235-223.ngrok-free.app";
@@ -64,13 +64,15 @@ function* GetSingleQuestion(payload) {
 function* GetSingleSetData(payload) {
   try {
     yield put(action.Loading({ Loading: true }));
-
+    console.log("getLanguage", getLanguage());
     const response = yield call(
       axiosInstance.get,
       baseUrlDecisions +
-        `/questionSet/getQuestionSetByNumericAndString?id=${payload.payload.id}&forUser=${payload.payload.forUser}`
+        `/questionSet/getQuestionSetByNumericAndString?id=${
+          payload.payload.id
+        }&forUser=${payload.payload.forUser}&languageCode=${getLanguage()}`
     );
-    yield put(action.GetSingleSetData(response.data.data));
+    yield put(action.GetSingleSetData(response?.data?.data));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     yield put(action.Loading({ Loading: false }));
@@ -1638,3 +1640,14 @@ export default function* HomeSaga() {
   yield takeLatest("GET_ALL_SMS", GetAllSms);
   yield takeLatest("DELETE_SMS", DeleteSMS);
 }
+
+// function getLanguage() {
+//   const preferredLanguage = localStorage.getItem("preferredLanguage");
+//   if (preferredLanguage) {
+//     // const lan = JSON.parse(preferredLanguage);
+//     console.log(preferredLanguage);
+//     return preferredLanguage;
+//   } else {
+//     return "ar";
+//   }
+// }

@@ -9,7 +9,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { CheckQuestionStatusInScreen } from "Services/OtherApis";
 import { MdDeleteOutline } from "react-icons/md";
-
+import { getLanguage } from "functions/getLanguage";
 function CreateQuestionsSet() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -30,9 +30,9 @@ function CreateQuestionsSet() {
 
   useEffect(() => {
     GetSingleSetData();
-    dispatch({
-      type: "GET_ALL_QUESTIONS",
-    });
+    // dispatch({
+    //   type: "GET_ALL_QUESTIONS",
+    // });
   }, []);
   useEffect(() => {
     getAllSets();
@@ -43,9 +43,9 @@ function CreateQuestionsSet() {
   };
 
   function getAllSets() {
-    dispatch({
-      type: "GET_ALL_SETS",
-    });
+    // dispatch({
+    //   type: "GET_ALL_SETS",
+    // });
   }
 
   const handleCheckboxChange = (id, object) => {
@@ -92,6 +92,7 @@ function CreateQuestionsSet() {
   } else {
   }
 
+  console.log("temp", temp);
   function CreateScreen() {
     if (!name) {
       return alert("Please Add Screen Name");
@@ -161,10 +162,24 @@ function CreateQuestionsSet() {
                       className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                     >
                       <td className="px-3 py-4 cursor-pointer text-primary">
-                        {v.heading || v.eligibilityQuestions?.heading}
+                        {getLanguage() === "ar" ? (
+                          <>
+                            {v.headingArabic ||
+                              v.eligibilityQuestions?.headingArabic}
+                          </>
+                        ) : (
+                          <> {v.heading || v.eligibilityQuestions?.heading}</>
+                        )}
                       </td>
                       <td className="px-6 py-4">
-                        {v.question || v.eligibilityQuestions?.question}
+                        {getLanguage() === "ar" ? (
+                          <>
+                            {v.questionArabic ||
+                              v.eligibilityQuestions?.questionArabic}
+                          </>
+                        ) : (
+                          <> {v.question || v.eligibilityQuestions?.question}</>
+                        )}
                       </td>
                       <td className="px-6 py-2">
                         <button
@@ -214,10 +229,24 @@ function CreateQuestionsSet() {
                       className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                     >
                       <td className="px-3 py-4">
-                        {v.heading || v.eligibilityQuestions?.heading}
+                        {getLanguage() === "ar" ? (
+                          <>
+                            {v.headingArabic ||
+                              v.eligibilityQuestions?.headingArabic}
+                          </>
+                        ) : (
+                          <> {v.heading || v.eligibilityQuestions?.heading}</>
+                        )}
                       </td>
                       <td className="px-6 py-4">
-                        {v.question || v.eligibilityQuestions?.question}
+                        {getLanguage() === "ar" ? (
+                          <>
+                            {v.questionArabic ||
+                              v.eligibilityQuestions?.questionArabic}
+                          </>
+                        ) : (
+                          <> {v.question || v.eligibilityQuestions?.question}</>
+                        )}
                       </td>
                       <td
                         className="px-6 py-4"

@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import withAuthorization from "../../constants/authorization";
 import { ROLES } from "../../constants/roles";
+import { getLanguage } from "functions/getLanguage";
+
 function CreateQuestionsSet() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -106,6 +108,7 @@ function CreateQuestionsSet() {
                   <th scope="col" className="px-3 py-3 cursor-pointer">
                     {t("heading")}
                   </th>
+
                   <th scope="col" className="px-6 py-3 cursor-pointer">
                     {t("Question")}
                   </th>
@@ -125,8 +128,21 @@ function CreateQuestionsSet() {
                           checked={selectedIds.includes(v.id)} // Check if the ID is in selectedIds
                         />
                       </td>
-                      <td className="px-3 py-4">{v.heading}</td>
-                      <td className="px-6 py-4">{v.question}</td>
+                      <td className="px-3 py-4">
+                        {getLanguage() === "ar" ? (
+                          <>{v.headingAr}</>
+                        ) : (
+                          <> {v.heading}</>
+                        )}
+                      </td>
+
+                      <td className="px-6 py-4">
+                        {getLanguage() === "ar" ? (
+                          <>{v.questionAr}</>
+                        ) : (
+                          <> {v.question}</>
+                        )}
+                      </td>
                     </tr>
                   );
                 })}
