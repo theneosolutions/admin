@@ -145,14 +145,14 @@ const appRoutes = [
         },
       },
 
-      {
-        path: "/customers/dump",
-        element: <Dump />,
-        state: "customers.dump",
-        sidebarProps: {
-          displayText: "Dump Customers",
-        },
-      },
+      // {
+      //   path: "/customers/dump",
+      //   element: <Dump />,
+      //   state: "customers.dump",
+      //   sidebarProps: {
+      //     displayText: "Dump Customers",
+      //   },
+      // },
     ],
   },
   {
@@ -212,22 +212,22 @@ const appRoutes = [
           displayText: "Create Type",
         },
       },
-      {
-        path: "/los/applications",
-        element: <LoanApplications />,
-        state: "los.applications",
-        sidebarProps: {
-          displayText: "Loan Applications",
-        },
-      },
-      {
-        path: "/los/installments",
-        element: <AllInstallments />,
-        state: "los.insallments",
-        sidebarProps: {
-          displayText: "Installments",
-        },
-      },
+      // {
+      //   path: "/los/applications",
+      //   element: <LoanApplications />,
+      //   state: "los.applications",
+      //   sidebarProps: {
+      //     displayText: "Loan Applications",
+      //   },
+      // },
+      // {
+      //   path: "/los/installments",
+      //   element: <AllInstallments />,
+      //   state: "los.insallments",
+      //   sidebarProps: {
+      //     displayText: "Installments",
+      //   },
+      // },
     ],
   },
   {
@@ -356,14 +356,14 @@ const appRoutes = [
           displayText: "Simah",
         },
       },
-      {
-        path: "/simah/usercodes",
-        element: <UserSimah />,
-        state: "simah.usercodes",
-        sidebarProps: {
-          displayText: "UserSimah",
-        },
-      },
+      // {
+      //   path: "/simah/usercodes",
+      //   element: <UserSimah />,
+      //   state: "simah.usercodes",
+      //   sidebarProps: {
+      //     displayText: "UserSimah",
+      //   },
+      // },
     ],
   },
   {

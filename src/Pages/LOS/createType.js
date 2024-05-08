@@ -57,8 +57,9 @@ function App() {
   const handleSubmit = () => {
     if (
       !image ||
-      !reason ||
-      formData.some((item) => !item.key || !item.value)
+      !reason
+      //  ||
+      // formData.some((item) => !item.key || !item.value)
     ) {
       alert("Please fill in all required fields.");
       return;
@@ -81,7 +82,7 @@ function App() {
 
     dispatch({
       type: "CREATE_LOAN_TYPE",
-      payload: { transformedObject, reason, image, language },
+      payload: { reason, image, language },
     });
     setTimeout(() => {
       getAllReasons();
@@ -191,7 +192,7 @@ function App() {
                 onChange={handleSelectImage}
                 style={{ display: "none" }}
               />
-              <div className=" py-3   bg-secondry rounded-md 	 border-slate-200 ">
+              {/* <div className=" py-3   bg-secondry rounded-md 	 border-slate-200 ">
                 <a className="text-sm text-gray-700 font-semibold">
                   {t("Tensures")}{" "}
                 </a>
@@ -249,11 +250,11 @@ function App() {
                     </button>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="flex flex-col">
                 <button
                   onClick={handleSubmit}
-                  className={`mt-5 rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}
+                  className={`w-max mt-5 rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}
                 >
                   {t("Submit")}
                 </button>

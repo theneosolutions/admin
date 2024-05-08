@@ -22,6 +22,8 @@ import { ROLES } from "../../../constants/roles";
 function App() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const AllUsers = useSelector((state) => state.getAllUsersAll);
+
   const users = useSelector((state) => state.getApplications);
   const navigate = useNavigate();
   const [modelOpen, setModelOpen] = useState(false);
@@ -52,37 +54,58 @@ function App() {
       type: "GET_ALL_USERS_ALL",
     });
   }
+
+  const data = AllUsers.filter(
+    (person) => person?.roles[0]?.name === "ROLE_USER"
+  );
+
+  const Verified = AllUsers.filter(
+    (person) =>
+      person?.roles[0]?.name === "ROLE_USER" &&
+      person.ownerVerification === true
+  );
+
+  const UnVerified = AllUsers.filter(
+    (person) =>
+      person?.roles[0]?.name === "ROLE_USER" &&
+      person.ownerVerification === false
+  );
+
   return (
     <div className="  mt-5 space-y-6">
       <div className="flex flex-wrap lg:flex-row   ">
         <Notifications
-          value="400"
+          value={data.length || 0}
+          heading={t("All Customers")}
+          color="text-purple-400 text-xl"
+          bg=" bg-gradient-to-r from-purple-500 via-purple-500 to-purple-300"
+          icon={<FaWpforms className="text-3xl text-gray-500" />}
+          style1="lg:w-1/3"
+        />
+        <Notifications
+          value={Verified.length || 0}
           heading={t("Verified")}
           color="text-green-400 text-xl"
           bg=" bg-gradient-to-r from-green-500 via-green-500 to-green-300"
           icon={<BiSignal4 className="text-4xl text-gray-500" />}
+          style1="lg:w-1/3"
         />
         <Notifications
-          value="200"
+          value={UnVerified.length || 0}
           heading={t("Un Verified")}
           color="text-red-500 text-xl"
           bg=" bg-gradient-to-r from-red-500 via-red-500 to-red-300"
           icon={<PiChartScatterBold className="text-4xl text-gray-500" />}
+          style1="lg:w-1/3"
         />
-        <Notifications
-          value="15"
-          heading={t("On Hold")}
-          color="text-purple-400 text-xl"
-          bg=" bg-gradient-to-r from-purple-500 via-purple-500 to-purple-300"
-          icon={<FaWpforms className="text-3xl text-gray-500" />}
-        />
-        <Notifications
+
+        {/* <Notifications
           value="200"
           heading={t("Rejected")}
           color="text-blue-400 text-xl"
           bg=" bg-gradient-to-r from-blue-500 via-blue-500 to-blue-300"
           icon={<FaWpforms className="text-3xl text-gray-500" />}
-        />
+        /> */}
       </div>
       <div className="flex flex-col lg:flex-row lg:space-x-6 rtl:space-x-reverse">
         <CardMain
@@ -299,11 +322,11 @@ function ActionCenter({ icon, heading, des, image }) {
     </div>
   );
 }
-function Notifications({ heading, value, color, bg, icon }) {
+function Notifications({ heading, value, color, bg, icon, style1 }) {
   const { t } = useTranslation();
 
   return (
-    <div className=" w-full md:w-1/2 lg:w-1/4 p-1">
+    <div className={` w-full md:w-1/2 p-1 ${style1}`}>
       <div className="rounded-sm md:mt-0 mt-4  overflow-hidden bg-white hover:bg-opacity-70 cursor-pointer shadow-xl  duration-300 justify-between h-max ">
         <div className="flex flex-row justify-between  px-4 py-4">
           <div className="flex font-semibold flex-col     w-full md:mt-0 mt-4  ">
