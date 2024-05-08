@@ -1,11 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CardMain from "Components/Cards/main";
 import { Button } from "Components";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
 function MyAccount() {
+  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.user);
+  const [disabled, setDisabled] = useState(false);
   const { t } = useTranslation();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [mobile, setMobile] = useState("");
+
+  useEffect(() => {
+    setName(user?.user?.firstName);
+    setEmail(user?.user?.email);
+    setLastName(user?.user?.mobileNumber);
+    setMobile(user?.user?.mobileNumber);
+  }, [user]);
+  console.log("user", user);
+
+  function update() {
+    if (!disabled) {
+      var temp = {
+        idNumber: user?.user?.idNumber,
+        firstName: name,
+        lastName: lastName,
+        email: email,
+        mobileNumber: mobile,
+      };
+      dispatch({
+        type: "UPDATE_USER_DATA",
+        payload: temp,
+      });
+      console.log("update", temp);
+    }
+    setDisabled(!disabled);
+  }
   return (
     <div>
       <CardMain width="w-full md:mt-0 mt-4" heading={t("My Profile")}>
@@ -23,37 +59,43 @@ function MyAccount() {
         <div className="flex flex-col md:flex-row md:space-x-20 rtl:space-x-reverse mt-5">
           <div className="md:w-1/2 w-full  space-y-5">
             <InputField
+              disabled={disabled}
               heading={t("First Name")}
-              value={user?.user?.firstName}
-              onChange={(e) => console.log("helo", e)}
+              value={name}
+              onChange={(e) => setName(e)}
+            />
+            <InputField
+              disabled={disabled}
+              heading={t("Email")}
+              value={email}
+              onChange={(e) => setEmail(e)}
             />
 
             <InputField
-              heading={t("ID number")}
-              value={user?.user?.idNumber}
-              onChange={(e) => console.log("helo", e)}
-            />
-            <InputField
+              disabled={disabled}
               type="number"
               heading={t("Mobile Number")}
-              value={user?.user?.mobileNumber}
-              onChange={(e) => console.log("helo", e)}
+              value={mobile}
+              onChange={(e) => setMobile(e)}
             />
           </div>
           <div className="md:w-1/2 w-full  space-y-5">
             <InputField
-              heading={t("Email")}
-              value={user?.user?.email}
-              onChange={(e) => console.log("helo", e)}
+              disabled={disabled}
+              // type="calendar"
+              heading={t("Last Name")}
+              value={lastName}
+              onChange={(e) => setLastName(e)}
             />
             <InputField
-              type="calendar"
-              heading={t("DOB")}
-              value={user?.user?.dateOfBirth}
+              disabled={true}
+              heading={t("ID number")}
+              value={user?.user?.idNumber}
               onChange={(e) => console.log("helo", e)}
             />
 
             <InputField
+              disabled={true}
               heading={t("Role")}
               value={user?.user?.roles[0]?.name}
               onChange={(e) => console.log("helo", e)}
@@ -61,7 +103,11 @@ function MyAccount() {
           </div>
         </div>
         <div className="flex flex-row justify-end mt-10">
-          <Button buttonValue={t("Edit")} buttonStyle="px-20 py-2" />
+          <Button
+            buttonValue={disabled ? t("Edit") : t("Update")}
+            buttonStyle="px-20 py-2"
+            onButtonClick={() => update()}
+          />
         </div>
       </CardMain>
     </div>
@@ -69,13 +115,21 @@ function MyAccount() {
 }
 export default MyAccount;
 
-function InputField({ heading, value }) {
+function InputField({ heading, value, disabled, onChange }) {
   return (
     <div className="flex flex-col w-full ">
       <a className="text-sm text-gray-700">{heading}</a>
-      <a className="bg-gray-100 rounded-md h-10 py-2 outline-none mt-2 w-full  px-3">
+      <input
+        onChange={(e) => onChange(e.target.value)}
+        disabled={disabled}
+        value={value}
+        className={` rounded-md h-10 py-2 outline-none mt-2 w-full  px-3 ${
+          disabled ? "bg-gray-100" : "white border bordr-gray-200"
+        }`}
+      />
+      {/* <a className="bg-gray-100 rounded-md h-10 py-2 outline-none mt-2 w-full  px-3">
         {value}
-      </a>
+      </a> */}
     </div>
   );
 }

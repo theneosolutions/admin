@@ -286,6 +286,30 @@ function* AddNewUser({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+function* UpdateUserData({ payload }) {
+  console.log("update user", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.put,
+      baseUrlUser + `/user/admin/signup`,
+      payload
+    );
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: response1.data.message,
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 function* UserLogin({ payload }) {
   try {
     yield put(action.Loading({ Loading: true }));
@@ -1587,6 +1611,8 @@ export default function* HomeSaga() {
   yield takeLatest("ADD_USER_ANSWER_TO_SET", AddUsersAnswersToSet);
   yield takeLatest("GET_ALL_USERS", GetAllUsers);
   yield takeLatest("Add_NEW_USER", AddNewUser);
+  yield takeLatest("UPDATE_USER_DATA", UpdateUserData);
+
   yield takeLatest("LOGIN_USER", UserLogin);
   yield takeLatest("LOGIN_OTP_VERIFICATION", LoginOtpVerification);
   yield takeLatest("SET_DECISION_RESPONSE", SetDecisionResponse);
