@@ -123,54 +123,56 @@ function DownloadPDF() {
     <div>
       <div className="flex flex-row justify-between">
         <div></div>
+      </div>
+      <div className="flex flex-row space-x-3 mb-4 justify-between">
+        <div className="flex flex-row space-x-3">
+          <div
+            onClick={() => setActive("All")}
+            className={` w-max  px-3 py-1 cursor-pointer hover:opacity-80 rounded-md ${
+              active === "All"
+                ? "bg-blue-500 text-white "
+                : " border-gray-300 border text-gray-600"
+            }`}
+          >
+            All Products
+          </div>
+          <div
+            onClick={() => setActive("Active Products")}
+            className={` w-max  px-3 py-1 cursor-pointer hover:opacity-80 rounded-md ${
+              active === "Active Products"
+                ? "bg-blue-500 text-white "
+                : " border-gray-300 border text-gray-600"
+            }`}
+          >
+            Active Products
+          </div>
+          <div
+            onClick={() => setActive("Closed Products")}
+            className={` w-max  px-3 py-1 cursor-pointer hover:opacity-80 rounded-md ${
+              active === "Closed Products"
+                ? "bg-blue-500 text-white "
+                : " border-gray-300 border text-gray-600"
+            }`}
+          >
+            Closed Products
+          </div>
+          <div
+            onClick={() => setActive("Default Products")}
+            className={` w-max  px-3 py-1 cursor-pointer hover:opacity-80 rounded-md ${
+              active === "Default Products"
+                ? "bg-blue-500 text-white "
+                : " border-gray-300 border text-gray-600"
+            }`}
+          >
+            Default Products
+          </div>
+        </div>
         <button
           onClick={downloadPDFDocument}
-          className="bg-blue-600 text-white hover:bg-blue-700 duration-300 cursor-pointer px-3 py-1 rounded-lg text-sm"
+          className={` w-max  px-3 py-1 cursor-pointer hover:opacity-80 rounded-md bg-blue-500 text-white `}
         >
           Download as PDF
         </button>
-      </div>
-      <div className="flex flex-row space-x-3 mb-4 ">
-        <div
-          onClick={() => setActive("All")}
-          className={` w-max  px-3 py-1 cursor-pointer hover:opacity-80 rounded-md ${
-            active === "All"
-              ? "bg-blue-500 text-white "
-              : " border-gray-300 border text-gray-600"
-          }`}
-        >
-          All Products
-        </div>
-        <div
-          onClick={() => setActive("Active Products")}
-          className={` w-max  px-3 py-1 cursor-pointer hover:opacity-80 rounded-md ${
-            active === "Active Products"
-              ? "bg-blue-500 text-white "
-              : " border-gray-300 border text-gray-600"
-          }`}
-        >
-          Active Products
-        </div>
-        <div
-          onClick={() => setActive("Closed Products")}
-          className={` w-max  px-3 py-1 cursor-pointer hover:opacity-80 rounded-md ${
-            active === "Closed Products"
-              ? "bg-blue-500 text-white "
-              : " border-gray-300 border text-gray-600"
-          }`}
-        >
-          Closed Products
-        </div>
-        <div
-          onClick={() => setActive("Default Products")}
-          className={` w-max  px-3 py-1 cursor-pointer hover:opacity-80 rounded-md ${
-            active === "Default Products"
-              ? "bg-blue-500 text-white "
-              : " border-gray-300 border text-gray-600"
-          }`}
-        >
-          Default Products
-        </div>
       </div>
       <div
         id="content-to-download"

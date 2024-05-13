@@ -20,7 +20,7 @@ function Progress({ w1, w2, data }) {
         </div>
 
         <div>
-          <div className="px-2 flex flex-row space-x-0.5 items-center">
+          <div className="px-2 flex flex-wrap space-x-0.5 items-center">
             {state?.map((v, k) => {
               return (
                 <>
