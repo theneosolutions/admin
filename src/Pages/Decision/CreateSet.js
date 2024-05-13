@@ -20,6 +20,7 @@ function CreateQuestionsSet() {
 
   const [selectedIds, setSelectedIds] = useState([]); // State to hold selected checkbox IDs
   const [name, setName] = useState("");
+  const [nameArabic, setNameArabic] = useState("");
 
   const questionsData = useSelector((state) => state.getAllQuestions);
   const allSets = useSelector((state) => state.getAllSets);
@@ -71,7 +72,7 @@ function CreateQuestionsSet() {
     }
     dispatch({
       type: "ADD_QUESTIONS_SET",
-      payload: { name, selectedIds },
+      payload: { name, selectedIds, nameArabic },
     });
     setSelectedIds([]);
     setTimeout(() => getAllSets(), 500);
@@ -88,7 +89,20 @@ function CreateQuestionsSet() {
           onButtonClick={handleAddSelectedToNewList} // Attach click handler
           Component={
             selectedIds.length > -1 ? (
-              <InputField setName={setName} name={name} />
+              <div>
+                <InputField
+                  setName={setName}
+                  name={name}
+                  placeholder="Set Name In Englsih"
+                />
+                <div className="mt-2">
+                  <InputField
+                    setName={setNameArabic}
+                    name={nameArabic}
+                    placeholder="Set Name In Arabic"
+                  />
+                </div>
+              </div>
             ) : null
           }
         >
@@ -161,7 +175,7 @@ function CreateQuestionsSet() {
                 onClick={() => navigate(`/create-screen?id=${v.id}`)}
                 className="w-full bg-gray-200 text-center mt-4 py-6 rounded-md hover:bg-gray-300 duration-300 cursor-pointer"
               >
-                {v.name}
+                {getLanguage() === "ar" ? v.nameAr : v.name}
               </div>
             );
           })}
@@ -186,7 +200,21 @@ export default withAuthorization(CreateQuestionsSet, [
   ROLES.MODERATOR,
 ]);
 
-function InputField({ name, setName }) {
+function InputField({ name, setName, placeholder }) {
+  const { t } = useTranslation();
+
+  return (
+    <div>
+      <input
+        onChange={(e) => setName(e.target.value)}
+        value={name}
+        placeholder={t(placeholder)}
+        className="border-gray-300 border rounded-md px-2 py-1   outline-none"
+      />
+    </div>
+  );
+}
+function InputField2({ name, setName }) {
   const { t } = useTranslation();
 
   return (

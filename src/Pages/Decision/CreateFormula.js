@@ -7,6 +7,7 @@ import CardMain from "../../Components/Cards/main";
 import { useState } from "react";
 import { CheckOperaterStyle } from "Components";
 import { MdDeleteOutline } from "react-icons/md";
+import { getLanguage } from "functions/getLanguage";
 
 function App({ setId, formula }) {
   const { t } = useTranslation();
@@ -17,6 +18,8 @@ function App({ setId, formula }) {
   const [finalValue, setFinalValue] = useState("");
   const [selectedIds, setSelectedIds] = useState([]); // State to hold selected checkbox IDs
   const [name, setName] = useState("");
+  const [nameArabic, setNameArabic] = useState("");
+
   const [lastSelectSource, setLastSelectSource] = useState("second"); // Track the source of the last selection ('first' or 'second')
 
   const setData = useSelector((state) => state.getSingleSetData);
@@ -31,8 +34,29 @@ function App({ setId, formula }) {
   }, [formula]);
 
   const handleQuestionInputChange = (id, selectSource) => {
-    setQuestions(id);
-    setSelectedIds([...selectedIds, id]);
+    var temp2;
+    if (selectSource === "first") {
+      var temp;
+      if (getLanguage() === "ar") {
+        temp = setData?.Numeric_Question?.find(
+          (item) => item?.headingArabic === id
+        );
+      } else {
+        temp = setData?.Numeric_Question?.find((item) => item?.heading === id);
+      }
+
+      temp2 = {
+        formulaArabic: temp?.headingArabic,
+        formulaEnglish: temp?.heading,
+      };
+    } else if (selectSource === "second") {
+      temp2 = {
+        formulaArabic: id,
+        formulaEnglish: id,
+      };
+    }
+    setQuestions(temp2);
+    setSelectedIds([...selectedIds, temp2]);
     setLastSelectSource(selectSource); // Update the source of the last selection
   };
   function HandleButtonValueChange(value) {
@@ -45,12 +69,14 @@ function App({ setId, formula }) {
     if (state === "Submit Formula") {
       setState("Add New Formula");
       const obj = {
-        formulaName: name,
+        formulaNameEnglish: name,
+        formulaNameArabic: nameArabic,
         formula: selectedIds,
         operation: operation,
         value: finalValue,
         setId: setId,
       };
+      console.log("Final ", obj);
       dispatch({
         type: "ADD_NEW_FORMULA",
         payload: obj,
@@ -91,14 +117,26 @@ function App({ setId, formula }) {
             <>
               {selectedIds.length > 0 && (
                 <CardMain
-                  heading={t(`Formula Name`) + " : " + `${formula.formulaName}`}
+                  heading={
+                    t(`Formula Name`) +
+                    " : " +
+                    `${
+                      getLanguage() === "ar"
+                        ? formula.formulaNameArabic
+                        : formula.formulaNameEnglish
+                    }`
+                  }
                   width="h-max "
                 >
                   <div className="flex flex-wrap  m-1">
                     {selectedIds?.map((v, k) => {
                       return (
                         <div key={k} className="m-1">
-                          {CheckOperaterStyle(v)}
+                          {CheckOperaterStyle(
+                            getLanguage() === "ar"
+                              ? v?.formulaArabic
+                              : v?.formulaEnglish
+                          )}
                         </div>
                       );
                     })}
@@ -133,8 +171,17 @@ function App({ setId, formula }) {
                         <>
                           {setData?.Numeric_Question?.map((v, k) => {
                             return (
-                              <option key={k} value={v.heading}>
-                                {v.question}
+                              <option
+                                key={k}
+                                value={
+                                  getLanguage() === "ar"
+                                    ? v.headingArabic
+                                    : v.heading
+                                }
+                              >
+                                {getLanguage() === "ar"
+                                  ? v?.questionArabic
+                                  : v.question}
                               </option>
                             );
                           })}
@@ -149,7 +196,7 @@ function App({ setId, formula }) {
                       onChange={(e) =>
                         handleQuestionInputChange(e.target.value, "second")
                       }
-                      value={question}
+                      value={question?.formulaEnglish}
                     >
                       <option value="none">None</option>
                       <option value="-">-</option>
@@ -161,6 +208,7 @@ function App({ setId, formula }) {
                   </div>
                 </CardMain>
               ) : null}
+              {console.log("selected ids", selectedIds)}
               {state === "Done" && selectedIds.length > 0 ? (
                 <CardMain
                   heading={t("Formula")}
@@ -168,7 +216,7 @@ function App({ setId, formula }) {
                   showButton={selectedIds.length > 1 ? true : false}
                   buttonValue={state}
                   buttonDisable={DisableButton("second")}
-                  onButtonClick={HandleButtonValueChange} // Attach click handler
+                  onButtonClick={HandleButtonValueChange}
                   buttonStyle={`${
                     DisableButton("second") ? "bg-gray-300" : "bg-primary "
                   }`}
@@ -180,11 +228,19 @@ function App({ setId, formula }) {
                         <div key={k} className="m-1 flex flex-col items-end">
                           {ids === k ? (
                             <CheckStyle
-                              operation={v}
-                              onClick={() => deleteLast(k, v)}
+                              operation={
+                                getLanguage() === "ar"
+                                  ? v?.formulaArabic
+                                  : v?.formulaEnglish
+                              }
+                              // onClick={() => deleteLast(k, v)}
                             />
                           ) : (
-                            CheckOperaterStyle(v)
+                            CheckOperaterStyle(
+                              getLanguage() === "ar"
+                                ? v?.formulaArabic
+                                : v?.formulaEnglish
+                            )
                           )}
                         </div>
                       );
@@ -199,13 +255,26 @@ function App({ setId, formula }) {
                   showButton={selectedIds.length > -1 ? true : false}
                   buttonValue={state}
                   buttonDisable={DisableReviewButton()}
-                  onButtonClick={HandleButtonValueChange} // Attach click handler
+                  onButtonClick={HandleButtonValueChange}
                   buttonStyle={`${
                     DisableReviewButton() ? "bg-gray-300" : "bg-primary"
                   }`}
                   Component={
                     selectedIds.length > 0 ? (
-                      <InputField setName={setName} name={name} />
+                      <div>
+                        <InputField
+                          setName={setName}
+                          name={name}
+                          placeholder="English Formula Name"
+                        />
+                        <div className="mt-3">
+                          <InputField
+                            setName={setNameArabic}
+                            name={nameArabic}
+                            placeholder="Arabic Formula Name"
+                          />
+                        </div>
+                      </div>
                     ) : null
                   }
                 >
@@ -213,7 +282,11 @@ function App({ setId, formula }) {
                     {selectedIds.map((v, k) => {
                       return (
                         <div key={k} className="m-1">
-                          {CheckOperaterStyle(v)}
+                          {CheckOperaterStyle(
+                            getLanguage() === "ar"
+                              ? v?.formulaArabic
+                              : v?.formulaEnglish
+                          )}
                         </div>
                       );
                     })}
@@ -247,13 +320,17 @@ function App({ setId, formula }) {
                   width="h-max "
                   showButton={selectedIds.length > -1 ? true : false}
                   buttonValue={state}
-                  onButtonClick={HandleButtonValueChange} // Attach click handler
+                  onButtonClick={HandleButtonValueChange}
                 >
                   <div className="flex flex-wrap  mt-6 m-1">
                     {selectedIds?.map((v, k) => {
                       return (
                         <div key={k} className="m-1">
-                          {CheckOperaterStyle(v)}
+                          {CheckOperaterStyle(
+                            getLanguage() === "ar"
+                              ? v?.formulaArabic
+                              : v?.formulaEnglish
+                          )}
                         </div>
                       );
                     })}
@@ -267,7 +344,6 @@ function App({ setId, formula }) {
               ) : null}
               {state === "Add New Formula" ? (
                 <>
-                  {" "}
                   {selectedIds.length > 0 && (
                     <CardMain
                       heading={t(`Formula Name`) + " : " + `${name}`}
@@ -277,7 +353,11 @@ function App({ setId, formula }) {
                         {selectedIds?.map((v, k) => {
                           return (
                             <div key={k} className="m-1">
-                              {CheckOperaterStyle(v)}
+                              {CheckOperaterStyle(
+                                getLanguage() === "ar"
+                                  ? v?.formulaArabic
+                                  : v?.formulaEnglish
+                              )}
                             </div>
                           );
                         })}
@@ -316,6 +396,7 @@ function App({ setId, formula }) {
 export default App;
 
 function CheckStyle({ operation, onClick }) {
+  console.log("helooooooo");
   let style;
   if (
     operation === "-" ||
@@ -338,13 +419,13 @@ function CheckStyle({ operation, onClick }) {
   );
 }
 
-function InputField({ name, setName }) {
+function InputField({ name, setName, placeholder }) {
   return (
     <div>
       <input
         onChange={(e) => setName(e.target.value)}
         value={name}
-        placeholder="Set Formula Name"
+        placeholder={placeholder}
         className="border-primary border rounded-md px-2 py-1   outline-none"
       />
     </div>

@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import CardMain from "../../Components/Cards/main";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { getLanguage } from "functions/getLanguage";
+
 function CreateQuestionsSet() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -56,7 +58,11 @@ function CreateQuestionsSet() {
                         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                       >
                         <td className="px-3 py-4 cursor-pointer text-primary">
-                          {v?.data?.question}
+                          {getLanguage() === "ar" ? (
+                            <>{v?.data?.questionArabic}</>
+                          ) : (
+                            <>{v?.data?.question}</>
+                          )}
                         </td>
                       </tr>
                     ))}

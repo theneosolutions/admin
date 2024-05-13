@@ -20,6 +20,7 @@ function CreateQuestionsSet() {
   const [selectedData, setSelectedData] = useState([]); // State to hold selected checkbox IDs
 
   const [name, setName] = useState("");
+  const [arabicName, setArabicName] = useState("");
 
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
@@ -53,11 +54,12 @@ function CreateQuestionsSet() {
     } else {
     }
     CheckQuestionStatusInScreen(id).then((response) => {
-      if (response === "No Record found") {
+      if (response?.message === "No Record found") {
+        console.log("response", response);
+
         if (selectedIds.includes(id)) {
         } else {
           setSelectedIds([...selectedIds, id]);
-
           if (object?.eligibilityQuestions) {
             setSelectedData([...selectedData, object?.eligibilityQuestions]);
           } else {
@@ -65,7 +67,7 @@ function CreateQuestionsSet() {
           }
         }
       } else {
-        alert("Question Already Exist In ", response.screenHeading[0]);
+        // alert("Question Already Exist In ", response.screenHeading[0]);
       }
     });
   };
@@ -99,7 +101,7 @@ function CreateQuestionsSet() {
     }
     dispatch({
       type: "CREATE_SCREEN",
-      payload: { selectedIds, name, id },
+      payload: { selectedIds, name, id, arabicName },
     });
     setSelectedData([]);
     setSelectedIds([]);
@@ -118,6 +120,27 @@ function CreateQuestionsSet() {
     });
     setTimeout(() => navigate("/decisions/create-set", 500));
   }
+
+  const Inputs = () => {
+    return (
+      <div>
+        <input
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+          placeholder={t("English Screen Name")}
+          className="border-gray-300 border rounded-md px-2 py-1   outline-none"
+        />
+        <div className="mt-2">
+          <input
+            onChange={(e) => setArabicName(e.target.value)}
+            value={arabicName}
+            placeholder={t("Arabic Screen Name")}
+            className="border-gray-300 border rounded-md px-2 py-1   outline-none"
+          />
+        </div>
+      </div>
+    );
+  };
   return (
     <div className="">
       <div className="flex flex-row w-full justify-end space-x-3">
@@ -165,7 +188,9 @@ function CreateQuestionsSet() {
                         {getLanguage() === "ar" ? (
                           <>
                             {v.headingArabic ||
-                              v.eligibilityQuestions?.headingArabic}
+                              v.headingAr ||
+                              v.eligibilityQuestions?.questionArabic ||
+                              v.eligibilityQuestions?.questionAr}
                           </>
                         ) : (
                           <> {v.heading || v.eligibilityQuestions?.heading}</>
@@ -175,7 +200,9 @@ function CreateQuestionsSet() {
                         {getLanguage() === "ar" ? (
                           <>
                             {v.questionArabic ||
-                              v.eligibilityQuestions?.questionArabic}
+                              v.questionAr ||
+                              v.eligibilityQuestions?.questionArabic ||
+                              v.eligibilityQuestions?.questionAr}
                           </>
                         ) : (
                           <> {v.question || v.eligibilityQuestions?.question}</>
@@ -205,7 +232,24 @@ function CreateQuestionsSet() {
           <CardMain
             heading={t("Create Screen")}
             width="md:w-2/5 md:mt-0 mt-5	h-max"
-            Component={<InputField setName={(e) => setName(e)} name={name} />}
+            Component={
+              <div>
+                <input
+                  onChange={(e) => setName(e.target.value)}
+                  value={name}
+                  placeholder={t("English Screen Name")}
+                  className="border-gray-300 border rounded-md px-2 py-1   outline-none"
+                />
+                <div className="mt-2">
+                  <input
+                    onChange={(e) => setArabicName(e.target.value)}
+                    value={arabicName}
+                    placeholder={t("Arabic Screen Name")}
+                    className="border-gray-300 border rounded-md px-2 py-1   outline-none"
+                  />
+                </div>
+              </div>
+            }
           >
             <table className="mt-4 w-full text-sm text-left text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
@@ -285,7 +329,7 @@ function CreateQuestionsSet() {
 
 export default CreateQuestionsSet;
 
-function InputField({ name, setName }) {
+function InputField({ name, setName, placeholder }) {
   const { t } = useTranslation();
 
   return (
@@ -293,7 +337,7 @@ function InputField({ name, setName }) {
       <input
         onChange={(e) => setName(e.target.value)}
         value={name}
-        placeholder={t("Screen name")}
+        placeholder={t(placeholder)}
         className="border-gray-300 border rounded-md px-2 py-1   outline-none"
       />
     </div>

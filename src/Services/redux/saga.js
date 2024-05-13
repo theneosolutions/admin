@@ -4,7 +4,7 @@ import { axiosInstance } from "../constant";
 import { getLanguage } from "functions/getLanguage";
 var baseUrlSMS = "https://seulah.com/api/v1/sms";
 var baseUrlUser = "https://seulah.com/api/v1/auth";
-var baseUrlDecisions = "https://686d-221-132-118-98.ngrok-free.app/api/v1/dms";
+var baseUrlDecisions = "https://3c40-39-58-96-54.ngrok-free.app/api/v1/dms";
 var baseUrlLos = "https://seulah.com/api/v1/los";
 var baseUrlCms = "https://seulah.com/api/v1/cms";
 const rolesUrl = "https://3c8c-39-45-235-223.ngrok-free.app";
@@ -122,7 +122,8 @@ function* AddQuestionsSet({ payload }) {
   try {
     const response = yield call(
       axiosInstance.post,
-      baseUrlDecisions + `/questionSet/saveSet?setName=${payload.name}`,
+      baseUrlDecisions +
+        `/questionSet/saveSet?setName=${payload.name}&setNameArabic=${payload?.nameArabic}`,
       payload.selectedIds
     );
 
@@ -154,7 +155,9 @@ function* GetQuestionOfSet(payload) {
     const response = yield call(
       axiosInstance.get,
       baseUrlDecisions +
-        `/questionSet/getQuestionByIdAndSetId?questionId=${payload.payload.id}&setId=${payload.payload.setid}`
+        `/questionSet/getQuestionByIdAndSetId?questionId=${
+          payload.payload.id
+        }&setId=${payload.payload.setid}&languageCode=${getLanguage()}`
     );
     yield put(action.GetQuestionOfSet(response.data));
     yield put(action.Loading({ Loading: false }));
@@ -346,6 +349,7 @@ function* SetDecisionResponse({ payload }) {
     formData.append("errorMessage", payload.errorMessage);
     formData.append("errorDescription", payload.errorDescription);
     formData.append("setId", payload.setId);
+    formData.append("languageCode", getLanguage());
     const response1 = yield call(
       axiosInstance.post,
       baseUrlDecisions + "/apiResponse/create",
@@ -378,6 +382,7 @@ function* CreateScreen({ payload }) {
     screenHeading: payload.name,
     questionIds: payload.selectedIds,
     setId: payload.id,
+    screenHeadingArabic: payload.arabicName,
   };
 
   try {
@@ -480,7 +485,9 @@ function* GetResponseOfSet(payload) {
     const response = yield call(
       axiosInstance.get,
       baseUrlDecisions +
-        `/apiResponse/getResponseBySetId?setId=${payload.payload.id}`
+        `/apiResponse/getResponseBySetIdAndLanguageCode?languageCode=${getLanguage()}&setId=${
+          payload.payload.id
+        }`
     );
     yield put(action.GetSetResponse(response));
     yield put(action.Loading({ Loading: false }));
@@ -499,7 +506,10 @@ function* GetScreenSet(payload) {
 
     const response = yield call(
       axiosInstance.get,
-      baseUrlDecisions + `/screen/getScreenBySetId?setId=${payload.payload}`
+      baseUrlDecisions +
+        `/screen/getScreenBySetId?setId=${
+          payload.payload
+        }&languageCode=${getLanguage()}`
     );
     yield put(action.GetScreenSets(response));
     yield put(action.Loading({ Loading: false }));
