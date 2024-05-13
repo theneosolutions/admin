@@ -76,14 +76,14 @@
 import SimahUserDownload from "../simahUser";
 import { useDispatch, useSelector } from "react-redux";
 
-import React from "react";
+import React, { useState } from "react";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import * as action from "../../../Services/redux/reducer";
 
 function DownloadPDF() {
   const dispatch = useDispatch();
-
+  const [active, setActive] = useState("All");
   async function downloadPDFDocument() {
     dispatch(action.Loading({ Loading: true }));
 
@@ -130,7 +130,48 @@ function DownloadPDF() {
           Download as PDF
         </button>
       </div>
-
+      <div className="flex flex-row space-x-3 mb-4 ">
+        <div
+          onClick={() => setActive("All")}
+          className={` w-max  px-3 py-1 cursor-pointer hover:opacity-80 rounded-md ${
+            active === "All"
+              ? "bg-blue-500 text-white "
+              : " border-gray-300 border text-gray-600"
+          }`}
+        >
+          All Products
+        </div>
+        <div
+          onClick={() => setActive("Active Products")}
+          className={` w-max  px-3 py-1 cursor-pointer hover:opacity-80 rounded-md ${
+            active === "Active Products"
+              ? "bg-blue-500 text-white "
+              : " border-gray-300 border text-gray-600"
+          }`}
+        >
+          Active Products
+        </div>
+        <div
+          onClick={() => setActive("Closed Products")}
+          className={` w-max  px-3 py-1 cursor-pointer hover:opacity-80 rounded-md ${
+            active === "Closed Products"
+              ? "bg-blue-500 text-white "
+              : " border-gray-300 border text-gray-600"
+          }`}
+        >
+          Closed Products
+        </div>
+        <div
+          onClick={() => setActive("Default Products")}
+          className={` w-max  px-3 py-1 cursor-pointer hover:opacity-80 rounded-md ${
+            active === "Default Products"
+              ? "bg-blue-500 text-white "
+              : " border-gray-300 border text-gray-600"
+          }`}
+        >
+          Default Products
+        </div>
+      </div>
       <div
         id="content-to-download"
         style={{
@@ -141,7 +182,7 @@ function DownloadPDF() {
         }}
         className="px-10 mt-4"
       >
-        <SimahUserDownload />
+        <SimahUserDownload active={active} />
       </div>
     </div>
   );

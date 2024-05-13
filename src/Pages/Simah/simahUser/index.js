@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import DataProvider from "./DataProvider";
 import CreditReportSummary from "./creditReportSummary";
@@ -18,12 +18,12 @@ import Disclaimer from "./disclaimer";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
-function UserSimah() {
+function UserSimah({ active }) {
   const dispatch = useDispatch();
   const location = useLocation();
+  const [state, setState] = useState();
   const queryParams = new URLSearchParams(location.search);
   const userId = queryParams.get("id");
-  console.log("userId", userId);
   const data = useSelector(
     (state) => (state.getSimahReport && state.getSimahReport[0]) || []
   );
@@ -35,13 +35,48 @@ function UserSimah() {
       payload: userId,
     });
   }, []);
+
+  const temp2 = data?.creditInstrumentDetails?.filter(
+    (item) => item?.ciStatus?.creditInstrumentStatusDescEn === "Active"
+  );
+  // console.log("helo to from temp 2 ", temp2);
+  // console.log("data", data?.creditInstrumentDetails);
+
+  useEffect(() => {
+    // console.log("active", active);
+    if (data?.creditInstrumentDetails) {
+    }
+    if (data?.creditInstrumentDetails && active === "All") {
+      const temp = data?.creditInstrumentDetails?.filter(
+        (item) => item?.ciStatus?.creditInstrumentStatusDescEn
+      );
+      setState(temp);
+      console.log("All", temp);
+    } else if (data?.creditInstrumentDetails && active === "Default Products") {
+      const temp = data?.creditInstrumentDetails?.filter(
+        (item) => item?.ciStatus?.creditInstrumentStatusDescEn === "Default"
+      );
+      setState(temp);
+      console.log("Default", temp);
+    } else if (data?.creditInstrumentDetails && active === "Closed Products") {
+      const temp = data?.creditInstrumentDetails?.filter(
+        (item) => item?.ciStatus?.creditInstrumentStatusDescEn === "Closed"
+      );
+      setState(temp);
+      console.log("Closed", temp);
+    } else if (data?.creditInstrumentDetails && active === "Active Products") {
+      const temp = data?.creditInstrumentDetails?.filter(
+        (item) => item?.ciStatus?.creditInstrumentStatusDescEn === "Active"
+      );
+      setState(temp);
+      console.log("Active", temp);
+    }
+  }, [active]);
   return (
     <>
       {data.length < 1 ? (
-        <div className="mt-10 pt-10">
-          <div className=" px-10 py-20 bg-white  border  w-full mt-4 md:mt-0 text-center text-lg font-semibold opacity-80">
-            Credit Bureau Report not available !
-          </div>
+        <div className=" px-10 py-20 bg-white  border  w-full mt-4 md:mt-0 text-center text-lg font-semibold opacity-80">
+          Credit Bureau Report not available !
         </div>
       ) : (
         <div className="  py-10   w-full mt-4 md:mt-0">
@@ -67,7 +102,7 @@ function UserSimah() {
           )}
           {data?.creditInstrumentDetails && (
             <>
-              {data?.creditInstrumentDetails?.map((v, k) => {
+              {state?.map((v, k) => {
                 return <ProductDetail w1={w1} w2={w2} data={v} />;
               })}
             </>
