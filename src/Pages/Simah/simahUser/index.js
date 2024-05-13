@@ -38,8 +38,10 @@ function UserSimah() {
   return (
     <>
       {data.length < 1 ? (
-        <div className=" px-10 py-20 bg-white  border  w-full mt-4 md:mt-0 text-center text-lg font-semibold opacity-80">
-          Credit Bureau Report not available !
+        <div className="mt-10 pt-10">
+          <div className=" px-10 py-20 bg-white  border  w-full mt-4 md:mt-0 text-center text-lg font-semibold opacity-80">
+            Credit Bureau Report not available !
+          </div>
         </div>
       ) : (
         <div className="  py-10   w-full mt-4 md:mt-0">
