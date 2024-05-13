@@ -44,15 +44,15 @@ function CreateAddSMS({ setModelOpen, selectedData }) {
           },
         });
       } else {
-        // dispatch({
-        //   type: "CREATE_SMS",
-        //   payload: {
-        //     type: type,
-        //     heading: subject,
-        //     desc: description,
-        //     languageCode: language,
-        //   },
-        // });
+        dispatch({
+          type: "CREATE_SMS",
+          payload: {
+            type: type,
+            heading: subject,
+            desc: description,
+            languageCode: language,
+          },
+        });
       }
 
       setTimeout(() => setModelOpen(false), 500);
