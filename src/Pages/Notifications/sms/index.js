@@ -58,7 +58,7 @@ function NotificationsScreen() {
         width="w-full "
         heading={t("Sms And Otp")}
         showButton={true}
-        buttonValue={t("Add New Notification")}
+        buttonValue={t("Add New Sms / Otp")}
         onButtonClick={() => (setModelOpen(true), setSelectedData(null))}
       >
         <div className="overflow-x-auto relative  mt-4">
