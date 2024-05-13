@@ -22,6 +22,8 @@ import AddNewProduct from "Pages/LOS/installments/addNewProduct";
 import AddSms from "Pages/Notifications/sms/addSms";
 import MainTemplate from "Layouts/MainTemplate";
 import NotFound from "Pages/NotFound";
+import UserSimah from "Pages/Simah/simahDownlaod";
+
 function App() {
   return (
     <MainTemplate>
@@ -38,6 +40,7 @@ function App() {
             <Route path="/los/create-loan-tax" element={<CreateLaonTax />} />
             <Route path="/view-screen" element={<ViewScreen />} />
             <Route path="/404" element={<NotFound />} />
+            <Route path="/simah/usercodes" element={<UserSimah />} />
 
             <Route
               path="/user-applications"
