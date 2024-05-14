@@ -622,7 +622,7 @@ function* CreateNotification({ payload }) {
     formData.append("navigation", payload.navigation);
     const response = yield call(
       axiosInstance.post,
-      baseUrlCms + `/notification`,
+      baseUrlSMS + `/notifications/sendNotificationToAllUsers`,
       formData,
       {
         headers: {
@@ -1576,6 +1576,34 @@ function* GetAllSms({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* GetAllDevicesToken({ payload }) {
+  console.log("GetAllDevicesToken 22");
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.get,
+      baseUrlUser + `/temp_user/getDevices`
+    );
+    console.log("response", response1?.data);
+    yield put(action.GetDevicesTokens(response1));
+
+    yield put(action.Loading({ Loading: false }));
+    // yield put(
+    //   action.Message({
+    //     message: response1.data.message,
+    //     open: true,
+    //     error: false,
+    //   })
+    // );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
 function* DeleteSMS({ payload }) {
   console.log("Delete SMS", payload);
   try {
@@ -1672,4 +1700,5 @@ export default function* HomeSaga() {
   yield takeLatest("UPDATE_PRODUCT_STATUS", UpdateSimahProduct);
   yield takeLatest("GET_ALL_SMS", GetAllSms);
   yield takeLatest("DELETE_SMS", DeleteSMS);
+  yield takeLatest("GET_ALL_DEVICES_TOKENS", GetAllDevicesToken);
 }

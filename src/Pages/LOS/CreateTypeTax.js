@@ -32,17 +32,17 @@ function App() {
         (reason) => reason.loanTypeDetail.id == id
       );
 
-      const parsedTenureTex = JSON.parse(
-        temp[0]?.loanTypeDetail?.tenureTex || "{}"
-      );
+      const parsedTenureTex = temp[0]?.loanTypeDetail?.tenureTex || "{}";
+
       const arrayOfObjects = Object.entries(parsedTenureTex).map(
         ([key, value]) => ({ [key]: null })
       );
+      console.log("arrayOfObjects", arrayOfObjects);
 
       setProcessingFee(arrayOfObjects);
       setVatFee(arrayOfObjects);
     }
-  }, [loanReasons]);
+  }, []);
   const handleChange = (index, field, updatedValue) => {
     const updatedProcessingFee = [...processingFee];
     const [key, value] = Object.entries(updatedProcessingFee[index])[0];

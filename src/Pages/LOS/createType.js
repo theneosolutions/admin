@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { CiCircleRemove } from "react-icons/ci";
 import withAuthorization from "../../constants/authorization";
 import { ROLES } from "../../constants/roles";
+import TermsAndRates from "Pages/Calculations/termsAndRates";
 function App() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ function App() {
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
 
-  const [formData, setFormData] = useState([{ key: null, value: null }]);
+  const [formData, setFormData] = useState([{ key: null, value: 0 }]);
   const [image, setImage] = useState(null);
   const [image2, setImage2] = useState(null);
   const [reason, setReason] = useState("");
@@ -45,7 +46,7 @@ function App() {
   };
 
   const handleAddMore = () => {
-    setFormData((prevData) => [...prevData, { key: null, value: null }]);
+    setFormData((prevData) => [...prevData, { key: null, value: 0 }]);
   };
 
   const transformList = (originalList) => {
@@ -55,12 +56,7 @@ function App() {
   };
 
   const handleSubmit = () => {
-    if (
-      !image ||
-      !reason
-      //  ||
-      // formData.some((item) => !item.key || !item.value)
-    ) {
+    if (!image || !reason || formData.some((item) => !item.key)) {
       alert("Please fill in all required fields.");
       return;
     }
@@ -79,10 +75,10 @@ function App() {
       const newKey = key + " Months";
       transformedObject[newKey] = mergedObject[key];
     }
-
+    console.log("transformedObject", transformedObject);
     dispatch({
       type: "CREATE_LOAN_TYPE",
-      payload: { reason, image, language },
+      payload: { reason, image, language, transformedObject },
     });
     setTimeout(() => {
       getAllReasons();
@@ -125,7 +121,7 @@ function App() {
     }
   }, [message]);
   function reset() {
-    setFormData([{ key: null, value: null }]);
+    setFormData([{ key: null, value: 0 }]);
     setReason("");
     setImage(null);
     setImage2(null);
@@ -192,7 +188,7 @@ function App() {
                 onChange={handleSelectImage}
                 style={{ display: "none" }}
               />
-              {/* <div className=" py-3   bg-secondry rounded-md 	 border-slate-200 ">
+              <div className=" py-3   bg-secondry rounded-md 	 border-slate-200 ">
                 <a className="text-sm text-gray-700 font-semibold">
                   {t("Tensures")}{" "}
                 </a>
@@ -204,7 +200,7 @@ function App() {
                       className="mb-4 flex  flex-row justify-between items-end "
                     >
                       <div className="flex flex-row w-11/12	space-x-2 rtl:space-x-reverse">
-                        <div className="flex flex-col w-1/2	 ">
+                        <div className="flex flex-col w-full	 ">
                           <a className="text-sm text-gray-700">{t("Months")}</a>
 
                           <input
@@ -217,8 +213,7 @@ function App() {
                             placeholder="Key"
                           />
                         </div>
-
-                        <div className="flex flex-col w-1/2	 ">
+                        {/* <div className="flex flex-col w-1/2	 ">
                           <a className="text-sm text-gray-700"> {t("Ratio")}</a>
 
                           <input
@@ -230,7 +225,7 @@ function App() {
                             className="border-primary border rounded-md  px-3 py-1.5 outline-none mt-2 w-full"
                             placeholder="Value"
                           />
-                        </div>
+                        </div> */}
                       </div>
                       <CiCircleRemove
                         className="mb-1 text-3xl text-red-700 cursor-pointer hover:text-red-400 duration-300"
@@ -246,11 +241,11 @@ function App() {
                       onClick={handleAddMore}
                       className={`w-max rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}
                     >
-                      {t("Add More Tenures")}
+                      {t("Add More Months")}
                     </button>
                   </div>
                 </div>
-              </div> */}
+              </div>
               <div className="flex flex-col">
                 <button
                   onClick={handleSubmit}
@@ -268,9 +263,9 @@ function App() {
               <div className="px-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
                 <div
                   key={k}
-                  onClick={() =>
-                    navigate(`/los/create-loan-tax?id=${v?.loanTypeDetail?.id}`)
-                  }
+                  // onClick={() =>
+                  //   navigate(`/los/create-loan-tax?id=${v?.loanTypeDetail?.id}`)
+                  // }
                   className=" flex flex-row justify-center space-x-2 rtl:space-x-reverse items-center border-dashed border border-gray-300  text-center mt-4 py-6 rounded-md hover:bg-gray-300 duration-300 cursor-pointer"
                 >
                   <img
@@ -283,6 +278,7 @@ function App() {
             ))}
           </div>
         </CardMain>
+        <TermsAndRates />
       </div>
 
       <Snackbar

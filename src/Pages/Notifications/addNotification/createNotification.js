@@ -19,7 +19,8 @@ function CreateUser() {
     (state) => state.getScreenName?.appFlow?.screenFlow || []
   );
   const user = useSelector((state) => state.getUserById);
-
+  const tokens = useSelector((state) => state.getDevicesTokens);
+  const [checked, setChecked] = useState(false);
   const users = useSelector((state) => state.getAllUsersAll || []);
 
   const [description, setDescription] = useState(null);
@@ -29,7 +30,7 @@ function CreateUser() {
   const [navigation, setNavigation] = useState("none");
 
   const [topic, setTopic] = useState("");
-  const [usersData, setUsersData] = useState([]);
+  const [allTokens, setAllTokens] = useState("");
 
   const [image, setImage] = useState(null);
   const [imageBlob, setImageBlob] = useState(null);
@@ -54,20 +55,23 @@ function CreateUser() {
       description != "" &&
       image != null &&
       navigation != "" &&
-      navigation !== "none" &&
-      mainUserId !== "" &&
-      mainUserId !== "none"
+      navigation !== "none"
     ) {
-      dispatch({
-        type: "CREATE_NOTIFICATION",
-        payload: {
+      if (checked === false && mainUserId === "") {
+        alert("All Fields Required!");
+      } else {
+        const tempp = {
           subject: subject,
           content: description,
           image: image,
           navigation: navigation,
-          topic: topic,
-        },
-      });
+          topic: checked ? allTokens : [mainUserId],
+        };
+        dispatch({
+          type: "CREATE_NOTIFICATION",
+          payload: tempp,
+        });
+      }
     } else {
       alert("All Fields Required!");
     }
@@ -105,15 +109,15 @@ function CreateUser() {
     dispatch({
       type: "GET_ALL_USERS_ALL",
     });
+    dispatch({
+      type: "GET_ALL_DEVICES_TOKENS",
+    });
   }
-  useEffect(() => {
-    if (users) {
-      const data = users.filter(
-        (person) => person?.roles[0]?.name === "ROLE_USER"
-      );
-      setUsersData(data);
-    }
-  }, [users]);
+
+  function getAllTokens() {
+    const tokensValue = tokens?.map((item) => item?.deviceToken);
+    setAllTokens(tokensValue);
+  }
   return (
     <div className="items-center flex flex-col ">
       <div className="md:mt-0 mt-5 bg-gray-200 xl:w-2/5 lg:w-1/2 md:w-full">
@@ -142,10 +146,30 @@ function CreateUser() {
                 options={t(navigation)}
                 onChange={(e) => setNavigation(e)}
               />
-              <Users
-                usersData={usersData}
-                setMainUserId={(e) => setMainUserId(e)}
-              />
+              <div className="flex flex-row justify-between items-center">
+                <div className="w-1/2">
+                  <Users
+                    value={mainUserId}
+                    checked={checked}
+                    usersData={tokens}
+                    setMainUserId={(e) => (
+                      setMainUserId(e), console.log("id", e)
+                    )}
+                    mainUserId={mainUserId}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <a className="text-sm text-gray-700 ">All Users</a>
+                  <input
+                    type="checkbox"
+                    className="h-5 w-5 mt-3"
+                    value={checked}
+                    onChange={() => (
+                      setMainUserId(""), setChecked(!checked), getAllTokens()
+                    )}
+                  />
+                </div>
+              </div>
 
               <Description
                 heading={t("Content")}
@@ -186,97 +210,46 @@ function CreateUser() {
   );
 }
 export default CreateUser;
-function Users({ usersData, setMainUserId }) {
+function Users({ usersData, setMainUserId, mainUserId, checked, value }) {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
-  const [userId, setUserId] = useState("none");
-
-  useEffect(() => {
-    if (userId !== "none") {
-      dispatch({
-        type: "GET_USER_BY_ID",
-        payload: userId,
-      });
-    }
-  }, [userId]);
   return (
     <div>
       <Select2
+        value={value}
+        checked={checked}
         data={usersData}
         heading={t("Choose User")}
         type="select"
-        options={t(userId)}
-        onChange={(e) => (setUserId(e), setMainUserId(e))}
+        options={t(mainUserId)}
+        onChange={(e) => setMainUserId(e)}
       />
     </div>
   );
 }
-const data = [
-  {
-    label: "All Users",
-  },
-  {
-    label: "Multiple Users",
-  },
-  {
-    label: "Single User",
-  },
-];
-
-function Filter() {
-  const [state, setState] = useState("All Users");
-
-  function setName(stateValue) {
-    setState(stateValue);
-  }
-  return (
-    <div className="flex flex-row  space-x-4">
-      {data?.map((v, k) => {
-        return (
-          <button
-            key={k}
-            onClick={() => setName(v.label)}
-            className={`mt-2 lg:mx-0 mx-1 hover:shadow-lg shadow-md duration-300 rounded px-3 py-2 border-primary  border text-sm ${
-              state === v.label
-                ? "bg-primary text-white"
-                : "bg-white text-gray-800"
-            }`}
-          >
-            {v.label}
-          </button>
-        );
-      })}
-    </div>
-  );
-}
-function Select2({ heading, value, onChange, data }) {
+function Select2({ heading, value, onChange, data, checked }) {
   const { t } = useTranslation();
 
   return (
     <div className="flex flex-col w-full">
       <a className="text-sm text-gray-700">{heading}</a>{" "}
       <select
+        disabled={checked}
         onChange={(e) => onChange(e.target.value)}
         value={value}
         className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
       >
         <option value={"none"}>{t("none")}</option>
-        {data.map((option, index) => (
-          <option key={index} value={option.id}>
-            {t(
-              option.idNumber +
-                " , " +
-                option?.firstName +
-                " " +
-                option?.lastName
-            )}
+        {data?.map((option, index) => (
+          <option key={index} value={option.deviceToken}>
+            {t("user Id : " + option.userId)}
           </option>
         ))}
       </select>
     </div>
   );
 }
+
 function Select({ heading, value, onChange, data }) {
   const { t } = useTranslation();
 
