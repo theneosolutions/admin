@@ -271,14 +271,14 @@ const appRoutes = [
           displayText: "Create Decision",
         },
       },
-      {
-        path: "/decisions/all-decisions",
-        element: <AllDecisions />,
-        state: "decisions.all-decisions",
-        sidebarProps: {
-          displayText: "All Decisions",
-        },
-      },
+      // {
+      //   path: "/decisions/all-decisions",
+      //   element: <AllDecisions />,
+      //   state: "decisions.all-decisions",
+      //   sidebarProps: {
+      //     displayText: "All Decisions",
+      //   },
+      // },
     ],
   },
   {

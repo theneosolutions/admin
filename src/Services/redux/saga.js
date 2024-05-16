@@ -4,7 +4,7 @@ import { axiosInstance } from "../constant";
 import { getLanguage } from "functions/getLanguage";
 var baseUrlSMS = "https://seulah.com/api/v1/sms";
 var baseUrlUser = "https://seulah.com/api/v1/auth";
-var baseUrlDecisions = "https://3c40-39-58-96-54.ngrok-free.app/api/v1/dms";
+var baseUrlDecisions = "https://ea73-182-180-181-211.ngrok-free.app/api/v1/dms";
 var baseUrlLos = "https://seulah.com/api/v1/los";
 var baseUrlCms = "https://seulah.com/api/v1/cms";
 const rolesUrl = "https://3c8c-39-45-235-223.ngrok-free.app";
