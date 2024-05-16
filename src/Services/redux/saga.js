@@ -1604,6 +1604,33 @@ function* GetAllDevicesToken({ payload }) {
   }
 }
 
+function* GetAmlDetails({ payload }) {
+  console.log("Aml Payload", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.get,
+      baseUrlCms + `/screening/getAmlRecordByIdNumber?idNumber=${payload}`
+    );
+    console.log("response", response1?.data);
+    yield put(action.GetAmlRecord(response1?.data));
+
+    yield put(action.Loading({ Loading: false }));
+    // yield put(
+    //   action.Message({
+    //     message: response1.data.message,
+    //     open: true,
+    //     error: false,
+    //   })
+    // );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
 function* DeleteSMS({ payload }) {
   console.log("Delete SMS", payload);
   try {
@@ -1701,4 +1728,5 @@ export default function* HomeSaga() {
   yield takeLatest("GET_ALL_SMS", GetAllSms);
   yield takeLatest("DELETE_SMS", DeleteSMS);
   yield takeLatest("GET_ALL_DEVICES_TOKENS", GetAllDevicesToken);
+  yield takeLatest("GET_AML_DETAILS", GetAmlDetails);
 }

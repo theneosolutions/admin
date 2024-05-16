@@ -52,6 +52,7 @@ const initialState = {
   getSimahReport: [],
   getSmsOtp: [],
   getDevicesTokens: [],
+  getAmlRecord: {},
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -235,6 +236,10 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getDevicesTokens = data;
     },
+    GetAmlRecord: (state, action) => {
+      const { data } = action.payload;
+      state.getAmlRecord = data;
+    },
   },
 });
 export const {
@@ -283,6 +288,7 @@ export const {
   GetSimahReport,
   GetSmsOtp,
   GetDevicesTokens,
+  GetAmlRecord,
 } = Reducer.actions;
 
 export default Reducer.reducer;

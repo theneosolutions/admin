@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import NafithSanad from "./companyTabs/NafithSanad";
+import Aml from "./companyTabs/amlDetails";
 
 function Template() {
   const dispatch = useDispatch();
@@ -93,5 +94,9 @@ const data = [
   {
     label: "Absher Detail",
     tab: <Absher />,
+  },
+  {
+    label: "Aml Details",
+    tab: <Aml />,
   },
 ];
