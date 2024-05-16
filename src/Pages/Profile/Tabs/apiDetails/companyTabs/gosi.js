@@ -8,27 +8,18 @@ import { TbMathEqualLower } from "react-icons/tb";
 import { FiDollarSign } from "react-icons/fi";
 import { MdCalendarMonth } from "react-icons/md";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
 
 function Absher() {
   const { t } = useTranslation();
-  const location = useLocation();
 
-  const queryParams = new URLSearchParams(location.search);
-
-  const id = queryParams.get("id");
   const [state, setState] = useState({});
-  const [state2, setState2] = useState({});
 
   const gosi = useSelector((state) => state?.getGosiData || {});
-  const userData = useSelector((state) => state.getUserById);
 
   const employmentStatusInfo = gosi?.employmentStatusInfo || [];
-  console.log("userData-====================", userData?.user?.idNumber, id);
   useEffect(() => {
     if (employmentStatusInfo.length > 0) {
       setState(employmentStatusInfo[0]);
-      setState2(employmentStatusInfo[1]);
     }
   }, [employmentStatusInfo]);
 
