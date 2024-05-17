@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import CardMain from "Components/Cards/main";
-import Edit from "Assets/Images/edit.svg";
-import Delete from "Assets/Images/delete.svg";
-import { Model, Avatar } from "Components";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
 import { useEffect } from "react";
 import withAuthorization from "constants/authorization";
 import { ROLES } from "constants/roles";
-import { LuSearch } from "react-icons/lu";
 import { useLocation, useNavigate } from "react-router-dom";
 function AllUsers() {
   const dispatch = useDispatch();
@@ -21,7 +17,6 @@ function AllUsers() {
   const queryParams = new URLSearchParams(location.search);
   const userId = queryParams.get("user");
 
-  const [newUsersData, setNewUsersData] = useState([]);
   const loanReasons = useSelector((state) => state.getAllLoanReasons);
   const getSingleLoanTypeEmi = useSelector(
     (state) => state.getSingleLoanTypeEmi
@@ -60,8 +55,6 @@ function AllUsers() {
       });
     }
   }, [setId]);
-
-  console.log("setId", getSingleLoanTypeEmi);
 
   return (
     <div className="py-5">

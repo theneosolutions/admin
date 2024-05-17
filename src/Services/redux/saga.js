@@ -209,6 +209,22 @@ function* AddAnswertoQuestion({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+function* UpdateAmlRecord({ payload }) {
+  console.log("payload", payload);
+  try {
+    const response = yield call(
+      axiosInstance.put,
+      baseUrlCms +
+        `/screening/updateAMl?idNumber=${payload?.idNumber}&entityAlertLevel=${payload?.level}&entityAlertScore=${payload?.score}`
+    );
+
+    const message = response.data.message;
+    yield put(action.Message({ message: message, open: true, error: false }));
+  } catch (error) {
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 
 function* GetAllDecisions(payload) {
   try {
@@ -920,7 +936,7 @@ function* getTermsRatesCalculations({ payload }) {
     );
     console.log("calculations", response?.data);
     yield put(action.GetTermRatesCalculations(response));
-    // yield put(action.Message({ message: "successEmi", error: false }));
+    yield put(action.Message({ message: "successEmi", error: false }));
 
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
@@ -1812,4 +1828,5 @@ export default function* HomeSaga() {
   yield takeLatest("GET_EMDAH_REPORT", GetEmdahReport);
   yield takeLatest("GET_USER_LOAN_EMI", getUserLoanEmi);
   yield takeLatest("GET_TERM_RATES_CALCULATION", getTermsRatesCalculations);
+  yield takeLatest("UPDATE_AML_RECORD", UpdateAmlRecord);
 }
