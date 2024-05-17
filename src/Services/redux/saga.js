@@ -262,6 +262,24 @@ function* GetAllUsers(payload) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+function* GetAllUsersEmi(payload) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlLos + `/getAllUserDetails`
+    );
+    console.log("response of emi", response);
+    yield put(action.GetAllUsersEmi(response.data));
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    const message = error.response.data.message;
+    yield put(action.Loading({ Loading: false }));
+
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 
 function* AddNewUser({ payload }) {
   try {
@@ -843,6 +861,66 @@ function* GetNafithReport({ payload }) {
         `/nafith/downloadPDF?uuid=d30117de-7fe7-4e64-a9f1-49ff9e24f618`
     );
     yield put(action.GetNafith(response));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* GetEmdahReport({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlCms + `/doc/getAgreementByUserId?idNumber=${payload}`
+    );
+    console.log("response Emdah", response?.data);
+    yield put(action.GetEmdahReport(response?.data));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* getUserLoanEmi({ payload }) {
+  console.log("heloooo", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlLos +
+        `/loanType/getSingleLoanType?userId=${payload?.userId}&setId=${payload?.setId}`
+    );
+    console.log("response Emdah", response?.data);
+    yield put(action.GetSimgleLoanTypeEmi(response));
+    yield put(action.Message({ message: "successEmi", error: false }));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* getTermsRatesCalculations({ payload }) {
+  console.log("heloooo", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlLos +
+        `/term/rates/calculate?financeAmount=${payload.financeAmmount}&term=${payload?.term}&userId=${payload.userId}`
+    );
+    console.log("calculations", response?.data);
+    yield put(action.GetTermRatesCalculations(response));
+    // yield put(action.Message({ message: "successEmi", error: false }));
 
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
@@ -1665,6 +1743,8 @@ export default function* HomeSaga() {
   yield takeLatest("GET_ALL_DECISIONS", GetAllDecisions);
   yield takeLatest("ADD_USER_ANSWER_TO_SET", AddUsersAnswersToSet);
   yield takeLatest("GET_ALL_USERS", GetAllUsers);
+  yield takeLatest("GET_ALL_USERS_EMI", GetAllUsersEmi);
+
   yield takeLatest("Add_NEW_USER", AddNewUser);
   yield takeLatest("UPDATE_USER_DATA", UpdateUserData);
 
@@ -1729,4 +1809,7 @@ export default function* HomeSaga() {
   yield takeLatest("DELETE_SMS", DeleteSMS);
   yield takeLatest("GET_ALL_DEVICES_TOKENS", GetAllDevicesToken);
   yield takeLatest("GET_AML_DETAILS", GetAmlDetails);
+  yield takeLatest("GET_EMDAH_REPORT", GetEmdahReport);
+  yield takeLatest("GET_USER_LOAN_EMI", getUserLoanEmi);
+  yield takeLatest("GET_TERM_RATES_CALCULATION", getTermsRatesCalculations);
 }

@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import NafithSanad from "./companyTabs/NafithSanad";
 import Aml from "./companyTabs/amlDetails";
-
+import Emdah from "./companyTabs/Emdah";
 function Template() {
   const dispatch = useDispatch();
 
@@ -98,5 +98,9 @@ const data = [
   {
     label: "Aml Details",
     tab: <Aml />,
+  },
+  {
+    label: "Emdah Report",
+    tab: <Emdah />,
   },
 ];

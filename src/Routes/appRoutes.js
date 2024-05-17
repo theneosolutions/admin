@@ -43,7 +43,7 @@ import { AiOutlineCalculator } from "react-icons/ai";
 import Sms from "Pages/Notifications/sms";
 
 import UserSimah from "Pages/Simah/simahDownlaod";
-
+import CustomerEmi from "Pages/Users/customerEmi";
 const appRoutes = [
   {
     index: true,
@@ -142,6 +142,14 @@ const appRoutes = [
         state: "customers.verified",
         sidebarProps: {
           displayText: "Verified Customers",
+        },
+      },
+      {
+        path: "/customers/emi",
+        element: <CustomerEmi />,
+        state: "customers.emi",
+        sidebarProps: {
+          displayText: "Customers EMI",
         },
       },
 

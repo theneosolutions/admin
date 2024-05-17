@@ -128,7 +128,12 @@ function AllUsers() {
                 <th scope="col" className="px-3 py-3">
                   {t("Status")}
                 </th>
-
+                <th
+                  scope="col"
+                  className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
+                >
+                  {t("Eligibility")}
+                </th>
                 <th
                   scope="col"
                   className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
@@ -183,6 +188,17 @@ function AllUsers() {
                       </div>
                     ) : null}
                   </td>
+                  <td className="px-3 py-4">
+                    <div
+                      onClick={() =>
+                        navigate(`/user-eligibility?user=${v?.id}`)
+                      }
+                      className="  px-3 py-1 w-max rounded-md cursor-pointer  duration-300 bg-blue-400  text-white"
+                    >
+                      Check Eligibility
+                    </div>
+                  </td>
+
                   <td className="px-3 py-4">
                     {v?.accountStatus === "0" ? (
                       <div

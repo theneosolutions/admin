@@ -23,7 +23,8 @@ import AddSms from "Pages/Notifications/sms/addSms";
 import MainTemplate from "Layouts/MainTemplate";
 import NotFound from "Pages/NotFound";
 import UserSimah from "Pages/Simah/simahDownlaod";
-
+import UserEligibility from "Pages/userEligibility";
+import FinanceAmountCalculations from "Pages/financeAmountCalculations";
 function App() {
   return (
     <MainTemplate>
@@ -41,6 +42,11 @@ function App() {
             <Route path="/view-screen" element={<ViewScreen />} />
             <Route path="/404" element={<NotFound />} />
             <Route path="/simah/usercodes" element={<UserSimah />} />
+            <Route path="/user-eligibility" element={<UserEligibility />} />
+            <Route
+              path="/finance-amount-calculations"
+              element={<FinanceAmountCalculations />}
+            />
 
             <Route
               path="/user-applications"

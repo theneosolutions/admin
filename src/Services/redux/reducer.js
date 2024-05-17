@@ -53,6 +53,10 @@ const initialState = {
   getSmsOtp: [],
   getDevicesTokens: [],
   getAmlRecord: {},
+  getEmdahReport: {},
+  getAllUsersEmi: [],
+  getSingleLoanTypeEmi: [],
+  getTermRatesCalculations: {},
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -240,6 +244,22 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getAmlRecord = data;
     },
+    GetEmdahReport: (state, action) => {
+      const { data } = action.payload;
+      state.getEmdahReport = data;
+    },
+    GetAllUsersEmi: (state, action) => {
+      const { data } = action.payload;
+      state.getAllUsersEmi = data;
+    },
+    GetSimgleLoanTypeEmi: (state, action) => {
+      const { data } = action.payload;
+      state.getSingleLoanTypeEmi = data;
+    },
+    GetTermRatesCalculations: (state, action) => {
+      const { data } = action.payload;
+      state.getTermRatesCalculations = data;
+    },
   },
 });
 export const {
@@ -289,6 +309,10 @@ export const {
   GetSmsOtp,
   GetDevicesTokens,
   GetAmlRecord,
+  GetEmdahReport,
+  GetAllUsersEmi,
+  GetSimgleLoanTypeEmi,
+  GetTermRatesCalculations,
 } = Reducer.actions;
 
 export default Reducer.reducer;

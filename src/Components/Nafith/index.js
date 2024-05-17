@@ -35,6 +35,8 @@ function Nafith() {
       return () => URL.revokeObjectURL(url);
     }
   }, [report?.Base64]);
+
+  console.log("pdffffffff", pdfURL);
   return (
     <div className=" w-full flex flex-row space-x-5 rtl:space-x-reverse">
       <div className="w-full ">
