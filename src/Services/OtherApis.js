@@ -1,6 +1,6 @@
 import { axiosInstance } from "./constant";
 
-var baseUrlDecisions = "https://3c40-39-58-96-54.ngrok-free.app/api/v1/dms";
+var baseUrlDecisions = "https://ea73-182-180-181-211.ngrok-free.app/api/v1/dms";
 var baseUrlUser = "https://seulah.com/api/v1/auth";
 
 async function CheckQuestionStatusInScreen(id) {
