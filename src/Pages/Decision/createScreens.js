@@ -10,15 +10,19 @@ import { useEffect } from "react";
 import { CheckQuestionStatusInScreen } from "Services/OtherApis";
 import { MdDeleteOutline } from "react-icons/md";
 import { getLanguage } from "functions/getLanguage";
+import Model2 from "Components/Model2";
+
 function CreateQuestionsSet() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
+  const [modelOpen, setModelOpen] = useState(false);
+  const [currentObject, setCurrentObject] = useState({});
+  const [currentId, setCurrentId] = useState("");
   const [selectedIds, setSelectedIds] = useState([]); // State to hold selected checkbox IDs
   const [selectedData, setSelectedData] = useState([]); // State to hold selected checkbox IDs
-
+  const [married, setMarried] = useState(false);
   const [name, setName] = useState("");
   const [arabicName, setArabicName] = useState("");
 
@@ -31,47 +35,53 @@ function CreateQuestionsSet() {
 
   useEffect(() => {
     GetSingleSetData();
-    // dispatch({
-    //   type: "GET_ALL_QUESTIONS",
-    // });
-  }, []);
-  useEffect(() => {
-    getAllSets();
   }, []);
 
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
 
-  function getAllSets() {
-    // dispatch({
-    //   type: "GET_ALL_SETS",
-    // });
-  }
-
   const handleCheckboxChange = (id, object) => {
-    if (object?.eligibilityQuestions) {
-    } else {
+    dispatch(action.Loading({ Loading: true }));
+
+    console.log("temp", object, id);
+    let temp = selectedIds.find((item) => item?.questionId === id);
+
+    if (temp) {
+      dispatch(action.Loading({ Loading: false }));
+
+      return alert("Question Already Exist In List");
     }
+
     CheckQuestionStatusInScreen(id).then((response) => {
       if (response?.message === "No Record found") {
-        console.log("response", response);
-
-        if (selectedIds.includes(id)) {
-        } else {
-          setSelectedIds([...selectedIds, id]);
-          if (object?.eligibilityQuestions) {
-            setSelectedData([...selectedData, object?.eligibilityQuestions]);
-          } else {
-            setSelectedData([...selectedData, object]);
-          }
-        }
+        setCurrentObject(object);
+        setCurrentId(id);
+        setModelOpen(true);
+        dispatch(action.Loading({ Loading: false }));
       } else {
-        // alert("Question Already Exist In ", response.screenHeading[0]);
+        dispatch(action.Loading({ Loading: false }));
+
+        alert("Question Already Exist In Screens");
       }
     });
   };
-
+  function AddQuestionToArray() {
+    console.log(currentId, currentObject);
+    setModelOpen(false);
+    setSelectedIds([
+      ...selectedIds,
+      { married: married, questionId: currentId },
+    ]);
+    if (currentObject?.eligibilityQuestions) {
+      setSelectedData([...selectedData, currentObject?.eligibilityQuestions]);
+    } else {
+      setSelectedData([...selectedData, currentObject]);
+    }
+    setCurrentId("");
+    setCurrentObject({});
+    setMarried(false);
+  }
   function GetSingleSetData() {
     dispatch({
       type: "GET_SINGLE_SET_DATA",
@@ -94,7 +104,6 @@ function CreateQuestionsSet() {
   } else {
   }
 
-  console.log("temp", temp);
   function CreateScreen() {
     if (!name) {
       return alert("Please Add Screen Name");
@@ -120,27 +129,10 @@ function CreateQuestionsSet() {
     });
     setTimeout(() => navigate("/decisions/create-set", 500));
   }
+  function reset() {
+    setModelOpen(false);
+  }
 
-  const Inputs = () => {
-    return (
-      <div>
-        <input
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-          placeholder={t("English Screen Name")}
-          className="border-gray-300 border rounded-md px-2 py-1   outline-none"
-        />
-        <div className="mt-2">
-          <input
-            onChange={(e) => setArabicName(e.target.value)}
-            value={arabicName}
-            placeholder={t("Arabic Screen Name")}
-            className="border-gray-300 border rounded-md px-2 py-1   outline-none"
-          />
-        </div>
-      </div>
-    );
-  };
   return (
     <div className="">
       <div className="flex flex-row w-full justify-end space-x-3">
@@ -314,6 +306,42 @@ function CreateQuestionsSet() {
           </CardMain>
         )}
       </div>
+      {modelOpen ? (
+        <Model2
+          setModelOpen={(e) => setModelOpen(e)}
+          reset={() => reset()}
+          heading="Is This Applicable for married"
+        >
+          <div className="flex flex-col w-96 px-7">
+            <div className="flex flex-row space-x-10   py-6">
+              <div className="space-x-1 items-center flex flex-row">
+                <input
+                  type="radio"
+                  className="h-5 w-5"
+                  checked={married ? true : false}
+                  onChange={() => setMarried(true)}
+                />
+                <a>Yes</a>
+              </div>
+              <div className="space-x-1 items-center flex flex-row">
+                <input
+                  type="radio"
+                  className="h-5 w-5"
+                  onChange={() => setMarried(false)}
+                  checked={!married ? true : false}
+                />
+                <a>No</a>
+              </div>
+            </div>
+            <div
+              onClick={() => AddQuestionToArray()}
+              className="cursor-pointer hover:opacity-85 duration-300 bg-blue-500 text-white rounded-md px-4 py-1 w-full mt-10 mb-10 text-center"
+            >
+              Submit
+            </div>
+          </div>
+        </Model2>
+      ) : null}
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
@@ -328,18 +356,3 @@ function CreateQuestionsSet() {
 }
 
 export default CreateQuestionsSet;
-
-function InputField({ name, setName, placeholder }) {
-  const { t } = useTranslation();
-
-  return (
-    <div>
-      <input
-        onChange={(e) => setName(e.target.value)}
-        value={name}
-        placeholder={t(placeholder)}
-        className="border-gray-300 border rounded-md px-2 py-1   outline-none"
-      />
-    </div>
-  );
-}

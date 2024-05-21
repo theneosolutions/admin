@@ -169,7 +169,6 @@ function Calculations() {
         action1={() => setModelOpen2(!modelOpen2)}
       >
         <a className=" text-xl text-gray-800 ">
-          {" "}
           {t("Are You Sure To Delete This ?")}
         </a>
       </Model>
