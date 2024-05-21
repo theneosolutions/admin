@@ -66,20 +66,26 @@ function ViewQuestions({ getAllQuestion }) {
                     {v?.questionAr}
                   </td>
                   <td className="px-2 py-4">{v?.type}</td>
-                  <td className="px-2 py-4">{
-                    console.log("heloooooooooooo",v?.options[0]?.optionEn)
-                  }
-                  {
-                     v?.options[0]?.optionEn ? <>{v?.options?.map((s)=>{
-                      return(
-                        <div>
-                          
-                          <div> {s?.optionEn  + " , " +  s?.optionAr}</div>
-                        </div>
-                      )
-                    })}</> : <a> {v?.options?.length > 0 ? v?.options?.join(", ") : v?.field}</a>
-                  }
-                   
+                  <td className="px-2 py-4">
+                    {}
+                    {v?.options[0]?.optionEn ? (
+                      <>
+                        {v?.options?.map((s) => {
+                          return (
+                            <div>
+                              <div> {s?.optionEn + " , " + s?.optionAr}</div>
+                            </div>
+                          );
+                        })}
+                      </>
+                    ) : (
+                      <a>
+                        {" "}
+                        {v?.options?.length > 0
+                          ? v?.options?.join(", ")
+                          : v?.field}
+                      </a>
+                    )}
                   </td>
                   <td
                     className="px-2 py-4 text-2xl cursor-pointer text-gray-400 hover:text-red-400 duration-300"

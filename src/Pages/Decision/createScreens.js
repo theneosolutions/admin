@@ -44,7 +44,6 @@ function CreateQuestionsSet() {
   const handleCheckboxChange = (id, object) => {
     dispatch(action.Loading({ Loading: true }));
 
-    console.log("temp", object, id);
     let temp = selectedIds.find((item) => item?.questionId === id);
 
     if (temp) {
