@@ -1,7 +1,7 @@
 import { axiosInstance } from "./constant";
 
-var baseUrlDecisions = "https://seulah.com/api/v1/dms";
-var baseUrlUser = "https://seulah.com/api/v1/auth";
+var baseUrlDecisions = "https://seulah.sa/api/v1/dms";
+var baseUrlUser = "https://seulah.sa/api/v1/auth";
 
 async function CheckQuestionStatusInScreen(id) {
   try {
