@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
 import { GiHamburgerMenu } from "react-icons/gi"; // You can use other icons from react-icons
+import * as action from "../../Services/redux/reducer";
 
 import Alarm from "../../Assets/Images/alarm.svg";
 import Message from "../../Assets/Images/message.svg";
@@ -9,14 +10,15 @@ import Globe from "../../Assets/Images/globe.svg";
 import SearchIcon from "../../Assets/Images/searchIcon.svg";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
+import { useDispatch, useSelector } from "react-redux";
 function Header({ isOpen, toggleSidebar, className }) {
   const { t } = useTranslation();
 
   return (
     <div
-      className={`px-3 md:px-10 py-4 flex flex-row justify-between ${className}`}
-      style={{ background: "#30C1D7" }}>
+      className={`px-3 md:px-10 py-4 flex flex-row justify-between  rtl:space-x-reverse ${className} `}
+      style={{ background: "#30C1D7" }}
+    >
       <div className="flex flex-row space-x-4 rtl:space-x-reverse items-center">
         {isOpen ? null : (
           <div className="h-6 w-6">
@@ -26,7 +28,7 @@ function Header({ isOpen, toggleSidebar, className }) {
             />
           </div>
         )}
-        <div className="flex flex-row items-center space-x-2 rtl:space-x-reverse md:flex hidden">
+        <div className=" flex-row items-center space-x-2 rtl:space-x-reverse md:flex hidden">
           <img src={SearchIcon} />
           <input
             placeholder={t("Search")}
@@ -80,12 +82,14 @@ const Icons2 = ({ icon }) => {
     localStorage.setItem("direction", direction);
     window.location.reload(true);
   };
+
   return (
     <div className={`relative inline-block text-left`} ref={dropDownRef}>
       <div
         onClick={toggleDropdown}
-        className="h-6 w-6 md:h-8 md:w-8 bg-white rounded-full items-center text-center justify-center flex">
-        <img src={icon} className="h-4 w-4 md:h-6 md:w-6" />
+        className="h-6 w-6 md:h-8 md:w-8 bg-white rounded-full items-center text-center justify-center flex"
+      >
+        <img src={icon} className="h-4 w-4 md:h-6 md:w-6 cursor-pointer" />
       </div>
       {isOpen && (
         <div
@@ -93,20 +97,23 @@ const Icons2 = ({ icon }) => {
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
-          tabIndex="-1">
+          tabIndex="-1"
+        >
           <div className="py-1" role="none">
             <a
               onClick={() => handleLanguageChange("en", "ltr")}
-              className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
+              className="cursor-pointer text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
               role="menuitem"
-              tabIndex="-1">
+              tabIndex="-1"
+            >
               English
             </a>
             <a
               onClick={() => handleLanguageChange("ar", "rtl")}
-              className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
+              className=" cursor-pointer text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
               role="menuitem"
-              tabIndex="-1">
+              tabIndex="-1"
+            >
               Arabic
             </a>
           </div>
@@ -117,14 +124,17 @@ const Icons2 = ({ icon }) => {
 };
 
 const Dropdown = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null); // Ref for the dropdown container
+  const user = useSelector((state) => state?.user);
+  const [direction, setDirection] = useState("");
+  const { t } = useTranslation();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-
   // Event listener to handle clicks outside the dropdown
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -132,6 +142,10 @@ const Dropdown = () => {
     }
   };
 
+  useEffect(() => {
+    let dir = localStorage.getItem("direction");
+    setDirection(dir);
+  }, []);
   // useEffect to set up the event listener
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -143,6 +157,30 @@ const Dropdown = () => {
     navigate("/my-account");
     setIsOpen(!isOpen);
   }
+  function Logout() {
+    dispatch(action.Loading({ Loading: true }));
+    dispatch(
+      action.Auth({
+        user: null,
+        islogin: false,
+        role: null,
+        token: null,
+      })
+    );
+
+    localStorage.removeItem("user");
+
+    dispatch({
+      type: "LOGOUT_USER",
+      payload: user?.user?.idNumber,
+    });
+
+    setTimeout(() => {
+      navigate("/login");
+      dispatch(action.Loading({ Loading: false }));
+    }, 500);
+  }
+
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <div>
@@ -150,30 +188,32 @@ const Dropdown = () => {
           <img src={Chevron} />
         </button>
       </div>
-
-      {/* Dropdown menu */}
       {isOpen && (
         <div
-          className="origin-top-right absolute right-0 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+          className={`origin-top-right absolute  ${
+            direction === "rtl" ? "left-0" : "right-0"
+          }  cursor-pointer mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none`}
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
-          tabIndex="-1">
+          tabIndex="-1"
+        >
           <div className="py-1" role="none">
             <a
               onClick={() => handleChangeMyAccount()}
-              className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
+              className="cursor-pointer text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
               role="menuitem"
-              tabIndex="-1">
-              My Account
+              tabIndex="-1"
+            >
+              {t("My Account")}
             </a>
             <a
-              onClick={toggleDropdown}
-              href="#"
-              className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
+              onClick={() => Logout()}
+              className="cursor-pointer text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
               role="menuitem"
-              tabIndex="-1">
-              Logout
+              tabIndex="-1"
+            >
+              {t("Logout")}
             </a>
           </div>
         </div>

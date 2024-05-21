@@ -5,12 +5,14 @@ import * as action from "../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
 import { Model } from "../../Components";
 import CreateFormula from "../../Pages/Decision/CreateFormula";
-import WaveAnimation from "../../Components/Loading"; // Adjust the path based on your file structure
 import { useNavigate, useLocation } from "react-router-dom";
 import Edit from "../../Assets/Images/edit.svg";
 import Delete from "../../Assets/Images/delete.svg";
 import { useTranslation } from "react-i18next";
 import Response from "./response";
+import withAuthorization from "../../constants/authorization";
+import { ROLES } from "../../constants/roles";
+
 const CreateDesicion = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,11 +21,10 @@ const CreateDesicion = () => {
   const [modelOpen, setModelOpen] = useState(false);
   const [setId, setSetId] = useState();
   const [checkedValues, setCheckedValues] = useState([]);
-
+  const [singleQuestionId, setSingleQuestionId] = useState();
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const setData = useSelector((state) => state.getSingleSetData);
   const singleQuestion = useSelector((state) => state.getQuestionOfSet);
   const allSets = useSelector((state) => state.getAllSets);
@@ -47,6 +48,7 @@ const CreateDesicion = () => {
   }
 
   function getSingleQuestion(id) {
+    setSingleQuestionId(id);
     dispatch({
       type: "GET_QUESTION_OF_SET", // get all questions
       payload: { id: id, setid: setId },
@@ -61,7 +63,7 @@ const CreateDesicion = () => {
     var obj = {
       answers: checkedValues,
       id: setId,
-      questionId: singleQuestion.id,
+      questionId: singleQuestionId,
     };
     await dispatch({
       type: "ADD_ANSWER_THE_QUESTION", // get all questions
@@ -81,8 +83,6 @@ const CreateDesicion = () => {
   }
   return (
     <>
-      <WaveAnimation show={loading} />
-
       <CardMain heading={t("Create Decision")} width="h-max md:mt-0 mt-4">
         <select
           value={setId}
@@ -113,19 +113,19 @@ const CreateDesicion = () => {
                     <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
                       <tr>
                         <th scope="col" className="px-2 py-3 cursor-pointer">
-                          #
+                          {t("Id")}
                         </th>
                         <th scope="col" className="px-6 py-3 cursor-pointer">
-                          Question
+                          {t("Question")}
                         </th>
                         <th scope="col" className="px-6 py-3 cursor-pointer">
-                          Options
+                          {t("Options")}
                         </th>
                         <th scope="col" className="px-6 py-3 cursor-pointer">
-                          Add Answers
+                          {t("Add Answers")}
                         </th>
                         <th scope="col" className="px-6 py-3 cursor-pointer">
-                          Action
+                          {t("Action")}
                         </th>
                       </tr>
                     </thead>
@@ -149,7 +149,7 @@ const CreateDesicion = () => {
                                 return (
                                   <div
                                     key={index}
-                                    className="flex flex-row space-x-2 items-center"
+                                    className="flex flex-row space-x-2 items-center rtl:space-x-reverse"
                                   >
                                     <input
                                       type="radio"
@@ -171,13 +171,13 @@ const CreateDesicion = () => {
                           <td className="px-6 py-4">
                             <div
                               onClick={() => {
-                                getSingleQuestion(v?.eligibilityQuestions.id);
+                                getSingleQuestion(v?.eligibilityQuestions?.id);
                                 setModelOpen(true);
                                 setCheckedValues([]);
                               }}
                               className="bg-gray-200 w-max py-2 px-5 hover:bg-gray-300 duration-300 rounded-md text-xs cursor-pointer text-sky-800"
                             >
-                              Add Answer
+                              {t("Add Answers")}
                             </div>
                           </td>
                           <th
@@ -219,13 +219,13 @@ const CreateDesicion = () => {
                 <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
                   <tr>
                     <th scope="col" className="px-2 py-3 cursor-pointer">
-                      #
+                      {t("Id")}
                     </th>
                     <th scope="col" className="px-6 py-3 cursor-pointer">
-                      Question
+                      {t("Question")}
                     </th>
                     <th scope="col" className="px-6 py-3 cursor-pointer">
-                      Action
+                      {t("Action")}
                     </th>
                   </tr>
                 </thead>
@@ -256,11 +256,11 @@ const CreateDesicion = () => {
       )}
       <Response setid={setid} />
       <Model
-        heading="Add Answer to this Question"
+        heading={t("Add Answer to this Question")}
         isOpen={modelOpen}
         setState={() => setModelOpen(!modelOpen)}
-        action1Value="Cancel"
-        action2Value="Add Answers"
+        action1Value={t("Cancel")}
+        action2Value={t("Add Answers")}
         action2={() => addAnswersData()}
         action1={() => setModelOpen(!modelOpen)}
       >
@@ -284,8 +284,15 @@ const CreateDesicion = () => {
   );
 };
 
-export default CreateDesicion;
+export default withAuthorization(CreateDesicion, [
+  ROLES.ADMIN,
+  ROLES.UNDER_WRITER,
+  ROLES.MODERATOR,
+]);
+
 function Checboxes({ singleQuestion, checkedValues, setCheckedValues }) {
+  const { t } = useTranslation();
+
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -307,7 +314,7 @@ function Checboxes({ singleQuestion, checkedValues, setCheckedValues }) {
             </a>
           </span>
 
-          <a className="text-lg mt-4 underline">Options:</a>
+          <a className="text-lg mt-4 underline">{t("Options")}</a>
           {singleQuestion?.Option?.map((v, k) => {
             return (
               <div key={k} className="flex flex-row items-center mx-2">
@@ -316,7 +323,7 @@ function Checboxes({ singleQuestion, checkedValues, setCheckedValues }) {
               </div>
             );
           })}
-          <a className="text-lg mt-6 underline">Answers:</a>
+          <a className="text-lg mt-6 underline"> {t("Answers")}</a>
         </div>
         <>
           {singleQuestion?.Option?.map((v, k) => (

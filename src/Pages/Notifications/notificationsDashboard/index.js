@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import CardMain from "../../../Components/Cards/main";
@@ -6,8 +6,9 @@ import { IoNotifications } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 
+import withAuthorization from "../../../constants/authorization";
+import { ROLES } from "../../../constants/roles";
 function NotificationsScreen() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -15,35 +16,42 @@ function NotificationsScreen() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
+  const notifications = useSelector((state) => state.Notifications);
 
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
 
+  useEffect(() => {
+    getAllNotifictions();
+  }, []);
+  function getAllNotifictions() {
+    dispatch({
+      type: "GET_ALL_NOTIFICATIONS",
+    });
+  }
+
   return (
     <div className="py-5">
-      <WaveAnimation show={loading} />
-
-      <div className="flex md:flex-row flex-col  md:space-x-6">
+      <div className="flex md:flex-row flex-col  md:space-x-6 rtl:space-x-reverse">
         <Notifications
-          value="1200"
-          heading="Total Notifications"
+          value={notifications?.length || 0}
+          heading={t("Total Notifications")}
           color="text-blue-500 text-xl"
         />
         <Notifications
-          value="1200"
-          heading="Clicked"
+          value="1"
+          heading={t("Clicked")}
           color="text-green-500 text-xl"
         />
         <Notifications
-          value="1200"
-          heading="Delivered"
+          value="3"
+          heading={t("Delivered")}
           color="text-orange-500 text-xl"
         />
         <Notifications
-          value="1200"
-          heading="Not Click Yet"
+          value="8"
+          heading={t("Not Click Yet")}
           color="text-red-700 text-xl"
         />
       </div>
@@ -52,7 +60,7 @@ function NotificationsScreen() {
         heading={t("Notifications")}
         icon={<IoNotifications className="text-primary text-xl" />}
         showButton={true}
-        buttonValue={"Add New Notification"}
+        buttonValue={t("Add New Notification")}
         onButtonClick={() => navigate("/create-notifications")}
       >
         <div className="overflow-x-auto relative  mt-4">
@@ -60,33 +68,35 @@ function NotificationsScreen() {
             <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("Title")}
+                  {t("Icon")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("Type")}
+                  {t("Subject")}
                 </th>
-                <th scope="col" className="px-3 py-3">
-                  {t("Date")}
-                </th>
-                <th scope="col" className="px-3 py-3">
-                  {t("Clicked")}
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("Content")}
                 </th>
               </tr>
             </thead>
             <tbody>
-              {[9, 1, 2, 1].map((v, k) => (
+              {notifications?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                 >
-                  <td scope="row" className="px-3 py-4">
-                    Test Notification
+                  <td
+                    scope="row"
+                    className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
+                  >
+                    <img
+                      src={v?.img}
+                      className="avatar h-10 w-10 rounded-full cursor-pointer"
+                    />
                   </td>
                   <td scope="row" className="px-3 py-4">
-                    BroadCast
+                    {v?.subject}
                   </td>
-                  <td className="px-3 py-4">11 May 2023</td>
-                  <td className="px-3 py-4">false</td>
+                  <td className="px-3 py-4">{v?.content}</td>
                 </tr>
               ))}
             </tbody>
@@ -106,7 +116,10 @@ function NotificationsScreen() {
     </div>
   );
 }
-export default NotificationsScreen;
+export default withAuthorization(NotificationsScreen, [
+  ROLES.ADMIN,
+  ROLES.CUSTOMER_CARE,
+]);
 function Notifications({ heading, value, color }) {
   return (
     <div className="flex font-semibold flex-col bg-gray-300  px-10 py-8 text-center rounded-md md:w-1/4 w-full md:mt-0 mt-4 hover:bg-opacity-70 cursor-pointer shadow-xl duration-300">

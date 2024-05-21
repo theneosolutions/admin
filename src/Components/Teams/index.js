@@ -2,7 +2,7 @@ function Team() {
   return (
     <div className="flex items-center">
       <img
-        className="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full dark:border-gray-700 shrink-0"
+        className="object-cover w-6 h-6 -mx-1  border-white rounded-full dark:border-gray-700 shrink-0"
         src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
         alt=""
       />

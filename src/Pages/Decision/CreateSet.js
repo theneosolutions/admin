@@ -2,13 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "../../Components/Loading"; // Adjust the path based on your file structure
 import { useTranslation } from "react-i18next";
 import CardMain from "../../Components/Cards/main";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import withAuthorization from "../../constants/authorization";
+import { ROLES } from "../../constants/roles";
 function CreateQuestionsSet() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -24,7 +24,6 @@ function CreateQuestionsSet() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const [state, setState] = useState("All");
 
   useEffect(() => {
@@ -78,7 +77,6 @@ function CreateQuestionsSet() {
 
   return (
     <div className="">
-      <WaveAnimation show={loading} />
       <div className="mt-6 flex flex-col lg:flex-row lg:space-x-3 rtl:space-x-reverse h-max">
         <CardMain
           heading={t("All List Of Questions")}
@@ -147,7 +145,7 @@ function CreateQuestionsSet() {
                 onClick={() => navigate(`/create-screen?id=${v.id}`)}
                 className="w-full bg-gray-200 text-center mt-4 py-6 rounded-md hover:bg-gray-300 duration-300 cursor-pointer"
               >
-                {v.name} Click To Add Answers
+                {v.name}
               </div>
             );
           })}
@@ -166,7 +164,11 @@ function CreateQuestionsSet() {
   );
 }
 
-export default CreateQuestionsSet;
+export default withAuthorization(CreateQuestionsSet, [
+  ROLES.ADMIN,
+  ROLES.UNDER_WRITER,
+  ROLES.MODERATOR,
+]);
 
 function InputField({ name, setName }) {
   const { t } = useTranslation();

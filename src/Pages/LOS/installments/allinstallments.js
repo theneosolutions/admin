@@ -6,8 +6,8 @@ import CardMain from "../../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
-
+import withAuthorization from "../../../constants/authorization";
+import { ROLES } from "../../../constants/roles";
 function InstallmentsScreen() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -16,7 +16,6 @@ function InstallmentsScreen() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
@@ -32,13 +31,11 @@ function InstallmentsScreen() {
 
   return (
     <div className="py-5">
-      <WaveAnimation show={loading} />
-
       <CardMain
         width="w-full mt-2"
         heading={t("Installments Products")}
         showButton={true}
-        buttonValue={"Add New Product"}
+        buttonValue={t("Add New Product")}
         onButtonClick={() => navigate("/add-Product")}
       >
         <div className="overflow-x-auto relative ">
@@ -102,4 +99,7 @@ function InstallmentsScreen() {
     </div>
   );
 }
-export default InstallmentsScreen;
+export default withAuthorization(InstallmentsScreen, [
+  ROLES.ADMIN,
+  ROLES.UNDER_WRITER,
+]);

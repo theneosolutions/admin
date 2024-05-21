@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-
 import Antifraud from "./companyTabs/antiFraud";
 import Absher from "./companyTabs/absher";
 import Nafath from "./companyTabs/nafath";
 import AmlDetails from "./companyTabs/amlDetails";
 import Sima from "./companyTabs/sima";
 import TakwaDetails from "./companyTabs/takwadetails";
-
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -23,7 +21,6 @@ function Template() {
       setState(oldState);
     } else {
       setState("Anti fraud Detail");
-      // navigate(location.pathname + `?name=Anti fraud Detail`);
     }
   }, []);
   const getTab = () => {

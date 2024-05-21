@@ -57,7 +57,8 @@ function OptScreen() {
                   <div>
                     <button
                       onClick={() => navigate("/")}
-                      class="w-full text-white bg-primary hover:bg-opacity-80 duration-300  focus:outline-none font-medium rounded-lg text-sm px-5 py-4 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                      class="w-full text-white bg-primary hover:bg-opacity-80 duration-300  focus:outline-none font-medium rounded-lg text-sm px-5 py-4 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    >
                       Verify Account
                     </button>
                   </div>
@@ -68,7 +69,8 @@ function OptScreen() {
                       class="flex flex-row items-center text-blue-600"
                       href="http://"
                       target="_blank"
-                      rel="noopener noreferrer">
+                      rel="noopener noreferrer"
+                    >
                       Resend
                     </a>
                   </div>

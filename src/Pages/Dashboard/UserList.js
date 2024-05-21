@@ -22,21 +22,24 @@ import Edit from "Assets/Images/edit.svg";
 import Delete from "Assets/Images/delete.svg";
 import { useNavigate } from "react-router-dom";
 import { Model, Avatar } from "Components";
-
+import withAuthorization from "../../constants/authorization";
+import { ROLES } from "../../constants/roles";
 function App() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.getApplications);
+  const applications = useSelector((state) => state.getApplications);
+  const selaBalance = useSelector((state) => state.selaBalance);
+
   const navigate = useNavigate();
   const [modelOpen, setModelOpen] = useState(false);
 
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
-
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
   useEffect(() => {
+    getBalance();
     getAllUsersData();
   }, []);
   function getAllUsersData() {
@@ -47,53 +50,67 @@ function App() {
   function onDelete() {
     setModelOpen(true);
   }
+  function getBalance() {
+    dispatch({
+      type: "GET_BALANCE",
+    });
+  }
+  const sumOfApprovedAmmount = applications?.reduce(
+    (accumulator, currentItem) => {
+      if (currentItem?.status === "Approved") {
+        accumulator += currentItem?.loanAmount;
+      }
+      return accumulator;
+    },
+    0
+  );
   return (
     <div className="container mx-auto mt-5 space-y-6">
-      <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row 2xl:flex-row md:space-x-4 rtl:space-x-reverse">
+      <div className="flex flex-wrap ">
         <Notifications
-          value="$120000"
-          heading="Total Deposite Amount"
+          value="120000"
+          heading={t("Total Deposite Amount")}
           color="text-orange-400 text-xl"
           bg=" bg-gradient-to-r from-orange-500 via-orange-500 to-orange-300"
           icon={<BiSignal4 className="text-4xl text-gray-500" />}
         />
         <Notifications
-          value="$100000"
-          heading="Total Withdrawal Amount"
+          value={sumOfApprovedAmmount}
+          heading={t("Total Withdrawal Amount")}
           color="text-green-500 text-xl"
           bg=" bg-gradient-to-r from-green-500 via-green-500 to-green-300"
           icon={<PiChartScatterBold className="text-4xl text-gray-500" />}
         />
         <Notifications
-          value="$1500700"
-          heading="Balance In Account"
+          value="1500700"
+          heading={t("Balance In Account")}
           color="text-red-400 text-xl"
           bg=" bg-gradient-to-r from-red-500 via-red-500 to-red-300"
           icon={<BsBarChartSteps className="text-3xl text-gray-500" />}
         />
         <Notifications
-          value="$150000"
-          heading="Total Applications"
+          value={applications?.length}
+          heading={t("Total Applications")}
           color="text-teal-400 text-xl"
           bg=" bg-gradient-to-r from-teal-500 via-teal-500 to-teal-300"
           icon={<FaWpforms className="text-3xl text-gray-500" />}
         />
       </div>
 
-      <div className="flex flex-col md:flex-row md:space-x-6 rtl:space-x-reverse">
+      <div className="flex flex-col lg:flex-row lg:space-x-6 rtl:space-x-reverse">
         <CardMain
-          width="w-full md:w-8/12 md:mt-0 mt-4 h-min "
+          width="w-full lg:w-8/12 lg:mt-0 mt-4 h-min "
           heading={t("My Applications")}
           des={"1,406 " + t("In Process")}
         >
           <ColumnChart />
         </CardMain>
 
-        <div className="w-full md:w-4/12 md:mt-0 mt-4">
+        <div className="w-full lg:w-4/12 lg:mt-0 mt-4">
           <div className={`bg-white rounded shadow-sm  rtl:space-x-reverse  `}>
             <div className="px-5 py-4 border-b flex flex-row  items-center justify-between">
               <div className="text-base font-semibold text-gray-700">
-                Action Center
+                {t("Action Center")}
               </div>
               <BiDotsHorizontalRounded className="text-gray-700" />
             </div>
@@ -127,16 +144,19 @@ function App() {
           </div>
         </div>
       </div>
-      <div className="flex flex-crow md:flex-row md:space-x-6 rtl:space-x-reverse">
+      <div className=" flex flex-col lg:flex-row lg:space-x-6 rtl:space-x-reverse">
         <CardMain
-          width="w-1/2 md:mt-0 mt-4 "
+          width="w-full lg:w-1/2 lg:mt-0 mt-4 "
           heading={t("Applications Status")}
         >
           <div className="">
             <PieChart />
           </div>
         </CardMain>
-        <CardMain width="w-1/2 md:mt-0 mt-4 " heading={t("User Activity")}>
+        <CardMain
+          width="w-full lg:w-1/2 lg:mt-0 mt-4 "
+          heading={t("User Activity")}
+        >
           <div className="">
             <SplineChart />
           </div>
@@ -162,7 +182,7 @@ function App() {
                   {t("Loan Ammount")}
                 </th>
                 <th scope="col" className="px-3 py-3">
-                  {t("Maturity Data")}
+                  {t("Maturity Date")}
                 </th>
 
                 <th scope="col" className="px-3 py-3">
@@ -180,7 +200,7 @@ function App() {
               </tr>
             </thead>
             <tbody>
-              {users.map((v, k) => (
+              {applications.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -189,13 +209,6 @@ function App() {
                     scope="row"
                     className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
                   >
-                    <Avatar
-                      icon={
-                        "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes-thumbnail.png"
-                      }
-                      onClick={() => navigate("/profile")}
-                    />
-
                     <a>{v.userId}</a>
                   </td>
                   <td scope="row" className="px-3 py-4">
@@ -207,10 +220,10 @@ function App() {
 
                   <td className="px-3 py-4">
                     <div
-                      onClick={() => navigate(`/user-profile?id=${v.id}`)}
+                      onClick={() => navigate(`/user-profile?id=${v.userId}`)}
                       className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
                     >
-                      View Details
+                      {t("View Details")}
                     </div>
                   </td>
                   <th
@@ -233,19 +246,19 @@ function App() {
         </div>
       </CardMain>
       <Model
-        heading="Delete User"
+        heading={t("Delete User")}
         isOpen={modelOpen}
         style="w-1/3"
         innerStyle="py-10"
         setState={() => setModelOpen(!modelOpen)}
-        action1Value="Cancel"
-        action2Value="Delete"
+        action1Value={t("Cancel")}
+        action2Value={t("Delete")}
         action2={() => setModelOpen(false)}
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">
-          Are You Sure To Delete
-          <span className="font-semibold"> Ali Imtayaz</span> ?
+          {t("Are You Sure To Delete ?")}
+          <span className="font-semibold"> Ali Imtayaz</span>
         </a>
       </Model>
       <Snackbar
@@ -262,7 +275,7 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthorization(App, [ROLES.ADMIN, ROLES.SALES]);
 
 function ActionCenter({ icon, heading, des }) {
   return (
@@ -281,22 +294,26 @@ function ActionCenter({ icon, heading, des }) {
   );
 }
 function Notifications({ heading, value, color, bg, icon }) {
-  return (
-    <div className="rounded-sm md:mt-0 mt-4 md:w-1/4  overflow-hidden bg-white hover:bg-opacity-70 cursor-pointer shadow-xl  duration-300">
-      <div className="flex flex-row justify-between  px-4 py-4">
-        <div className="flex font-semibold flex-col     w-full md:mt-0 mt-4  ">
-          <a className={color}>{value}</a>
-          <a className="text-xs text-gray-700 mt-2 opacity-70">{heading}</a>
-        </div>
-        {icon}
-      </div>
+  const { t } = useTranslation();
 
-      <div
-        className={`text-white h-9 w-full  flex flex-row justify-between items-center justify-center px-4 ${bg}`}
-      >
-        <div className="text-xs">% Change</div>
-        <div>
-          <BsGraphUpArrow className="text-sm" />
+  return (
+    <div className=" w-full md:w-1/2 lg:w-1/4 p-1">
+      <div className="rounded-sm md:mt-0 mt-4  overflow-hidden bg-white hover:bg-opacity-70 cursor-pointer shadow-xl  duration-300 justify-between h-max ">
+        <div className="flex flex-row justify-between  px-4 py-4">
+          <div className="flex font-semibold flex-col     w-full md:mt-0 mt-4  ">
+            <a className={color}>{value}</a>
+            <a className="text-xs text-gray-700 mt-2 opacity-70">{heading}</a>
+          </div>
+          {icon}
+        </div>
+
+        <div
+          className={`text-white h-9 w-full  flex flex-row justify-between items-center  px-4 ${bg}`}
+        >
+          <div className="text-xs">% {t("Change")}</div>
+          <div>
+            <BsGraphUpArrow className="text-sm" />
+          </div>
         </div>
       </div>
     </div>

@@ -1,21 +1,14 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import CardMain from "Components/Cards/main";
 import { MdOutlineVerified } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { useSelector } from "react-redux";
-import { MdCalendarMonth } from "react-icons/md";
 import { VscLayersActive } from "react-icons/vsc";
 import { MdDomainVerification } from "react-icons/md";
 
 function Absher() {
-  const location = useLocation();
-
-  const users = useSelector((state) => state.getAllUsers);
-  const queryParams = new URLSearchParams(location.search);
-
-  const id = queryParams.get("id");
-  const userData = users.find((item) => item?.user?.idNumber === id);
+  const userData = useSelector((state) => state.getUserById);
 
   return (
     <div className=" w-full flex flex-row space-x-5 rtl:space-x-reverse">

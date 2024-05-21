@@ -1,179 +1,115 @@
-import React from "react";
-import CardMain from "../../../Components/Cards/main";
-import { useState, useRef } from "react";
-import { Button } from "Components";
-import { RiImageAddLine } from "react-icons/ri";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import CardMain from "../../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
+import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
-import * as action from "Services/redux/reducer";
+import User from "./users";
+import Model2 from "Components/Model2";
+import withAuthorization from "../../../constants/authorization";
+import { ROLES } from "../../../constants/roles";
 
-function CreateUser() {
+function NotificationsScreen() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
-
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
+  const users = useSelector((state) => state.getAllUsersAll || []);
+  const [usersData, setUsersData] = useState([]);
+
+  const [modelOpen, setModelOpen] = useState(false);
+
   const handleClose = () => {
-    dispatch(action.Message({ open: false })); // Closing the message
+    dispatch(action.Message({ open: false }));
   };
-  const [image, setImage] = useState(null);
-  const { t } = useTranslation();
 
-  const fileInputRef = useRef(null); // Create a ref for the file input
+  useEffect(() => {
+    getAllNotifictions();
+  }, []);
+  function getAllNotifictions() {
+    dispatch({
+      type: "GET_ALL_USERS_ALL",
+    });
+  }
+  function reset() {
+    setModelOpen(false);
+  }
 
-  function handleSelectImage(e) {
-    if (e.target.files && e.target.files[0]) {
-      setImage(URL.createObjectURL(e.target.files[0]));
+  useEffect(() => {
+    if (users) {
+      const data = users.filter(
+        (person) => person?.roles[0]?.name !== "ROLE_USER"
+      );
+      setUsersData(data);
     }
-  }
-  function handleClick() {
-    fileInputRef.current.click();
-  }
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    CreateNewUser();
-  }
-  const [firstName, setFirstName] = useState("");
-  const [email, setEmail] = useState("");
-  const [idNumber, setIdNumber] = useState("");
-  const [number, setNumber] = useState("");
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [date, setDate] = useState(new Date());
-  const [role, setRole] = useState("option1");
-
-  function CreateNewUser() {
-    if (validatePassword()) {
-      dispatch({
-        type: "Add_NEW_USER",
-        payload: {
-          email: email,
-          username: username,
-          password: password,
-          name: firstName,
-        },
-      });
-    } else {
-      dispatch(
-        action.Message({
-          message: "Password does not meet requirements",
-          open: true,
-          error: true,
-        })
-      ); // Closing the message
-
-      // You can display an error message or take other actions based on your requirements.
-    }
-  }
-  const validatePassword = () => {
-    // Password requirements
-    const minLength = 8;
-    const hasUppercase = /[A-Z]/.test(password);
-    const hasLowercase = /[a-z]/.test(password);
-    const hasDigit = /\d/.test(password);
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-
-    // Check if all requirements are met
-    if (
-      password.length >= minLength &&
-      hasUppercase &&
-      hasLowercase &&
-      hasDigit &&
-      hasSpecialChar
-    ) {
-      return true; // Password is valid
-    } else {
-      return false; // Password is not valid
-    }
-  };
+  }, [users]);
   return (
-    <div>
-      <WaveAnimation show={loading} />
-      <form onSubmit={handleSubmit}>
-        <CardMain width="w-full" heading={"Create User"}>
-          <div className="flex flex-row justify-center ">
-            <div
-              onClick={handleClick}
-              className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer"
-            >
-              {!image && <RiImageAddLine style={{ fontSize: 70 }} />}
-              {image && <img src={image} className="h-full w-full " />}
-            </div>
-          </div>
+    <div className="py-5">
+      <CardMain
+        width="w-full "
+        heading={t("All Admins and Moderators")}
+        showButton={true}
+        buttonValue={t("Add New User")}
+        onButtonClick={() => setModelOpen(true)}
+      >
+        <div className="overflow-x-auto relative  mt-4">
+          <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
+              <tr>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("First Name")}
+                </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("Email")}
+                </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("Id Number")}
+                </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("Mobile Number")}
+                </th>
 
-          <div className="flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
-            <div className="md:w-1/2 w-full space-y-5">
-              <InputField
-                id="firstName"
-                heading={t("First Name")}
-                value={firstName}
-                onChange={(e) => setFirstName(e)}
-              />
-              <InputField
-                heading={t("Email")}
-                value={email}
-                onChange={(e) => setEmail(e)}
-              />
-              <InputField
-                heading={t("ID number")}
-                value={idNumber}
-                onChange={(e) => setIdNumber(e)}
-              />
-              <InputField
-                type="number"
-                heading={t("Mobile Number")}
-                value={number}
-                onChange={(e) => setNumber(e)}
-              />
-            </div>
-            <div className="md:w-1/2 w-full md:mt-0 mt-3 space-y-5">
-              <InputField
-                heading={t("User Name")}
-                value={username}
-                onChange={(e) => setUserName(e)}
-              />
-              <Calender
-                type="calendar"
-                heading={t("DOB")}
-                value={date}
-                onChange={(e) => setDate(e)}
-              />
-              <InputField
-                heading={t("Password")}
-                value={password}
-                onChange={(e) => setPassword(e)}
-              />
-              <Select
-                heading={t("Choose Option")}
-                type="select"
-                options={t(role)}
-                onChange={(e) => setRole(e)}
-              />
-            </div>
-          </div>
-          <div className="flex flex-row justify-end mt-10">
-            <Button
-              type="submit"
-              buttonValue={t("Submit")}
-              buttonStyle="px-20 py-2 w-full md:w-max"
-            />
-          </div>
-        </CardMain>
-      </form>
-      <div className="w-full">
-        <input
-          ref={fileInputRef}
-          type="file"
-          onChange={handleSelectImage}
-          style={{ display: "none" }}
-        />
-      </div>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("Role")}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {usersData?.map((v, k) => (
+                <tr
+                  key={k}
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <td
+                    scope="row"
+                    className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
+                  >
+                    {v?.firstName + " " + v?.lastName}
+                  </td>
+                  <td scope="row" className="px-3 py-4">
+                    {v?.email}
+                  </td>
+                  <td className="px-3 py-4">{v?.idNumber}</td>
+                  <td className="px-3 py-4">{v?.mobileNumber}</td>
+                  <td className="px-3 py-4">{v?.roles[0]?.name}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </CardMain>
+
+      {modelOpen ? (
+        <Model2
+          setModelOpen={(e) => setModelOpen(e)}
+          reset={() => reset()}
+          heading="Add User"
+        >
+          <User setModelOpen={(e) => setModelOpen(e)} />
+        </Model2>
+      ) : null}
+
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
@@ -186,59 +122,9 @@ function CreateUser() {
     </div>
   );
 }
-export default CreateUser;
 
-function Select({ heading, value, onChange }) {
-  const { t } = useTranslation();
-
-  var options = [
-    { value: "option1", label: "Moderater" },
-    { value: "option1", label: "Admin" },
-    { value: "option2", label: "User" },
-  ];
-  return (
-    <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700">{heading}</a>{" "}
-      <select
-        onChange={(e) => onChange(e.target.value)}
-        value={value}
-        className="border-primary border rounded-md px-3 py-2 outline-none mt-2 w-full"
-      >
-        {options.map((option, index) => (
-          <option key={index} value={option.value}>
-            {t(option.label)}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
-
-function Calender({ heading, value, onChange }) {
-  return (
-    <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700">{heading}</a>
-
-      <DatePicker
-        selected={value}
-        onChange={(date) => onChange(date)}
-        className="border-primary border rounded-md px-3 py-2 outline-none mt-2 w-full"
-      />
-    </div>
-  );
-}
-
-function InputField({ heading, value, onChange, type }) {
-  return (
-    <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700">{heading}</a>
-
-      <input
-        type={type || "text"}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="border-primary border rounded-md px-3 py-2 outline-none mt-2 w-full"
-      />
-    </div>
-  );
-}
+export default withAuthorization(NotificationsScreen, [
+  ROLES.ADMIN,
+  ROLES.CUSTOMER_CARE,
+  ROLES.COMPLIANCE,
+]);

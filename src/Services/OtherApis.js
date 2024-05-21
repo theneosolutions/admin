@@ -1,15 +1,29 @@
-import axios from "axios";
+import { axiosInstance } from "./constant";
 
-var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
+var baseUrlDecisions = "https://seulah.com/api/v1/dms";
+var baseUrlUser = "https://seulah.com/api/v1/auth";
 
 async function CheckQuestionStatusInScreen(id) {
   try {
-    const response = await axios.get(
-      baseUrlDecisions + `/screen/questionCheckInScreen?questionId=${id}`,
+    const response = await axiosInstance.get(
+      baseUrlDecisions + `/screen/questionCheckInScreen?questionId=${id}`
+    );
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return message;
+  }
+}
+
+async function CheckToken(id, token) {
+  try {
+    const response = await axiosInstance.post(
+      baseUrlUser + `/user/tokenValidationForAdmin`,
       {
-        headers: {
-          "ngrok-skip-browser-warning": "69420",
-        },
+        token: token,
+        idNumber: id,
       }
     );
     return response.data;
@@ -21,4 +35,4 @@ async function CheckQuestionStatusInScreen(id) {
   }
 }
 
-export { CheckQuestionStatusInScreen };
+export { CheckQuestionStatusInScreen, CheckToken };

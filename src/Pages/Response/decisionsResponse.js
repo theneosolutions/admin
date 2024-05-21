@@ -7,8 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Alert, Snackbar } from "@mui/material";
 import * as action from "../../Services/redux/reducer";
-import WaveAnimation from "../../Components/Loading"; // Adjust the path based on your file structure
 import { useTranslation } from "react-i18next";
+import withAuthorization from "../../constants/authorization";
+import { ROLES } from "../../constants/roles";
 
 function CreateUser() {
   const { t } = useTranslation();
@@ -34,7 +35,6 @@ function CreateUser() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
 
   const getSetResponse = useSelector((state) => state.getSetResponse?.data);
 
@@ -130,8 +130,6 @@ function CreateUser() {
   }
   return (
     <div>
-      <WaveAnimation show={loading} />
-
       <select
         value={setId}
         className="mb-4 p-2 px-4 border rounded mt-4 w-full border-primary cursor-pointer"
@@ -245,8 +243,10 @@ function CreateUser() {
     </div>
   );
 }
-export default CreateUser;
-
+export default withAuthorization(CreateUser, [
+  ROLES.ADMIN,
+  ROLES.CUSTOMER_CARE,
+]);
 function InputField({ heading, value, onChange, type, style }) {
   const { t } = useTranslation();
 

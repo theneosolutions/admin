@@ -5,12 +5,14 @@ import { Model } from "Components";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 import { RxCross2 } from "react-icons/rx";
 import { CgArrowsExchange } from "react-icons/cg";
 import { useLocation } from "react-router-dom";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
+
 function LaonApplication() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [modelOpen, setModelOpen] = useState(false);
   const [active, setActive] = useState("Pending");
@@ -18,31 +20,31 @@ function LaonApplication() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
-
-  const getUserApplication = useSelector((state) => state.getUserApplication);
+  const usersApplications = useSelector((state) => state.getApplications);
   const user = useSelector((state) => state.getUserById);
-
+  console.log("user", user);
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
-  useEffect(() => {
-    setData(getUserApplication);
-  }, [getUserApplication]);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const userId = queryParams.get("id");
-
   useEffect(() => {
     getUserLoanDetail();
   }, []);
-
+  useEffect(() => {
+    const app = usersApplications.filter(
+      (application) => application?.userId === userId
+    );
+    setData(app[0]);
+  }, []);
   function SetStatus() {
     dispatch({
       type: "SET_STATUS_OF_APPLICATION",
-      payload: { status: active, id: userId },
+      payload: { status: active, id: data?.id },
     });
+    setTimeout(() => getUserLoanDetail(), 500);
   }
   function getUserLoanDetail() {
     dispatch({
@@ -56,15 +58,13 @@ function LaonApplication() {
   }
   return (
     <div className="py-5">
-      <WaveAnimation show={loading} />
-
       <CardMain
         width="w-full"
         iconStyle="text-3xl text-primary "
         headerDisable={true}
       >
         <div className="">
-          <div className="flex flex-row justify-between items-center border-b-2	 border-gray-200 pb-3 pt-1 ">
+          <div className="flex flex-col md:flex-row justify-between md:items-center border-b-2	 border-gray-200 pb-3 pt-1 ">
             <div className="flex flex-row">
               <img
                 className="h-14 w-14 rounded-full object-cover"
@@ -73,46 +73,43 @@ function LaonApplication() {
               <div className="flex flex-col mx-3 space-y-0.5">
                 <a className="text-xs text-gray-400">Name</a>
                 <a className="text-sm text-gray-700 font-semibold">
-                  {user?.firstName + " " + user?.lastName}
+                  {user?.user?.firstName + " " + user?.user?.lastName}
                 </a>
                 <a
                   className={`text-xs ${
-                    user?.active ? "text-green-500" : "text-red-500"
+                    user?.user?.active ? "text-green-500" : "text-red-500"
                   }`}
                 >
-                  {user?.active ? "Active" : "Not Active"}
+                  {user?.user?.active ? "Active" : "Not Active"}
                 </a>
               </div>
             </div>
-            <div className="flex flex-row">
+            <div className="flex flex-col md:flex-row md:mt-0 mt-4  md:space-y-0 space-y-2">
               <Text
                 heading="Loan Amount"
-                value={data?.loanAmount || 0}
+                value={data?.financeAmount || 0}
                 style="text-green-600"
               />
               <Text
                 heading="After Interest"
-                value={data?.amountAfterInterest || 0}
-              />{" "}
+                value={data?.interestAmount || 0}
+              />
               <Text
                 heading="With Tax And Interest"
-                value={data?.amountAfterInterestAndTex || 0}
-              />{" "}
-              <Text
-                heading="Tenure"
-                value={data?.month ? +data?.month + " Months" : "0 Months"}
-              />{" "}
-              <Text heading="Application Number" value={data?.id || 0} />{" "}
+                value={data?.interestAmount || 0}
+              />
+              <Text heading="Tenure" value={data?.term || 0} />
+              <Text heading="Application Number" value={data?.id || 0} />
             </div>
             <div>
-              <a className=" text-green-600 px-2 text-md font-semibold uppercase">
+              <a className=" text-green-600 md:px-2 text-md font-semibold uppercase">
                 {data?.status}
               </a>
             </div>
           </div>
-          <div className="flex flex-row pt-7">
-            <div className="flex flex-row w-1/2 ">
-              <div className="flex flex-row w-1/2 ">
+          <div className="flex lg:flex-row flex-col pt-7 ">
+            <div className="flex flex-col md:flex-row w-full lg:w-1/2 ">
+              <div className="flex flex-row w-full  md:w-1/2 ">
                 <div className="flex flex-col pb-5 space-y-5">
                   <div className="flex flex-col">
                     <a className="text-xs text-gray-400">User ID</a>
@@ -123,7 +120,7 @@ function LaonApplication() {
                   <div className="flex flex-col ">
                     <a className="text-xs text-gray-400 ">Account Locked</a>
                     <a className="text-sm text-gray-700  opacity-90">
-                      {user?.accountNonLocked ? "Locked" : "Not Locked"}
+                      {user?.user?.accountNonLocked ? "Locked" : "Not Locked"}
                     </a>
                   </div>
                   <div className="flex flex-col ">
@@ -131,7 +128,9 @@ function LaonApplication() {
                       Absher Verified{" "}
                     </a>
                     <a className="text-sm text-gray-700  opacity-90">
-                      {user?.ownerVerification ? "Verified" : "Not Verified"}
+                      {user?.user?.ownerVerification
+                        ? "Verified"
+                        : "Not Verified"}
                     </a>
                   </div>
 
@@ -199,7 +198,7 @@ function LaonApplication() {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-row w-1/2  border-l-2	 border-r-2	 border-gray-200 px-4">
+              <div className="flex flex-row w-full  md:w-1/2  md:border-l-2	 lg:border-r-2	 border-gray-200 md:px-4">
                 <div className="flex flex-col  pb-5 space-y-6">
                   <div className="flex flex-col">
                     <a className="text-xs text-gray-400 uppercase">
@@ -249,20 +248,20 @@ function LaonApplication() {
                       Intrest Ratio
                     </a>
                     <a className="text-xl text-gray-600 font-semibold opacity-90">
-                      {data?.interestRatio + " %"}
+                      {data?.interestAmount + " %"}
                     </a>
                   </div>
 
-                  <div className="flex flex-col">
+                  {/* <div className="flex flex-col">
                     <a className="text-xs text-gray-400">Apply Data</a>
                     <a className="text-md text-gray-500  opacity-90">
                       {moment(MillisecondsToDate(data?.maturityDate))
                         .startOf("hour")
                         .fromNow()}
                     </a>
-                  </div>
+                  </div> */}
 
-                  <div className="flex flex-col">
+                  {/* <div className="flex flex-col">
                     <a className="text-xs text-gray-400">
                       1st Installment Date
                     </a>
@@ -271,9 +270,9 @@ function LaonApplication() {
                         MillisecondsToDate(data?.firstInstallmentDate)
                       ).format("LL")}
                     </a>
-                  </div>
+                  </div> */}
 
-                  <div className="flex flex-col">
+                  {/* <div className="flex flex-col">
                     <a className="text-xs text-gray-400">
                       Last Installment Date
                     </a>
@@ -282,15 +281,15 @@ function LaonApplication() {
                         MillisecondsToDate(data?.lastInstallmentDate)
                       ).format("LL")}
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
-            <div className="flex flex-col w-1/2  px-4 ">
-              <div className="w-3/5		space-y-10">
+            <div className="flex flex-col w-full lg:w-1/2  lg:px-4 lg:mt-0 mt-5">
+              <div className="w-full lg:w-3/5		space-y-10">
                 <Progress
                   heading="Eligibility Loan Amount"
-                  value="30,000"
+                  value={data?.totalAmount}
                   progressValue="50%"
                   min="Min 2K"
                   max="Max 4 Lakh"
@@ -298,33 +297,23 @@ function LaonApplication() {
 
                 <Progress
                   heading="Tenure"
-                  value={data?.month + " Months"}
+                  value={data?.term + " Months"}
                   progressValue="20%"
                   min="Min 6 Months"
                   max="Min 36 Months"
                 />
               </div>
 
-              <div className="flex flex-row mt-6">
+              <div className="flex flex-col md:flex-row mt-6 space-y-2 md:space-y-0"></div>
+              <div className="flex flex-col md:flex-row mt-6 space-y-2 md:space-y-0">
                 <Text2
                   heading="Monthly Installment"
-                  value={data?.installmentPerMonth}
+                  value={data?.emimonthlyInstallement}
                 />
-                <Text2
-                  heading="Monthly Installment With Intrest"
-                  value={data?.installmentPerMonthAfterInterest}
-                />{" "}
-                <Text2
-                  heading="Monthly Installment With Tax And Intrest"
-                  value={data?.installmentPerMonthAfterInterestAndTex}
-                />{" "}
-              </div>
-              <div className="flex flex-row mt-6">
-                <Text2 heading="Processing Fee" value={data?.processingFee} />
                 <Text2 heading="Total Fee" value={data?.totalFee} />{" "}
-                <Text2 heading="Vat on Fee" value={data?.vatOnFee} />{" "}
+                <Text2 heading="Vat on Fee" value={data?.vat} />{" "}
               </div>
-              <div className="flex flex-row justify-between mt-10">
+              <div className="flex flex-col md:flex-row justify-between mt-10 md:space-x-2">
                 <Button
                   setActive={(e) => setActive(e)}
                   active={active}
@@ -364,19 +353,19 @@ function LaonApplication() {
       </CardMain>
 
       <Model
-        heading="Delete User"
+        heading={t("Delete User")}
         isOpen={modelOpen}
         style="w-1/3"
         innerStyle="py-10"
         setState={() => setModelOpen(!modelOpen)}
-        action1Value="Cancel"
-        action2Value="Delete"
+        action1Value={t("Cancel")}
+        action2Value={t("Delete")}
         action2={() => setModelOpen(false)}
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">
-          Are You Sure To Delete
-          <span className="font-semibold"> Ali Imtayaz</span> ?
+          {t("Are You Sure To Delete ?")}
+          <span className="font-semibold"> Ali Imtayaz</span>
         </a>
       </Model>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
@@ -402,7 +391,7 @@ function Button({ value, icon, active, setActive }) {
       onClick={() => setActive(value)}
       className={`${
         active == value ? "text-white bg-blue-400" : "text-blue-400"
-      } hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-4 rounded-md  items-center flex flex-col   `}
+      } hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-4 rounded-md  items-center flex flex-col md:mt-0 mt-2  `}
     >
       {icon}
       <div className="uppercase text-xs font-semibold">{value}</div>
@@ -445,10 +434,10 @@ function Progress({ heading, value, progressValue, min, max }) {
 
 function Text({ heading, value, style }) {
   return (
-    <div className="flex flex-col mx-3 space-y-0.5 px-1">
+    <div className="flex flex-col md:mx-3 space-y-0.5 px-1">
       <a className="text-xs text-gray-400">{heading}</a>
       <a
-        className={`text-sm text-gray-700 font-semibold opacity-90 p-1 ${style}`}
+        className={`text-sm text-gray-700 font-semibold opacity-90 md:p-1 ${style}`}
       >
         {value}
       </a>
@@ -458,7 +447,7 @@ function Text({ heading, value, style }) {
 
 function Text2({ heading, value }) {
   return (
-    <div className="flex flex-col space-y-0.5  w-1/3	">
+    <div className="flex flex-col space-y-0.5 w-full md:w-1/3	">
       <a className="text-xs text-gray-400">{heading}</a>
       <a className="text-sm text-gray-700  opacity-90 pt-1">{value}</a>
     </div>

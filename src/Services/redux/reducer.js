@@ -16,12 +16,16 @@ const initialState = {
   message: "",
   open: false,
   error: false,
-  Notifications: {},
+  Notifications: [],
   Loading: false,
   islogin: false,
   user: null,
-
-  //Loan start
+  // role: "ROLE_ADMIN", //null
+  role: null,
+  roleModules: ["Overview", "APPLICATIONS"],
+  token: null,
+  verificationOtp: null,
+  forgetVerificationOtp: null,
   getAllLoanReasons: [],
   getSetResponse: {},
   getScreensSets: {},
@@ -32,6 +36,27 @@ const initialState = {
   getAllCards: [],
   getUserApplication: {},
   getUserById: {},
+  getTermsConditions: [],
+  getNafith: {},
+  getNafithSanad: {},
+  getNafathDetail: {},
+  getSimahCodes: {},
+  getAllUsersAll: [],
+  selaBalance: {},
+  getAgreement: {},
+  getScreenName: {},
+  getAllDBR: [],
+  getAllExpense: [],
+  getAllTermsRates: [],
+  getAllRoles: [],
+  getSimahReport: [],
+  getSmsOtp: [],
+  getDevicesTokens: [],
+  getAmlRecord: {},
+  getEmdahReport: {},
+  getAllUsersEmi: [],
+  getSingleLoanTypeEmi: [],
+  getTermRatesCalculations: {},
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -57,13 +82,12 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getLables = data;
     },
-
     Notifications: (state, action) => {
-      state.Notifications = action.payload;
+      const { data } = action.payload;
+      state.Notifications = data;
     },
     Loading: (state, action) => {
       const { Loading } = action.payload;
-
       state.Loading = Loading;
     },
     SetAppState: (state, action) => {
@@ -97,11 +121,12 @@ const Reducer = createSlice({
       state.open = open;
       state.error = error;
     },
-
     Auth: (state, action) => {
-      const { user, islogin } = action.payload;
+      const { user, islogin, role, token } = action.payload;
       state.islogin = islogin;
       state.user = user;
+      state.role = role;
+      state.token = token;
     },
     GetAllLoanReasons: (state, action) => {
       const { data } = action.payload;
@@ -143,6 +168,98 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getUserById = data;
     },
+    GetTermsConditions: (state, action) => {
+      const { data } = action.payload;
+      state.getTermsConditions = data;
+    },
+    GetNafith: (state, action) => {
+      const { data } = action.payload;
+      state.getNafith = data;
+    },
+    GetNafithSanad: (state, action) => {
+      const { data } = action.payload;
+      state.getNafithSanad = data;
+    },
+    GetNafathDetails: (state, action) => {
+      const { data } = action.payload;
+      state.getNafathDetail = data;
+    },
+    GetSimahCodes: (state, action) => {
+      const { data } = action.payload;
+      state.getSimahCodes = data;
+    },
+    GetAllUsersAll: (state, action) => {
+      const { data } = action.payload;
+      state.getAllUsersAll = data;
+    },
+    SelaBalance: (state, action) => {
+      const { data } = action.payload;
+      state.selaBalance = data;
+    },
+    GetAgreement: (state, action) => {
+      const { data } = action.payload;
+      state.getAgreement = data;
+    },
+    GetScreenName: (state, action) => {
+      const { data } = action.payload;
+      state.getScreenName = data;
+    },
+    VerificationOtp: (state, action) => {
+      const { otp } = action.payload;
+      state.verificationOtp = otp;
+    },
+    GetAllDBR: (state, action) => {
+      const { data } = action.payload;
+      state.getAllDBR = data;
+    },
+    GetAllExpense: (state, action) => {
+      const { data } = action.payload;
+      state.getAllExpense = data;
+    },
+    ForgetVerificationOtp: (state, action) => {
+      const { otp } = action.payload;
+      state.forgetVerificationOtp = otp;
+    },
+    GetAllTermsRates: (state, action) => {
+      const { data } = action.payload;
+      state.getAllTermsRates = data;
+    },
+    GetAllRoles: (state, action) => {
+      const { data } = action.payload;
+      state.getAllRoles = data;
+    },
+    GetSimahReport: (state, action) => {
+      const { data } = action.payload;
+      state.getSimahReport = data;
+    },
+    GetSmsOtp: (state, action) => {
+      const { data } = action.payload;
+      state.getSmsOtp = data;
+    },
+    GetDevicesTokens: (state, action) => {
+      const { data } = action.payload;
+      state.getDevicesTokens = data;
+    },
+    GetAmlRecord: (state, action) => {
+      const { data } = action.payload;
+      state.getAmlRecord = data;
+    },
+    GetEmdahReport: (state, action) => {
+      const { data } = action.payload;
+      state.getEmdahReport = data;
+    },
+    GetAllUsersEmi: (state, action) => {
+      const { data } = action.payload;
+      state.getAllUsersEmi = data;
+    },
+    GetSimgleLoanTypeEmi: (state, action) => {
+      const { data } = action.payload;
+      state.getSingleLoanTypeEmi = data;
+    },
+    GetTermRatesCalculations: (state, action) => {
+      const { data } = action.payload;
+      state.getTermRatesCalculations = data;
+    },
   },
 });
 export const {
@@ -172,6 +289,30 @@ export const {
   GetAllCards,
   GetUserApplication,
   GetUserById,
+  Notifications,
+  GetTermsConditions,
+  GetNafith,
+  GetNafithSanad,
+  GetNafathDetails,
+  GetSimahCodes,
+  GetAllUsersAll,
+  SelaBalance,
+  GetAgreement,
+  GetScreenName,
+  VerificationOtp,
+  GetAllDBR,
+  GetAllExpense,
+  ForgetVerificationOtp,
+  GetAllTermsRates,
+  GetAllRoles,
+  GetSimahReport,
+  GetSmsOtp,
+  GetDevicesTokens,
+  GetAmlRecord,
+  GetEmdahReport,
+  GetAllUsersEmi,
+  GetSimgleLoanTypeEmi,
+  GetTermRatesCalculations,
 } = Reducer.actions;
 
 export default Reducer.reducer;

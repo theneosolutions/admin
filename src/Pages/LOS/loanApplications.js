@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { MdVerified } from "react-icons/md";
-import { RxCrossCircled } from "react-icons/rx";
-
 import CardMain from "Components/Cards/main";
 import Edit from "Assets/Images/edit.svg";
 import Delete from "Assets/Images/delete.svg";
@@ -11,19 +8,28 @@ import { Model, Avatar } from "Components";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
-
 import { useEffect } from "react";
+import withAuthorization from "../../constants/authorization";
+import { ROLES } from "../../constants/roles";
+
 function LaonApplication() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [modelOpen, setModelOpen] = useState(false);
+  const [applications, setApplications] = useState([]);
+
+  const [allApplications, setAllApplications] = useState([]);
+  const [pending, setPending] = useState([]);
+  const [approved, setApproved] = useState([]);
+  const [rejected, setRejected] = useState([]);
+
+  const [active, setActive] = useState("All");
+
   const users = useSelector((state) => state.getApplications);
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
@@ -38,52 +44,62 @@ function LaonApplication() {
       type: "GET_LOAN_APPLICATIONS",
     });
   }
-  function CheckEligibility(other, numeric) {
-    if (other && numeric) {
-      return (
-        <div className="flex flex-row font-semibold space-x-1 text-green-700 items-center">
-          <MdVerified className="text-xl" />
-          <a className="text-md ">Eligible</a>
-        </div>
+
+  useEffect(() => {
+    if (users?.length > 0) {
+      const pendingLoans = users?.filter(
+        (loan) => loan.status.toLowerCase() === "pending"
       );
-    } else {
-      return (
-        <div className="flex flex-row font-semibold space-x-1 text-red-700 items-center">
-          <RxCrossCircled className="text-xl" />
-          <a className="text-md ">Not Eligible</a>
-        </div>
+      const approvedLoans = users?.filter(
+        (loan) => loan.status.toLowerCase() === "approved"
       );
+      const rejectedLoans = users?.filter(
+        (loan) => loan.status.toLowerCase() === "rejected"
+      );
+
+      setAllApplications(users);
+
+      setApproved(approvedLoans);
+      setPending(pendingLoans);
+      setRejected(rejectedLoans);
     }
-  }
+  }, [users]);
+
   return (
     <div className="py-5">
-      <WaveAnimation show={loading} />
-      <div className="flex md:flex-row flex-col  md:space-x-6">
+      <div className="flex md:flex-row flex-col  md:space-x-6 rtl:space-x-reverse">
         <Notifications
-          value="1200"
-          heading="All Applications"
+          active={active === "All"}
+          onClick={() => (setApplications(allApplications), setActive("All"))}
+          value={allApplications?.length}
+          heading={t("All Applications")}
           color="text-blue-500 text-xl"
         />
         <Notifications
-          value="1200"
-          heading="In Complete"
+          active={active === "Approved"}
+          onClick={() => (setApplications(approved), setActive("Approved"))}
+          value={approved?.length || 0}
+          heading={t("Approved")}
           color="text-green-500 text-xl"
         />
         <Notifications
-          value="1200"
-          heading="On Hold"
+          active={active === "Pending"}
+          onClick={() => (setApplications(pending), setActive("Pending"))}
+          value={pending?.length || 0}
+          heading={t("Pending")}
           color="text-orange-500 text-xl"
         />
         <Notifications
-          value="1200"
-          heading="Rejected"
+          active={active === "Rejected"}
+          onClick={() => (setApplications(rejected), setActive("Rejected"))}
+          value={rejected?.length || 0}
+          heading={t("Rejected")}
           color="text-red-700 text-xl"
         />
       </div>
       <CardMain
         width="w-full  mt-10"
-        heading={t("Loan Applications")}
-        icon={<MdVerified />}
+        heading={t(`${t(active)} ${t("Loan Applications")} `)}
         iconStyle="text-3xl text-primary"
       >
         <div className="overflow-x-auto relative  mt-4">
@@ -94,18 +110,21 @@ function LaonApplication() {
                   {t("User Id")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("Loan Reason")}
+                  {t("Monthly installment")}
                 </th>
 
                 <th scope="col" className="px-3 py-3">
                   {t("Loan Ammount")}
                 </th>
                 <th scope="col" className="px-3 py-3">
-                  {t("Maturity Data")}
+                  {t("Intrest Ammount")}
                 </th>
 
                 <th scope="col" className="px-3 py-3">
-                  {t("Duration")}
+                  {t("Vat Fee")}
+                </th>
+                <th scope="col" className="px-3 py-3">
+                  {t("Status")}
                 </th>
                 <th scope="col" className="px-3 py-3">
                   {t("Action")}
@@ -119,7 +138,7 @@ function LaonApplication() {
               </tr>
             </thead>
             <tbody>
-              {users.map((v, k) => (
+              {users?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -132,24 +151,23 @@ function LaonApplication() {
                       icon={
                         "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes-thumbnail.png"
                       }
-                      onClick={() => navigate(`/profile?id=${v?.id}`)}
                     />
 
                     <a>{v.userId}</a>
                   </td>
                   <td scope="row" className="px-3 py-4">
-                    {v.formulaName}
+                    {v.emimonthlyInstallement}
                   </td>
-                  <td className="px-3 py-4">{v.loanAmount}</td>
-                  <td className="px-3 py-4">{v.maturityDate}</td>
-                  <td className="px-3 py-4">{v.month + " Months"}</td>
-
+                  <td className="px-3 py-4">{v.totalAmount}</td>
+                  <td className="px-3 py-4">{v.interestAmount}</td>
+                  <td className="px-3 py-4">{v.vat}</td>
+                  <td className="px-3 py-4">{v.status}</td>
                   <td className="px-3 py-4">
                     <div
-                      onClick={() => navigate(`/user-profile?id=${v.id}`)}
+                      onClick={() => navigate(`/user-profile?id=${v.userId}`)}
                       className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
                     >
-                      View Details
+                      {t("View Details")}
                     </div>
                   </td>
                   <th
@@ -172,19 +190,19 @@ function LaonApplication() {
         </div>
       </CardMain>
       <Model
-        heading="Delete User"
+        heading={t("Delete User")}
         isOpen={modelOpen}
         style="w-1/3"
         innerStyle="py-10"
         setState={() => setModelOpen(!modelOpen)}
-        action1Value="Cancel"
-        action2Value="Delete"
+        action1Value={t("Cancel")}
+        action2Value={t("Delete")}
         action2={() => setModelOpen(false)}
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">
-          Are You Sure To Delete
-          <span className="font-semibold"> Ali Imtayaz</span> ?
+          {t("Are You Sure To Delete ?")}
+          <span className="font-semibold"> Ali Imtayaz</span>
         </a>
       </Model>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
@@ -199,10 +217,20 @@ function LaonApplication() {
     </div>
   );
 }
-export default LaonApplication;
-function Notifications({ heading, value, color }) {
+
+export default withAuthorization(LaonApplication, [
+  ROLES.ADMIN,
+  ROLES.UNDER_WRITER,
+]);
+
+function Notifications({ heading, value, color, onClick, active }) {
   return (
-    <div className="flex font-semibold flex-col bg-gray-300  px-10 py-8 text-center rounded-md md:w-1/4 w-full md:mt-0 mt-4 hover:bg-opacity-70 cursor-pointer shadow-xl duration-300">
+    <div
+      onClick={() => onClick()}
+      className={`flex font-semibold flex-col   px-10 py-8 text-center rounded-md md:w-1/4 w-full md:mt-0 mt-4 hover:bg-opacity-70 cursor-pointer shadow-xl duration-300 ${
+        active ? "bg-blue-100" : "bg-gray-200"
+      } `}
+    >
       <a className={color}>{value}</a>
       <a className="text-xs text-gray-700 mt-2">{heading}</a>
     </div>

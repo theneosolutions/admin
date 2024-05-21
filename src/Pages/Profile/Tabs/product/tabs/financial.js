@@ -151,23 +151,23 @@ function Card2() {
         User Activities
       </div>
 
-      <div className="flex flex-col py-2 text-sm text-gray-500 mt-5">
+      <div className="flex flex-col  py-2 text-sm text-gray-500 mt-5">
         <a>Your Account is logged in</a>
         <a className="font-semibold">Mac Book Pro 10:34PM</a>
       </div>
-      <div className="flex flex-col py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a>Your Account is logged in</a>
         <a className="font-semibold">Mac Book Pro 10:34PM</a>
       </div>
-      <div className="flex flex-col py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a>Your Account is logged in</a>
         <a className="font-semibold">Mac Book Pro 10:34PM</a>
       </div>
-      <div className="flex flex-col py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a>Your Account is logged in</a>
         <a className="font-semibold">Mac Book Pro 10:34PM</a>
       </div>
-      <div className="flex flex-col py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a>Your Account is logged in</a>
         <a className="font-semibold">Mac Book Pro 10:34PM</a>
       </div>
@@ -185,23 +185,23 @@ function Card3() {
         Work & Education
       </div>
 
-      <div className="flex flex-col py-2 text-sm text-gray-500 mt-5">
+      <div className="flex flex-col  py-2 text-sm text-gray-500 mt-5">
         <a className="font-semibold">Product Manger at DroitLab</a>
         <a className="text-xs">2023 - Present</a>
       </div>
-      <div className="flex flex-col py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a className="font-semibold">Ui ux designer at Drobok</a>
         <a className="text-xs">2023 - Present</a>
       </div>
-      <div className="flex flex-col py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a className="font-semibold">Student at Calloge</a>
         <a className="text-xs">2023 - Present</a>
       </div>
-      <div className="flex flex-col py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a className="font-semibold">Ui ux designer at Drobok</a>
         <a className="text-xs">2023 - Present</a>
       </div>
-      <div className="flex flex-col py-2 text-sm text-gray-500">
+      <div className="flex flex-col  py-2 text-sm text-gray-500">
         <a className="font-semibold">Ui ux designer at Drobok</a>
         <a className="text-xs">2023 - Present</a>
       </div>

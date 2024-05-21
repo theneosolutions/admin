@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Alert, Snackbar } from "@mui/material";
 import * as action from "../../Services/redux/reducer";
-import WaveAnimation from "../../Components/Loading"; // Adjust the path based on your file structure
 import { useTranslation } from "react-i18next";
 import Lottie from "lottie-react";
 import axios from "axios";
@@ -36,7 +35,6 @@ function CreateUser({ setid }) {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
 
   const getSetResponse = useSelector((state) => state.getSetResponse?.data);
 
@@ -212,13 +210,11 @@ function CreateUser({ setid }) {
 
   return (
     <div>
-      <WaveAnimation show={loading} />
-
       {setId && (
         <form onSubmit={handleSubmit}>
           <CardMain width="w-full mt-5">
-            <div className="flex flex-row space-x-20 rtl:space-x-reverse mt-5">
-              <div className="w-1/2 space-y-10 items-center bg-green-50 flex flex-col py-12">
+            <div className="flex flex-col md:flex-row md:space-x-20 rtl:space-x-reverse mt-5 ">
+              <div className="w-full md:w-1/2 space-y-10 items-center bg-green-50 flex flex-col py-12">
                 <a className="text-lg text-primary underline">
                   {t("For Success Response")}
                 </a>
@@ -248,7 +244,7 @@ function CreateUser({ setid }) {
                   style="w-72"
                 />
               </div>
-              <div className="w-1/2 space-y-10 items-center bg-red-50 flex flex-col py-12">
+              <div className="w-full md:w-1/2 space-y-10 items-center bg-red-50 flex flex-col py-12 md:mt-0 mt-4">
                 <a className="text-lg text-red-600 underline">
                   {t("For Error Response")}
                 </a>

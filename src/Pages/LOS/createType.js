@@ -6,8 +6,10 @@ import * as action from "../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
 import UplaodIcon from "Assets/Images/upload.svg";
 import { useNavigate } from "react-router-dom";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
-
+import { CiCircleRemove } from "react-icons/ci";
+import withAuthorization from "../../constants/authorization";
+import { ROLES } from "../../constants/roles";
+import TermsAndRates from "Pages/Calculations/termsAndRates";
 function App() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -17,13 +19,12 @@ function App() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
 
-  const [formData, setFormData] = useState([{ key: null, value: null }]);
+  const [formData, setFormData] = useState([{ key: null, value: 0 }]);
   const [image, setImage] = useState(null);
   const [image2, setImage2] = useState(null);
   const [reason, setReason] = useState("");
-
+  const [language, setLanguage] = useState("ar");
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
@@ -45,7 +46,7 @@ function App() {
   };
 
   const handleAddMore = () => {
-    setFormData((prevData) => [...prevData, { key: null, value: null }]);
+    setFormData((prevData) => [...prevData, { key: null, value: 0 }]);
   };
 
   const transformList = (originalList) => {
@@ -55,11 +56,7 @@ function App() {
   };
 
   const handleSubmit = () => {
-    if (
-      !image ||
-      !reason ||
-      formData.some((item) => !item.key || !item.value)
-    ) {
+    if (!image || !reason || formData.some((item) => !item.key)) {
       alert("Please fill in all required fields.");
       return;
     }
@@ -78,10 +75,10 @@ function App() {
       const newKey = key + " Months";
       transformedObject[newKey] = mergedObject[key];
     }
-
+    console.log("transformedObject", transformedObject);
     dispatch({
       type: "CREATE_LOAN_TYPE",
-      payload: { transformedObject, reason, image },
+      payload: { reason, image, language, transformedObject },
     });
     setTimeout(() => {
       getAllReasons();
@@ -124,41 +121,59 @@ function App() {
     }
   }, [message]);
   function reset() {
-    setFormData([{ key: null, value: null }]);
+    setFormData([{ key: null, value: 0 }]);
     setReason("");
     setImage(null);
     setImage2(null);
   }
+
+  function Remove(key) {
+    const temp = formData.filter((item, index) => index !== key);
+    setFormData(temp);
+  }
   return (
     <div className="container mx-auto mt-5 space-y-6">
-      <WaveAnimation show={loading} />
-
       <div className="flex flex-col   w-full ">
         <CardMain
           width="w-full h-max  md:mt-0 mt-4"
-          heading={t("Create Loan Type")}>
-          <div className=" px-3   flex flex-row space-x-4">
-            <div className="flex flex-row w-1/2">
+          heading={t("Create Loan Type")}
+        >
+          <div className=" px-1 md:px-3 rtl:space-x-reverse  flex flex-col md:flex-row md:space-x-4">
+            <div className="flex flex-row w-full md:w-1/2">
               <div
                 onClick={handleClick}
-                className="w-full border  bg-secondry rounded-md border-dashed	 border-slate-200 items-center flex flex-col justify-center px-4 py-8">
+                className="w-full border  bg-secondry rounded-md border-dashed	 border-slate-200 items-center flex flex-col justify-center px-4 py-8"
+              >
                 {!image2 && <img src={UplaodIcon} />}
 
                 {image2 && <img src={image2} />}
                 <a className="font-semibold mt-3">
                   <span className="underline text-primary font-bold cursor-pointer hover:opacity-80 duration-300">
-                    Browse
+                    {t("Browse")}
                   </span>
                 </a>
                 <a className="text-xs text-gray-600 mt-3">
-                  Supported formates: Ico, PNG
+                  {t("Supported formates: Ico, PNG")}
                 </a>
               </div>
             </div>
-            <div className="w-1/2">
+            <div className="w-full md:w-1/2 mt-3 md:mt-0">
+              <div className="flex flex-row justify-between -mt-12">
+                <div></div>
+                <div>
+                  <select
+                    className=" p-2 border rounded  w-32 "
+                    onChange={(e) => setLanguage(e.target.value)}
+                    value={language}
+                  >
+                    <option value="ar">{t("AR")}</option>
+                    <option value="en">{t("EN")}</option>
+                  </select>
+                </div>
+              </div>
               <div className="flex flex-col w-full">
                 <a className="text-sm text-gray-700 font-semibold">
-                  Loan Reason
+                  {t("Loan Reason")}
                 </a>
 
                 <input
@@ -167,57 +182,66 @@ function App() {
                   className="border-primary rounded-md border  px-3 py-1.5 outline-none mt-2 w-full"
                 />
               </div>
-
               <input
                 ref={fileInputRef}
                 type="file"
                 onChange={handleSelectImage}
                 style={{ display: "none" }}
               />
-
               <div className=" py-3   bg-secondry rounded-md 	 border-slate-200 ">
-                <a className="text-sm text-gray-700 font-semibold">Tensures </a>
+                <a className="text-sm text-gray-700 font-semibold">
+                  {t("Tensures")}{" "}
+                </a>
 
                 <div className="mt-4">
                   {formData?.map((data, index) => (
-                    <div key={index} className="mb-4 flex space-x-2">
-                      <div className="flex flex-col w-1/2 ">
-                        <a className="text-sm text-gray-700">Months</a>
+                    <div
+                      key={index}
+                      className="mb-4 flex  flex-row justify-between items-end "
+                    >
+                      <div className="flex flex-row w-11/12	space-x-2 rtl:space-x-reverse">
+                        <div className="flex flex-col w-full	 ">
+                          <a className="text-sm text-gray-700">{t("Months")}</a>
 
-                        <input
-                          type="number"
-                          value={data.key || ""}
-                          onChange={(e) =>
-                            handleChange(index, "key", e.target.value)
-                          }
-                          className="border-primary border rounded-md  px-3 py-1.5 outline-none mt-2 w-full"
-                          placeholder="Key"
-                        />
+                          <input
+                            type="number"
+                            value={data.key || ""}
+                            onChange={(e) =>
+                              handleChange(index, "key", e.target.value)
+                            }
+                            className="border-primary border rounded-md  px-3 py-1.5 outline-none mt-2 w-full"
+                            placeholder="Key"
+                          />
+                        </div>
+                        {/* <div className="flex flex-col w-1/2	 ">
+                          <a className="text-sm text-gray-700"> {t("Ratio")}</a>
+
+                          <input
+                            type="number"
+                            value={data.value || ""}
+                            onChange={(e) =>
+                              handleChange(index, "value", e.target.value)
+                            }
+                            className="border-primary border rounded-md  px-3 py-1.5 outline-none mt-2 w-full"
+                            placeholder="Value"
+                          />
+                        </div> */}
                       </div>
-
-                      <div className="flex flex-col w-1/2 ">
-                        <a className="text-sm text-gray-700">Ratio</a>
-
-                        <input
-                          type="number"
-                          value={data.value || ""}
-                          onChange={(e) =>
-                            handleChange(index, "value", e.target.value)
-                          }
-                          className="border-primary border rounded-md  px-3 py-1.5 outline-none mt-2 w-full"
-                          placeholder="Value"
-                        />
-                      </div>
+                      <CiCircleRemove
+                        className="mb-1 text-3xl text-red-700 cursor-pointer hover:text-red-400 duration-300"
+                        onClick={() => Remove(index)}
+                      />
                     </div>
                   ))}
                 </div>
 
                 <div className="flex flex-col">
-                  <div className="flex flex row items-end justify-end">
+                  <div className=" flex row items-end justify-end">
                     <button
                       onClick={handleAddMore}
-                      className={`w-max rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}>
-                      Add More Tenures
+                      className={`w-max rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}
+                    >
+                      {t("Add More Months")}
                     </button>
                   </div>
                 </div>
@@ -225,8 +249,9 @@ function App() {
               <div className="flex flex-col">
                 <button
                   onClick={handleSubmit}
-                  className={`mt-5 rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}>
-                  Submit
+                  className={`w-max mt-5 rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}
+                >
+                  {t("Submit")}
                 </button>
               </div>
             </div>
@@ -235,13 +260,14 @@ function App() {
         <CardMain width="w-full mt-4 h-max pb-8" heading={t("All Loan Types")}>
           <div className="flex flex-wrap ">
             {loanReasons?.map((v, k) => (
-              <div className="md:px-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
+              <div className="px-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
                 <div
                   key={k}
-                  onClick={() =>
-                    navigate(`/los/create-loan-tax?id=${v?.loanTypeDetail?.id}`)
-                  }
-                  className=" flex flex-row justify-center space-x-2 items-center border-dashed border border-gray-300  text-center mt-4 py-6 rounded-md hover:bg-gray-300 duration-300 cursor-pointer">
+                  // onClick={() =>
+                  //   navigate(`/los/create-loan-tax?id=${v?.loanTypeDetail?.id}`)
+                  // }
+                  className=" flex flex-row justify-center space-x-2 rtl:space-x-reverse items-center border-dashed border border-gray-300  text-center mt-4 py-6 rounded-md hover:bg-gray-300 duration-300 cursor-pointer"
+                >
                   <img
                     src={`data:image/jpeg;base64,${v.icon}`}
                     className="h-7"
@@ -252,17 +278,20 @@ function App() {
             ))}
           </div>
         </CardMain>
+        <TermsAndRates />
       </div>
 
       <Snackbar
         open={open}
         autoHideDuration={5000}
         onClose={handleClose}
-        className="mt-4">
+        className="mt-4"
+      >
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>
@@ -270,4 +299,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthorization(App, [ROLES.ADMIN, ROLES.UNDER_WRITER]);

@@ -2,13 +2,14 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "../../Components/Loading"; // Adjust the path based on your file structure
 import { useTranslation } from "react-i18next";
 import CardMain from "../../Components/Cards/main";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { CheckQuestionStatusInScreen } from "Services/OtherApis";
+import { MdDeleteOutline } from "react-icons/md";
+
 function CreateQuestionsSet() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -17,12 +18,12 @@ function CreateQuestionsSet() {
 
   const [selectedIds, setSelectedIds] = useState([]); // State to hold selected checkbox IDs
   const [selectedData, setSelectedData] = useState([]); // State to hold selected checkbox IDs
+
   const [name, setName] = useState("");
 
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
 
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
@@ -48,12 +49,20 @@ function CreateQuestionsSet() {
   }
 
   const handleCheckboxChange = (id, object) => {
+    if (object?.eligibilityQuestions) {
+    } else {
+    }
     CheckQuestionStatusInScreen(id).then((response) => {
       if (response === "No Record found") {
         if (selectedIds.includes(id)) {
         } else {
           setSelectedIds([...selectedIds, id]);
-          setSelectedData([...selectedData, object]);
+
+          if (object?.eligibilityQuestions) {
+            setSelectedData([...selectedData, object?.eligibilityQuestions]);
+          } else {
+            setSelectedData([...selectedData, object]);
+          }
         }
       } else {
         alert("Question Already Exist In ", response.screenHeading[0]);
@@ -94,63 +103,88 @@ function CreateQuestionsSet() {
     setSelectedData([]);
     setSelectedIds([]);
   }
+  function onDelete(id) {
+    const temp = selectedData.filter((item) => item?.id != id);
+    const temp2 = selectedIds.filter((item) => item != id);
 
+    setSelectedIds(temp2);
+    setSelectedData(temp);
+  }
+  function DeleteSet() {
+    dispatch({
+      type: "DELETE_SET",
+      payload: id,
+    });
+    setTimeout(() => navigate("/decisions/create-set", 500));
+  }
   return (
     <div className="">
-      <WaveAnimation show={loading} />
+      <div className="flex flex-row w-full justify-end space-x-3">
+        <div
+          onClick={() => DeleteSet()}
+          className="bg-red-400 px-7 py-1 rounded-md cursor-pointer hover:bg-red-500 duration-300 w-max text-white"
+        >
+          {t("Delete Set")}
+        </div>
+        {/* <div className="bg-red-400 px-7 py-2 rounded-md cursor-pointer hover:bg-red-500 duration-300 w-max text-white">
+          Delete Set
+        </div> */}
+      </div>
       <div className="mt-6 flex flex-col md:flex-row md:space-x-3 rtl:space-x-reverse h-max">
         <CardMain
           heading={t("All List Of Questions in this set")}
-          width="md:w-3/5 w-full h-min"
+          width="md:w-3/5 w-full h-min "
           showButton={true}
           buttonValue={t("View All Screens")}
           onButtonClick={() => navigate(`/view-screen?id=${id}`)} // Attach click handler
         >
-          <table className="mt-4 w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
-              <tr>
-                <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("heading")}
-                </th>
-                <th scope="col" className="px-6 py-3 cursor-pointer">
-                  {t("Question")}
-                </th>
-                <th scope="col" className="px-6 py-3 cursor-pointer">
-                  {t("Action")}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {temp.map((v, k) => {
-                return (
-                  <tr
-                    key={k}
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                  >
-                    <td className="px-3 py-4 cursor-pointer text-primary">
-                      {v.heading || v.eligibilityQuestions?.heading}
-                    </td>
-                    <td className="px-6 py-4">
-                      {v.question || v.eligibilityQuestions?.question}
-                    </td>
-                    <td className="px-6 py-2">
-                      <button
-                        onClick={() =>
-                          handleCheckboxChange(
-                            v.id || v.eligibilityQuestions?.id,
-                            v
-                          )
-                        }
-                        className="w-max px-10 text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10"
-                      >
-                        Add
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div className="w-full flex flex-col mt-3 overflow-x-auto">
+            <table className="mt-4 w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
+                <tr>
+                  <th scope="col" className="px-3 py-3 cursor-pointer">
+                    {t("heading")}
+                  </th>
+                  <th scope="col" className="px-6 py-3 cursor-pointer">
+                    {t("Question")}
+                  </th>
+                  <th scope="col" className="px-6 py-3 cursor-pointer">
+                    {t("Action")}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {temp.map((v, k) => {
+                  return (
+                    <tr
+                      key={k}
+                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                    >
+                      <td className="px-3 py-4 cursor-pointer text-primary">
+                        {v.heading || v.eligibilityQuestions?.heading}
+                      </td>
+                      <td className="px-6 py-4">
+                        {v.question || v.eligibilityQuestions?.question}
+                      </td>
+                      <td className="px-6 py-2">
+                        <button
+                          onClick={() =>
+                            handleCheckboxChange(
+                              v.id || v.eligibilityQuestions?.id,
+                              v
+                            )
+                          }
+                          className="w-max px-10 text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10"
+                        >
+                          {t("Add")}
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </CardMain>
         {selectedData.length > 0 && (
           <CardMain
@@ -167,6 +201,9 @@ function CreateQuestionsSet() {
                   <th scope="col" className="px-6 py-3 cursor-pointer">
                     {t("Question")}
                   </th>
+                  <th scope="col" className="px-6 py-3 cursor-pointer">
+                    {t("Action")}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -181,6 +218,14 @@ function CreateQuestionsSet() {
                       </td>
                       <td className="px-6 py-4">
                         {v.question || v.eligibilityQuestions?.question}
+                      </td>
+                      <td
+                        className="px-6 py-4"
+                        onClick={() =>
+                          onDelete(v.id || v?.eligibilityQuestions?.id)
+                        }
+                      >
+                        <MdDeleteOutline className="text-red-400 text-2xl cursor-pointer hover:text-red-600 duration-200 " />
                       </td>
                     </tr>
                   );

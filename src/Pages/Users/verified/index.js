@@ -10,24 +10,34 @@ import { Model, Avatar } from "../../../Components";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
-
 import { useEffect } from "react";
+import withAuthorization from "../../../constants/authorization";
+import { ROLES } from "../../../constants/roles";
+import { LuSearch } from "react-icons/lu";
+
 function VerifiedUsers() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [modelOpen, setModelOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(false);
+  const [username, setUsername] = useState(false);
+
   const users = useSelector((state) => state.getAllUsers);
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
+  const [search, setSearch] = useState("");
+  const [newUsersData, setNewUsersData] = useState([]);
+  const [usersData, setUsersData] = useState([]);
+
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
-  function onDelete() {
+  function onDelete(user, username) {
+    setSelectedUserId(user?.userId);
     setModelOpen(true);
+    setUsername(username);
   }
   useEffect(() => {
     getAllUsersData();
@@ -38,27 +48,62 @@ function VerifiedUsers() {
       payload: "VERIFIED",
     });
   }
+  function DeleteUser() {
+    setModelOpen(false);
+    dispatch({
+      type: "DELETE_USER_BY_ID",
+      payload: selectedUserId,
+    });
+    setTimeout(() => getAllUsersData(), 500);
+  }
+  useEffect(() => {
+    if (users) {
+      const data = users.filter((person) => person?.user);
+      setUsersData(data);
+      setNewUsersData(data);
+    }
+  }, [users]);
   function CheckEligibility(other, numeric) {
     if (other === true && numeric === true) {
       return (
-        <div className="flex flex-row font-semibold space-x-1 text-green-700 items-center">
+        <div className="flex flex-row font-semibold space-x-1  rtl:space-x-reverse text-green-700 items-center">
           <MdVerified className="text-xl" />
-          <a className="text-md ">Eligible</a>
+          <a className="text-md ">{t("Eligible")}</a>
         </div>
       );
     } else {
       return (
-        <div className="flex flex-row font-semibold space-x-1 text-red-700 items-center">
+        <div className="flex flex-row font-semibold space-x-1  rtl:space-x-reverse text-red-700 items-center">
           <RxCrossCircled className="text-xl" />
-          <a className="text-md ">Not Eligible</a>
+          <a className="text-md ">{t("Not Eligible")}</a>
         </div>
       );
     }
   }
+
+  useEffect(() => {
+    if (search === "") {
+      setNewUsersData(usersData);
+    } else {
+      const filteredData = usersData.filter((user) =>
+        user?.user?.user?.idNumber.toLowerCase().includes(search.toLowerCase())
+      );
+      setNewUsersData(filteredData);
+    }
+  }, [search, usersData]);
   return (
     <div className="py-5">
-      <WaveAnimation show={loading} />
+      <div className="flex flex-row border border-gray-400 md:w-1/3 w-full rounded-md  py-2 mb-2   px-2   items-center space-x-2">
+        <LuSearch className="text-gray-400" />
 
+        <input
+          type="number"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className=" outline-none bg-transparent w-full text-gray-500 no-spinners text-md"
+          placeholder={t("Search With Id Number")}
+        />
+      </div>
       <CardMain
         width="w-full"
         heading={t("Verified Users")}
@@ -67,10 +112,13 @@ function VerifiedUsers() {
       >
         <div className="overflow-x-auto relative  mt-4">
           <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
+            <thead className="text-xs text-gray-400 uppercase bg-white font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("User Id")}
+                </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("Id Number")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Questions")}
@@ -83,8 +131,12 @@ function VerifiedUsers() {
                 <th scope="col" className="px-3 py-3">
                   {t("Eligibilty")}
                 </th>
+
                 <th scope="col" className="px-3 py-3">
-                  {t("View Answers")}
+                  {t("Status")}
+                </th>
+                <th scope="col" className="px-3 py-3">
+                  {t("Simah Report")}
                 </th>
                 <th
                   scope="col"
@@ -95,7 +147,7 @@ function VerifiedUsers() {
               </tr>
             </thead>
             <tbody>
-              {users.map((v, k) => (
+              {newUsersData?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -110,20 +162,31 @@ function VerifiedUsers() {
                       }
                       onClick={() =>
                         navigate(
-                          `/profile?id=${v?.user.idNumber}&name=Profile&user=${v?.user?.id}`
+                          `/profile?id=${v?.user?.user?.idNumber}&name=Profile&user=${v?.user?.user?.id}`
                         )
                       }
                     />
+                    {v?.user?.user && (
+                      <a>
+                        {v?.user?.user?.firstName +
+                          " " +
+                          v?.user?.user?.lastName}
+                      </a>
+                    )}
+                  </td>
+
+                  <td scope="row" className="px-3 py-4">
+                    {v?.user?.user?.idNumber}
                   </td>
                   <td scope="row" className="px-3 py-4">
                     {v?.eligibilityResult?.otherQuestionEligibility
-                      ? "Pass"
-                      : "Fail"}
+                      ? t("Pass")
+                      : t("Fail")}
                   </td>
                   <td className="px-3 py-4">
                     {v?.eligibilityResult?.numericQuestionEligibility
-                      ? "Pass"
-                      : "Fail"}
+                      ? t("Pass")
+                      : t("Fail")}
                   </td>
                   <td className="px-3 py-4">
                     {CheckEligibility(
@@ -131,12 +194,31 @@ function VerifiedUsers() {
                       v?.eligibilityResult.numericQuestionEligibility
                     )}
                   </td>
+
+                  <td className="px-3 py-4">
+                    {v?.user?.user?.accountStatus === "1" ? (
+                      <div className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500">
+                        {t("Blocked")}
+                      </div>
+                    ) : v?.user?.user?.accountStatus === "0" ? (
+                      <div
+                        className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
+                        duration-300 text-green-500"
+                      >
+                        {t("Active")}
+                      </div>
+                    ) : null}
+                  </td>
+
                   <td className="px-3 py-4">
                     <div
-                      onClick={() => navigate("/user-answers")}
-                      className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
+                      onClick={() =>
+                        navigate(`/simah/usercodes?id=${v?.user?.user?.id}`)
+                      }
+                      className=" border border-blue-600 px-3 py-1 w-max rounded-md cursor-pointer 
+                        duration-300 text-blue-600"
                     >
-                      View Answer
+                      {t("View Simah Report")}
                     </div>
                   </td>
                   <th
@@ -148,7 +230,14 @@ function VerifiedUsers() {
                       <img
                         src={Delete}
                         className="h-6 cursor-pointer"
-                        onClick={() => onDelete()}
+                        onClick={() =>
+                          onDelete(
+                            v?.eligibilityResult,
+                            v?.user?.user?.firstName +
+                              " " +
+                              v?.user?.user?.lastName
+                          )
+                        }
                       />
                     </div>
                   </th>
@@ -160,19 +249,19 @@ function VerifiedUsers() {
       </CardMain>
 
       <Model
-        heading="Delete User"
+        heading={t("Delete User")}
         isOpen={modelOpen}
         style="w-1/3"
         innerStyle="py-10"
         setState={() => setModelOpen(!modelOpen)}
-        action1Value="Cancel"
-        action2Value="Delete"
-        action2={() => setModelOpen(false)}
+        action1Value={t("Cancel")}
+        action2Value={t("Delete")}
+        action2={() => DeleteUser()}
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">
-          Are You Sure To Delete
-          <span className="font-semibold"> Ali Imtayaz</span> ?
+          {t("Are You Sure To Delete ?")}
+          <span className="font-semibold"> {username}</span>
         </a>
       </Model>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
@@ -187,4 +276,9 @@ function VerifiedUsers() {
     </div>
   );
 }
-export default VerifiedUsers;
+
+export default withAuthorization(VerifiedUsers, [
+  ROLES.ADMIN,
+  ROLES.CUSTOMER_CARE,
+  ROLES.COMPLIANCE,
+]);

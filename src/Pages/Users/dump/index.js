@@ -12,7 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RxCrossCircled } from "react-icons/rx";
 import * as action from "../../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
+import withAuthorization from "../../../constants/authorization";
+import { ROLES } from "../../../constants/roles";
 
 function DumpUsers() {
   const navigate = useNavigate();
@@ -22,19 +23,20 @@ function DumpUsers() {
   const [modelOpen, setModelOpen] = useState(false);
   const [modelOpenApprove, setModelOpenApprove] = useState(false);
   const [modelOpenHold, setModelOpenHold] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(false);
+
   const users = useSelector((state) => state.getAllUsers);
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
 
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
 
-  function onDelete() {
-    setModelOpen(true);
-  }
+  // function onDelete() {
+  //   setModelOpen(true);
+  // }
   function onApprove() {
     setModelOpenApprove(true);
   }
@@ -50,11 +52,21 @@ function DumpUsers() {
       payload: "DUMP",
     });
   }
+  function onDelete(user) {
+    setSelectedUserId(user?.userId);
+    setModelOpen(true);
+  }
+  function DeleteUser() {
+    setModelOpen(false);
+    dispatch({
+      type: "DELETE_USER_BY_ID",
+      payload: selectedUserId,
+    });
+    setTimeout(() => getAllUsersData(), 500);
+  }
 
   return (
     <div className="py-5">
-      <WaveAnimation show={loading} />
-
       <CardMain
         width="w-full"
         heading={t("Dump Users")}
@@ -63,7 +75,7 @@ function DumpUsers() {
       >
         <div className="overflow-x-auto relative  mt-4">
           <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
+            <thead className="text-xs text-gray-400 uppercase bg-white font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("User Id")}
@@ -80,7 +92,7 @@ function DumpUsers() {
                   {t("Eligibilty")}
                 </th>
                 <th scope="col" className="px-3 py-3">
-                  {t("View Answers")}
+                  {t("Status")}
                 </th>
                 <th
                   scope="col"
@@ -97,7 +109,7 @@ function DumpUsers() {
               </tr>
             </thead>
             <tbody>
-              {users.map((v, k) => (
+              {users?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -110,34 +122,49 @@ function DumpUsers() {
                       icon={
                         "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes-thumbnail.png"
                       }
-                      onClick={() =>
-                        navigate(
-                          `/profile?id=${v?.user.idNumber}&name=Profile&user=${v?.user?.id}`
-                        )
-                      }
+                      // onClick={() =>
+                      //   navigate(
+                      //     `/profile?id=${v?.user?.idNumber}&name=Profile&user=${v?.user?.id}`
+                      //   )
+                      // }
                     />
 
                     <a>{v.userId}</a>
                   </td>
                   <td scope="row" className="px-3 py-4">
-                    {v.otherQuestionEligibility ? "Pass" : "Fail"}
+                    {v.otherQuestionEligibility ? t("Pass") : t("Fail")}
                   </td>
                   <td className="px-3 py-4">
-                    {v.numericQuestionEligibility ? "Pass" : "Fail"}
+                    {v.numericQuestionEligibility ? t("Pass") : t("Fail")}
                   </td>
                   <td className="px-3 py-4">
                     <div className="flex flex-row font-semibold space-x-1 text-red-700 items-center">
                       <RxCrossCircled className="text-xl" />
-                      <a className="text-md ">Not Eligible</a>
+                      <a className="text-md ">{t("Not Eligible")}</a>
                     </div>
                   </td>
                   <td className="px-3 py-4">
-                    <div
-                      onClick={() => navigate("/user-answers")}
-                      className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
-                    >
-                      View Answer
-                    </div>
+                    {v?.user?.accountStatus === "1" ? (
+                      <div
+                        onClick={() => navigate("/user-answers")}
+                        className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer  duration-300 text-red-500"
+                      >
+                        {t("Blocked")}
+                      </div>
+                    ) : v?.user?.accountStatus === "0" ? (
+                      <div
+                        onClick={() => navigate("/user-answers")}
+                        className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
+                        
+                        
+                        
+                        duration-300 text-green-500"
+                      >
+                        {t("Active")}
+                      </div>
+                    ) : (
+                      "null"
+                    )}
                   </td>
                   <td className="px-3 py-4 flex flex-row space-x-5 rtl:space-x-reverse">
                     <img
@@ -161,7 +188,7 @@ function DumpUsers() {
                       <img
                         src={Delete}
                         className="h-6 cursor-pointer"
-                        onClick={() => onDelete()}
+                        onClick={() => onDelete(v?.eligibilityResult)}
                       />
                     </div>
                   </th>
@@ -173,19 +200,19 @@ function DumpUsers() {
       </CardMain>
 
       <Model
-        heading="Delete User"
+        heading={t("Delete User")}
         isOpen={modelOpen}
         style="w-1/3"
         innerStyle="py-10"
         setState={() => setModelOpen(!modelOpen)}
-        action1Value="Cancel"
-        action2Value="Delete"
-        action2={() => setModelOpen(false)}
+        action1Value={t("Cancel")}
+        action2Value={t("Delete")}
+        action2={() => DeleteUser()}
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">
-          Are You Sure To Delete
-          <span className="font-semibold"> Ali Imtayaz</span> ?
+          {t("Are You Sure To Delete ?")}
+          <span className="font-semibold"> Ali Imtayaz</span>
         </a>
       </Model>
       <Model
@@ -232,4 +259,9 @@ function DumpUsers() {
     </div>
   );
 }
-export default DumpUsers;
+
+export default withAuthorization(DumpUsers, [
+  ROLES.ADMIN,
+  ROLES.CUSTOMER_CARE,
+  ROLES.COMPLIANCE,
+]);

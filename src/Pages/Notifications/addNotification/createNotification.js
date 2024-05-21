@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CardMain from "../../../Components/Cards/main";
 import { useState, useRef } from "react";
 import { Button } from "Components";
 import { RiImageAddLine } from "react-icons/ri";
-import "react-datepicker/dist/react-datepicker.css";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 import * as action from "Services/redux/reducer";
 import TextEditor from "./textEditor";
 function CreateUser() {
@@ -17,10 +15,23 @@ function CreateUser() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
+  const getScreenName = useSelector(
+    (state) => state.getScreenName?.appFlow?.screenFlow || []
+  );
+  const user = useSelector((state) => state.getUserById);
+  const tokens = useSelector((state) => state.getDevicesTokens);
+  const [checked, setChecked] = useState(false);
+  const users = useSelector((state) => state.getAllUsersAll || []);
 
   const [description, setDescription] = useState(null);
   const [subject, setSubject] = useState(null);
+  const [mainUserId, setMainUserId] = useState("");
+
+  const [navigation, setNavigation] = useState("none");
+
+  const [topic, setTopic] = useState("");
+  const [allTokens, setAllTokens] = useState("");
+
   const [image, setImage] = useState(null);
   const [imageBlob, setImageBlob] = useState(null);
 
@@ -33,21 +44,34 @@ function CreateUser() {
   function handleClick() {
     fileInputRef.current.click();
   }
+  useEffect(() => {
+    if (user?.deviceInfo?.deviceToken) {
+      setTopic(user?.deviceInfo?.deviceToken);
+    }
+  }, [user]);
   function handleSubmit(e) {
-    e.preventDefault();
-    if (subject != "" && description != "" && image != null) {
-      dispatch({
-        type: "CREATE_NOTIFICATION",
-        payload: {
+    if (
+      subject != "" &&
+      description != "" &&
+      image != null &&
+      navigation != "" &&
+      navigation !== "none"
+    ) {
+      if (checked === false && mainUserId === "") {
+        alert("All Fields Required!");
+      } else {
+        const tempp = {
           subject: subject,
           content: description,
           image: image,
-          data: {
-            key1: "value1",
-            key2: "value2",
-          },
-        },
-      });
+          navigation: navigation,
+          topic: checked ? allTokens : [mainUserId],
+        };
+        dispatch({
+          type: "CREATE_NOTIFICATION",
+          payload: tempp,
+        });
+      }
     } else {
       alert("All Fields Required!");
     }
@@ -69,48 +93,100 @@ function CreateUser() {
       }
     }
   }
+  useEffect(() => {
+    GetScreens();
+  }, []);
+  function GetScreens() {
+    dispatch({
+      type: "GET_SCREENS",
+      payload: 222,
+    });
+  }
+  useEffect(() => {
+    getAllUsersData();
+  }, []);
+  function getAllUsersData() {
+    dispatch({
+      type: "GET_ALL_USERS_ALL",
+    });
+    dispatch({
+      type: "GET_ALL_DEVICES_TOKENS",
+    });
+  }
 
+  function getAllTokens() {
+    const tokensValue = tokens?.map((item) => item?.deviceToken);
+    setAllTokens(tokensValue);
+  }
   return (
     <div className="items-center flex flex-col ">
       <div className="md:mt-0 mt-5 bg-gray-200 xl:w-2/5 lg:w-1/2 md:w-full">
-        <WaveAnimation show={loading} />
-        <form onSubmit={handleSubmit}>
-          <CardMain width="w-full" heading={"Create Notification"}>
-            <div className="flex  flex-col ">
-              {" "}
-              <div
-                onClick={handleClick}
-                className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer"
-              >
-                {!imageBlob && <RiImageAddLine style={{ fontSize: 70 }} />}
-                {imageBlob && (
-                  <img src={imageBlob} className="h-full w-full " />
-                )}
-              </div>
-              <a>Notification Icon</a>
+        <CardMain width="w-full" heading={t("Create Notification")}>
+          <div className="flex  flex-col ">
+            <div
+              onClick={handleClick}
+              className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer"
+            >
+              {!imageBlob && <RiImageAddLine style={{ fontSize: 70 }} />}
+              {imageBlob && <img src={imageBlob} className="h-full w-full " />}
             </div>
-            <div className="flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
-              <div className=" w-full space-y-7">
-                <InputField
-                  heading={t("Subject")}
-                  value={subject}
-                  onChange={(e) => setSubject(e)}
-                />
-                <Description
-                  heading={t("Content")}
-                  handleChange={(e) => setDescription(e)}
-                />
+            <a>{t("Notification Icon")}</a>
+          </div>
+          <div className="flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
+            <div className=" w-full space-y-7">
+              <InputField
+                heading={t("Subject")}
+                value={subject}
+                onChange={(e) => setSubject(e)}
+              />
+              <Select
+                data={getScreenName}
+                heading={t("Choose Navigation")}
+                type="select"
+                options={t(navigation)}
+                onChange={(e) => setNavigation(e)}
+              />
+              <div className="flex flex-row justify-between items-center">
+                <div className="w-1/2">
+                  <Users
+                    value={mainUserId}
+                    checked={checked}
+                    usersData={tokens}
+                    setMainUserId={(e) => (
+                      setMainUserId(e), console.log("id", e)
+                    )}
+                    mainUserId={mainUserId}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <a className="text-sm text-gray-700 ">All Users</a>
+                  <input
+                    type="checkbox"
+                    className="h-5 w-5 mt-3"
+                    value={checked}
+                    onChange={() => (
+                      setMainUserId(""), setChecked(!checked), getAllTokens()
+                    )}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="flex flex-row justify-end mt-20">
-              <Button
-                type="submit"
-                buttonValue={t("Submit")}
-                buttonStyle="px-14 py-2 w-full md:w-max"
+
+              <Description
+                heading={t("Content")}
+                handleChange={(e) => setDescription(e)}
               />
             </div>
-          </CardMain>
-        </form>
+          </div>
+          <div className="flex flex-row justify-end mt-20">
+            <Button
+              onButtonClick={() => handleSubmit()}
+              type="submit"
+              buttonValue={t("Submit")}
+              buttonStyle="px-14 py-2 w-full md:w-max"
+            />
+          </div>
+        </CardMain>
+
         <div className="w-full">
           <input
             ref={fileInputRef}
@@ -129,11 +205,72 @@ function CreateUser() {
           </Alert>
         </Snackbar>
       </div>
+      <div className="md:mt-0 mt-5 bg-gray-200 xl:w-2/5 lg:w-1/2 md:w-full"></div>
     </div>
   );
 }
 export default CreateUser;
+function Users({ usersData, setMainUserId, mainUserId, checked, value }) {
+  const { t } = useTranslation();
 
+  return (
+    <div>
+      <Select2
+        value={value}
+        checked={checked}
+        data={usersData}
+        heading={t("Choose User")}
+        type="select"
+        options={t(mainUserId)}
+        onChange={(e) => setMainUserId(e)}
+      />
+    </div>
+  );
+}
+function Select2({ heading, value, onChange, data, checked }) {
+  const { t } = useTranslation();
+
+  return (
+    <div className="flex flex-col w-full">
+      <a className="text-sm text-gray-700">{heading}</a>{" "}
+      <select
+        disabled={checked}
+        onChange={(e) => onChange(e.target.value)}
+        value={value}
+        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
+      >
+        <option value={"none"}>{t("none")}</option>
+        {data?.map((option, index) => (
+          <option key={index} value={option.deviceToken}>
+            {t("user Id : " + option.userId)}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+function Select({ heading, value, onChange, data }) {
+  const { t } = useTranslation();
+
+  return (
+    <div className="flex flex-col w-full">
+      <a className="text-sm text-gray-700">{heading}</a>{" "}
+      <select
+        onChange={(e) => onChange(e.target.value)}
+        value={value}
+        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
+      >
+        <option value={"none"}>{t("none")}</option>
+        {data.map((option, index) => (
+          <option key={index} value={option.name}>
+            {t(option.name)}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
 function InputField({ heading, value, onChange, type }) {
   return (
     <div className="flex flex-col w-full">
@@ -152,7 +289,7 @@ function InputField({ heading, value, onChange, type }) {
   );
 }
 
-function Description({ heading, value, onChange, type, handleChange }) {
+function Description({ heading, handleChange }) {
   return (
     <div className="flex flex-col w-full">
       <div className=" flex flex-row  ">

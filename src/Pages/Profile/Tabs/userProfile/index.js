@@ -16,7 +16,7 @@ function Template() {
     setState(stateValue);
   }
   return (
-    <div className=" w-full bg-white  border border-primary w-full rounded-lg ">
+    <div className=" bg-white  border border-primary w-full rounded-lg ">
       <div className="flex flex-row  ">
         {data?.map((v, k) => {
           return (
@@ -41,7 +41,7 @@ function Template() {
         className=" w-full bg-gray-200 "
         style={{ height: 1, marginTop: -1 }}
       ></div>
-      <div className=" rtl:space-x-reverse  w-full     px-4 flex flex-col justify-center rounded-lg  ">
+      <div className=" rtl:space-x-reverse  w-full px-4 flex flex-col justify-center rounded-lg  ">
         <div className="flex flex-row space-x-5 mt-5 ">{getTab()}</div>
       </div>
     </div>

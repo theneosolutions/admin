@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 
 function App() {
   const { t } = useTranslation();
@@ -16,7 +15,6 @@ function App() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const [processingFee, setProcessingFee] = useState({});
   const [vatFee, setVatFee] = useState({});
 
@@ -34,17 +32,17 @@ function App() {
         (reason) => reason.loanTypeDetail.id == id
       );
 
-      const parsedTenureTex = JSON.parse(
-        temp[0]?.loanTypeDetail?.tenureTex || "{}"
-      );
+      const parsedTenureTex = temp[0]?.loanTypeDetail?.tenureTex || "{}";
+
       const arrayOfObjects = Object.entries(parsedTenureTex).map(
         ([key, value]) => ({ [key]: null })
       );
+      console.log("arrayOfObjects", arrayOfObjects);
 
       setProcessingFee(arrayOfObjects);
       setVatFee(arrayOfObjects);
     }
-  }, [loanReasons]);
+  }, []);
   const handleChange = (index, field, updatedValue) => {
     const updatedProcessingFee = [...processingFee];
     const [key, value] = Object.entries(updatedProcessingFee[index])[0];
@@ -148,16 +146,13 @@ function App() {
 
   return (
     <div className="container mx-auto mt-5 space-y-6">
-      <WaveAnimation show={loading} />
       <div className="flex flex-col md:flex-row md:space-x-6 rtl:space-x-reverse w-full ">
         <CardMain
           width="w-full md:mt-0 mt-4"
-          heading={t("Amount And Taxes As Per Month")}>
+          heading={t("Amount And Taxes As Per Month")}
+        >
           <div className=" px-3  space-y-3 ">
             <div className="flex flex-row"></div>
-            {/* <div className="flex flex-col w-full">
-              <a className="text-sm text-gray-700 font-semibold">Reason</a>
-            </div> */}
             <Fees
               processingFee={processingFee}
               vatFee={vatFee}
@@ -169,8 +164,9 @@ function App() {
             <div className="flex flex-col">
               <button
                 onClick={handleSubmit}
-                className={`mt-5 rounded-lg text-white text-sm px-10 py-2.5   hover:bg-opacity-90 bg-primary`}>
-                Submit
+                className={`mt-5 rounded-lg text-white text-sm px-10 py-2.5   hover:bg-opacity-90 bg-primary`}
+              >
+                {t("Submit")}
               </button>
             </div>
           </div>
@@ -181,11 +177,13 @@ function App() {
         open={open}
         autoHideDuration={5000}
         onClose={handleClose}
-        className="mt-4">
+        className="mt-4"
+      >
         <Alert
           onClose={handleClose}
           severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}>
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>
@@ -202,6 +200,8 @@ function Fees({
   setProcessingFee,
   setVatFee,
 }) {
+  const { t } = useTranslation();
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
@@ -221,9 +221,11 @@ function Fees({
   }, [getLoanTax.loanTypeId, getLoanTax?.processingFee]);
 
   return (
-    <div className="flex flex-row space-x-4">
-      <div className="w-1/2 px-4 py-3 border  bg-secondry rounded-md border-dashed	 border-slate-200 ">
-        <a className="text-sm text-gray-700 font-semibold">Processing Fee </a>
+    <div className="flex flex-col lg:flex-row lg:space-x-4 rtl:space-x-reverse">
+      <div className="lg:w-1/2 px-4 py-3 border  bg-secondry rounded-md border-dashed	 border-slate-200 ">
+        <a className="text-sm text-gray-700 font-semibold">
+          {t("Processing Fee")}{" "}
+        </a>
 
         <div className="mt-4">
           {processingFee?.length > 0 && (
@@ -232,9 +234,12 @@ function Fees({
                 const [key, value] = Object.entries(obj)[0]; // Extracting key-value pair
 
                 return (
-                  <div key={index} className="mb-4 flex space-x-2">
+                  <div
+                    key={index}
+                    className="mb-4 flex space-x-2 rtl:space-x-reverse"
+                  >
                     <div className="flex flex-col w-1/2">
-                      <a className="text-sm text-gray-700">Months</a>
+                      <a className="text-sm text-gray-700">{t("Months")}</a>
                       <input
                         disabled={true}
                         type="text"
@@ -248,7 +253,7 @@ function Fees({
                     </div>
 
                     <div className="flex flex-col w-1/2">
-                      <a className="text-sm text-gray-700">Fee</a>
+                      <a className="text-sm text-gray-700">{t("Fee")}</a>
                       <input
                         type="number"
                         value={value || ""}
@@ -266,8 +271,10 @@ function Fees({
           )}
         </div>
       </div>
-      <div className="w-1/2 px-4 py-3 border  bg-secondry rounded-md border-dashed	 border-slate-200 ">
-        <a className="text-sm text-gray-700 font-semibold">Vat on Fee </a>
+      <div className="mt-4 lg:mt-0 lg:w-1/2 px-4 py-3 border  bg-secondry rounded-md border-dashed	 border-slate-200 ">
+        <a className="text-sm text-gray-700 font-semibold">
+          {t("Vat on Fee")}{" "}
+        </a>
         <div className="mt-4">
           {vatFee?.length > 0 && (
             <>
@@ -275,9 +282,12 @@ function Fees({
                 const [key, value] = Object.entries(obj)[0]; // Extracting key-value pair
 
                 return (
-                  <div key={index} className="mb-4 flex space-x-2">
+                  <div
+                    key={index}
+                    className="mb-4 flex space-x-2 rtl:space-x-reverse"
+                  >
                     <div className="flex flex-col w-1/2">
-                      <a className="text-sm text-gray-700">Months</a>
+                      <a className="text-sm text-gray-700"> {t("Months")}</a>
                       <input
                         disabled={true}
                         type="text"
@@ -291,7 +301,7 @@ function Fees({
                     </div>
 
                     <div className="flex flex-col w-1/2">
-                      <a className="text-sm text-gray-700">Fee</a>
+                      <a className="text-sm text-gray-700"> {t("Fee")}</a>
                       <input
                         type="number"
                         value={value || ""}

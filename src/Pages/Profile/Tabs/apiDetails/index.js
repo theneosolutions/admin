@@ -1,22 +1,26 @@
 import React, { useState } from "react";
-import Antifraud from "./companyTabs/antiFraud";
 import Gosi from "./companyTabs/gosi";
 import Absher from "./companyTabs/absher";
-import AmlDetails from "./companyTabs/amlDetails";
-import TakwaDetails from "./companyTabs/takwadetails";
-import { useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import Alrajhi from "./companyTabs/Alrajhi";
 
+import Nafath from "./companyTabs/nafath";
+import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import NafithSanad from "./companyTabs/NafithSanad";
+import Aml from "./companyTabs/amlDetails";
+import Emdah from "./companyTabs/Emdah";
 function Template() {
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
   const location = useLocation();
+
   const queryParams = new URLSearchParams(location.search);
 
-  const [state, setState] = useState("Gosi");
   const id = queryParams.get("id");
+  const user = queryParams.get("user");
+
+  const [state, setState] = useState("Al RAJHI");
 
   const getTab = () => {
     const activeItem = data.find((item) => item.label === state);
@@ -25,17 +29,15 @@ function Template() {
       : "Select an item to see the description.";
   };
   function setNavigation(stateValue) {
-    getGosi();
     setState(stateValue);
   }
   useEffect(() => {
     getGosi();
   }, []);
   function getGosi() {
-    console.log("Gosi");
     dispatch({
       type: "GET_GOSI_API",
-      payload: id,
+      payload: { user, id },
     });
   }
   return (
@@ -72,25 +74,33 @@ export default Template;
 
 const data = [
   {
+    label: "Al RAJHI",
+    tab: <Alrajhi />,
+  },
+  {
     label: "Gosi",
     tab: <Gosi />,
+  },
+
+  {
+    label: "Nafith",
+    tab: <NafithSanad />,
+  },
+  {
+    label: "Nafath Detail",
+    tab: <Nafath />,
   },
 
   {
     label: "Absher Detail",
     tab: <Absher />,
   },
-
   {
-    label: "Anti fraud Detail",
-    tab: <Antifraud />,
+    label: "Aml Details",
+    tab: <Aml />,
   },
   {
-    label: "AML Details",
-    tab: <AmlDetails />,
-  },
-  {
-    label: "Takwa Details",
-    tab: <TakwaDetails />,
+    label: "Emdah Report",
+    tab: <Emdah />,
   },
 ];

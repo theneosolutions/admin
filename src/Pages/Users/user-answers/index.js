@@ -5,7 +5,6 @@ import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
 import { Alert, Snackbar } from "@mui/material";
-import WaveAnimation from "Components/Loading"; // Adjust the path based on your file structure
 
 function App() {
   const dispatch = useDispatch();
@@ -14,7 +13,6 @@ function App() {
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.Loading);
   const questionsData = useSelector((state) => state.getAllQuestions);
 
   const handleClose = () => {
@@ -32,8 +30,6 @@ function App() {
 
   return (
     <div className="bg-red-300">
-      <WaveAnimation show={loading} />
-
       <div className="flex flex-row w-full bg-green-300 space-x-5 rtl:space-x-reverse mt-6">
         <CardMain heading={t("Answers of this user")} width="w-full	 h-max">
           <table className="mt-4 w-full text-sm text-left text-gray-500 dark:text-gray-400">
