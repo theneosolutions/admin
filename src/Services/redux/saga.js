@@ -1,22 +1,13 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
 import * as action from "./reducer";
 import { axiosInstance } from "../constant";
-import axios from "axios";
-
-// var baseUrlUser = "https://seulah.ngrok.app/api/v1/auth";
-// var baseUrlDecisions = "https://seulah.ngrok.app/api/v1/dms";
-// var baseUrlLos = "https://seulah.ngrok.app/api/v1/los";
-
-var baseUrlSMS = "https://seulah.com/api/v1/sms";
-
-// var baseUrlCms = "https://seulah.ngrok.app/api/v1/cms";
-var baseUrlUser = "https://seulah.com/api/v1/auth";
-var baseUrlDecisions = "https://seulah.com/api/v1/dms";
-var baseUrlLos = "https://seulah.com/api/v1/los";
-var baseUrlCms = "https://seulah.com/api/v1/cms";
-
-// "https://seulah.com/api/v1/cms";
-const rolesUrl = "https://3c8c-39-45-235-223.ngrok-free.app";
+import { getLanguage } from "functions/getLanguage";
+var baseUrlSMS = "https://seulah.sa/api/v1/sms";
+var baseUrlUser = "https://seulah.sa/api/v1/auth";
+var baseUrlDecisions = "https://seulah.sa/api/v1/dms";
+var baseUrlLos = "https://seulah.sa/api/v1/los";
+var baseUrlCms = "https://seulah.sa/api/v1/cms";
+const rolesUrl = "https://seulah.sa";
 
 function* GetAllQuestionsData() {
   try {
@@ -73,13 +64,15 @@ function* GetSingleQuestion(payload) {
 function* GetSingleSetData(payload) {
   try {
     yield put(action.Loading({ Loading: true }));
-
+    console.log("getLanguage", getLanguage());
     const response = yield call(
       axiosInstance.get,
       baseUrlDecisions +
-        `/questionSet/getQuestionSetByNumericAndString?id=${payload.payload.id}&forUser=${payload.payload.forUser}`
+        `/questionSet/getQuestionSetByNumericAndString?id=${
+          payload.payload.id
+        }&forUser=${payload.payload.forUser}&languageCode=${getLanguage()}`
     );
-    yield put(action.GetSingleSetData(response.data.data));
+    yield put(action.GetSingleSetData(response?.data?.data));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     yield put(action.Loading({ Loading: false }));
@@ -129,7 +122,8 @@ function* AddQuestionsSet({ payload }) {
   try {
     const response = yield call(
       axiosInstance.post,
-      baseUrlDecisions + `/questionSet/saveSet?setName=${payload.name}`,
+      baseUrlDecisions +
+        `/questionSet/saveSet?setName=${payload.name}&setNameArabic=${payload?.nameArabic}`,
       payload.selectedIds
     );
 
@@ -161,7 +155,9 @@ function* GetQuestionOfSet(payload) {
     const response = yield call(
       axiosInstance.get,
       baseUrlDecisions +
-        `/questionSet/getQuestionByIdAndSetId?questionId=${payload.payload.id}&setId=${payload.payload.setid}`
+        `/questionSet/getQuestionByIdAndSetId?questionId=${
+          payload.payload.id
+        }&setId=${payload.payload.setid}&languageCode=${getLanguage()}`
     );
     yield put(action.GetQuestionOfSet(response.data));
     yield put(action.Loading({ Loading: false }));
@@ -411,6 +407,7 @@ function* SetDecisionResponse({ payload }) {
     formData.append("errorMessage", payload.errorMessage);
     formData.append("errorDescription", payload.errorDescription);
     formData.append("setId", payload.setId);
+    formData.append("languageCode", getLanguage());
     const response1 = yield call(
       axiosInstance.post,
       baseUrlDecisions + "/apiResponse/create",
@@ -443,6 +440,7 @@ function* CreateScreen({ payload }) {
     screenHeading: payload.name,
     questionIds: payload.selectedIds,
     setId: payload.id,
+    screenHeadingArabic: payload.arabicName,
   };
 
   try {
@@ -545,7 +543,9 @@ function* GetResponseOfSet(payload) {
     const response = yield call(
       axiosInstance.get,
       baseUrlDecisions +
-        `/apiResponse/getResponseBySetId?setId=${payload.payload.id}`
+        `/apiResponse/getResponseBySetIdAndLanguageCode?languageCode=${getLanguage()}&setId=${
+          payload.payload.id
+        }`
     );
     yield put(action.GetSetResponse(response));
     yield put(action.Loading({ Loading: false }));
@@ -564,7 +564,10 @@ function* GetScreenSet(payload) {
 
     const response = yield call(
       axiosInstance.get,
-      baseUrlDecisions + `/screen/getScreenBySetId?setId=${payload.payload}`
+      baseUrlDecisions +
+        `/screen/getScreenBySetId?setId=${
+          payload.payload
+        }&languageCode=${getLanguage()}`
     );
     yield put(action.GetScreenSets(response));
     yield put(action.Loading({ Loading: false }));
@@ -1830,3 +1833,14 @@ export default function* HomeSaga() {
   yield takeLatest("GET_TERM_RATES_CALCULATION", getTermsRatesCalculations);
   yield takeLatest("UPDATE_AML_RECORD", UpdateAmlRecord);
 }
+
+// function getLanguage() {
+//   const preferredLanguage = localStorage.getItem("preferredLanguage");
+//   if (preferredLanguage) {
+//     // const lan = JSON.parse(preferredLanguage);
+//     console.log(preferredLanguage);
+//     return preferredLanguage;
+//   } else {
+//     return "ar";
+//   }
+// }

@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import Response from "./response";
 import withAuthorization from "../../constants/authorization";
 import { ROLES } from "../../constants/roles";
+import { getLanguage } from "functions/getLanguage";
 
 const CreateDesicion = () => {
   const dispatch = useDispatch();
@@ -60,8 +61,15 @@ const CreateDesicion = () => {
   };
 
   async function addAnswersData() {
+    const updatedResponse = checkedValues.map((item) => {
+      return {
+        answerEnglish: item.optionEn,
+        answerArabic: item.optionAr,
+      };
+    });
+
     var obj = {
-      answers: checkedValues,
+      answers: updatedResponse,
       id: setId,
       questionId: singleQuestionId,
     };
@@ -94,7 +102,7 @@ const CreateDesicion = () => {
           {allSets?.map((v, k) => {
             return (
               <option key={k} value={v.id}>
-                {v.name}
+                {getLanguage() === "ar" ? v.nameAr : v.name}
               </option>
             );
           })}
@@ -139,13 +147,27 @@ const CreateDesicion = () => {
                             {v?.eligibilityQuestions.id}
                           </td>
                           <td className="px-6 py-4">
-                            {v?.eligibilityQuestions.question}
+                            {getLanguage() === "ar"
+                              ? v?.eligibilityQuestions.questionAr
+                              : v?.eligibilityQuestions.question}
+                            {/* {v?.eligibilityQuestions.question} */}
                           </td>
                           <td className="px-6 py-4 flex flex-row space-x-4 rtl:space-x-reverse">
                             {v?.eligibilityQuestions?.options.map(
                               (option, index) => {
-                                const isActive = v?.answer?.includes(option);
-
+                                var isActive2;
+                                if (getLanguage() === "ar") {
+                                  isActive2 = v?.answer?.some(
+                                    (answer) =>
+                                      answer.answerArabic === option?.optionAr
+                                  );
+                                } else {
+                                  isActive2 = v?.answer?.some(
+                                    (answer) =>
+                                      answer.answerEnglish === option?.optionEn
+                                  );
+                                }
+                                const isActive = false;
                                 return (
                                   <div
                                     key={index}
@@ -153,16 +175,22 @@ const CreateDesicion = () => {
                                   >
                                     <input
                                       type="radio"
-                                      checked={isActive}
+                                      checked={isActive2}
                                       disabled={true}
                                       style={{ accentColor: "red" }}
                                       className={`h-4 w-4 ${
-                                        isActive
+                                        isActive2
                                           ? " text-red-500 bg-red-500 border-green-400"
                                           : ""
                                       }`}
                                     />
-                                    <span>{option}</span>
+                                    {getLanguage() === "ar" ? (
+                                      <>{option?.optionAr}</>
+                                    ) : (
+                                      <>{option?.optionEn}</>
+                                    )}
+
+                                    {/* <span>{option}</span> */}
                                   </div>
                                 );
                               }
@@ -236,7 +264,11 @@ const CreateDesicion = () => {
                       className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                     >
                       <td className="px-2 py-4">{v?.id}</td>
-                      <td className="px-6 py-4">{v?.question}</td>
+                      <td className="px-6 py-4">
+                        {getLanguage() === "ar"
+                          ? v?.questionArabic
+                          : v?.question}
+                      </td>
                       <th
                         scope="row"
                         className="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
@@ -295,10 +327,12 @@ function Checboxes({ singleQuestion, checkedValues, setCheckedValues }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // You can add your logic here if needed
   };
+
   const handleCheckboxChange = (value, isChecked) => {
     if (isChecked) {
-      setCheckedValues((prevValues) => [...new Set([...prevValues, value])]);
+      setCheckedValues((prevValues) => [...prevValues, value]);
     } else {
       setCheckedValues((prevValues) => prevValues.filter((v) => v !== value));
     }
@@ -315,28 +349,31 @@ function Checboxes({ singleQuestion, checkedValues, setCheckedValues }) {
           </span>
 
           <a className="text-lg mt-4 underline">{t("Options")}</a>
-          {singleQuestion?.Option?.map((v, k) => {
+          {singleQuestion?.Option?.map((option, index) => {
             return (
-              <div key={k} className="flex flex-row items-center mx-2">
+              <div key={index} className="flex flex-row items-center mx-2">
                 <div className="h-1 w-1 rounded-full bg-sky-800 p-1 mt-1"></div>
-                <a className="py-1 text-sky-800 font-semibold pl-2 pr-2">{v}</a>
+                <a className="py-1 text-sky-800 font-semibold pl-2 pr-2">
+                  {getLanguage() === "ar" ? option.optionAr : option.optionEn}
+                </a>
               </div>
             );
           })}
           <a className="text-lg mt-6 underline"> {t("Answers")}</a>
         </div>
         <>
-          {singleQuestion?.Option?.map((v, k) => (
+          {singleQuestion?.Option?.map((option, index) => (
             <div
-              key={k}
+              key={index}
               className="flex flex-row space-x-3 rtl:space-x-reverse items-center py-2"
             >
               <input
                 type="checkbox"
                 className="h-4 w-4 border rounded mt-0.5"
-                onChange={(e) => handleCheckboxChange(v, e.target.checked)}
+                onChange={(e) => handleCheckboxChange(option, e.target.checked)}
               />
-              <a className="text-md text-gray-600">{v}</a>
+
+              {getLanguage() === "ar" ? option.optionAr : option.optionEn}
             </div>
           ))}
         </>
@@ -344,3 +381,5 @@ function Checboxes({ singleQuestion, checkedValues, setCheckedValues }) {
     </form>
   );
 }
+
+// export default Checboxes;
