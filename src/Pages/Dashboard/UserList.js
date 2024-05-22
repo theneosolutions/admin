@@ -29,7 +29,7 @@ function App() {
   const dispatch = useDispatch();
   const applications = useSelector((state) => state.getApplications);
   const selaBalance = useSelector((state) => state.selaBalance);
-
+  const [balance, setBalance] = useState({});
   const navigate = useNavigate();
   const [modelOpen, setModelOpen] = useState(false);
 
@@ -64,30 +64,37 @@ function App() {
     },
     0
   );
+  useEffect(() => {
+    if (selaBalance?.data) {
+      console.log(JSON.parse(selaBalance?.data));
+      setBalance(JSON.parse(selaBalance?.data));
+    }
+  }, [selaBalance?.data]);
   return (
     <div className="container mx-auto mt-5 space-y-6">
       <div className="flex flex-wrap ">
         <Notifications
-          value="120000"
-          heading={t("Total Deposite Amount")}
-          color="text-orange-400 text-xl"
-          bg=" bg-gradient-to-r from-orange-500 via-orange-500 to-orange-300"
-          icon={<BiSignal4 className="text-4xl text-gray-500" />}
-        />
-        <Notifications
-          value={sumOfApprovedAmmount}
-          heading={t("Total Withdrawal Amount")}
-          color="text-green-500 text-xl"
-          bg=" bg-gradient-to-r from-green-500 via-green-500 to-green-300"
-          icon={<PiChartScatterBold className="text-4xl text-gray-500" />}
-        />
-        <Notifications
-          value="1500700"
+          value={balance?.amount}
           heading={t("Balance In Account")}
           color="text-red-400 text-xl"
           bg=" bg-gradient-to-r from-red-500 via-red-500 to-red-300"
           icon={<BsBarChartSteps className="text-3xl text-gray-500" />}
         />
+        <Notifications
+          value={balance?.locked}
+          heading={t("Locked Amount")}
+          color="text-orange-400 text-xl"
+          bg=" bg-gradient-to-r from-orange-500 via-orange-500 to-orange-300"
+          icon={<BiSignal4 className="text-4xl text-gray-500" />}
+        />
+        <Notifications
+          value={balance?.locked && balance?.amount - balance?.locked}
+          heading={t("Total Withdrawal Amount")}
+          color="text-green-500 text-xl"
+          bg=" bg-gradient-to-r from-green-500 via-green-500 to-green-300"
+          icon={<PiChartScatterBold className="text-4xl text-gray-500" />}
+        />
+
         <Notifications
           value={applications?.length}
           heading={t("Total Applications")}

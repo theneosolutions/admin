@@ -209,7 +209,7 @@ function* UpdateAmlRecord({ payload }) {
   console.log("payload", payload);
   try {
     const response = yield call(
-      axiosInstance.put,
+      axiosInstance.patch,
       baseUrlCms +
         `/screening/updateAMl?idNumber=${payload?.idNumber}&entityAlertLevel=${payload?.level}&entityAlertScore=${payload?.score}`
     );
@@ -1044,6 +1044,7 @@ function* ActiveDeactiveUser({ payload }) {
 }
 
 function* GetBalance({ payload }) {
+  console.log("sILLLLLLL ");
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
@@ -1057,11 +1058,12 @@ function* GetBalance({ payload }) {
     //     error: true,
     //   })
     // );
-    // yield put(action.SelaBalance(response));
+    console.log("response", response);
+    yield put(action.SelaBalance(response));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     yield put(action.Loading({ Loading: false }));
-    console.log("error", error);
+    console.log("error Sila", error);
     // const message = error.response.data.message;
     // yield put(action.Message({ message: message, open: true, error: true }));
   }
