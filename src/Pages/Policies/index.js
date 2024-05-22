@@ -6,7 +6,7 @@ import IdValidation from "./idValidation";
 function Policies() {
   const { t } = useTranslation();
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 mt-3">
       <AgeLimit />
       <IncomeValidation />
       <IdValidation />

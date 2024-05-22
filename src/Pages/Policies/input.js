@@ -5,7 +5,7 @@ function InputField({ value, onChange, type, style, placeholder }) {
   const { t } = useTranslation();
 
   return (
-    <div className={`flex flex-col ${style}`}>
+    <div className={`flex flex-col md:w-52 w-full `}>
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}

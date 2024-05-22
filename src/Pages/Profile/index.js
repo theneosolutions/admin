@@ -69,7 +69,7 @@ function Template() {
   return (
     <div className="flex flex-col">
       <div className="bg-white px-5 py-3  lg:mt-0 mt-4 justify-between flex flex-row items-center">
-        <div className="flex flex-row space-x-7 rtl:space-x-reverse">
+        <div className="flex flex-row space-x-7 rtl:space-x-reverse ">
           {data?.map((v, k) => {
             return (
               <div

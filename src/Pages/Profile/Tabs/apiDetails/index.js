@@ -42,7 +42,7 @@ function Template() {
   }
   return (
     <div className="  bg-white  border border-primary w-full rounded-lg ">
-      <div className="flex flex-row  ">
+      <div className="flex flex-row   overflow-scroll">
         {data?.map((v, k) => {
           return (
             <div
