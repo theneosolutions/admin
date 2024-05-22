@@ -44,6 +44,8 @@ import Sms from "Pages/Notifications/sms";
 
 import UserSimah from "Pages/Simah/simahDownlaod";
 import CustomerEmi from "Pages/Users/customerEmi";
+import PoliciesPageLayout from "Pages/Policies/PoliciesPageLayout";
+import Policies from "Pages/Policies";
 const appRoutes = [
   {
     index: true,
@@ -194,6 +196,32 @@ const appRoutes = [
           displayText: "Create Rights To User",
         },
       },
+    ],
+  },
+  {
+    roles: [ROLES.ADMIN],
+    path: "/policies",
+    element: <PoliciesPageLayout />,
+    state: "policies",
+    sidebarProps: {
+      displayText: "Policies",
+      icon: <MdOutlineAdminPanelSettings />,
+    },
+    child: [
+      {
+        index: true,
+        element: <Policies />,
+        state: "policies.index",
+      },
+      {
+        path: "/policies/create-policies",
+        element: <Policies />,
+        state: "policies.create-policies",
+        sidebarProps: {
+          displayText: "Create Policies",
+        },
+      },
+     
     ],
   },
   {
