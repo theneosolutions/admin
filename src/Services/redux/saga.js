@@ -1044,28 +1044,18 @@ function* ActiveDeactiveUser({ payload }) {
 }
 
 function* GetBalance({ payload }) {
-  console.log("sILLLLLLL ");
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
       axiosInstance.get,
       baseUrlCms + `/selaApi/getBalance`
     );
-    // yield put(
-    //   action.Message({
-    //     message: response?.data?.message,
-    //     open: true,
-    //     error: true,
-    //   })
-    // );
-    console.log("response", response);
+
     yield put(action.SelaBalance(response));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     yield put(action.Loading({ Loading: false }));
     console.log("error Sila", error);
-    // const message = error.response.data.message;
-    // yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
 
