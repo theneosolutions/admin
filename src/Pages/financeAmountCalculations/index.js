@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import withAuthorization from "constants/authorization";
 import { ROLES } from "constants/roles";
 import { useLocation } from "react-router-dom";
-
+import moment from "moment";
 function AllUsers() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -40,7 +40,11 @@ function AllUsers() {
       payload: { financeAmmount: financeAmount, term: term, userId: userId },
     });
   }
-
+  function DateSet(newDate) {
+    var timestamp = parseInt(newDate); // Example timestamp value
+    var date = new Date(timestamp);
+    return moment(date.toString()).subtract(10, "days").calendar();
+  }
   return (
     <div className="py-5">
       {message === "successEmi" && error === false ? (
@@ -95,9 +99,9 @@ function AllUsers() {
                         <a>{v?.month}</a>
                       </td>
                       <td>{v?.details?.monthlyInstallment}</td>
-                      <td>{v?.details?.firstInstallmentDate}</td>
+                      <td>{DateSet(v?.details?.firstInstallmentDate)}</td>
                       <td>{v?.details?.interestAmountTable}</td>
-                      <td>{v?.details?.lastInstallmentDate}</td>
+                      <td> {DateSet(v?.details?.lastInstallmentDate)}</td>
                       <td>{v?.details?.outstandingPrincipal}</td>
                       <td>{v?.details?.principalAmountTable}</td>
                     </tr>
@@ -175,9 +179,13 @@ function AllUsers() {
                     <td>{getTermRatesCalculations?.calculatedVat}</td>
                     <td>{getTermRatesCalculations?.emimonthlyInstallement}</td>
                     <td>{getTermRatesCalculations?.financeAmount}</td>
-                    <td>{getTermRatesCalculations?.firstInstallmentDate}</td>
+                    <td>
+                      {DateSet(getTermRatesCalculations?.firstInstallmentDate)}
+                    </td>
                     <td>{getTermRatesCalculations?.interestAmount}</td>{" "}
-                    <td>{getTermRatesCalculations?.lastInstallmentDate}</td>
+                    <td>
+                      {DateSet(getTermRatesCalculations?.lastInstallmentDate)}
+                    </td>
                     <td>{getTermRatesCalculations?.netProceed}</td>
                     <td>{getTermRatesCalculations?.term}</td>
                     <td>{getTermRatesCalculations?.termRate}</td>

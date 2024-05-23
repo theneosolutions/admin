@@ -914,7 +914,9 @@ function* getUserLoanEmi({ payload }) {
     const response = yield call(
       axiosInstance.get,
       baseUrlLos +
-        `/loanType/getSingleLoanType?userId=${payload?.userId}&setId=${payload?.setId}`
+        `/loanType/getSingleLoanType?userId=${payload?.userId}&setId=${
+          payload?.setId
+        }&languageCode=${getLanguage()}`
     );
     console.log("response Emdah", response?.data);
     yield put(action.GetSimgleLoanTypeEmi(response));
