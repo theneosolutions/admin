@@ -21,6 +21,9 @@ function LaonApplication() {
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
   const usersApplications = useSelector((state) => state.getApplications);
+  const getUserApplication = useSelector((state) => state.getUserApplication);
+
+  //getUserApplication
   const user = useSelector((state) => state.getUserById);
   console.log("user", user);
   const handleClose = () => {
@@ -33,12 +36,18 @@ function LaonApplication() {
   useEffect(() => {
     getUserLoanDetail();
   }, []);
+  console.log("usersApplications", getUserApplication);
+  // useEffect(() => {
+  //   const app = usersApplications.filter(
+  //     (application) => application?.userId === userId
+  //   );
+  //   setData(app[0]);
+  // }, []);
   useEffect(() => {
-    const app = usersApplications.filter(
-      (application) => application?.userId === userId
-    );
-    setData(app[0]);
-  }, []);
+    if (getUserApplication) {
+      setData(getUserApplication?.loanApplication);
+    }
+  }, [getUserApplication]);
   function SetStatus() {
     dispatch({
       type: "SET_STATUS_OF_APPLICATION",
