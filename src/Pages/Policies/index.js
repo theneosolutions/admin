@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import AgeLimit from "./ageLimit";
 import IncomeValidation from "./IncomeValidation";
 import IdValidation from "./idValidation";
+import FinanceValidation from "./financeValidation";
+import LoanTennure from "./loanTennure";
 function Policies() {
   const { t } = useTranslation();
   return (
@@ -10,6 +12,8 @@ function Policies() {
       <AgeLimit />
       <IncomeValidation />
       <IdValidation />
+      <FinanceValidation />
+      <LoanTennure />
     </div>
   );
 }
