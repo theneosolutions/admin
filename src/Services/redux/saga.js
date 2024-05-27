@@ -1722,6 +1722,39 @@ function* GetAmlDetails({ payload }) {
   }
 }
 
+function* GetAllPolicies({ payload }) {
+  console.log("Policies Payload", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+    const response1 = yield call(
+      axiosInstance.get,
+      baseUrlDecisions + `/policy/fetchAllPolices`
+    );
+    console.log("response", response1?.data);
+    yield put(action.GetAllPolicies(response1?.data));
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* UpdatePolicy({ payload }) {
+  console.log("payload policy", payload);
+  try {
+    const response = yield call(
+      axiosInstance.post,
+      baseUrlDecisions +
+        `/policy/update?newValue=${payload?.newValue}&policyId=${payload?.policyId}&userId=${payload?.userId}`
+    );
+    console.log("response policy update", response);
+    const message = response.data.message;
+    yield put(action.Message({ message: message, open: true, error: false }));
+  } catch (error) {
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 function* DeleteSMS({ payload }) {
   console.log("Delete SMS", payload);
   try {
@@ -1737,6 +1770,53 @@ function* DeleteSMS({ payload }) {
   } catch (error) {
     yield put(action.Loading({ Loading: false }));
 
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
+function* GetAllPoliciesHistory({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response1 = yield call(
+      axiosInstance.get,
+      baseUrlDecisions + `/policy/fetchAuditByPolicyId?policyId=${payload}`
+    );
+    console.log("response", response1?.data);
+    yield put(action.GetPolicyHistory(response1?.data));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
+function* Status_Update_Policy({ payload }) {
+  console.log("payload policy status", payload);
+
+  var url;
+  if (payload?.status === "approve") {
+    url = `/policy/approve?auditId=${payload.id}&userId=${payload.userId}`;
+  } else if (payload.status === "reject") {
+    url = `/policy/reject?auditId=${payload.id}&userId=${payload.userId}`;
+  }
+  console.log("urllll", url);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(axiosInstance.post, baseUrlDecisions + url);
+    yield put(action.Loading({ Loading: false }));
+
+    action.Message({
+      message: response.data.message,
+      open: true,
+      error: false,
+    });
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
     const message = error.response.data.message;
     yield put(action.Message({ message: message, open: true, error: true }));
   }
@@ -1826,6 +1906,11 @@ export default function* HomeSaga() {
   yield takeLatest("GET_USER_LOAN_EMI", getUserLoanEmi);
   yield takeLatest("GET_TERM_RATES_CALCULATION", getTermsRatesCalculations);
   yield takeLatest("UPDATE_AML_RECORD", UpdateAmlRecord);
+  yield takeLatest("UPDATE_POLICY", UpdatePolicy);
+
+  yield takeLatest("GET_ALL_POLICIES", GetAllPolicies);
+  yield takeLatest("GET_ALL_POLICIES_HISTORY", GetAllPoliciesHistory);
+  yield takeLatest("STATUS_UPDATE_POLICY", Status_Update_Policy);
 }
 
 // function getLanguage() {

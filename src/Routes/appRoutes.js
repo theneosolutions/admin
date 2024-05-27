@@ -46,6 +46,8 @@ import UserSimah from "Pages/Simah/simahDownlaod";
 import CustomerEmi from "Pages/Users/customerEmi";
 import PoliciesPageLayout from "Pages/Policies/PoliciesPageLayout";
 import Policies from "Pages/Policies";
+import ViewPolicies from "Pages/Policies/viewPolicies";
+
 const appRoutes = [
   {
     index: true,
@@ -210,18 +212,26 @@ const appRoutes = [
     child: [
       {
         index: true,
-        element: <Policies />,
+        element: <ViewPolicies />,
         state: "policies.index",
       },
       {
-        path: "/policies/create-policies",
-        element: <Policies />,
-        state: "policies.create-policies",
+        path: "/policies/view-policies",
+        element: <ViewPolicies />,
+        state: "policies.view-policies",
         sidebarProps: {
-          displayText: "Create Policies",
+          displayText: "View Policies",
         },
       },
-     
+
+      // {
+      //   path: "/policies/create-policies",
+      //   element: <Policies />,
+      //   state: "policies.create-policies",
+      //   sidebarProps: {
+      //     displayText: "Create Policies",
+      //   },
+      // },
     ],
   },
   {

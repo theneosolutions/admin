@@ -169,7 +169,7 @@ function LaonApplication() {
                   </div>
                   <div className="flex flex-col ">
                     <a className="text-xs uppercase text-green-400">
-                      E-verified{" "}
+                      E-verified
                     </a>
                     <a className="text-sm text-gray-700  opacity-90">
                       Pan Card &nbsp; 2139912

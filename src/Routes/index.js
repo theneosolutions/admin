@@ -25,6 +25,7 @@ import NotFound from "Pages/NotFound";
 import UserSimah from "Pages/Simah/simahDownlaod";
 import UserEligibility from "Pages/userEligibility";
 import FinanceAmountCalculations from "Pages/financeAmountCalculations";
+import ViewPolicyHistory from "Pages/Policies/viewPolicies/viewPolicyHistory";
 function App() {
   return (
     <MainTemplate>
@@ -46,6 +47,10 @@ function App() {
             <Route
               path="/finance-amount-calculations"
               element={<FinanceAmountCalculations />}
+            />
+            <Route
+              path="/view-policy-history"
+              element={<ViewPolicyHistory />}
             />
 
             <Route

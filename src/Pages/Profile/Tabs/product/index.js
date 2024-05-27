@@ -5,7 +5,7 @@ import Income from "./tabs/income";
 import SimahLibilities from "./tabs/simahLibilities";
 
 function Template() {
-  const [state, setState] = useState("Simah Labilities");
+  const [state, setState] = useState("Emi Detail");
   const getTab = () => {
     const activeItem = data.find((item) => item.label === state);
 
@@ -50,15 +50,15 @@ function Template() {
 export default Template;
 
 const data = [
-  {
-    label: "Simah Labilities",
-    tab: <SimahLibilities />,
-  },
-
   // {
-  //   label: "Family Details",
-  //   tab: <Family />,
+  //   label: "Simah Labilities",
+  //   tab: <SimahLibilities />,
   // },
+
+  {
+    label: "Emi Detail",
+    tab: <Family />,
+  },
 
   // {
   //   label: "Income Details",

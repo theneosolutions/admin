@@ -1,0 +1,172 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import CardMain from "../../../Components/Cards/main";
+import Edit from "../../../Assets/Images/edit.svg";
+import Delete from "../../../Assets/Images/delete.svg";
+import { Model, Avatar } from "../../../Components";
+import { useDispatch, useSelector } from "react-redux";
+import * as action from "../../../Services/redux/reducer";
+import { Alert, Snackbar } from "@mui/material";
+import { useEffect } from "react";
+import withAuthorization from "../../../constants/authorization";
+import { ROLES } from "../../../constants/roles";
+import { LuSearch } from "react-icons/lu";
+import Model2 from "Components/Model2";
+import UpdatePolicy from "./updatePolicy";
+import { Button } from "Components";
+
+function AllPolicies() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const [modelOpen, setModelOpen] = useState(false);
+  const [modelOpen2, setModelOpen2] = useState(false);
+  const [selectedData, setSelectedData] = useState();
+  const getAllPolicies = useSelector((state) => state.getAllPolicies);
+  const role = useSelector((state) => state.role);
+  const user = useSelector((state) => state.user);
+
+  console.log("user", role);
+
+  const message = useSelector((state) => state.message);
+  const open = useSelector((state) => state.open);
+  const error = useSelector((state) => state.error);
+  const handleClose = () => {
+    dispatch(action.Message({ open: false }));
+  };
+  function onDelete(user) {
+    setModelOpen(true);
+  }
+  useEffect(() => {
+    getAllPoliciesFunction();
+  }, []);
+  function getAllPoliciesFunction() {
+    dispatch({
+      type: "GET_ALL_POLICIES",
+    });
+  }
+  function DeleteUser() {}
+  function reset() {
+    setModelOpen2(false);
+    setSelectedData({});
+  }
+  return (
+    <div className="py-5">
+      <CardMain
+        width="w-full"
+        heading={t("All Policies")}
+        iconStyle="text-3xl text-primary"
+      >
+        <div className="overflow-x-auto relative  mt-4">
+          <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
+              <tr>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("ID")}
+                </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("Policy Name")}
+                </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("Policy Value")}
+                </th>
+                {getAllPolicies[0]?.customisableByAdmin === role && (
+                  <th
+                    scope="col"
+                    className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
+                  >
+                    {t("Edit/Delete")}
+                  </th>
+                )}
+
+                <th scope="col" className="px-3 py-3">
+                  {t("History")}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {getAllPolicies?.map((v, k) => (
+                <tr
+                  key={k}
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <td className="px-3">{v?.id}</td>
+                  <td className="px-3">{t(v?.policyName)}</td>
+                  <td className="px-3">{v?.policyValue}</td>
+                  {v?.customisableByAdmin === role && (
+                    <th
+                      scope="row"
+                      className=" px-3 py-2 text-gray-900 whitespace-nowrap text-sm"
+                    >
+                      <Button
+                        buttonStyle="font-medium py-1"
+                        buttonValue={"Update"}
+                        onButtonClick={() => (
+                          setModelOpen2(true), setSelectedData(v)
+                        )}
+                      />
+                    </th>
+                  )}
+
+                  <td className="px-3 py-2">
+                    <div
+                      onClick={() =>
+                        navigate(`/view-policy-history?id=${v?.id}`)
+                      }
+                      className="  px-3 py-2 w-max rounded-md cursor-pointer  duration-300 bg-blue-400  text-white"
+                    >
+                      Check Policy History
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </CardMain>
+      {modelOpen2 ? (
+        <Model2
+          setModelOpen2={(e) => setModelOpen2(e)}
+          reset={() => reset()}
+          heading="Update Policy"
+        >
+          <UpdatePolicy
+            data={selectedData}
+            setModelOpen={(e) => (setModelOpen2(e), getAllPoliciesFunction())}
+          />
+        </Model2>
+      ) : null}
+      <Model
+        heading={t("Delete User")}
+        isOpen={modelOpen}
+        style="w-1/3"
+        innerStyle="py-10"
+        setState={() => setModelOpen(!modelOpen)}
+        action1Value={t("Cancel")}
+        action2Value={t("Delete")}
+        action2={() => DeleteUser()}
+        action1={() => setModelOpen(!modelOpen)}
+      >
+        <a className=" text-xl text-gray-800 ">
+          {t("Are You Sure To Delete ?")}
+          <span className="font-semibold"> Ali Imtayaz</span>
+        </a>
+      </Model>
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity={!error ? "success" : "error"}
+          sx={{ width: "100%" }}
+        >
+          {message}
+        </Alert>
+      </Snackbar>
+    </div>
+  );
+}
+export default withAuthorization(AllPolicies, [
+  ROLES.ADMIN,
+  ROLES.CUSTOMER_CARE,
+  ROLES.COMPLIANCE,
+]);

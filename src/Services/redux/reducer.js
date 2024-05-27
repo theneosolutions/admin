@@ -57,6 +57,8 @@ const initialState = {
   getAllUsersEmi: [],
   getSingleLoanTypeEmi: [],
   getTermRatesCalculations: {},
+  getAllPolicies: [],
+  getPolicyHistory: [],
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -260,6 +262,14 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getTermRatesCalculations = data;
     },
+    GetAllPolicies: (state, action) => {
+      const { data } = action.payload;
+      state.getAllPolicies = data;
+    },
+    GetPolicyHistory: (state, action) => {
+      const { data } = action.payload;
+      state.getPolicyHistory = data;
+    },
   },
 });
 export const {
@@ -313,6 +323,8 @@ export const {
   GetAllUsersEmi,
   GetSimgleLoanTypeEmi,
   GetTermRatesCalculations,
+  GetAllPolicies,
+  GetPolicyHistory,
 } = Reducer.actions;
 
 export default Reducer.reducer;
