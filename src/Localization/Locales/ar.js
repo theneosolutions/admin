@@ -311,4 +311,5 @@ export default {
   "All Policies": "جميع السياسات",
   "View Policies": "عرض السياسات",
   Policies: "السياسات",
+  "Policy History": "تاريخ السياسة",
 };

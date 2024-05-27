@@ -312,7 +312,7 @@ export default {
   "All Policies": "All Policies",
   Policies: "Policies",
   "View Policies": "View Policies",
-  "": "",
+  "Policy History": "Policy History",
   "": "",
   "": "",
 };

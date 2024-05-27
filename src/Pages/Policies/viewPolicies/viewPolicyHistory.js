@@ -108,7 +108,7 @@ function ViewPolicyHistory() {
                       ) : (
                         <div className="">
                           {v?.policyRole === role ? (
-                            <div className="space-x-3">
+                            <div className="space-x-3  rtl:space-x-reverse">
                               <Button
                                 buttonValue={t("Approve")}
                                 onButtonClick={() => (
@@ -138,7 +138,7 @@ function ViewPolicyHistory() {
       </CardMain>
 
       <Model
-        heading={t("Approve Policy")}
+        heading={t("Approve/Reject Policy")}
         isOpen={modelOpen}
         style="w-1/3"
         innerStyle="py-10"
@@ -149,7 +149,7 @@ function ViewPolicyHistory() {
         action1={() => FunctionApproveReject("reject")}
       >
         <a className=" text-xl text-gray-800 ">
-          {t("Are You Sure You Want to Approve ?")}
+          {t("Are You Sure  ?")}
           {/* <span className="font-semibold"> Ali Imtayaz</span> */}
         </a>
       </Model>
