@@ -62,13 +62,13 @@ function ViewPolicyHistory() {
             <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("ID")}
+                  {t("Id")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Policy Name")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("Privious Value")}
+                  {t("Previous Value")}
                 </th>
                 <th scope="col" className="px-3 py-3">
                   {t("New Value")}
@@ -77,7 +77,7 @@ function ViewPolicyHistory() {
                   {t("Created Date")}
                 </th>
                 <th scope="col" className="px-3 py-3">
-                  {t("Modified Data")}
+                  {t("Modified Date")}
                 </th>
                 {/* <th scope="col" className="px-3 py-3">
                   {t("Status")}
@@ -95,29 +95,28 @@ function ViewPolicyHistory() {
                 >
                   <td className="px-3 py-5">{v?.id}</td>
                   <td className="px-3">{t(v?.policyName)}</td>
-                  <td className="px-3">{v?.previousValue}</td>
-                  <td className="px-3">{v?.newValue}</td>
-                  <td className="px-3">{v?.createdDate}</td>
-                  <td className="px-3">{v?.lastModified}</td>
-                  {/* <td className="px-3">{v?.status}</td> */}
+                  <td className="px-3">{t(v?.previousValue)}</td>
+                  <td className="px-3">{t(v?.newValue)}</td>
+                  <td className="px-3">{t(v?.createdDate)}</td>
+                  <td className="px-3">{t(v?.lastModified)}</td>
                   <td className="px-3">
                     <div>
                       {v?.status === "REJECTED" ? (
-                        <>{"REJECTED"}</>
+                        <>{t("REJECTED")}</>
                       ) : v?.status === "APPROVED" ? (
-                        <>{"APPROVED"}</>
+                        <>{t("APPROVED")}</>
                       ) : (
                         <div className="">
                           {v?.policyRole === role ? (
                             <div className="space-x-3">
                               <Button
-                                buttonValue={"Approve"}
+                                buttonValue={t("Approve")}
                                 onButtonClick={() => (
                                   setSelectedId(v?.id), setModelOpen(true)
                                 )}
                               />
                               <Button
-                                buttonValue={"Reject"}
+                                buttonValue={t("Reject")}
                                 buttonColor="bg-red-600"
                                 onButtonClick={() => (
                                   setSelectedId(v?.id), setModelOpen(true)
@@ -125,7 +124,7 @@ function ViewPolicyHistory() {
                               />
                             </div>
                           ) : (
-                            "Pending"
+                            t("Pending")
                           )}
                         </div>
                       )}

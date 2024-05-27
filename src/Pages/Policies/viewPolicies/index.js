@@ -63,7 +63,7 @@ function AllPolicies() {
             <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("ID")}
+                  {t("Id")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Policy Name")}
@@ -91,9 +91,9 @@ function AllPolicies() {
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                 >
-                  <td className="px-3">{v?.id}</td>
+                  <td className="px-3">{t(v?.id)}</td>
                   <td className="px-3">{t(v?.policyName)}</td>
-                  <td className="px-3">{v?.policyValue}</td>
+                  <td className="px-3">{t(v?.policyValue)}</td>
                   {v?.customisableByAdmin === role && (
                     <th
                       scope="row"
@@ -101,7 +101,7 @@ function AllPolicies() {
                     >
                       <Button
                         buttonStyle="font-medium py-1"
-                        buttonValue={"Update"}
+                        buttonValue={t("Update")}
                         onButtonClick={() => (
                           setModelOpen2(true), setSelectedData(v)
                         )}
@@ -116,7 +116,7 @@ function AllPolicies() {
                       }
                       className="  px-3 py-2 w-max rounded-md cursor-pointer  duration-300 bg-blue-400  text-white"
                     >
-                      Check Policy History
+                      {t("Check Policy History")}
                     </div>
                   </td>
                 </tr>
@@ -129,7 +129,7 @@ function AllPolicies() {
         <Model2
           setModelOpen2={(e) => setModelOpen2(e)}
           reset={() => reset()}
-          heading="Update Policy"
+          heading={t("Update Policy")}
         >
           <UpdatePolicy
             data={selectedData}
