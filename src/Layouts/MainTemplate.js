@@ -11,6 +11,7 @@ function MainTemplate({ children }) {
   const loading = useSelector((state) => state.Loading);
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
+  const error = useSelector((state) => state.error);
 
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
@@ -82,7 +83,11 @@ function MainTemplate({ children }) {
         onClose={handleClose}
         className="mt-4"
       >
-        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+        <Alert
+          onClose={handleClose}
+          severity={!error ? "success" : "error"}
+          sx={{ width: "100%" }}
+        >
           {message}
         </Alert>
       </Snackbar>
