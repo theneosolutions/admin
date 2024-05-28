@@ -252,7 +252,7 @@ function AllUsers() {
         innerStyle="py-10"
         setState={() => setModelOpen2(!modelOpen2)}
         action1Value="Cancel"
-        action2Value={id === 1 ? "Activate" : "DeActivate"}
+        action2Value={id === 1 ? "DeActivate" : "Activate"}
         action2={() => functionActivateUser()}
         action1={() => setModelOpen2(!modelOpen2)}
       >

@@ -169,7 +169,7 @@ function App() {
           </div>
         </CardMain>
       </div>
-      <CardMain
+      {/* <CardMain
         width="w-full  mt-10"
         heading={t("Loan Applications")}
         iconStyle="text-3xl text-primary"
@@ -251,7 +251,7 @@ function App() {
             </tbody>
           </table>
         </div>
-      </CardMain>
+      </CardMain> */}
       <Model
         heading={t("Delete User")}
         isOpen={modelOpen}

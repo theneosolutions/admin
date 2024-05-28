@@ -648,6 +648,7 @@ function* GetGosiApi(payload) {
 }
 
 function* CreateNotification({ payload }) {
+  console.log("payloan notification", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 

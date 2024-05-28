@@ -106,6 +106,7 @@ function CreateUser({ setModelOpen, data }) {
           <div className=" w-full  flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
             <div className=" md:w-1/2 w-full space-y-5">
               <InputField
+                type="number"
                 heading={t("Serial Number")}
                 value={serialNumber}
                 onChange={(e) => setSerialNumber(e)}

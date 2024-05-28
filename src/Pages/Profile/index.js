@@ -148,11 +148,11 @@ const data = [
     tab: <UserInfo />,
     icon: <RiHistoryFill className="text-sm" />,
   },
-  {
-    label: "Agreement",
-    tab: <History />,
-    icon: <RiHistoryFill className="text-sm" />,
-  },
+  // {
+  //   label: "Agreement",
+  //   tab: <History />,
+  //   icon: <RiHistoryFill className="text-sm" />,
+  // },
   {
     label: "Financial Reports",
     tab: <Product />,

@@ -75,12 +75,12 @@ function VerifiedUsers() {
                 <th scope="col" className="px-3 py-3">
                   {t("Children")}
                 </th>
-                <th
+                {/* <th
                   scope="col"
                   className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
                 >
                   {t("Edit/Delete")}
-                </th>
+                </th> */}
               </tr>
             </thead>
             <tbody>

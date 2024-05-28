@@ -172,7 +172,7 @@ function App() {
         </CardMain>
       </div>
 
-      <CardMain
+      {/* <CardMain
         width="w-full  mt-10"
         heading={t("Loan Applications")}
         iconStyle="text-3xl text-primary"
@@ -201,12 +201,7 @@ function App() {
                 <th scope="col" className="px-3 py-3">
                   {t("Action")}
                 </th>
-                {/* <th
-                  scope="col"
-                  className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
-                >
-                  {t("Phone/Email")}
-                </th> */}
+              
                 <th
                   scope="col"
                   className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
@@ -242,16 +237,7 @@ function App() {
                       {t("View Details")}
                     </div>
                   </td>
-                  {/* <td className="px-3 py-4">
-                    <div className="flex flex-row space-x-3 rtl:space-x-reverse">
-                      <img src={Edit} className="h-6 cursor-pointer" />
-                      <img
-                        src={Delete}
-                        className="h-6 cursor-pointer"
-                        onClick={() => onDelete()}
-                      />
-                    </div>
-                  </td> */}
+                 
                   <th
                     scope="row"
                     className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10"
@@ -270,7 +256,7 @@ function App() {
             </tbody>
           </table>
         </div>
-      </CardMain>
+      </CardMain> */}
       <Model
         heading={t("Delete User")}
         isOpen={modelOpen}
