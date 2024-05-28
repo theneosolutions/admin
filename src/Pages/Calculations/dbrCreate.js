@@ -4,6 +4,7 @@ import { Button } from "Components";
 import { useTranslation } from "react-i18next";
 import * as action from "Services/redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
+import { UpdateDbr } from "Services/OtherApis";
 
 function CreateUser({ setModelOpen, data }) {
   const dispatch = useDispatch();
@@ -44,10 +45,9 @@ function CreateUser({ setModelOpen, data }) {
           ...temp, // Clone the original object
           id: data?.id, // Add the new attribute
         };
-        dispatch({
-          type: "UPDATE_DBR",
-          payload: updatedTemp,
-        });
+        UpdateDbr()
+          .then((data) => console.log("Data received:", data))
+          .catch((error) => console.error("Error received:", error));
       } else {
         dispatch({
           type: "ADD_NEW_DBR",
