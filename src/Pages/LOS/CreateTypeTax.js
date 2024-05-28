@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import CardMain from "../../Components/Cards/main";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function App() {
@@ -12,15 +10,8 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const loanReasons = useSelector((state) => state.getAllLoanReasons);
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
   const [processingFee, setProcessingFee] = useState({});
   const [vatFee, setVatFee] = useState({});
-
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
 
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
@@ -172,21 +163,6 @@ function App() {
           </div>
         </CardMain>
       </div>
-
-      <Snackbar
-        open={open}
-        autoHideDuration={5000}
-        onClose={handleClose}
-        className="mt-4"
-      >
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

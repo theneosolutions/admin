@@ -8,8 +8,6 @@ import Edit from "../../../Assets/Images/edit.svg";
 import Delete from "../../../Assets/Images/delete.svg";
 import { Model, Avatar } from "../../../Components";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "../../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
 import { ROLES } from "../../../constants/roles";
@@ -24,16 +22,11 @@ function VerifiedUsers() {
   const [username, setUsername] = useState(false);
 
   const users = useSelector((state) => state.getAllUsers);
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
+
   const [search, setSearch] = useState("");
   const [newUsersData, setNewUsersData] = useState([]);
   const [usersData, setUsersData] = useState([]);
 
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
   function onDelete(user, username) {
     setSelectedUserId(user?.userId);
     setModelOpen(true);
@@ -264,15 +257,6 @@ function VerifiedUsers() {
           <span className="font-semibold"> {username}</span>
         </a>
       </Model>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

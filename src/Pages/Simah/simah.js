@@ -114,10 +114,7 @@ function Simah() {
           reset={() => reset()}
           heading="Add New Product"
         >
-          <AddProductModel
-            // data={selectedData}
-            setModelOpen={(e) => setModelOpen(e)}
-          />
+          <AddProductModel setModelOpen={(e) => setModelOpen(e)} />
         </Model2>
       ) : null}
     </div>

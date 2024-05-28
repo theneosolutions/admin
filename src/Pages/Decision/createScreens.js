@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import CardMain from "../../Components/Cards/main";
 import { useState } from "react";
@@ -26,20 +25,12 @@ function CreateQuestionsSet() {
   const [name, setName] = useState("");
   const [arabicName, setArabicName] = useState("");
 
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
-
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
 
   useEffect(() => {
     GetSingleSetData();
   }, []);
-
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
 
   const handleCheckboxChange = (id, object) => {
     dispatch(action.Loading({ Loading: true }));
@@ -341,15 +332,6 @@ function CreateQuestionsSet() {
           </div>
         </Model2>
       ) : null}
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

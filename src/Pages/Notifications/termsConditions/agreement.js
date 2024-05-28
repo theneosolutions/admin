@@ -4,8 +4,6 @@ import { useState } from "react";
 import { Button } from "Components";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert, Snackbar } from "@mui/material";
-import * as action from "Services/redux/reducer";
 import TextEditor from "./textEditor";
 import withAuthorization from "../../../constants/authorization";
 import { ROLES } from "../../../constants/roles";
@@ -15,18 +13,11 @@ function Aggrement() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
   const conditions = useSelector((state) => state.getAgreement);
 
   const [description, setDescription] = useState("");
   const [modelOpen, setModelOpen] = useState(false);
   const [activeData, setActiveData] = useState("");
-
-  const handleClose = () => {
-    dispatch(action.Message({ open: false })); // Closing the message
-  };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -95,15 +86,6 @@ function Aggrement() {
           </Model2>
         ) : null}
       </div>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

@@ -5,15 +5,10 @@ import { useLocation } from "react-router-dom";
 function Nafath() {
   const [address, setAddress] = useState({});
   const getNafathDetail = useSelector((state) => state.getNafathDetail);
-
   const dispatch = useDispatch();
-
   const location = useLocation();
-
   const queryParams = new URLSearchParams(location.search);
-
   const ID = queryParams.get("id");
-
   function GetNafathDetail() {
     dispatch({
       type: "GET_NAFATH_DETAILS",

@@ -6,8 +6,6 @@ import Edit from "../../../Assets/Images/edit.svg";
 import Delete from "../../../Assets/Images/delete.svg";
 import { Model, Avatar } from "../../../Components";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "../../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
 import { ROLES } from "../../../constants/roles";
@@ -28,12 +26,7 @@ function AllUsers() {
   const [idNumber, setIdNumber] = useState("");
   const [id, setId] = useState("");
   const users = useSelector((state) => state.getAllUsersAll || []);
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
+
   function onDelete(user) {
     setSelectedUserId(user?.userId);
     setModelOpen(true);
@@ -256,10 +249,7 @@ function AllUsers() {
         action2={() => functionActivateUser()}
         action1={() => setModelOpen2(!modelOpen2)}
       >
-        <a className=" text-xl text-gray-800 ">
-          Are You Sure ?
-          {/* <span className="font-semibold"> Ali Imtayaz</span> ? */}
-        </a>
+        <a className=" text-xl text-gray-800 ">Are You Sure ?</a>
       </Model>
       <Model
         heading={t("Delete User")}
@@ -274,18 +264,9 @@ function AllUsers() {
       >
         <a className=" text-xl text-gray-800 ">
           {t("Are You Sure To Delete ?")}
-          <span className="font-semibold"> Ali Imtayaz</span>
+          <span className="font-semibold"> </span>
         </a>
       </Model>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

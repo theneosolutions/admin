@@ -82,7 +82,6 @@ function MyAccount() {
           <div className="md:w-1/2 w-full  space-y-5">
             <InputField
               disabled={disabled}
-              // type="calendar"
               heading={t("Last Name")}
               value={lastName}
               onChange={(e) => setLastName(e)}
@@ -127,9 +126,6 @@ function InputField({ heading, value, disabled, onChange }) {
           disabled ? "bg-gray-100" : "white border bordr-gray-200"
         }`}
       />
-      {/* <a className="bg-gray-100 rounded-md h-10 py-2 outline-none mt-2 w-full  px-3">
-        {value}
-      </a> */}
     </div>
   );
 }

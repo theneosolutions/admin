@@ -1,28 +1,19 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Snackbar } from "@mui/material";
-import * as action from "Services/redux/reducer";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function SimahProductList({ data, GetSimahCodes }) {
   const dispatch = useDispatch();
-  const message = useSelector((state) => state.message);
-  const error = useSelector((state) => state.error);
-  const open = useSelector((state) => state.open);
+
   const { t } = useTranslation();
   function UpdateProductStatus(status, id) {
-    console.log("status", status);
     dispatch({
       type: "UPDATE_PRODUCT_STATUS",
       payload: { status: status, id: id },
     });
     setTimeout(() => GetSimahCodes(), 500);
   }
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
 
-  console.log("data", data);
   return (
     <div className="py-5  w-full">
       <div className="overflow-x-auto relative">
@@ -66,10 +57,6 @@ function SimahProductList({ data, GetSimahCodes }) {
                   className="px-10 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
                 >
                   <div className="items-center justify-center flex space-x-2 ">
-                    {/* <input
-                      type="checkbox"
-                      className=" h-4 w-4 cursor-pointer"
-                    /> */}
                     <a className="">{v.id}</a>
                   </div>
                 </td>
@@ -102,15 +89,6 @@ function SimahProductList({ data, GetSimahCodes }) {
           </tbody>
         </table>
       </div>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

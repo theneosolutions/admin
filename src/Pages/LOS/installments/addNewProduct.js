@@ -5,8 +5,6 @@ import { Button } from "Components";
 import { RiImageAddLine } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert, Snackbar } from "@mui/material";
-import * as action from "Services/redux/reducer";
 
 function CreateUser() {
   const dispatch = useDispatch();
@@ -21,12 +19,7 @@ function CreateUser() {
   const [months, setMonths] = useState("");
 
   const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
-
-  const handleClose = () => {
-    dispatch(action.Message({ open: false })); // Closing the message
-  };
 
   function handleSelectImage(e) {
     if (e.target.files && e.target.files[0]) {
@@ -146,15 +139,6 @@ function CreateUser() {
           style={{ display: "none" }}
         />
       </div>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

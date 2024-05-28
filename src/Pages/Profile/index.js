@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import Applications from "./Tabs/application";
 import Product from "./Tabs/product";
-import { Alert, Snackbar } from "@mui/material";
-import * as action from "Services/redux/reducer";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { BiMessageSquareDetail } from "react-icons/bi";
@@ -10,9 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProfileSidebar from "Components/Cards/ProfileSidebar";
 import UserProfile from "./Tabs/userProfile";
 import ApiDetails from "./Tabs/apiDetails";
-import History from "./Tabs/history";
 import { FaUserAlt } from "react-icons/fa";
-import { MdFormatListBulleted } from "react-icons/md";
 import { FaCodeCompare } from "react-icons/fa6";
 import { RiHistoryFill } from "react-icons/ri";
 import UserInfo from "./Tabs/userInfo";
@@ -25,9 +20,6 @@ function Template() {
   const navigate = useNavigate();
   const location = useLocation();
   const user = useSelector((state) => state.getUserById);
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
   const [userData, setUserData] = useState({});
   const [state, setState] = useState("");
   const queryParams = new URLSearchParams(location.search);
@@ -63,9 +55,7 @@ function Template() {
   useEffect(() => {
     setUserData(user);
   }, [user]);
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
+
   return (
     <div className="flex flex-col">
       <div className="bg-white px-5 py-3  lg:mt-0 mt-4 justify-between flex flex-row items-center">
@@ -113,15 +103,6 @@ function Template() {
           </div>
         </div>
       </div>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }
@@ -138,21 +119,13 @@ const data = [
     tab: <ApiDetails />,
     icon: <BiMessageSquareDetail className="text-sm" />,
   },
-  // {
-  //   label: "Applications",
-  //   tab: <Applications />,
-  //   icon: <MdFormatListBulleted className="text-sm" />,
-  // },
+
   {
     label: "User Info",
     tab: <UserInfo />,
     icon: <RiHistoryFill className="text-sm" />,
   },
-  // {
-  //   label: "Agreement",
-  //   tab: <History />,
-  //   icon: <RiHistoryFill className="text-sm" />,
-  // },
+
   {
     label: "Financial Reports",
     tab: <Product />,

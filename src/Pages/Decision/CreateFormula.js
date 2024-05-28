@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import CardMain from "../../Components/Cards/main";
 import { useState } from "react";
@@ -23,9 +22,6 @@ function App({ setId, formula }) {
   const [lastSelectSource, setLastSelectSource] = useState("second"); // Track the source of the last selection ('first' or 'second')
 
   const setData = useSelector((state) => state.getSingleSetData);
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
 
   useEffect(() => {
     if (formula) {
@@ -96,9 +92,7 @@ function App({ setId, formula }) {
       return true;
     }
   }
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
+
   function deleteLast(keyy, v) {
     if (v === "-" || v === "+" || v === "/" || v === "%" || v === "*") {
       setLastSelectSource("first");
@@ -379,16 +373,6 @@ function App({ setId, formula }) {
           )}
         </>
       </div>
-
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }
@@ -396,7 +380,6 @@ function App({ setId, formula }) {
 export default App;
 
 function CheckStyle({ operation, onClick }) {
-  console.log("helooooooo");
   let style;
   if (
     operation === "-" ||

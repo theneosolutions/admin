@@ -6,8 +6,6 @@ import Edit from "Assets/Images/edit.svg";
 import Delete from "Assets/Images/delete.svg";
 import { Model, Avatar } from "Components";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import { useEffect } from "react";
 import withAuthorization from "../../constants/authorization";
 import { ROLES } from "../../constants/roles";
@@ -27,12 +25,7 @@ function LaonApplication() {
   const [active, setActive] = useState("All");
 
   const users = useSelector((state) => state.getApplications);
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
+
   function onDelete() {
     setModelOpen(true);
   }
@@ -205,15 +198,6 @@ function LaonApplication() {
           <span className="font-semibold"> Ali Imtayaz</span>
         </a>
       </Model>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

@@ -4,8 +4,7 @@ import CardMain from "../../Components/Cards/main";
 import Edit from "../../Assets/Images/edit.svg";
 import Delete from "../../Assets/Images/delete.svg";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
+
 import { useEffect } from "react";
 import withAuthorization from "../../constants/authorization";
 import { ROLES } from "../../constants/roles";
@@ -20,15 +19,10 @@ function Calculations() {
   const [selectedData, setSelectedData] = useState(null);
 
   const getAllDBR = useSelector((state) => state.getAllDBR);
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
+
   const [modelOpen, setModelOpen] = useState(false);
   const [modelOpen2, setModelOpen2] = useState(false);
 
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
   useEffect(() => {
     getallDbrCaluculations();
   }, []);
@@ -148,15 +142,6 @@ function Calculations() {
         </div>
       </CardMain>
 
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
       <Model
         heading={t("Delete DBR")}
         isOpen={modelOpen2}

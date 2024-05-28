@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 function OptScreen({ otp, LoginFunction, resendOtp }) {
-  const navigate = useNavigate();
   const [inputs, setInputs] = useState(["", "", "", ""]);
   const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const [secondsLeft, setSecondsLeft] = useState(60);

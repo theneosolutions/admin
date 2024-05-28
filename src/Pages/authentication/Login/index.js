@@ -1,8 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import "./login.css";
-
 import Logo from "../../../Assets/Images/logo.svg";
-import { Alert, Snackbar } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
@@ -11,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { ROLES } from "../../../constants/roles";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
-import Globe from "../../../Assets/Images/globe.svg";
 import LanguageCom from "Components/LanguageCom";
 function Login() {
   const { t } = useTranslation();
@@ -22,8 +19,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [active, setActive] = useState("login");
   const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
+
   const verificationOtp = useSelector((state) => state.verificationOtp);
   const islogin = useSelector((state) => state.islogin);
 
@@ -34,8 +30,6 @@ function Login() {
     dispatch({
       type: "LOGIN_USER",
       payload: {
-        // idNumber: 1077899779,
-        // password: "arhamIlyas123@",
         idNumber: idNumber,
         password: password,
         otp: verificationOtp,
@@ -52,8 +46,6 @@ function Login() {
     dispatch({
       type: "LOGIN_OTP_VERIFICATION",
       payload: {
-        // idNumber: 1077899779,
-        // password: "arhamIlyas123@",
         idNumber: idNumber,
         password: password,
       },
@@ -62,9 +54,6 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent default form submission behavior
     Validate();
-  };
-  const handleClose = () => {
-    dispatch(action.Message({ open: false })); // Closing the message
   };
 
   function Validate() {
@@ -205,15 +194,6 @@ function Login() {
           )}
         </div>
       </div>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </section>
   );
 }

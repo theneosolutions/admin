@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Button } from "Components";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert, Snackbar } from "@mui/material";
 import * as action from "Services/redux/reducer";
 
 function CreateUser({ setModelOpen, data }) {
@@ -16,7 +15,6 @@ function CreateUser({ setModelOpen, data }) {
   }
   const message = useSelector((state) => state.message);
   const error = useSelector((state) => state.error);
-  const open = useSelector((state) => state.open);
 
   const [serialNumber, setSerialNumber] = useState("");
   const [arabic, setArabic] = useState("");
@@ -34,15 +32,6 @@ function CreateUser({ setModelOpen, data }) {
       discription != "" &&
       productCategory != ""
     ) {
-      // const temp = {
-      //   serialNumber: serialNumber,
-      //   arabic: arabic,
-      //   code: code,
-      //   productGroup: productGroup,
-      //   discription: discription,
-      //   productCategory: productCategory,
-      // };
-
       const temp = {
         arabic: arabic,
         code: code,
@@ -83,19 +72,6 @@ function CreateUser({ setModelOpen, data }) {
     }
   }, [message, error]);
 
-  //   useEffect(() => {
-  //     if (data) {
-  //       setAdminFee(data?.adminFeeInPercentage);
-  //       setAnnualRate(data?.annualRate);
-  //       setVat(data?.vatInPercentage);
-  //       setRateMonthly(data?.flatRateMonthly);
-  //       setTerm(data?.term);
-  //       setTermRate(data?.termRate);
-  //     }
-  //   }, [data]);
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
   return (
     <form
       onSubmit={handleSubmit}
@@ -151,15 +127,6 @@ function CreateUser({ setModelOpen, data }) {
           </div>
         </div>
       </div>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </form>
   );
 }

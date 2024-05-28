@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import CardMain from "../../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "../../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import User from "./users";
 import Model2 from "Components/Model2";
 import withAuthorization from "../../../constants/authorization";
@@ -12,17 +10,10 @@ import { ROLES } from "../../../constants/roles";
 function NotificationsScreen() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
   const users = useSelector((state) => state.getAllUsersAll || []);
   const [usersData, setUsersData] = useState([]);
 
   const [modelOpen, setModelOpen] = useState(false);
-
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
 
   useEffect(() => {
     getAllNotifictions();
@@ -109,16 +100,6 @@ function NotificationsScreen() {
           <User setModelOpen={(e) => setModelOpen(e)} />
         </Model2>
       ) : null}
-
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

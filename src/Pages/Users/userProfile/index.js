@@ -3,12 +3,9 @@ import { PiCheckFatThin } from "react-icons/pi";
 import CardMain from "Components/Cards/main";
 import { Model } from "Components";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import { RxCross2 } from "react-icons/rx";
 import { CgArrowsExchange } from "react-icons/cg";
 import { useLocation } from "react-router-dom";
-import moment from "moment";
 import { useTranslation } from "react-i18next";
 
 function LaonApplication() {
@@ -17,18 +14,10 @@ function LaonApplication() {
   const [modelOpen, setModelOpen] = useState(false);
   const [active, setActive] = useState("Pending");
   const [data, setData] = useState("");
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
-  const usersApplications = useSelector((state) => state.getApplications);
+
   const getUserApplication = useSelector((state) => state.getUserApplication);
 
-  //getUserApplication
   const user = useSelector((state) => state.getUserById);
-  console.log("user", user);
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -36,13 +25,7 @@ function LaonApplication() {
   useEffect(() => {
     getUserLoanDetail();
   }, []);
-  console.log("usersApplications", getUserApplication);
-  // useEffect(() => {
-  //   const app = usersApplications.filter(
-  //     (application) => application?.userId === userId
-  //   );
-  //   setData(app[0]);
-  // }, []);
+
   useEffect(() => {
     if (getUserApplication) {
       setData(getUserApplication?.loanApplication);
@@ -51,7 +34,7 @@ function LaonApplication() {
   function SetStatus() {
     dispatch({
       type: "SET_STATUS_OF_APPLICATION",
-      payload: { status: active, id: data?.id },
+      payload: { status: active, id: userId },
     });
     setTimeout(() => getUserLoanDetail(), 500);
   }
@@ -260,37 +243,6 @@ function LaonApplication() {
                       {data?.interestAmount + " %"}
                     </a>
                   </div>
-
-                  {/* <div className="flex flex-col">
-                    <a className="text-xs text-gray-400">Apply Data</a>
-                    <a className="text-md text-gray-500  opacity-90">
-                      {moment(MillisecondsToDate(data?.maturityDate))
-                        .startOf("hour")
-                        .fromNow()}
-                    </a>
-                  </div> */}
-
-                  {/* <div className="flex flex-col">
-                    <a className="text-xs text-gray-400">
-                      1st Installment Date
-                    </a>
-                    <a className="text-md text-gray-500  opacity-90">
-                      {moment(
-                        MillisecondsToDate(data?.firstInstallmentDate)
-                      ).format("LL")}
-                    </a>
-                  </div> */}
-
-                  {/* <div className="flex flex-col">
-                    <a className="text-xs text-gray-400">
-                      Last Installment Date
-                    </a>
-                    <a className="text-md text-gray-500  opacity-90">
-                      {moment(
-                        MillisecondsToDate(data?.lastInstallmentDate)
-                      ).format("LL")}
-                    </a>
-                  </div> */}
                 </div>
               </div>
             </div>
@@ -377,22 +329,10 @@ function LaonApplication() {
           <span className="font-semibold"> Ali Imtayaz</span>
         </a>
       </Model>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }
 export default LaonApplication;
-function MillisecondsToDate(seconds) {
-  return moment(seconds, "x").format("DD MMM YYYY hh:mm a");
-}
 
 function Button({ value, icon, active, setActive }) {
   return (

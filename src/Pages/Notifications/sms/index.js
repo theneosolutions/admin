@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import CardMain from "../../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "../../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 
 import withAuthorization from "../../../constants/authorization";
 import { ROLES } from "../../../constants/roles";
@@ -16,16 +13,9 @@ import Edit from "../../../Assets/Images/edit.svg";
 function NotificationsScreen() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
   const getSmsOtp = useSelector((state) => state.getSmsOtp);
   const [modelOpen, setModelOpen] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
-
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
 
   useEffect(() => {
     getAllSmsOtp();
@@ -135,15 +125,6 @@ function NotificationsScreen() {
           />
         </Model2>
       ) : null}
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }
@@ -151,11 +132,3 @@ export default withAuthorization(NotificationsScreen, [
   ROLES.ADMIN,
   ROLES.CUSTOMER_CARE,
 ]);
-function Notifications({ heading, value, color }) {
-  return (
-    <div className="flex font-semibold flex-col bg-gray-300  px-10 py-8 text-center rounded-md md:w-1/4 w-full md:mt-0 mt-4 hover:bg-opacity-70 cursor-pointer shadow-xl duration-300">
-      <a className={color}>{value}</a>
-      <a className="text-xs text-gray-700 mt-2">{heading}</a>
-    </div>
-  );
-}

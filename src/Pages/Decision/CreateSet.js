@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import CardMain from "../../Components/Cards/main";
 import { useState } from "react";
@@ -24,9 +23,7 @@ function CreateQuestionsSet() {
 
   const questionsData = useSelector((state) => state.getAllQuestions);
   const allSets = useSelector((state) => state.getAllSets);
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
+
   const [state, setState] = useState("All");
 
   useEffect(() => {
@@ -41,10 +38,6 @@ function CreateQuestionsSet() {
   useEffect(() => {
     setFilterQuestions(questionsData);
   }, [questionsData]);
-
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
 
   function getAllSets() {
     dispatch({
@@ -181,15 +174,6 @@ function CreateQuestionsSet() {
           })}
         </CardMain>
       </div>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }
@@ -209,20 +193,6 @@ function InputField({ name, setName, placeholder }) {
         onChange={(e) => setName(e.target.value)}
         value={name}
         placeholder={t(placeholder)}
-        className="border-gray-300 border rounded-md px-2 py-1   outline-none"
-      />
-    </div>
-  );
-}
-function InputField2({ name, setName }) {
-  const { t } = useTranslation();
-
-  return (
-    <div>
-      <input
-        onChange={(e) => setName(e.target.value)}
-        value={name}
-        placeholder={t("Set name")}
         className="border-gray-300 border rounded-md px-2 py-1   outline-none"
       />
     </div>

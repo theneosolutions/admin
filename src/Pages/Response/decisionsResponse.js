@@ -5,8 +5,6 @@ import { Button } from "Components";
 import { RiImageAddLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Alert, Snackbar } from "@mui/material";
-import * as action from "../../Services/redux/reducer";
 import { useTranslation } from "react-i18next";
 import withAuthorization from "../../constants/authorization";
 import { ROLES } from "../../constants/roles";
@@ -33,7 +31,6 @@ function CreateUser() {
   const allSets = useSelector((state) => state.getAllSets);
 
   const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
 
   const getSetResponse = useSelector((state) => state.getSetResponse?.data);
@@ -112,9 +109,7 @@ function CreateUser() {
       payload: { id: id },
     });
   }
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
+
   useEffect(() => {
     if (error === true) {
       reset();
@@ -231,15 +226,6 @@ function CreateUser() {
           style={{ display: "none" }}
         />
       </div>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

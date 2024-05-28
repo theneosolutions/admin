@@ -7,7 +7,6 @@ function Template() {
   const [state, setState] = useState("Submitted");
   const getTab = () => {
     const activeItem = data.find((item) => item.label === state);
-
     return activeItem ? activeItem.tab : null;
   };
 

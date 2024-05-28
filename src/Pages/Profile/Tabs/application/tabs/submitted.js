@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { MdVerified } from "react-icons/md";
-import { RxCrossCircled } from "react-icons/rx";
 import Edit from "Assets/Images/edit.svg";
 import Delete from "Assets/Images/delete.svg";
 import { Model, Avatar } from "Components";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 
 import { useEffect } from "react";
 function LaonApplication() {
@@ -17,12 +13,7 @@ function LaonApplication() {
   const { t } = useTranslation();
   const [modelOpen, setModelOpen] = useState(false);
   const users = useSelector((state) => state.getApplications);
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
+
   function onDelete() {
     setModelOpen(true);
   }
@@ -34,24 +25,6 @@ function LaonApplication() {
       type: "GET_LOAN_APPLICATIONS",
     });
   }
-  function CheckEligibility(other, numeric) {
-    if (other && numeric) {
-      return (
-        <div className="flex flex-row font-semibold space-x-1 text-green-700 items-center">
-          <MdVerified className="text-xl" />
-          <a className="text-md ">Eligible</a>
-        </div>
-      );
-    } else {
-      return (
-        <div className="flex flex-row font-semibold space-x-1 text-red-700 items-center">
-          <RxCrossCircled className="text-xl" />
-          <a className="text-md ">Not Eligible</a>
-        </div>
-      );
-    }
-  }
-
   return (
     <div className="py-5  w-full">
       <div className="overflow-x-auto relative">
@@ -158,15 +131,6 @@ function LaonApplication() {
           <span className="font-semibold"> Ali Imtayaz</span>
         </a>
       </Model>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

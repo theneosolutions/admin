@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import CardMain from "Components/Cards/main";
 import { Model } from "Components";
-import { useDispatch, useSelector } from "react-redux";
-import * as action from "Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
+import { useSelector } from "react-redux";
 import { FaWpforms } from "react-icons/fa";
 import moment from "moment";
 import { useEffect } from "react";
@@ -13,22 +11,14 @@ import { useTranslation } from "react-i18next";
 
 function LaonApplication() {
   const { t } = useTranslation();
-
-  const dispatch = useDispatch();
   const [modelOpen, setModelOpen] = useState(false);
   const [state, setState] = useState({});
   const users = useSelector((state) => state.getApplications);
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
+
   const location = useLocation();
 
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
-
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
 
   useEffect(() => {
     if (id) {
@@ -193,19 +183,9 @@ function LaonApplication() {
       >
         <a className=" text-xl text-gray-800 ">
           {t("Are You Sure To Delete ?")}
-          <span className="font-semibold"> Ali Imtayaz</span>
+          <span className="font-semibold"></span>
         </a>
       </Model>
-
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }
