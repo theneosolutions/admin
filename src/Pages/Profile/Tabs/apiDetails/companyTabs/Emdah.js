@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Worker, Viewer } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
+import { useLocation } from "react-router-dom";
 function Emdah() {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const id = queryParams.get("id");
   const getEmdahReport = useSelector((state) => state.getEmdahReport);
   console.log("Emdah", getEmdahReport);
   useEffect(() => {
@@ -12,7 +16,7 @@ function Emdah() {
   function GetEmdahReport() {
     dispatch({
       type: "GET_EMDAH_REPORT",
-      payload: "12348890",
+      payload: id,
     });
   }
 

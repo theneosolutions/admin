@@ -94,7 +94,7 @@ const CreateDesicion = () => {
                                           style={{ accentColor: "red" }}
                                           className={`h-4 w-4 ${
                                             isActive
-                                              ? "bg-red-300 text-red-500 bg-red-500 border-green-400"
+                                              ? " text-red-500 bg-red-500 border-green-400"
                                               : ""
                                           }`}
                                         />

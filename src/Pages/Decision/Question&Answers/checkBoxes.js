@@ -155,7 +155,7 @@ function Checboxes({ onAddElement, language }) {
           <button
             type="button"
             onClick={addOption}
-            className="px-4 text-sm bg-blue-500 text-white rounded hover:bg-blue-700 h-10 bg-sky-800 hover:bg-sky-700"
+            className="px-4 text-sm bg-blue-500 text-white rounded hover:bg-blue-700 h-10 "
           >
             Add More Option
           </button>
