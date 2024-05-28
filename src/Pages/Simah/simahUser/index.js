@@ -36,14 +36,7 @@ function UserSimah({ active }) {
     });
   }, []);
 
-  const temp2 = data?.creditInstrumentDetails?.filter(
-    (item) => item?.ciStatus?.creditInstrumentStatusDescEn === "Active"
-  );
-  // console.log("helo to from temp 2 ", temp2);
-  // console.log("data", data?.creditInstrumentDetails);
-
   useEffect(() => {
-    // console.log("active", active);
     if (data?.creditInstrumentDetails) {
     }
     if (data?.creditInstrumentDetails && active === "All") {

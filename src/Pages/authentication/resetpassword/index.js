@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "./login.css";
-
 import Logo from "../../../Assets/Images/logo.svg";
 import { Alert, Snackbar } from "@mui/material";
 import { useState } from "react";
@@ -11,7 +10,6 @@ import NewPassword from "./newPassword";
 import { useTranslation } from "react-i18next";
 
 import { useNavigate } from "react-router-dom";
-import { ROLES } from "../../../constants/roles";
 import LanguageCom from "Components/LanguageCom";
 
 function Login() {
@@ -21,8 +19,6 @@ function Login() {
   const [idNumber, setIdNumber] = useState("");
   const [active, setActive] = useState("login");
   const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
   const verificationOtp = useSelector((state) => state.forgetVerificationOtp);
 
   function PasswordScreen(e) {
@@ -53,9 +49,7 @@ function Login() {
     e.preventDefault();
     sendOtp();
   };
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
+
   useEffect(() => {
     if (message === "Password reset successful.") {
       navigate("/login");
@@ -121,16 +115,6 @@ function Login() {
           )}
         </div>
       </div>
-
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </section>
   );
 }

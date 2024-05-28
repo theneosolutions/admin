@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import CardMain from "../../Components/Cards/main";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import { BsGraphUpArrow } from "react-icons/bs";
 import { BiSignal4 } from "react-icons/bi";
 import { PiChartScatterBold } from "react-icons/pi";
@@ -18,10 +16,7 @@ import ColumnChart from "Components/chart/ColumnChart";
 import PieChart from "Components/chart/PieChart";
 import SplineChart from "Components/chart/SplineChart";
 
-import Edit from "Assets/Images/edit.svg";
-import Delete from "Assets/Images/delete.svg";
-import { useNavigate } from "react-router-dom";
-import { Model, Avatar } from "Components";
+import { Model } from "Components";
 import withAuthorization from "../../constants/authorization";
 import { ROLES } from "../../constants/roles";
 function App() {
@@ -30,14 +25,8 @@ function App() {
   const applications = useSelector((state) => state.getApplications);
   const selaBalance = useSelector((state) => state.selaBalance);
   const [balance, setBalance] = useState({});
-  const navigate = useNavigate();
   const [modelOpen, setModelOpen] = useState(false);
 
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
   useEffect(() => {
     getBalance();
     getAllUsersData();
@@ -55,15 +44,7 @@ function App() {
       type: "GET_BALANCE",
     });
   }
-  const sumOfApprovedAmmount = applications?.reduce(
-    (accumulator, currentItem) => {
-      if (currentItem?.status === "Approved") {
-        accumulator += currentItem?.loanAmount;
-      }
-      return accumulator;
-    },
-    0
-  );
+
   useEffect(() => {
     if (selaBalance?.data) {
       console.log(JSON.parse(selaBalance?.data));
@@ -169,89 +150,7 @@ function App() {
           </div>
         </CardMain>
       </div>
-      {/* <CardMain
-        width="w-full  mt-10"
-        heading={t("Loan Applications")}
-        iconStyle="text-3xl text-primary"
-      >
-        <div className="overflow-x-auto relative  mt-4">
-          <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
-              <tr>
-                <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("User Id")}
-                </th>
-                <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("Loan Reason")}
-                </th>
 
-                <th scope="col" className="px-3 py-3">
-                  {t("Loan Ammount")}
-                </th>
-                <th scope="col" className="px-3 py-3">
-                  {t("Maturity Date")}
-                </th>
-
-                <th scope="col" className="px-3 py-3">
-                  {t("Duration")}
-                </th>
-                <th scope="col" className="px-3 py-3">
-                  {t("Action")}
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
-                >
-                  {t("Edit/Delete")}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {applications.map((v, k) => (
-                <tr
-                  key={k}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                >
-                  <td
-                    scope="row"
-                    className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
-                  >
-                    <a>{v.userId}</a>
-                  </td>
-                  <td scope="row" className="px-3 py-4">
-                    {v.formulaName}
-                  </td>
-                  <td className="px-3 py-4">{v.loanAmount}</td>
-                  <td className="px-3 py-4">{v.maturityDate}</td>
-                  <td className="px-3 py-4">{v.month + " Months"}</td>
-
-                  <td className="px-3 py-4">
-                    <div
-                      onClick={() => navigate(`/user-profile?id=${v.userId}`)}
-                      className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
-                    >
-                      {t("View Details")}
-                    </div>
-                  </td>
-                  <th
-                    scope="row"
-                    className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10"
-                  >
-                    <div className="flex flex-row space-x-3 rtl:space-x-reverse">
-                      <img src={Edit} className="h-6 cursor-pointer" />
-                      <img
-                        src={Delete}
-                        className="h-6 cursor-pointer"
-                        onClick={() => onDelete()}
-                      />
-                    </div>
-                  </th>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </CardMain> */}
       <Model
         heading={t("Delete User")}
         isOpen={modelOpen}
@@ -268,16 +167,6 @@ function App() {
           <span className="font-semibold"> Ali Imtayaz</span>
         </a>
       </Model>
-      <Snackbar
-        open={open}
-        autoHideDuration={5000}
-        onClose={handleClose}
-        className="mt-4"
-      >
-        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

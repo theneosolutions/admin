@@ -2,22 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 import CardMain from "Components/Cards/main";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import UplaodIcon from "Assets/Images/upload.svg";
-import { useNavigate } from "react-router-dom";
 import { CiCircleRemove } from "react-icons/ci";
 import withAuthorization from "../../constants/authorization";
 import { ROLES } from "../../constants/roles";
 import TermsAndRates from "Pages/Calculations/termsAndRates";
 function App() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const loanReasons = useSelector((state) => state.getAllLoanReasons);
   const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
 
   const [formData, setFormData] = useState([{ key: null, value: 0 }]);
@@ -25,9 +20,7 @@ function App() {
   const [image2, setImage2] = useState(null);
   const [reason, setReason] = useState("");
   const [language, setLanguage] = useState("ar");
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
+
   useEffect(() => {
     getAllReasons();
   }, []);
@@ -280,21 +273,6 @@ function App() {
         </CardMain>
         <TermsAndRates />
       </div>
-
-      <Snackbar
-        open={open}
-        autoHideDuration={5000}
-        onClose={handleClose}
-        className="mt-4"
-      >
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

@@ -9,7 +9,6 @@ import UserList from "../Pages/Dashboard/UserList";
 import UsersPageLayout from "../Pages/Users/UsersPageLayout";
 import Verified from "../Pages/Users/verified";
 import AllUsers from "../Pages/Users/AllUsers";
-import Dump from "../Pages/Users/dump";
 import DecisionLayout from "../Pages/Decision/DecisionPageLayout";
 import QuestionsAnswers from "../Pages/Decision/Question&Answers";
 import CreateSet from "../Pages/Decision/CreateSet";
@@ -23,7 +22,6 @@ import CreateType from "Pages/LOS/createType";
 import LoanApplications from "Pages/LOS/loanApplications";
 import Notifications from "Pages/Notifications/notificationsDashboard";
 import UserDashboard from "Pages/Users/dashboard";
-import AllInstallments from "Pages/LOS/installments/allinstallments";
 import TermAndConditions from "Pages/Notifications/termsConditions";
 import Simah from "Pages/Simah/simah";
 import SimahPageLayout from "Pages/Simah/SimahLayout";
@@ -45,7 +43,6 @@ import Sms from "Pages/Notifications/sms";
 import UserSimah from "Pages/Simah/simahDownlaod";
 import CustomerEmi from "Pages/Users/customerEmi";
 import PoliciesPageLayout from "Pages/Policies/PoliciesPageLayout";
-import Policies from "Pages/Policies";
 import ViewPolicies from "Pages/Policies/viewPolicies";
 
 const appRoutes = [

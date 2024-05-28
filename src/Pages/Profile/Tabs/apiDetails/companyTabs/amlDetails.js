@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import CardMain from "Components/Cards/main";
-import facebook from "Assets/Images/facebook.svg";
-import youtube from "Assets/Images/youtube.svg";
-import Insta from "Assets/Images/insta.svg";
-import Twitter from "Assets/Images/twitter.svg";
 import { useDispatch, useSelector } from "react-redux";
 import Model2 from "Components/Model2";
 
@@ -33,7 +29,6 @@ function AntiFraud() {
   function reset() {
     setModelOpen(false);
   }
-  console.log("getAmlRecord", amlData);
   function UpdateFunction() {
     dispatch({
       type: "UPDATE_AML_RECORD",

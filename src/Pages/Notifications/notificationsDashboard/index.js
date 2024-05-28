@@ -5,7 +5,6 @@ import CardMain from "../../../Components/Cards/main";
 import { IoNotifications } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 
 import withAuthorization from "../../../constants/authorization";
 import { ROLES } from "../../../constants/roles";
@@ -13,14 +12,8 @@ function NotificationsScreen() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
-  const notifications = useSelector((state) => state.Notifications);
 
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
+  const notifications = useSelector((state) => state.Notifications);
 
   useEffect(() => {
     getAllNotifictions();
@@ -103,16 +96,6 @@ function NotificationsScreen() {
           </table>
         </div>
       </CardMain>
-
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import CardMain from "../../../../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "../../../../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+
 function Calculations() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -14,12 +12,7 @@ function Calculations() {
   const queryParams = new URLSearchParams(location.search);
   const UserId = queryParams.get("user");
   const getAllUsersEmi = useSelector((state) => state.getAllUsersEmi);
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
+
   useEffect(() => {
     getAllUsersEmiData();
   }, []);
@@ -120,90 +113,7 @@ function Calculations() {
           </tbody>
         </table>
       </div>
-
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }
 export default Calculations;
-
-const data = [
-  {
-    bracket: "Food",
-    Level: "Monthly",
-    DBR: "100",
-    GDBR_Without_MTG: "45",
-    GDBR_Including_MTG: "200",
-  },
-  {
-    bracket: "Housing Rent",
-    Level: "Monthly",
-    DBR: "1200",
-    GDBR_Without_MTG: "45",
-    GDBR_Including_MTG: "200",
-  },
-  {
-    bracket: "Utility",
-    Level: "Monthly",
-    DBR: "200",
-    GDBR_Without_MTG: "65",
-    GDBR_Including_MTG: "65",
-  },
-  {
-    bracket: "Domestic Labour Wage",
-    Level: "Monthly",
-    DBR: "800",
-    GDBR_Without_MTG: "65",
-    GDBR_Including_MTG: "65",
-  },
-  {
-    bracket: "Education Expenses",
-    Level: "Monthly",
-    DBR: "300",
-    GDBR_Without_MTG: "65",
-    GDBR_Including_MTG: "65",
-  },
-  {
-    bracket: "Transport Expenses",
-    Level: "Monthly",
-    DBR: "400",
-    GDBR_Without_MTG: "65",
-    GDBR_Including_MTG: "65",
-  },
-  {
-    bracket: "Health Care Expenses",
-    Level: "Monthly",
-    DBR: "200",
-    GDBR_Without_MTG: "65",
-    GDBR_Including_MTG: "65",
-  },
-  {
-    bracket: "Insurance Expenses",
-    Level: "Monthly",
-    DBR: "200",
-    GDBR_Without_MTG: "65",
-    GDBR_Including_MTG: "65",
-  },
-  {
-    bracket: "Liabilities Other then SIMAH",
-    Level: "Monthly",
-    DBR: "0",
-    GDBR_Without_MTG: "0",
-    GDBR_Including_MTG: "0",
-  },
-  {
-    bracket: "Other Expenses",
-    Level: "0",
-    DBR: "0",
-    GDBR_Without_MTG: "0",
-    GDBR_Including_MTG: "0",
-  },
-];

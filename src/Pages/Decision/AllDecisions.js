@@ -1,8 +1,6 @@
 import React from "react";
 import CardMain from "../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Edit from "../../Assets/Images/edit.svg";
 import Delete from "../../Assets/Images/delete.svg";
@@ -14,18 +12,12 @@ const CreateDesicion = () => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
+
   const setData = useSelector((state) => state.getAllDecisions);
 
   React.useEffect(() => {
     getAllDecisions();
   }, []);
-
-  const handleClose = () => {
-    dispatch(action.Message({ open: false })); // Closing the message
-  };
 
   function getAllDecisions() {
     dispatch({
@@ -210,16 +202,6 @@ const CreateDesicion = () => {
           </CardMain>
         );
       })}
-
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </>
   );
 };

@@ -5,16 +5,11 @@ import { Button } from "Components";
 import { RiImageAddLine } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert, Snackbar } from "@mui/material";
-import * as action from "Services/redux/reducer";
+
 import TextEditor from "./textEditor";
 function CreateUser() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
   const getScreenName = useSelector(
     (state) => state.getScreenName?.appFlow?.screenFlow || []
   );
@@ -26,10 +21,6 @@ function CreateUser() {
 
   const [image, setImage] = useState(null);
   const [imageBlob, setImageBlob] = useState(null);
-
-  const handleClose = () => {
-    dispatch(action.Message({ open: false })); // Closing the message
-  };
 
   const fileInputRef = useRef(null); // Create a ref for the file input
 
@@ -145,15 +136,6 @@ function CreateUser() {
             style={{ display: "none" }}
           />
         </div>
-        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-          <Alert
-            onClose={handleClose}
-            severity={!error ? "success" : "error"}
-            sx={{ width: "100%" }}
-          >
-            {message}
-          </Alert>
-        </Snackbar>
       </div>
     </div>
   );

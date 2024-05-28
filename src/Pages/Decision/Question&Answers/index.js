@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CardMain from "Components/Cards/main";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import * as action from "Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
+import { useDispatch } from "react-redux";
 import withAuthorization from "constants/authorization";
 import { ROLES } from "constants/roles";
 import ViewQuestions from "./viewQuestions";
@@ -17,14 +15,6 @@ function App() {
 
   const [newInfo, setNewInfo] = useState("none");
   const [language, setLanguage] = useState("ar");
-
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
-
-  const handleClose = () => {
-    dispatch(action.Message({ open: false })); // Closing the message
-  };
 
   useEffect(() => {
     getAllQuestion();
@@ -127,15 +117,6 @@ function App() {
         </div>
         <ViewQuestions getAllQuestion={() => getAllQuestion()} />
       </div>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

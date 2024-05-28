@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import CardMain from "Components/Cards/main";
 import { MdOutlineVerified } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";

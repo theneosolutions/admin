@@ -2,16 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import CardMain from "../../../Components/Cards/main";
-import Edit from "../../../Assets/Images/edit.svg";
-import Delete from "../../../Assets/Images/delete.svg";
-import { Model, Avatar } from "../../../Components";
+import { Model } from "../../../Components";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "../../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
 import { ROLES } from "../../../constants/roles";
-import { LuSearch } from "react-icons/lu";
 import Model2 from "Components/Model2";
 import UpdatePolicy from "./updatePolicy";
 import { Button } from "Components";
@@ -25,19 +20,7 @@ function AllPolicies() {
   const [selectedData, setSelectedData] = useState();
   const getAllPolicies = useSelector((state) => state.getAllPolicies);
   const role = useSelector((state) => state.role);
-  const user = useSelector((state) => state.user);
 
-  console.log("user", role);
-
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
-  function onDelete(user) {
-    setModelOpen(true);
-  }
   useEffect(() => {
     getAllPoliciesFunction();
   }, []);
@@ -153,15 +136,6 @@ function AllPolicies() {
           <span className="font-semibold"> Ali Imtayaz</span>
         </a>
       </Model>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

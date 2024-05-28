@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import Family from "./tabs/family";
-import Financail from "./tabs/financial";
-import Income from "./tabs/income";
-import SimahLibilities from "./tabs/simahLibilities";
 
 function Template() {
   const [state, setState] = useState("Emi Detail");
@@ -50,22 +47,8 @@ function Template() {
 export default Template;
 
 const data = [
-  // {
-  //   label: "Simah Labilities",
-  //   tab: <SimahLibilities />,
-  // },
-
   {
     label: "Emi Detail",
     tab: <Family />,
   },
-
-  // {
-  //   label: "Income Details",
-  //   tab: <Income />,
-  // },
-  // {
-  //   label: "Financail Details",
-  //   tab: <Financail />,
-  // },
 ];

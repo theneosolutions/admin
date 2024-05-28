@@ -6,7 +6,6 @@ import { RiImageAddLine } from "react-icons/ri";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Alert, Snackbar } from "@mui/material";
 import * as action from "../../Services/redux/reducer";
 import { useTranslation } from "react-i18next";
 import Lottie from "lottie-react";
@@ -32,8 +31,6 @@ function CreateUser({ setid }) {
   const fileInputRefSuccess = useRef(null); // Create a ref for the file input
   const fileInputRefError = useRef(null); // Create a ref for the file input
 
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
 
   const getSetResponse = useSelector((state) => state.getSetResponse?.data);
@@ -96,9 +93,7 @@ function CreateUser({ setid }) {
       payload: { id: id },
     });
   }
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
+
   useEffect(() => {
     if (error === true) {
       reset();
@@ -299,15 +294,6 @@ function CreateUser({ setid }) {
           style={{ display: "none" }}
         />
       </div>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

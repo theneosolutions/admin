@@ -3,11 +3,19 @@ import WaveAnimation from "Components/Loading"; // Adjust the path based on your
 import { useSelector, useDispatch } from "react-redux";
 import * as action from "../Services/redux/reducer";
 import { jwtDecode } from "jwt-decode";
+import { Alert, Snackbar } from "@mui/material";
 
 function MainTemplate({ children }) {
   const dispatch = useDispatch();
 
   const loading = useSelector((state) => state.Loading);
+  const message = useSelector((state) => state.message);
+  const open = useSelector((state) => state.open);
+  const error = useSelector((state) => state.error);
+
+  const handleClose = () => {
+    dispatch(action.Message({ open: false }));
+  };
   function checkTokenExpiration(token) {
     try {
       const decodedToken = jwtDecode(token);
@@ -69,6 +77,20 @@ function MainTemplate({ children }) {
     <div>
       <WaveAnimation show={loading} />
       <div>{children}</div>
+      <Snackbar
+        open={open}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        className="mt-4"
+      >
+        <Alert
+          onClose={handleClose}
+          severity={!error ? "success" : "error"}
+          sx={{ width: "100%" }}
+        >
+          {message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

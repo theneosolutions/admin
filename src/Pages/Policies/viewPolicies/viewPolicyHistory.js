@@ -3,8 +3,6 @@ import { useTranslation } from "react-i18next";
 import CardMain from "../../../Components/Cards/main";
 import { Model } from "../../../Components";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "../../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
 import { ROLES } from "../../../constants/roles";
@@ -24,10 +22,6 @@ function ViewPolicyHistory() {
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
 
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
-
   useEffect(() => {
     getAllPoliciesFunction();
   }, []);
@@ -46,9 +40,6 @@ function ViewPolicyHistory() {
 
     setTimeout(() => (setModelOpen(false), getAllPoliciesFunction()), 600);
   }
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
 
   return (
     <div className="py-5">
@@ -79,9 +70,7 @@ function ViewPolicyHistory() {
                 <th scope="col" className="px-3 py-3">
                   {t("Modified Date")}
                 </th>
-                {/* <th scope="col" className="px-3 py-3">
-                  {t("Status")}
-                </th> */}
+
                 <th scope="col" className="px-3 py-3">
                   {t("Action")}
                 </th>
@@ -148,20 +137,8 @@ function ViewPolicyHistory() {
         action2={() => FunctionApproveReject("approve")}
         action1={() => FunctionApproveReject("reject")}
       >
-        <a className=" text-xl text-gray-800 ">
-          {t("Are You Sure  ?")}
-          {/* <span className="font-semibold"> Ali Imtayaz</span> */}
-        </a>
+        <a className=" text-xl text-gray-800 ">{t("Are You Sure  ?")}</a>
       </Model>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

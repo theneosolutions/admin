@@ -740,7 +740,7 @@ function* SetStatusOfApplication({ payload }) {
     const response = yield call(
       axiosInstance.patch,
       baseUrlLos +
-        `/loanTypeFormula/createLoanTypeCalculation?id=${payload?.id}&status=${payload?.status}`
+        `/loanTypeFormula/loanStatusChange?status=${payload?.status}&userId=${payload?.id}`
     );
     yield put(action.Loading({ Loading: false }));
 

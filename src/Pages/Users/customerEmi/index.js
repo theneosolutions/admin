@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import CardMain from "../../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "../../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
+
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
 import { ROLES } from "../../../constants/roles";
@@ -13,14 +12,7 @@ function VerifiedUsers() {
   const { t } = useTranslation();
 
   const getAllUsersEmi = useSelector((state) => state.getAllUsersEmi);
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
-  const [newUsersData, setNewUsersData] = useState([1]);
 
-  const handleClose = () => {
-    dispatch(action.Message({ open: false }));
-  };
   console.log("getAllUsersEmi", getAllUsersEmi);
   useEffect(() => {
     getAllUsersEmiData();
@@ -75,12 +67,6 @@ function VerifiedUsers() {
                 <th scope="col" className="px-3 py-3">
                   {t("Children")}
                 </th>
-                {/* <th
-                  scope="col"
-                  className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
-                >
-                  {t("Edit/Delete")}
-                </th> */}
               </tr>
             </thead>
             <tbody>
@@ -125,16 +111,6 @@ function VerifiedUsers() {
           </table>
         </div>
       </CardMain>
-
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

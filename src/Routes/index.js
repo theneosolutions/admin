@@ -4,7 +4,6 @@ import { routes } from "./routes";
 import Profile from "Pages/Profile";
 import TestPage from "Pages/TestPage/test2";
 import Applications from "Pages/Applications";
-import UserDetail from "Pages/UserDetail";
 import MyAccount from "Pages/MyAccount";
 import Login from "Pages/authentication/Login";
 import ForgetPassword from "Pages/authentication/resetpassword";
@@ -35,7 +34,6 @@ function App() {
             {routes}
             <Route path="/profile" element={<Profile />} />
             <Route path="/applications" element={<Applications />} />
-            <Route path="/user-detail" element={<UserDetail />} />
             <Route path="/my-account" element={<MyAccount />} />
             <Route path="/user-answers" element={<UserAnswer />} />
             <Route path="/create-screen" element={<CreateScreens />} />

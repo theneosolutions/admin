@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CardMain from "../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "../../Services/redux/reducer";
-import { Alert, Snackbar } from "@mui/material";
 import { Model } from "../../Components";
 import CreateFormula from "../../Pages/Decision/CreateFormula";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -23,9 +21,7 @@ const CreateDesicion = () => {
   const [setId, setSetId] = useState();
   const [checkedValues, setCheckedValues] = useState([]);
   const [singleQuestionId, setSingleQuestionId] = useState();
-  const message = useSelector((state) => state.message);
-  const open = useSelector((state) => state.open);
-  const error = useSelector((state) => state.error);
+
   const setData = useSelector((state) => state.getSingleSetData);
   const singleQuestion = useSelector((state) => state.getQuestionOfSet);
   const allSets = useSelector((state) => state.getAllSets);
@@ -55,10 +51,6 @@ const CreateDesicion = () => {
       payload: { id: id, setid: setId },
     });
   }
-
-  const handleClose = () => {
-    dispatch(action.Message({ open: false })); // Closing the message
-  };
 
   async function addAnswersData() {
     const updatedResponse = checkedValues.map((item) => {
@@ -150,7 +142,6 @@ const CreateDesicion = () => {
                             {getLanguage() === "ar"
                               ? v?.eligibilityQuestions.questionAr
                               : v?.eligibilityQuestions.question}
-                            {/* {v?.eligibilityQuestions.question} */}
                           </td>
                           <td className="px-6 py-4 flex flex-row space-x-4 rtl:space-x-reverse">
                             {v?.eligibilityQuestions?.options.map(
@@ -189,8 +180,6 @@ const CreateDesicion = () => {
                                     ) : (
                                       <>{option?.optionEn}</>
                                     )}
-
-                                    {/* <span>{option}</span> */}
                                   </div>
                                 );
                               }
@@ -302,16 +291,6 @@ const CreateDesicion = () => {
           singleQuestion={singleQuestion}
         />
       </Model>
-
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={!error ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </>
   );
 };

@@ -21,9 +21,7 @@ function CreateUser({}) {
       setImage(URL.createObjectURL(e.target.files[0]));
     }
   }
-  function handleClick() {
-    fileInputRef.current.click();
-  }
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -107,19 +105,6 @@ function CreateUser({}) {
       className="items-center justify-center flex flex-col"
     >
       <div className=" bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-20 px-4 py-5 ">
-        {/* <div className="flex flex-col  justify-center items-center">
-          <div
-            onClick={handleClick}
-            className="h-52 w-52 overflow-hidden rounded-full border bg-gray-300 text-center justify-center flex  flex-row items-center text-gray-900 hover:bg-gray-100 duration-200 cursor-pointer"
-          >
-            {!image && <RiImageAddLine style={{ fontSize: 35 }} />}
-            {image && <img src={image} className="h-full w-full " />}
-          </div>
-          <div className="border border-primary px-3 py-1 text-primary text-sm rounded-full mt-7">
-            Profile Image
-          </div>
-        </div> */}
-
         <div className="flex flex-col ">
           <div className=" w-full  flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
             <div className=" md:w-1/2 w-full space-y-5">
