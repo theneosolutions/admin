@@ -469,11 +469,12 @@ function* CreateLoanType({ payload }) {
     const formData = new FormData();
     formData.append("file", payload.image);
     formData.append("languageCode", payload.language);
-    formData.append("tenureTex", JSON.stringify(payload.transformedObject));
+    formData.append("tenureTexJson", JSON.stringify(payload.transformedObject));
+    formData.append("requestReason", payload.reason);
 
     const response = yield call(
       axiosInstance.post,
-      baseUrlLos + `/loanType/create?requestReason=${payload.reason}`,
+      baseUrlLos + `/loanType/create`,
       formData,
       {
         headers: {
