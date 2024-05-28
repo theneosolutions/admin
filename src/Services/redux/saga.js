@@ -1181,6 +1181,7 @@ function* DeleteDbr({ payload }) {
 }
 
 function* UpdateDbr({ payload }) {
+  console.log("dbr update", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
