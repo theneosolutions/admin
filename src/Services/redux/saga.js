@@ -1852,7 +1852,7 @@ function* GetSeelahTransaction() {
     yield put(action.Loading({ Loading: true }));
 
     const response = yield call(
-      axios.get,
+      axiosInstance.get,
       baseUrlCms + `/selaApi/transactions`
     );
     console.log("response", response);
@@ -1860,9 +1860,7 @@ function* GetSeelahTransaction() {
 
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
-    yield put(action.Loading({ Loading: false }));
-    const message = error.response.data.message;
-    yield put(action.Message({ message: message, open: true, error: true }));
+    console.log("error", error);
   }
 }
 export default function* HomeSaga() {

@@ -4,12 +4,27 @@ import { axiosInstance } from "./constant";
 var baseUrlDecisions = "https://seulah.com/api/v1/dms";
 var baseUrlUser = "https://seulah.com/api/v1/auth";
 var baseUrlLos = "https://seulah.com/api/v1/los";
+var baseUrlCms = "https://seulah.com/api/v1/cms";
 
 async function CheckQuestionStatusInScreen(id) {
   try {
     const response = await axiosInstance.get(
       baseUrlDecisions + `/screen/questionCheckInScreen?questionId=${id}`
     );
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return message;
+  }
+}
+
+async function GetSeelahTransaction() {
+  console.log("GetSeelahTransactionGetSeelahTransaction");
+  try {
+    // Assuming "/api" is the endpoint on your backend that proxies requests to the API server
+    const response = await axios.get("/api/selaApi/transactions");
     return response.data;
   } catch (error) {
     const message = error.response
@@ -81,7 +96,12 @@ async function UpdateDbr(id, token) {
   }
 }
 
-export { CheckQuestionStatusInScreen, CheckToken, UpdateDbr };
+export {
+  CheckQuestionStatusInScreen,
+  CheckToken,
+  UpdateDbr,
+  GetSeelahTransaction,
+};
 
 // function* UpdateDbr({ payload }) {
 //   console.log("dbr update", payload);

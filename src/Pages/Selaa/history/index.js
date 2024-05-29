@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
 import { ROLES } from "../../../constants/roles";
-
+import { GetSeelahTransaction } from "Services/OtherApis";
 function AllUsers() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -18,9 +18,13 @@ function AllUsers() {
     getAllUsersData();
   }, []);
   function getAllUsersData() {
-    dispatch({
-      type: "GET_SELAA_TRANSACTION_HISTORY",
-    });
+    // dispatch({
+    //   type: "GET_SELAA_TRANSACTION_HISTORY",
+    // });
+
+    GetSeelahTransaction()
+      .then((data) => console.log("Data received:", data))
+      .catch((error) => console.error("Error received:", error));
   }
 
   return (

@@ -5,7 +5,7 @@ export const axiosInstance = axios.create({
     // Authorization: token(),
     "Content-Type": "application/json",
     "ngrok-skip-browser-warning": "69420",
-    "Access-Control-Allow-Origin": "*",
+    // "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": "true",
     "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
     "Access-Control-Allow-Headers":
