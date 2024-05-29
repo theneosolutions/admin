@@ -61,6 +61,8 @@ function Login() {
   }
   useEffect(() => {
     if (islogin && role && token) {
+      dispatch(action.Message({ message: "" })); // Closing the message
+      dispatch(action.VerificationOtp({ otp: null }));
       if (role === ROLES.ADMIN) {
         navigate("/dashboard/account");
       } else if (role === ROLES.COMPLIANCE) {
@@ -68,8 +70,9 @@ function Login() {
       } else if (role === ROLES.CUSTOMER_CARE) {
         navigate("/customers/dashboard");
       } else if (role === ROLES.UNDER_WRITER) {
-        navigate("/los/applications");
+        navigate("/los/create-type");
       } else if (role === ROLES.MODERATOR) {
+        // setActive("login");
         navigate("/decisions/q/a");
       } else if (role === ROLES.SALES) {
         navigate("/dashboard/account");
@@ -176,12 +179,12 @@ function Login() {
                 >
                   {t("Sign in")}
                 </button>
-                <p class="space-x-1 rtl:space-x-reverse text-sm font-light text-gray-500 dark:text-gray-400">
+                {/* <p class="space-x-1 rtl:space-x-reverse text-sm font-light text-gray-500 dark:text-gray-400">
                   <a>{t("Don’t have an account yet?")}</a>
                   <a class="font-medium text-primary-600 hover:underline dark:text-primary-500">
                     {t("Sign up")}
                   </a>
-                </p>
+                </p> */}
               </form>
             </div>
           )}
