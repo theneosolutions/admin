@@ -261,10 +261,7 @@ function App() {
                   // }
                   className=" flex flex-row justify-center space-x-2 rtl:space-x-reverse items-center border-dashed border border-gray-300  text-center mt-4 py-6 rounded-md hover:bg-gray-300 duration-300 cursor-pointer"
                 >
-                  <img
-                    src={`data:image/jpeg;base64,${v.icon}`}
-                    className="h-7"
-                  />
+                  <img src={v?.loanTypeDetail?.icon} className="h-7" />
                   <h1>{v?.loanTypeDetail?.reason}</h1>
                 </div>
               </div>
