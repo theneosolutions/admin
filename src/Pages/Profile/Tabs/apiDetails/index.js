@@ -100,7 +100,7 @@ const data = [
     tab: <Aml />,
   },
   {
-    label: "Emdah Report",
+    label: "Emdah Agreement",
     tab: <Emdah />,
   },
 ];

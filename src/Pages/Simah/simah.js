@@ -15,6 +15,8 @@ function Simah() {
   const { t } = useTranslation();
   const [modelOpen, setModelOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const [search2, setSearch2] = useState("");
+
   const codes = useSelector((state) => state.getSimahCodes);
 
   const [stateData, setStateData] = useState([]);
@@ -54,6 +56,18 @@ function Simah() {
       setNewStateData(filteredData);
     }
   }, [search, stateData]);
+
+  useEffect(() => {
+    if (search2 === "") {
+      setNewStateData(stateData);
+    } else {
+      const filteredData = stateData?.filter((item) =>
+        item?.productGroup?.toLowerCase().includes(search2.toLowerCase())
+      );
+
+      setNewStateData(filteredData);
+    }
+  }, [stateData, search2]);
   return (
     <div className="  bg-white  border border-primary w-full rounded-lg mt-4 md:mt-0">
       <div className="flex flex-row  overflow-x-auto  justify-between items-center">
@@ -62,12 +76,12 @@ function Simah() {
             return (
               <div
                 onClick={() => setNavigation(v.label)}
-                className={`px-4 cursor-pointer  ${
+                className={`px-3 cursor-pointer  ${
                   state === v.label ? "text-primary " : "text-gray-600 "
                 }`}
               >
                 <div
-                  className={`px-3 py-4  w-max  ${
+                  className={` py-4  w-max  ${
                     state === v.label ? "border-primary border-b-2" : " "
                   }`}
                 >
@@ -78,12 +92,26 @@ function Simah() {
           })}
         </div>
         {state === "SIMAH Product List" && (
-          <div className="mx-3">
+          <div className="mx-3 flex flex-row space-x-3">
             <input
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) =>
+                search2 !== ""
+                  ? (setSearch(e.target.value), setSearch2(""))
+                  : setSearch(e.target.value)
+              }
               className="border px-2 py-1 rounded-md outline-none bg-transparent w-full text-gray-500 no-spinners text-md"
               placeholder={t("Search With Code")}
+            />
+            <input
+              value={search2}
+              onChange={(e) =>
+                search !== ""
+                  ? (setSearch2(e.target.value), setSearch(""))
+                  : setSearch2(e.target.value)
+              }
+              className="border px-2 py-1 rounded-md outline-none bg-transparent w-full text-gray-500 no-spinners text-md"
+              placeholder={t("Search With Product Group")}
             />
           </div>
         )}

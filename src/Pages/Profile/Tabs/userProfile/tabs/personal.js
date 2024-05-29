@@ -1,99 +1,59 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
-function PersonalDetailCard() {
+function PersonalDetailCard({ data = [] }) {
+  console.log("datatatatatatatatata", data);
+  const { t } = useTranslation();
   return (
-    <div className="">
-      <div>
-        <a className="text-lg font-semibold">Personal Info:</a>
-        <div className="mt-5 flex flex-row space-x-8 rtl:space-x-reverse ">
-          <div className="flex flex-col w-1/4	">
-            <a className="text-md font-semibold text-gray-600">
-              Food and living expenses
-            </a>
-            <a className="text-sm text-gray-600">(Monthly)</a>
-            <div className="flex flex-row justify-between mt-5 bg-gray-50 rounded-md px-3 py-2 ">
-              <a>900.00</a>
-              <a className="text-sm text-gray-500 ">SAR </a>
-            </div>
-          </div>
-          <div className="flex flex-col w-1/4	">
-            <a className="text-md font-semibold text-gray-600">
-              Food and living expenses
-            </a>
-            <a className="text-sm text-gray-600">(Monthly)</a>
-            <div className="flex flex-row justify-between mt-5 bg-gray-50 rounded-md px-3 py-2 ">
-              <a>900.00</a>
-              <a className="text-sm text-gray-500 ">SAR </a>
-            </div>
-          </div>
-          <div className="flex flex-col w-1/4	">
-            <a className="text-md font-semibold text-gray-600">
-              Food and living expenses
-            </a>
-            <a className="text-sm text-gray-600">(Monthly)</a>
-            <div className="flex flex-row justify-between mt-5 bg-gray-50 rounded-md px-3 py-2 ">
-              <a>900.00</a>
-              <a className="text-sm text-gray-500 ">SAR </a>
-            </div>
-          </div>
-          <div className="flex flex-col w-1/4	">
-            <a className="text-md font-semibold text-gray-600">
-              Food and living expenses
-            </a>
-            <a className="text-sm text-gray-600">(Monthly)</a>
-            <div className="flex flex-row justify-between mt-5 bg-gray-50 rounded-md px-3 py-2 ">
-              <a>900.00</a>
-              <a className="text-sm text-gray-500 ">SAR </a>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="w-full flex flex-col  overflow-x-auto">
+      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
+          <tr>
+            {/* <th scope="col" className="px-2 py-3">
+              {t("Heading")}
+            </th> */}
+            <th scope="col" className="px-2 py-3">
+              {t("Question")}
+            </th>
+            <th scope="col" className="px-2 py-3">
+              {t("Type")}
+            </th>
+            <th scope="col" className="px-2 py-3">
+              {t("Field / Options")}
+            </th>
+            <th scope="col" className="px-2 py-3">
+              {t("User Answers")}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {data?.length > 0 &&
+            data?.map((v, k) => (
+              <tr
+                key={k}
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              >
+                <td className="px-2 py-4 overflow-wrap text-sky-700">
+                  {v?.question}
+                </td>
 
-      <div className="mt-10">
-        <a className="text-lg font-semibold">Residential info</a>
-        <div className="mt-5 flex flex-row space-x-8 rtl:space-x-reverse ">
-          <div className="flex flex-col w-1/4	">
-            <a className="text-md font-semibold text-gray-600">
-              Food and living expenses
-            </a>
-            <a className="text-sm text-gray-600">(Monthly)</a>
-            <div className="flex flex-row justify-between mt-5 bg-gray-50 rounded-md px-3 py-2 ">
-              <a>900.00</a>
-              <a className="text-sm text-gray-500 ">SAR </a>
-            </div>
-          </div>
-          <div className="flex flex-col w-1/4	">
-            <a className="text-md font-semibold text-gray-600">
-              Food and living expenses
-            </a>
-            <a className="text-sm text-gray-600">(Monthly)</a>
-            <div className="flex flex-row justify-between mt-5 bg-gray-50 rounded-md px-3 py-2 ">
-              <a>900.00</a>
-              <a className="text-sm text-gray-500 ">SAR </a>
-            </div>
-          </div>
-          <div className="flex flex-col w-1/4	">
-            <a className="text-md font-semibold text-gray-600">
-              Food and living expenses
-            </a>
-            <a className="text-sm text-gray-600">(Monthly)</a>
-            <div className="flex flex-row justify-between mt-5 bg-gray-50 rounded-md px-3 py-2 ">
-              <a>900.00</a>
-              <a className="text-sm text-gray-500 ">SAR </a>
-            </div>
-          </div>
-          <div className="flex flex-col w-1/4	">
-            <a className="text-md font-semibold text-gray-600">
-              Food and living expenses
-            </a>
-            <a className="text-sm text-gray-600">(Monthly)</a>
-            <div className="flex flex-row justify-between mt-5 bg-gray-50 rounded-md px-3 py-2 ">
-              <a>900.00</a>
-              <a className="text-sm text-gray-500 ">SAR </a>
-            </div>
-          </div>
-        </div>
-      </div>
+                <td className="px-2 py-4">{v?.type}</td>
+                <td className="px-2 py-4">
+                  <a>
+                    {v?.options?.length > 0 ? v?.options?.join(", ") : v?.field}
+                  </a>
+                </td>
+                <td className="px-2 py-4">
+                  <a>
+                    {v?.userAnswer?.length > 0
+                      ? v?.userAnswer?.join(", ")
+                      : v?.field}
+                  </a>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
     </div>
   );
 }

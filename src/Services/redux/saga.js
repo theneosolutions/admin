@@ -1797,6 +1797,26 @@ function* GetAllPoliciesHistory({ payload }) {
   }
 }
 
+function* GetEligibilityQuestions({ payload }) {
+  console.log("eligibility Payload", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlDecisions +
+        `/screen/getAllScreenWithQuestionDetail?languageCode=${getLanguage()}&userId=${payload}`
+    );
+    console.log("response", response?.data);
+    yield put(action.GetEligibilityQuestions(response));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 function* Status_Update_Policy({ payload }) {
   console.log("payload policy status", payload);
 
@@ -1913,6 +1933,8 @@ export default function* HomeSaga() {
 
   yield takeLatest("GET_ALL_POLICIES", GetAllPolicies);
   yield takeLatest("GET_ALL_POLICIES_HISTORY", GetAllPoliciesHistory);
+  yield takeLatest("GET_ELIGIBILITY_QUESTIONS", GetEligibilityQuestions);
+
   yield takeLatest("STATUS_UPDATE_POLICY", Status_Update_Policy);
 }
 
