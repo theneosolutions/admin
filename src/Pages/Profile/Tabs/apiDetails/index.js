@@ -90,7 +90,6 @@ const data = [
     label: "Nafath Detail",
     tab: <Nafath />,
   },
-
   {
     label: "Absher Detail",
     tab: <Absher />,
