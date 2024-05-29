@@ -44,6 +44,8 @@ import UserSimah from "Pages/Simah/simahDownlaod";
 import CustomerEmi from "Pages/Users/customerEmi";
 import PoliciesPageLayout from "Pages/Policies/PoliciesPageLayout";
 import ViewPolicies from "Pages/Policies/viewPolicies";
+import SelaaPageLayout from "Pages/Selaa/selahPageLayout";
+import SelaaHistory from "Pages/Selaa/history";
 
 const appRoutes = [
   {
@@ -193,6 +195,31 @@ const appRoutes = [
         state: "admin./add-roles",
         sidebarProps: {
           displayText: "Create Rights To User",
+        },
+      },
+    ],
+  },
+  {
+    roles: [ROLES.ADMIN],
+    path: "/selaa",
+    element: <SelaaPageLayout />,
+    state: "selaa",
+    sidebarProps: {
+      displayText: "Selaa",
+      icon: <MdOutlineAdminPanelSettings />,
+    },
+    child: [
+      {
+        index: true,
+        element: <SelaaHistory />,
+        state: "selaa.index",
+      },
+      {
+        path: "/selaa/history",
+        element: <SelaaHistory />,
+        state: "selaa.history",
+        sidebarProps: {
+          displayText: "History",
         },
       },
     ],

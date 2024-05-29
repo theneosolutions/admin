@@ -2,6 +2,7 @@ import { call, put, takeLatest } from "@redux-saga/core/effects";
 import * as action from "./reducer";
 import { axiosInstance } from "../constant";
 import { getLanguage } from "functions/getLanguage";
+import axios from "axios";
 var baseUrlSMS = "https://seulah.com/api/v1/sms";
 var baseUrlUser = "https://seulah.com/api/v1/auth";
 var baseUrlDecisions = "https://seulah.com/api/v1/dms";
@@ -1844,6 +1845,26 @@ function* Status_Update_Policy({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+
+function* GetSeelahTransaction() {
+  console.log("selaa Payload");
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axios.get,
+      baseUrlCms + `/selaApi/transactions`
+    );
+    console.log("response", response);
+    // yield put(action.GetSeelahTransaction(response));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -1936,6 +1957,7 @@ export default function* HomeSaga() {
   yield takeLatest("GET_ELIGIBILITY_QUESTIONS", GetEligibilityQuestions);
 
   yield takeLatest("STATUS_UPDATE_POLICY", Status_Update_Policy);
+  yield takeLatest("GET_SELAA_TRANSACTION_HISTORY", GetSeelahTransaction);
 }
 
 // function getLanguage() {
