@@ -9,23 +9,21 @@ import { GetSeelahHistory } from "Services/OtherApis";
 function AllUsers() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-
-  const [data, setData] = useState([]);
-
+  const data = useSelector((state) => state.getSeelahTransaction);
   useEffect(() => {
     getAllUsersData();
   }, []);
   function getAllUsersData() {
-    GetSeelahHistory()
-      .then((data) => console.log("Data received:", setData(data)))
-      .catch((error) => console.error("Error received:", error));
+    dispatch({
+      type: "GET_SELAA_TRANSACTION",
+    });
   }
 
   return (
     <div className="py-5">
       <CardMain
         width="w-full"
-        heading={t("Selaa History")}
+        heading={t("Selaa Transaction")}
         iconStyle="text-3xl text-primary"
       >
         <div className="overflow-x-auto relative  mt-4">
@@ -35,9 +33,7 @@ function AllUsers() {
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Amount")}
                 </th>
-                <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("Action")}
-                </th>
+
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Lended Id")}
                 </th>
@@ -56,6 +52,10 @@ function AllUsers() {
                 <th scope="col" className="px-3 py-3">
                   {t("Certificates")}
                 </th>
+                <th scope="col" className="px-3 py-3">
+                  {t("Lender Id")}
+                </th>
+
                 <th scope="col" className="px-3 py-3">
                   {t("Lender Internal Id")}
                 </th>
@@ -88,24 +88,23 @@ function AllUsers() {
                   >
                     <a>{v?.amount}</a>
                   </td>
-                  <td className="px-3">{v?.action}</td>
                   <td className="px-3">{v?.lenderId}</td>
                   <td className="px-3">{v?.type}</td>
                   <td className="px-3">{v?.walletName || "null"}</td>
                   <td className="px-3">
                     {v?.transaction?.active ? "true" : "false"}
                   </td>
-                  <td className="px-3">{v?.transaction?.certificates}</td>
-                  <td className="px-3">{v?.transaction?.lenderInternalId}</td>
+                  <td className="px-3">{v?.certificates}</td>
+
+                  <td className="px-3">{v?.lenderId}</td>
+                  <td className="px-3">{v?.lenderInternalId}</td>
+                  <td className="px-3">{v?.lendersCustomerId || "null"}</td>
+                  <td className="px-3">{v?.owner}</td>
+                  <td className="px-3">{v?.ownershipId}</td>
                   <td className="px-3">
-                    {v?.transaction?.lendersCustomerId || "null"}
+                    {v?.redeemAllowed ? "true" : "false"}
                   </td>
-                  <td className="px-3">{v?.transaction?.owner}</td>
-                  <td className="px-3">{v?.transaction?.ownershipId}</td>
-                  <td className="px-3">
-                    {v?.transaction?.redeemAllowed ? "true" : "false"}
-                  </td>
-                  <td className="px-3">{v?.transaction?.wallet}</td>
+                  <td className="px-3">{v?.wallet}</td>
                 </tr>
               ))}
             </tbody>

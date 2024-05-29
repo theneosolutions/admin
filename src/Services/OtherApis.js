@@ -20,11 +20,10 @@ async function CheckQuestionStatusInScreen(id) {
   }
 }
 
-async function GetSeelahTransaction() {
-  console.log("GetSeelahTransactionGetSeelahTransaction");
+async function GetSeelahHistory() {
+  console.log("GetSeelahHistoryGetSeelahTransaction");
   try {
-    // Assuming "/api" is the endpoint on your backend that proxies requests to the API server
-    const response = await axios.get("/api/selaApi/transactions");
+    const response = await axios.get(baseUrlCms + `/selaApi/history`);
     return response.data;
   } catch (error) {
     const message = error.response
@@ -96,12 +95,7 @@ async function UpdateDbr(id, token) {
   }
 }
 
-export {
-  CheckQuestionStatusInScreen,
-  CheckToken,
-  UpdateDbr,
-  GetSeelahTransaction,
-};
+export { CheckQuestionStatusInScreen, CheckToken, UpdateDbr, GetSeelahHistory };
 
 // function* UpdateDbr({ payload }) {
 //   console.log("dbr update", payload);

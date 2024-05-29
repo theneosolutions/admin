@@ -46,6 +46,7 @@ import PoliciesPageLayout from "Pages/Policies/PoliciesPageLayout";
 import ViewPolicies from "Pages/Policies/viewPolicies";
 import SelaaPageLayout from "Pages/Selaa/selahPageLayout";
 import SelaaHistory from "Pages/Selaa/history";
+import SelaaTransaction from "Pages/Selaa/Transaction";
 
 const appRoutes = [
   {
@@ -220,6 +221,14 @@ const appRoutes = [
         state: "selaa.history",
         sidebarProps: {
           displayText: "History",
+        },
+      },
+      {
+        path: "/selaa/transaction",
+        element: <SelaaTransaction />,
+        state: "selaa.transaction",
+        sidebarProps: {
+          displayText: "Transaction",
         },
       },
     ],

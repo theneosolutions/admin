@@ -1847,7 +1847,7 @@ function* Status_Update_Policy({ payload }) {
 }
 
 function* GetSeelahTransaction() {
-  console.log("selaa Payload");
+  console.log("selaa Payload TRANSCATION");
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1856,7 +1856,7 @@ function* GetSeelahTransaction() {
       baseUrlCms + `/selaApi/transactions`
     );
     console.log("response", response);
-    // yield put(action.GetSeelahTransaction(response));
+    yield put(action.GetSeelahTransaction(response));
 
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
@@ -1955,7 +1955,7 @@ export default function* HomeSaga() {
   yield takeLatest("GET_ELIGIBILITY_QUESTIONS", GetEligibilityQuestions);
 
   yield takeLatest("STATUS_UPDATE_POLICY", Status_Update_Policy);
-  yield takeLatest("GET_SELAA_TRANSACTION_HISTORY", GetSeelahTransaction);
+  yield takeLatest("GET_SELAA_TRANSACTION", GetSeelahTransaction);
 }
 
 // function getLanguage() {
