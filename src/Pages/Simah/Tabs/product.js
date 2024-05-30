@@ -68,17 +68,17 @@ function SimahProductList({ data, GetSimahCodes }) {
                 <td className="px-3 py-4">{v.productGroup}</td>
                 <td className="px-3 py-4">{v.productCategory}</td>
                 <td className="px-3 py-4">
-                  {v?.consideration === true ? (
+                  {v?.consideration === false ? (
                     <div
-                      onClick={() => UpdateProductStatus(false, v?.id)}
-                      className="bg-blue-500 px-3 py-2 rounded-md text-white text-center cursor-pointer hover:bg-blue-600 duration-300"
+                      onClick={() => UpdateProductStatus(true, v?.id)}
+                      className="bg-green-500 px-3 py-2 rounded-md text-white text-center cursor-pointer hover:bg-green-600 duration-300"
                     >
                       Activate
                     </div>
                   ) : (
                     <div
-                      onClick={() => UpdateProductStatus(true, v?.id)}
-                      className="bg-green-500 px-3 py-2 rounded-md text-white text-center cursor-pointer hover:bg-green-600 duration-300"
+                      onClick={() => UpdateProductStatus(false, v?.id)}
+                      className="bg-red-500 px-3 py-2 rounded-md text-white text-center cursor-pointer hover:bg-red-600 duration-300"
                     >
                       Deactivate
                     </div>
