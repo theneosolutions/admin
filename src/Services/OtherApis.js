@@ -51,20 +51,13 @@ async function CheckToken(id, token) {
   }
 }
 
-async function UpdateDbr(id, token) {
-  console.log("Starting UpdateDbr function");
+async function UpdateDbr(data) {
+  console.log("Starting UpdateDbr function", data);
 
   try {
     const response = await axiosInstance.put(
       `${baseUrlLos}/dbr/calculation/updateDBRcalculation`,
-      {
-        consumerDbr: 2,
-        gdbrIncludingMtg: 2,
-        gdbrWithoutMtg: 2,
-        incomeBracket: "27 to 2",
-        productLevel: 23,
-        id: 8,
-      }
+      data
     );
 
     console.log("response", response);

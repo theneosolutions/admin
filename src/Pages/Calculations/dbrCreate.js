@@ -34,18 +34,18 @@ function CreateUser({ setModelOpen, data }) {
       gdbrInclude != ""
     ) {
       const temp = {
-        consumerDbr: parseInt(dbr),
-        gdbrIncludingMtg: parseInt(gdbrInclude),
-        gdbrWithoutMtg: parseInt(gdbrWithout),
+        consumerDbr: parseFloat(dbr),
+        gdbrIncludingMtg: parseFloat(gdbrInclude),
+        gdbrWithoutMtg: parseFloat(gdbrWithout),
         incomeBracket: bracketStart + " to " + bracketEnd,
-        productLevel: parseInt(level),
+        productLevel: parseFloat(level),
       };
       if (data) {
         const updatedTemp = {
           ...temp, // Clone the original object
           id: data?.id, // Add the new attribute
         };
-        UpdateDbr()
+        UpdateDbr(updatedTemp)
           .then((data) => console.log("Data received:", data))
           .catch((error) => console.error("Error received:", error));
       } else {

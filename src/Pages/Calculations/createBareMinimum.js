@@ -23,7 +23,7 @@ function CreateUser({ setModelOpen, data }) {
       const temp = {
         description: discription,
         expense: title,
-        expenseBareableAmount: parseInt(value),
+        expenseBareableAmount: parseFloat(value),
       };
       if (data) {
         const updatedTemp = {
@@ -79,7 +79,6 @@ function CreateUser({ setModelOpen, data }) {
             />
 
             <InputField
-              type="number"
               heading={t("Bare Minimum Value")}
               value={value}
               onChange={(e) => setValue(e)}
