@@ -79,9 +79,9 @@ function Calculations() {
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("GDBR (Including MTG)")}
                 </th>
-                <th scope="col" className="px-3 py-3 cursor-pointer">
+                {/* <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Net Income")}
-                </th>
+                </th> */}
                 <th
                   scope="col"
                   className="px-3 py-3 cursor-pointer  sticky right-0 bg-gray-200 z-10"
@@ -115,9 +115,9 @@ function Calculations() {
                   <td className="px-3 py-4 ">
                     <a>{v?.gdbrIncludingMtg + "%"}</a>
                   </td>
-                  <td className="px-3 py-4 ">
+                  {/* <td className="px-3 py-4 ">
                     <a>{v?.netIncome}</a>
-                  </td>
+                  </td> */}
                   <th
                     scope="row"
                     className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10"

@@ -141,6 +141,5 @@ function AllPolicies() {
 }
 export default withAuthorization(AllPolicies, [
   ROLES.ADMIN,
-  ROLES.CUSTOMER_CARE,
-  ROLES.COMPLIANCE,
+  ROLES.UNDER_WRITER,
 ]);

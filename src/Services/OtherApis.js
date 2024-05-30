@@ -55,7 +55,7 @@ async function UpdateDbr(id, token) {
   console.log("Starting UpdateDbr function");
 
   try {
-    const response = await axios.put(
+    const response = await axiosInstance.put(
       `${baseUrlLos}/dbr/calculation/updateDBRcalculation`,
       {
         consumerDbr: 2,
@@ -63,13 +63,7 @@ async function UpdateDbr(id, token) {
         gdbrWithoutMtg: 2,
         incomeBracket: "27 to 2",
         productLevel: 23,
-        id: 6,
-      },
-      {
-        headers: {
-          // Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+        id: 8,
       }
     );
 

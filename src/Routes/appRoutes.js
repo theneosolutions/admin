@@ -83,7 +83,7 @@ const appRoutes = [
 
   {
     id: "APPLICATIONS",
-    roles: [ROLES.ADMIN, ROLES.SALES],
+    roles: [ROLES.ADMIN, ROLES.SALES, ROLES.UNDER_WRITER],
     path: "/applications",
     element: <ApplicationsPageLayout />,
     state: "applications",
@@ -146,14 +146,6 @@ const appRoutes = [
         state: "customers.verified",
         sidebarProps: {
           displayText: "Verified Customers",
-        },
-      },
-      {
-        path: "/customers/emi",
-        element: <CustomerEmi />,
-        state: "customers.emi",
-        sidebarProps: {
-          displayText: "Customers EMI",
         },
       },
 
@@ -234,7 +226,7 @@ const appRoutes = [
     ],
   },
   {
-    roles: [ROLES.ADMIN],
+    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER],
     path: "/policies",
     element: <PoliciesPageLayout />,
     state: "policies",
@@ -291,26 +283,18 @@ const appRoutes = [
           displayText: "Create Type",
         },
       },
-      // {
-      //   path: "/los/applications",
-      //   element: <LoanApplications />,
-      //   state: "los.applications",
-      //   sidebarProps: {
-      //     displayText: "Loan Applications",
-      //   },
-      // },
-      // {
-      //   path: "/los/installments",
-      //   element: <AllInstallments />,
-      //   state: "los.insallments",
-      //   sidebarProps: {
-      //     displayText: "Installments",
-      //   },
-      // },
+      {
+        path: "/los/emi",
+        element: <CustomerEmi />,
+        state: "los.emi",
+        sidebarProps: {
+          displayText: "Customers EMI",
+        },
+      },
     ],
   },
   {
-    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER, ROLES.MODERATOR],
+    roles: [ROLES.ADMIN, ROLES.MODERATOR, ROLES.UNDER_WRITER],
 
     path: "/decisions",
     element: <DecisionLayout />,
@@ -451,7 +435,7 @@ const appRoutes = [
     element: <CalculationsPageLayout />,
     state: "calculations",
     sidebarProps: {
-      displayText: "calculations",
+      displayText: "Calculations",
       icon: <AiOutlineCalculator />,
     },
     child: [

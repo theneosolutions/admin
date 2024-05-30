@@ -115,8 +115,4 @@ function AllUsers() {
     </div>
   );
 }
-export default withAuthorization(AllUsers, [
-  ROLES.ADMIN,
-  ROLES.CUSTOMER_CARE,
-  ROLES.COMPLIANCE,
-]);
+export default withAuthorization(AllUsers, [ROLES.ADMIN]);

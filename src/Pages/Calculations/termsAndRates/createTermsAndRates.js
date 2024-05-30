@@ -33,12 +33,12 @@ function CreateUser({ setModelOpen, data }) {
       termRate != ""
     ) {
       const temp = {
-        adminFeeInPercentage: parseInt(adminFee),
-        annualRate: parseInt(annualRate),
-        flatRateMonthly: parseInt(rateMonthly),
-        term: parseInt(term),
-        termRate: parseInt(termRate),
-        vatInPercentage: parseInt(vat),
+        adminFeeInPercentage: parseFloat(adminFee),
+        annualRate: parseFloat(annualRate),
+        flatRateMonthly: parseFloat(rateMonthly),
+        term: parseFloat(term),
+        termRate: parseFloat(termRate),
+        vatInPercentage: parseFloat(vat),
       };
       if (data) {
         const updatedTemp = {

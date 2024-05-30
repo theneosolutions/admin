@@ -104,8 +104,4 @@ function NotificationsScreen() {
   );
 }
 
-export default withAuthorization(NotificationsScreen, [
-  ROLES.ADMIN,
-  ROLES.CUSTOMER_CARE,
-  ROLES.COMPLIANCE,
-]);
+export default withAuthorization(NotificationsScreen, [ROLES.ADMIN]);
