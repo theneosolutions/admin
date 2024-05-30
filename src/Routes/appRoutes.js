@@ -47,6 +47,8 @@ import ViewPolicies from "Pages/Policies/viewPolicies";
 import SelaaPageLayout from "Pages/Selaa/selahPageLayout";
 import SelaaHistory from "Pages/Selaa/history";
 import SelaaTransaction from "Pages/Selaa/Transaction";
+import SelaaAccomodity from "Pages/Selaa/accomodity";
+import SelaaWallet from "Pages/Selaa/wallet";
 
 const appRoutes = [
   {
@@ -221,6 +223,22 @@ const appRoutes = [
         state: "selaa.transaction",
         sidebarProps: {
           displayText: "Transaction",
+        },
+      },
+      {
+        path: "/selaa/commodity",
+        element: <SelaaAccomodity />,
+        state: "selaa.commodity",
+        sidebarProps: {
+          displayText: "Commodity",
+        },
+      },
+      {
+        path: "/selaa/wallet",
+        element: <SelaaWallet />,
+        state: "selaa.wallet",
+        sidebarProps: {
+          displayText: "Wallet",
         },
       },
     ],

@@ -82,29 +82,70 @@ async function UpdateDbr(data) {
   }
 }
 
-export { CheckQuestionStatusInScreen, CheckToken, UpdateDbr, GetSeelahHistory };
+async function TransferMoney(data) {
+  try {
+    const response = await axiosInstance.post(
+      baseUrlCms + `/selaApi/transfer`,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return message;
+  }
+}
+async function RadeemMoney(id) {
+  try {
+    const response = await axiosInstance.post(
+      baseUrlCms + `/selaApi/redeem?ownershipId=${id}`
+    );
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return message;
+  }
+}
+async function GetAllOwnersShipIds() {
+  try {
+    const response = await axiosInstance.get(
+      baseUrlCms + `/selaApi/getAllOwnerShipIds`
+    );
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return message;
+  }
+}
 
-// function* UpdateDbr({ payload }) {
-//   console.log("dbr update", payload);
-//   try {
-//     yield put(action.Loading({ Loading: true }));
+async function TopUpWalletFunction(data) {
+  console.log("helo", data);
+  try {
+    const response = await axiosInstance.post(
+      baseUrlCms + `/selaApi/topUpWalletAmount`,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return message;
+  }
+}
 
-//     const response1 = yield call(
-//       axiosInstance.put,
-//       baseUrlLos + `/dbr/calculation/dbrcalculation`,
-//       payload
-//     );
-//     yield put(action.Loading({ Loading: false }));
-//     yield put(
-//       action.Message({
-//         message: response1.data.message,
-//         open: true,
-//         error: false,
-//       })
-//     );
-//   } catch (error) {
-//     yield put(action.Loading({ Loading: false }));
-//     const message = error.response.data.message;
-//     yield put(action.Message({ message: message, open: true, error: true }));
-//   }
-// }
+export {
+  CheckQuestionStatusInScreen,
+  CheckToken,
+  UpdateDbr,
+  GetSeelahHistory,
+  TransferMoney,
+  RadeemMoney,
+  GetAllOwnersShipIds,
+  TopUpWalletFunction,
+};
