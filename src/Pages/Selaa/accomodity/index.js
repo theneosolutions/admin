@@ -91,6 +91,9 @@ function Accomodity() {
                   {t("User Id")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
+                  {t("File")}
+                </th>
+                <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Transfer")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
@@ -112,6 +115,16 @@ function Accomodity() {
                   </td>
                   <td className="px-3">{v?.ownershipId}</td>
                   <td className="px-3">{v?.userId}</td>
+                  <td className="px-3">
+                    <div
+                      onClick={() =>
+                        window.open(v?.ownershipFileUrl, "_blank", "noopener")
+                      }
+                      className="w-max px-3 py-1 rounded-md text-white bg-blue-500 cursor-pointer hover:opacity-80 duration-200"
+                    >
+                      Owner Ship File
+                    </div>
+                  </td>
                   <td className="px-3">
                     <div
                       onClick={() => Transfer(v?.ownershipId, v?.userId)}

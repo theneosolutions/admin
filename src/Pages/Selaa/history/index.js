@@ -74,6 +74,9 @@ function AllUsers() {
                 <th scope="col" className="px-3 py-3">
                   {t("wallet")}
                 </th>
+                <th scope="col" className="px-3 py-3">
+                  {t("File")}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -106,6 +109,20 @@ function AllUsers() {
                     {v?.transaction?.redeemAllowed ? "true" : "false"}
                   </td>
                   <td className="px-3">{v?.transaction?.wallet}</td>
+                  <td className="px-3">
+                    <div
+                      onClick={() =>
+                        window.open(
+                          v?.transaction?.ownershipFileUrl,
+                          "_blank",
+                          "noopener"
+                        )
+                      }
+                      className="w-max px-3 py-1 rounded-md text-white bg-green-500 cursor-pointer hover:opacity-80 duration-200"
+                    >
+                      Owner Ship File
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
