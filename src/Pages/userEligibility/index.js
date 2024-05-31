@@ -52,7 +52,7 @@ function AllUsers() {
 
   return (
     <div className="py-5">
-      <div className="flex flex-row space-x-3">
+      <div className="flex flex-row space-x-3 overflow-x-scroll		">
         {loanReasons?.map((v, k) => {
           return (
             <div
@@ -66,7 +66,7 @@ function AllUsers() {
                   : " border-gray-300 border text-gray-600"
               }`}
             >
-              {v?.loanTypeDetail?.reason}
+              <div className="w-max "> {v?.loanTypeDetail?.reason}</div>
             </div>
           );
         })}
@@ -143,7 +143,7 @@ function AllUsers() {
                       <div
                         onClick={() =>
                           navigate(
-                            `/finance-amount-calculations?financeAmount=${v?.totalLoanAmount}&term=${v?.termRate}&userId=${userId}`
+                            `/finance-amount-calculations?financeAmount=${v?.totalLoanAmount}&term=${v?.tenureInMonths}&userId=${userId}`
                           )
                         }
                         className="py-1 px-3 rounded-md bg-blue-500 w-max text-white cursor-pointer hover:opacity-80"

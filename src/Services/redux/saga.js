@@ -913,13 +913,12 @@ function* getUserLoanEmi({ payload }) {
   console.log("heloooo", payload);
   try {
     yield put(action.Loading({ Loading: true }));
-
     const response = yield call(
       axiosInstance.get,
       baseUrlLos +
-        `/loanType/getSingleLoanType?userId=${payload?.userId}&setId=${
-          payload?.setId
-        }&languageCode=${getLanguage()}`
+        `/loanType/getSingleLoanType?userId=${
+          payload?.userId
+        }&setId=1&loanTypeId=${payload?.setId}&languageCode=${getLanguage()}`
     );
     console.log("response Emdah", response?.data);
     yield put(action.GetSimgleLoanTypeEmi(response));
@@ -1879,10 +1878,8 @@ export default function* HomeSaga() {
   yield takeLatest("ADD_USER_ANSWER_TO_SET", AddUsersAnswersToSet);
   yield takeLatest("GET_ALL_USERS", GetAllUsers);
   yield takeLatest("GET_ALL_USERS_EMI", GetAllUsersEmi);
-
   yield takeLatest("Add_NEW_USER", AddNewUser);
   yield takeLatest("UPDATE_USER_DATA", UpdateUserData);
-
   yield takeLatest("LOGIN_USER", UserLogin);
   yield takeLatest("LOGIN_OTP_VERIFICATION", LoginOtpVerification);
   yield takeLatest("SET_DECISION_RESPONSE", SetDecisionResponse);
@@ -1949,11 +1946,9 @@ export default function* HomeSaga() {
   yield takeLatest("GET_TERM_RATES_CALCULATION", getTermsRatesCalculations);
   yield takeLatest("UPDATE_AML_RECORD", UpdateAmlRecord);
   yield takeLatest("UPDATE_POLICY", UpdatePolicy);
-
   yield takeLatest("GET_ALL_POLICIES", GetAllPolicies);
   yield takeLatest("GET_ALL_POLICIES_HISTORY", GetAllPoliciesHistory);
   yield takeLatest("GET_ELIGIBILITY_QUESTIONS", GetEligibilityQuestions);
-
   yield takeLatest("STATUS_UPDATE_POLICY", Status_Update_Policy);
   yield takeLatest("GET_SELAA_TRANSACTION", GetSeelahTransaction);
 }

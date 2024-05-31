@@ -29,6 +29,11 @@ function LaonApplication() {
   useEffect(() => {
     if (getUserApplication) {
       setData(getUserApplication?.loanApplication);
+      console.log(
+        "helooooooooooo",
+        getUserApplication?.loanApplication?.status
+      );
+      setActive(getUserApplication?.loanApplication?.status);
     }
   }, [getUserApplication]);
   function SetStatus() {
@@ -58,10 +63,10 @@ function LaonApplication() {
         <div className="">
           <div className="flex flex-col md:flex-row justify-between md:items-center border-b-2	 border-gray-200 pb-3 pt-1 ">
             <div className="flex flex-row">
-              <img
+              {/* <img
                 className="h-14 w-14 rounded-full object-cover"
                 src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg"
-              />
+              /> */}
               <div className="flex flex-col mx-3 space-y-0.5">
                 <a className="text-xs text-gray-400">Name</a>
                 <a className="text-sm text-gray-700 font-semibold">
@@ -104,6 +109,12 @@ function LaonApplication() {
               <div className="flex flex-row w-full  md:w-1/2 ">
                 <div className="flex flex-col pb-5 space-y-5">
                   <div className="flex flex-col">
+                    <a className="text-xs text-gray-400">Iqama Number</a>
+                    <a className="text-sm text-gray-700 font-semibold opacity-90">
+                      {user?.user?.idNumber}
+                    </a>
+                  </div>
+                  <div className="flex flex-col">
                     <a className="text-xs text-gray-400">User ID</a>
                     <a className="text-sm text-gray-700 font-semibold opacity-90">
                       {userId}
@@ -125,114 +136,92 @@ function LaonApplication() {
                         : "Not Verified"}
                     </a>
                   </div>
-
                   <div className="flex flex-col ">
-                    <a className="text-xs text-gray-400 uppercase">
-                      Employment Type
-                    </a>
+                    <a className="text-xs text-gray-400 ">Name </a>
                     <a className="text-sm text-gray-700  opacity-90">
-                      Salaried
-                    </a>
-                    <a className="text-sm text-gray-700  opacity-90">
-                      Mahindra Group
+                      {user?.user?.firstName + " " + user?.user?.lastName}
                     </a>
                   </div>
-
+                  <div className="flex flex-col ">
+                    <a className="text-xs text-gray-400 ">Email</a>
+                    <a className="text-sm text-gray-700  opacity-90">
+                      {user?.user?.email}
+                    </a>
+                  </div>
+                  <div className="flex flex-col ">
+                    <a className="text-xs text-gray-400 ">Gender</a>
+                    <a className="text-sm text-gray-700  opacity-90">
+                      {user?.user?.gender}
+                    </a>
+                  </div>
                   <div className="flex flex-col ">
                     <a className="text-xs text-gray-400 ">
-                      Years Of Experience Current Company
-                    </a>
-                    <a className="text-sm text-gray-700  opacity-90">2</a>
-                  </div>
-                  <div className="flex flex-col ">
-                    <a className="text-xs text-gray-400 ">
-                      Total Years Of Experience
-                    </a>
-                    <a className="text-sm text-gray-700  opacity-90">5</a>
-                  </div>
-                  <div className="flex flex-col ">
-                    <a className="text-xs uppercase text-green-400">
-                      E-verified
+                      Date Of Birth In Hijri
                     </a>
                     <a className="text-sm text-gray-700  opacity-90">
-                      Pan Card &nbsp; 2139912
+                      {user?.user?.hijriDateOfBirth}
                     </a>
-                  </div>
-
+                  </div>{" "}
                   <div className="flex flex-col ">
-                    <a className="text-xs text-gray-400 ">Contact Details</a>
+                    <a className="text-xs text-gray-400 ">Mobile Number</a>
                     <a className="text-sm text-gray-700  opacity-90">
-                      niktash@gmail.com
-                    </a>
-                    <a className="text-sm text-gray-700  opacity-90">
-                      1213123 | 12312312
-                    </a>
-                  </div>
-                  <div className="flex flex-col ">
-                    <a className="text-xs text-gray-400 ">Current Address</a>
-                    <a className="text-sm text-gray-700  opacity-90">
-                      oldpura / taxax 801 A Block
-                    </a>
-                    <a className="text-sm text-gray-700  opacity-90">
-                      Kerala , United States
-                    </a>
-                    <a className="text-xs text-blue-400  opacity-80">
-                      View All
-                    </a>
-                  </div>
-
-                  <div className="flex flex-col ">
-                    <a className="text-xs text-gray-700 ">Documents</a>
-
-                    <a className="text-xs text-blue-400  opacity-80">
-                      Preview &nbsp; &nbsp; Download All
+                      {user?.user?.mobileNumber}
                     </a>
                   </div>
                 </div>
               </div>
               <div className="flex flex-row w-full  md:w-1/2  md:border-l-2	 lg:border-r-2	 border-gray-200 md:px-4">
-                <div className="flex flex-col  pb-5 space-y-6">
+                <div className="flex flex-col  pb-5 space-y-4">
                   <div className="flex flex-col">
                     <a className="text-xs text-gray-400 uppercase">
-                      CIBIL Score
+                      Loan Amount
                     </a>
                     <a className="text-xl text-green-500 font-semibold opacity-90">
-                      750
-                    </a>
-                    <a className="text-xs text-blue-400  opacity-80">
-                      View CIBIL Report
+                      {data?.financeAmount}
                     </a>
                   </div>
-                  <div className="flex flex-col">
-                    <a className="text-xs text-gray-400 uppercase">
-                      Custom Score
-                    </a>
-                    <a className="text-xl text-green-500 font-semibold opacity-90">
-                      750
-                    </a>
-                    <a className="text-xs text-blue-400  opacity-80">
-                      View Custom Report
+                  <div className="flex flex-col ">
+                    <a className="text-xs text-gray-400 ">Admin Fee </a>
+                    <a className="text-sm text-gray-700  opacity-90">
+                      {data?.adminFee}
                     </a>
                   </div>
-                  <div className="flex flex-col">
-                    <a className="text-xs text-gray-400 uppercase">ABB</a>
-                    <a className="text-xl text-gray-600 font-semibold opacity-90">
-                      30,000
+                  <div className="flex flex-col ">
+                    <a className="text-xs text-gray-400 ">
+                      Calculated Admin Fee{" "}
+                    </a>
+                    <a className="text-sm text-gray-700  opacity-90">
+                      {data?.calculatedAdminFee}
                     </a>
                   </div>
-
-                  <div className="flex flex-col">
-                    <a className="text-xs text-gray-400 uppercase">
-                      Eligibility
-                    </a>
-                    <a className="text-xl text-green-500 font-semibold opacity-90">
-                      4,00,000
+                  <div className="flex flex-col ">
+                    <a className="text-xs text-gray-400 ">Amortization Rate </a>
+                    <a className="text-sm text-gray-700  opacity-90">
+                      {data?.amortizationRate}
                     </a>
                   </div>
+                  <div className="flex flex-col ">
+                    <a className="text-xs text-gray-400 ">Calculated Vat </a>
+                    <a className="text-sm text-gray-700  opacity-90">
+                      {data?.calculatedVat}
+                    </a>
+                  </div>{" "}
+                  <div className="flex flex-col ">
+                    <a className="text-xs text-gray-400 ">Effective Rate </a>
+                    <a className="text-sm text-gray-700  opacity-90">
+                      {data?.effectiveRate}
+                    </a>
+                  </div>{" "}
+                  <div className="flex flex-col ">
+                    <a className="text-xs text-gray-400 ">Net Proceed Rate </a>
+                    <a className="text-sm text-gray-700  opacity-90">
+                      {data?.netProceed}
+                    </a>
+                  </div>{" "}
                   <div className="flex flex-col">
                     <a className="text-xs text-gray-400 uppercase">Tenure</a>
                     <a className="text-xl text-gray-600 font-semibold opacity-90">
-                      36 Month
+                      {data?.term} Month
                     </a>
                   </div>
                   <div className="flex flex-col">
@@ -240,7 +229,7 @@ function LaonApplication() {
                       Intrest Ratio
                     </a>
                     <a className="text-xl text-gray-600 font-semibold opacity-90">
-                      {data?.interestAmount + " %"}
+                      {data?.interestAmount}
                     </a>
                   </div>
                 </div>
