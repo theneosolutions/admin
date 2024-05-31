@@ -126,6 +126,9 @@ function AllUsers() {
                       {t("calculatedVat")}
                     </th>
                     <th scope="col" className="px-3 py-3">
+                      {t("Apr Rate")}
+                    </th>
+                    <th scope="col" className="px-3 py-3">
                       {t("emimonthlyInstallement")}
                     </th>
                     <th scope="col" className="px-3 py-3">
@@ -168,24 +171,49 @@ function AllUsers() {
                     >
                       <a>{getTermRatesCalculations?.adminFee}</a>
                     </td>
-                    <td>{getTermRatesCalculations?.amortizationRate}</td>
-                    <td>{getTermRatesCalculations?.calculatedAdminFee}</td>
-                    <td>{getTermRatesCalculations?.calculatedVat}</td>
-                    <td>{getTermRatesCalculations?.emimonthlyInstallement}</td>
-                    <td>{getTermRatesCalculations?.financeAmount}</td>
-                    <td>
+                    <td className="px-3">
+                      {getTermRatesCalculations?.amortizationRate}
+                    </td>
+                    <td className="px-3">
+                      {getTermRatesCalculations?.calculatedAdminFee}
+                    </td>
+                    <td className="px-3">
+                      {getTermRatesCalculations?.calculatedVat}
+                    </td>
+                    <td className="px-3">
+                      {getTermRatesCalculations?.aprRate}
+                    </td>
+                    <td className="px-3">
+                      {getTermRatesCalculations?.emimonthlyInstallement}
+                    </td>
+                    <td className="px-3">
+                      {getTermRatesCalculations?.financeAmount}
+                    </td>
+                    <td className="px-3">
                       {DateSet(getTermRatesCalculations?.firstInstallmentDate)}
                     </td>
-                    <td>{getTermRatesCalculations?.interestAmount}</td>{" "}
-                    <td>
+                    <td className="px-3">
+                      {getTermRatesCalculations?.interestAmount}
+                    </td>{" "}
+                    <td className="px-3">
                       {DateSet(getTermRatesCalculations?.lastInstallmentDate)}
                     </td>
-                    <td>{getTermRatesCalculations?.netProceed}</td>
-                    <td>{getTermRatesCalculations?.term}</td>
-                    <td>{getTermRatesCalculations?.termRate}</td>
-                    <td>{getTermRatesCalculations?.totalAmount}</td>
-                    <td>{getTermRatesCalculations?.totalFee}</td>{" "}
-                    <td>{getTermRatesCalculations?.totalFee}</td>
+                    <td className="px-3">
+                      {getTermRatesCalculations?.netProceed}
+                    </td>
+                    <td className="px-3">{getTermRatesCalculations?.term}</td>
+                    <td className="px-3">
+                      {getTermRatesCalculations?.termRate}
+                    </td>
+                    <td className="px-3">
+                      {getTermRatesCalculations?.totalAmount}
+                    </td>
+                    <td className="px-3">
+                      {getTermRatesCalculations?.totalFee}
+                    </td>{" "}
+                    <td className="px-3">
+                      {getTermRatesCalculations?.totalFee}
+                    </td>
                   </tr>
                 </tbody>
               </table>

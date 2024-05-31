@@ -194,6 +194,12 @@ function LaonApplication() {
                       {data?.calculatedAdminFee}
                     </a>
                   </div>
+                  <div className="flex flex-col">
+                    <a className="text-xs text-gray-400 uppercase">Apr Rate</a>
+                    <a className="text-xl text-gray-600 font-semibold opacity-90">
+                      {data?.aprRate}
+                    </a>
+                  </div>
                   <div className="flex flex-col ">
                     <a className="text-xs text-gray-400 ">Amortization Rate </a>
                     <a className="text-sm text-gray-700  opacity-90">
