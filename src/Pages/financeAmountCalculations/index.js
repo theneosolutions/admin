@@ -6,6 +6,9 @@ import { useEffect } from "react";
 import withAuthorization from "constants/authorization";
 import { ROLES } from "constants/roles";
 import { useLocation } from "react-router-dom";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
+import * as action from "../../Services/redux/reducer";
 import moment from "moment";
 function AllUsers() {
   const dispatch = useDispatch();
@@ -39,72 +42,277 @@ function AllUsers() {
     var date = new Date(timestamp);
     return moment(date.toString()).subtract(10, "days").calendar();
   }
+
+  async function downloadPDFDocument() {
+    dispatch(action.Loading({ Loading: true }));
+
+    const input = document.getElementById("content-to-download");
+    const canvas = await html2canvas(input, {
+      scale: 1.3, // Adjust scale as needed
+      useCORS: true,
+    });
+
+    const imgData = canvas.toDataURL("image/jpeg", 1); // Adjust quality as needed
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: [canvas.width, canvas.height],
+    });
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const imgHeight = (canvas.height * pageWidth) / canvas.width;
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    pdf.addImage(imgData, "JPEG", 0, position, pageWidth, imgHeight);
+    heightLeft -= pageHeight;
+    while (heightLeft >= 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "JPEG", 0, position, pageWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+
+    pdf.save("download.pdf");
+    dispatch(action.Loading({ Loading: false }));
+  }
+  const ContractTable = () => {
+    return (
+      <table className="text-gray-600 text-md table-fixed border-collapse border border-gray-400 w-1/2 bg-white text-start rounded-sm overflow-hidden h-max">
+        <tbody>
+          <tr>
+            <td className="border border-gray-300 p-2">Admin Fee</td>
+            <td className="border border-gray-300 p-2">
+              {getTermRatesCalculations?.adminFee}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-300 p-2">Amortization Rate</td>
+            <td className="border border-gray-300 p-2">
+              {getTermRatesCalculations?.amortizationRate}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-300 p-2">Calculated Admin Fee</td>
+            <td className="border border-gray-300 p-2">
+              {getTermRatesCalculations?.calculatedAdminFee}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-300 p-2">Calculated Vat </td>
+            <td className="border border-gray-300 p-2">
+              {getTermRatesCalculations?.calculatedVat}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-300 p-2">Apr Rate</td>
+            <td className="border border-gray-300 p-2">
+              {getTermRatesCalculations?.aprRate}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-300 p-2">
+              Emi monthly Installement
+            </td>
+            <td className="border border-gray-300 p-2">
+              {getTermRatesCalculations?.emimonthlyInstallement}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-300 p-2">Annual Rate</td>
+            <td className="border border-gray-300 p-2">
+              {getTermRatesCalculations?.annualRate}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-300 p-2">
+              First Installment Date
+            </td>
+            <td className="border border-gray-300 p-2">
+              {DateSet(getTermRatesCalculations?.firstInstallmentDate)}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-300 p-2">Interest Amount</td>
+            <td className="border border-gray-300 p-2">
+              {getTermRatesCalculations?.interestAmount}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    );
+  };
+
+  const ContractTable2 = () => {
+    return (
+      <table className="text-gray-600 text-md table-fixed border-collapse border border-gray-400 w-1/2 bg-white text-start rounded-sm overflow-hidden h-max">
+        <tbody>
+          <tr>
+            <td className="border border-gray-300 p-2">Finance Amount</td>
+            <td className="border border-gray-300 p-2">
+              {getTermRatesCalculations?.financeAmount}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-300 p-2">
+              Last Installment Date
+            </td>
+            <td className="border border-gray-300 p-2">
+              {DateSet(getTermRatesCalculations?.lastInstallmentDate)}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-300 p-2">Net Proceed</td>
+            <td className="border border-gray-300 p-2">
+              {getTermRatesCalculations?.netProceed}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-300 p-2">Term</td>
+            <td className="border border-gray-300 p-2">
+              {getTermRatesCalculations?.term}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-300 p-2">Term Rate</td>
+            <td className="border border-gray-300 p-2">
+              {getTermRatesCalculations?.termRate}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-300 p-2">Total Amount</td>
+            <td className="border border-gray-300 p-2">
+              {getTermRatesCalculations?.totalAmount}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-300 p-2">Total Fee</td>
+            <td className="border border-gray-300 p-2">
+              {getTermRatesCalculations?.totalFee}
+            </td>
+          </tr>{" "}
+          <tr>
+            <td className="border border-gray-300 p-2">Vat</td>
+            <td className="border border-gray-300 p-2">
+              {getTermRatesCalculations?.vat}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    );
+  };
   return (
     <div className="py-5">
       {message === "successEmi" && error === false ? (
         <>
-          <CardMain
-            headerDisable={true}
-            width="w-full  "
-            iconStyle="text-3xl text-primary"
+          <button
+            onClick={downloadPDFDocument}
+            className={` w-max mx-10 px-3 py-1 cursor-pointer hover:opacity-80 rounded-md bg-blue-500 text-white `}
           >
-            <div className="overflow-x-auto relative  mt-4">
-              <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
-                  <tr>
-                    <th scope="col" className="px-3 py-3 cursor-pointer">
-                      {t("Month")}
-                    </th>
-                    <th scope="col" className="px-3 py-3 cursor-pointer">
-                      {t("Monthly Installment")}
-                    </th>
+            Download as PDF
+          </button>
 
-                    <th scope="col" className="px-3 py-3">
-                      {t("First Installment Date")}
-                    </th>
-
-                    <th scope="col" className="px-3 py-3">
-                      {t("interest Amount Table")}
-                    </th>
-
-                    <th scope="col" className="px-3 py-3">
-                      {t("last Installment Date")}
-                    </th>
-
-                    <th scope="col" className="px-3 py-3">
-                      {t("outstanding Principal")}
-                    </th>
-
-                    <th scope="col" className="px-3 py-3">
-                      {t("principal Amount Table")}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {getTermRatesCalculations?.table?.map((v, k) => (
-                    <tr
-                      key={k}
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                    >
-                      <td
-                        scope="row"
-                        className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
-                      >
-                        <a>{v?.month}</a>
-                      </td>
-                      <td>{v?.details?.monthlyInstallment}</td>
-                      <td>{DateSet(v?.details?.firstInstallmentDate)}</td>
-                      <td>{v?.details?.interestAmountTable}</td>
-                      <td> {DateSet(v?.details?.lastInstallmentDate)}</td>
-                      <td>{v?.details?.outstandingPrincipal}</td>
-                      <td>{v?.details?.principalAmountTable}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          <div
+            id="content-to-download"
+            style={{
+              width: "100%",
+              minHeight: "297mm",
+            }}
+            className="px-10 mb-6 mt-6 bg-transparent"
+          >
+            <div className="w-full  items-center justify-center flex flex-row text-xl font-semibold">
+              Re-Payment Schedule
             </div>
-          </CardMain>
-          <CardMain
+            <div className="flex flex-row justify-between mb-10 mt-10 space-x-14">
+              <ContractTable />
+              <ContractTable2 />
+            </div>
+
+            <CardMain
+              headerDisable={true}
+              width="w-full  "
+              iconStyle="text-3xl text-primary"
+            >
+              <div className="overflow-x-auto relative  mt-4">
+                <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+                  <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
+                    <tr>
+                      <th scope="col" className="px-3 py-3 cursor-pointer">
+                        {t("Month")}
+                      </th>
+                      <th scope="col" className="px-3 py-3 cursor-pointer">
+                        {t("Monthly Installment")}
+                      </th>
+
+                      <th scope="col" className="px-3 py-3">
+                        {t("First Installment Date")}
+                      </th>
+
+                      <th scope="col" className="px-3 py-3">
+                        {t("interest Amount Table")}
+                      </th>
+
+                      <th scope="col" className="px-3 py-3">
+                        {t("last Installment Date")}
+                      </th>
+
+                      <th scope="col" className="px-3 py-3">
+                        {t("outstanding Principal")}
+                      </th>
+
+                      <th scope="col" className="px-3 py-3">
+                        {t("principal Amount Table")}
+                      </th>
+
+                      <th scope="col" className="px-3 py-3">
+                        {t("Due Installment Date")}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {getTermRatesCalculations?.table?.map((v, k) => (
+                      <tr
+                        key={k}
+                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                      >
+                        <td
+                          scope="row"
+                          className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
+                        >
+                          <a>{v?.month}</a>
+                        </td>
+                        <td className="px-3">
+                          {v?.details?.monthlyInstallment}
+                        </td>
+                        <td className="px-3">
+                          {DateSet(v?.details?.firstInstallmentDate)}
+                        </td>
+                        <td className="px-3">
+                          {v?.details?.interestAmountTable}
+                        </td>
+                        <td className="px-3">
+                          {" "}
+                          {DateSet(v?.details?.lastInstallmentDate)}
+                        </td>
+                        <td className="px-3">
+                          {v?.details?.outstandingPrincipal}
+                        </td>
+                        <td className="px-3">
+                          {v?.details?.principalAmountTable}
+                        </td>
+                        <td className="px-3">
+                          {v?.details?.dueInstallmentDate}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardMain>
+          </div>
+
+          {/* <CardMain
             headerDisable={true}
             width="w-full mt-10"
             iconStyle="text-3xl text-primary"
@@ -218,7 +426,7 @@ function AllUsers() {
                 </tbody>
               </table>
             </div>
-          </CardMain>
+          </CardMain> */}
         </>
       ) : (
         <div className="py-20 px-20 text-center w-full border border-gray-300 rounded-sm mt-6">
