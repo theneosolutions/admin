@@ -10,10 +10,15 @@ import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import * as action from "../../Services/redux/reducer";
 import moment from "moment";
+import generatePDF from "react-to-pdf";
+import { useRef } from "react";
+
+import LoanApplicationForm from "../../Components/loanForms";
 function AllUsers() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const location = useLocation();
+  const targetRef = useRef();
 
   const queryParams = new URLSearchParams(location.search);
   const userId = queryParams.get("userId");
@@ -214,16 +219,18 @@ function AllUsers() {
   };
   return (
     <div className="py-5">
+      {/* <LoanApplicationForm /> */}
       {message === "successEmi" && error === false ? (
         <>
           <button
-            onClick={downloadPDFDocument}
+            onClick={() => generatePDF(targetRef, { filename: "page.pdf" })}
             className={` w-max mx-10 px-3 py-1 cursor-pointer hover:opacity-80 rounded-md bg-blue-500 text-white `}
           >
             {t("Download as PDF")}
           </button>
 
           <div
+            ref={targetRef}
             id="content-to-download"
             style={{
               width: "100%",
@@ -321,122 +328,6 @@ function AllUsers() {
               </div>
             </CardMain>
           </div>
-
-          {/* <CardMain
-            headerDisable={true}
-            width="w-full mt-10"
-            iconStyle="text-3xl text-primary"
-          >
-            <div className="overflow-x-auto relative  mt-4">
-              <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
-                  <tr>
-                    <th scope="col" className="px-3 py-3 cursor-pointer">
-                      {t("adminFee")}
-                    </th>
-                    <th scope="col" className="px-3 py-3 cursor-pointer">
-                      {t("amortizationRate")}
-                    </th>
-                    <th scope="col" className="px-3 py-3">
-                      {t("calculatedAdminFee")}
-                    </th>
-                    <th scope="col" className="px-3 py-3">
-                      {t("calculatedVat")}
-                    </th>
-                    <th scope="col" className="px-3 py-3">
-                      {t("Apr Rate")}
-                    </th>
-                    <th scope="col" className="px-3 py-3">
-                      {t("emimonthlyInstallement")}
-                    </th>
-                    <th scope="col" className="px-3 py-3">
-                      {t("financeAmount")}
-                    </th>
-                    <th scope="col" className="px-3 py-3">
-                      {t("firstInstallmentDate")}
-                    </th>
-                    <th scope="col" className="px-3 py-3">
-                      {t("interestAmount")}
-                    </th>
-                    <th scope="col" className="px-3 py-3">
-                      {t("lastInstallmentDate")}
-                    </th>
-                    <th scope="col" className="px-3 py-3">
-                      {t("netProceed")}
-                    </th>
-                    <th scope="col" className="px-3 py-3">
-                      {t("term")}
-                    </th>
-                    <th scope="col" className="px-3 py-3">
-                      {t("termRate")}
-                    </th>{" "}
-                    <th scope="col" className="px-3 py-3">
-                      {t("totalAmount")}
-                    </th>
-                    <th scope="col" className="px-3 py-3">
-                      {t("totalFee")}
-                    </th>
-                    <th scope="col" className="px-3 py-3">
-                      {t("vat")}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <td
-                      scope="row"
-                      className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
-                    >
-                      <a>{getTermRatesCalculations?.adminFee}</a>
-                    </td>
-                    <td className="px-3">
-                      {getTermRatesCalculations?.amortizationRate}
-                    </td>
-                    <td className="px-3">
-                      {getTermRatesCalculations?.calculatedAdminFee}
-                    </td>
-                    <td className="px-3">
-                      {getTermRatesCalculations?.calculatedVat}
-                    </td>
-                    <td className="px-3">
-                      {getTermRatesCalculations?.aprRate}
-                    </td>
-                    <td className="px-3">
-                      {getTermRatesCalculations?.emimonthlyInstallement}
-                    </td>
-                    <td className="px-3">
-                      {getTermRatesCalculations?.financeAmount}
-                    </td>
-                    <td className="px-3">
-                      {DateSet(getTermRatesCalculations?.firstInstallmentDate)}
-                    </td>
-                    <td className="px-3">
-                      {getTermRatesCalculations?.interestAmount}
-                    </td>{" "}
-                    <td className="px-3">
-                      {DateSet(getTermRatesCalculations?.lastInstallmentDate)}
-                    </td>
-                    <td className="px-3">
-                      {getTermRatesCalculations?.netProceed}
-                    </td>
-                    <td className="px-3">{getTermRatesCalculations?.term}</td>
-                    <td className="px-3">
-                      {getTermRatesCalculations?.termRate}
-                    </td>
-                    <td className="px-3">
-                      {getTermRatesCalculations?.totalAmount}
-                    </td>
-                    <td className="px-3">
-                      {getTermRatesCalculations?.totalFee}
-                    </td>{" "}
-                    <td className="px-3">
-                      {getTermRatesCalculations?.totalFee}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </CardMain> */}
         </>
       ) : (
         <div className="py-20 px-20 text-center w-full border border-gray-300 rounded-sm mt-6">
