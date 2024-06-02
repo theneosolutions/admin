@@ -48,7 +48,7 @@ function AllUsers() {
 
     const input = document.getElementById("content-to-download");
     const canvas = await html2canvas(input, {
-      scale: 1.3, // Adjust scale as needed
+      scale: 1.2, // Adjust scale as needed
       useCORS: true,
     });
 
@@ -82,59 +82,67 @@ function AllUsers() {
       <table className="text-gray-600 text-md table-fixed border-collapse border border-gray-400 w-1/2 bg-white text-start rounded-sm overflow-hidden h-max">
         <tbody>
           <tr>
-            <td className="border border-gray-300 p-2">Admin Fee</td>
+            <td className="border border-gray-300 p-2">{t("Admin Fee")}</td>
             <td className="border border-gray-300 p-2">
               {getTermRatesCalculations?.adminFee}
             </td>
           </tr>
           <tr>
-            <td className="border border-gray-300 p-2">Amortization Rate</td>
+            <td className="border border-gray-300 p-2">
+              {t("Amortization Rate")}
+            </td>
             <td className="border border-gray-300 p-2">
               {getTermRatesCalculations?.amortizationRate}
             </td>
           </tr>
           <tr>
-            <td className="border border-gray-300 p-2">Calculated Admin Fee</td>
+            <td className="border border-gray-300 p-2">
+              {t("Calculated Admin Fee")}
+            </td>
             <td className="border border-gray-300 p-2">
               {getTermRatesCalculations?.calculatedAdminFee}
             </td>
           </tr>
           <tr>
-            <td className="border border-gray-300 p-2">Calculated Vat </td>
+            <td className="border border-gray-300 p-2">
+              {t("Calculated Vat")}{" "}
+            </td>
             <td className="border border-gray-300 p-2">
               {getTermRatesCalculations?.calculatedVat}
             </td>
           </tr>
           <tr>
-            <td className="border border-gray-300 p-2">Apr Rate</td>
+            <td className="border border-gray-300 p-2">{t("Apr Rate")}</td>
             <td className="border border-gray-300 p-2">
               {getTermRatesCalculations?.aprRate}
             </td>
           </tr>
           <tr>
             <td className="border border-gray-300 p-2">
-              Emi monthly Installement
+              {t("Emi monthly Installement")}
             </td>
             <td className="border border-gray-300 p-2">
               {getTermRatesCalculations?.emimonthlyInstallement}
             </td>
           </tr>
           <tr>
-            <td className="border border-gray-300 p-2">Annual Rate</td>
+            <td className="border border-gray-300 p-2">{t("Annual Rate")}</td>
             <td className="border border-gray-300 p-2">
               {getTermRatesCalculations?.annualRate}
             </td>
           </tr>
           <tr>
             <td className="border border-gray-300 p-2">
-              First Installment Date
+              {t("First Installment Date")}
             </td>
             <td className="border border-gray-300 p-2">
               {DateSet(getTermRatesCalculations?.firstInstallmentDate)}
             </td>
           </tr>
           <tr>
-            <td className="border border-gray-300 p-2">Interest Amount</td>
+            <td className="border border-gray-300 p-2">
+              {t("Interest Amount")}
+            </td>
             <td className="border border-gray-300 p-2">
               {getTermRatesCalculations?.interestAmount}
             </td>
@@ -149,51 +157,53 @@ function AllUsers() {
       <table className="text-gray-600 text-md table-fixed border-collapse border border-gray-400 w-1/2 bg-white text-start rounded-sm overflow-hidden h-max">
         <tbody>
           <tr>
-            <td className="border border-gray-300 p-2">Finance Amount</td>
+            <td className="border border-gray-300 p-2">
+              {t("Finance Amount")}
+            </td>
             <td className="border border-gray-300 p-2">
               {getTermRatesCalculations?.financeAmount}
             </td>
           </tr>
           <tr>
             <td className="border border-gray-300 p-2">
-              Last Installment Date
+              {t("Last Installment Date")}
             </td>
             <td className="border border-gray-300 p-2">
               {DateSet(getTermRatesCalculations?.lastInstallmentDate)}
             </td>
           </tr>
           <tr>
-            <td className="border border-gray-300 p-2">Net Proceed</td>
+            <td className="border border-gray-300 p-2">{t("Net Proceed")}</td>
             <td className="border border-gray-300 p-2">
               {getTermRatesCalculations?.netProceed}
             </td>
           </tr>
           <tr>
-            <td className="border border-gray-300 p-2">Term</td>
+            <td className="border border-gray-300 p-2">{t("Term")}</td>
             <td className="border border-gray-300 p-2">
               {getTermRatesCalculations?.term}
             </td>
           </tr>
           <tr>
-            <td className="border border-gray-300 p-2">Term Rate</td>
+            <td className="border border-gray-300 p-2">{t("Term Rate")}</td>
             <td className="border border-gray-300 p-2">
               {getTermRatesCalculations?.termRate}
             </td>
           </tr>
           <tr>
-            <td className="border border-gray-300 p-2">Total Amount</td>
+            <td className="border border-gray-300 p-2">{t("Total Amount")}</td>
             <td className="border border-gray-300 p-2">
               {getTermRatesCalculations?.totalAmount}
             </td>
           </tr>
           <tr>
-            <td className="border border-gray-300 p-2">Total Fee</td>
+            <td className="border border-gray-300 p-2">{t("Total Fee")}</td>
             <td className="border border-gray-300 p-2">
               {getTermRatesCalculations?.totalFee}
             </td>
           </tr>{" "}
           <tr>
-            <td className="border border-gray-300 p-2">Vat</td>
+            <td className="border border-gray-300 p-2">{t("Vat")}</td>
             <td className="border border-gray-300 p-2">
               {getTermRatesCalculations?.vat}
             </td>
@@ -210,7 +220,7 @@ function AllUsers() {
             onClick={downloadPDFDocument}
             className={` w-max mx-10 px-3 py-1 cursor-pointer hover:opacity-80 rounded-md bg-blue-500 text-white `}
           >
-            Download as PDF
+            {t("Download as PDF")}
           </button>
 
           <div
@@ -222,9 +232,9 @@ function AllUsers() {
             className="px-10 mb-6 mt-6 bg-transparent"
           >
             <div className="w-full  items-center justify-center flex flex-row text-xl font-semibold">
-              Re-Payment Schedule
+              {t("Re-Payment Schedule")}
             </div>
-            <div className="flex flex-row justify-between mb-10 mt-10 space-x-14">
+            <div className="flex flex-row justify-between mb-10 mt-10 space-x-14 rtl:space-x-reverse">
               <ContractTable />
               <ContractTable2 />
             </div>
@@ -250,19 +260,19 @@ function AllUsers() {
                       </th>
 
                       <th scope="col" className="px-3 py-3">
-                        {t("interest Amount Table")}
+                        {t("Interest Amount Table")}
                       </th>
 
                       <th scope="col" className="px-3 py-3">
-                        {t("last Installment Date")}
+                        {t("Last Installment Date")}
                       </th>
 
                       <th scope="col" className="px-3 py-3">
-                        {t("outstanding Principal")}
+                        {t("Outstanding Principal")}
                       </th>
 
                       <th scope="col" className="px-3 py-3">
-                        {t("principal Amount Table")}
+                        {t("Principal Amount Table")}
                       </th>
 
                       <th scope="col" className="px-3 py-3">
