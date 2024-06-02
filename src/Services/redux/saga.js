@@ -856,12 +856,13 @@ function* AddTermsAndConditions({ payload }) {
 }
 
 function* GetAllTermsAndConditions({ payload }) {
+  console.log("payload Terms", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
     const response = yield call(
       axiosInstance.get,
-      baseUrlCms + `/terms/getTerms`
+      baseUrlCms + `/terms/getTermsByLanguage?lan=${payload}`
     );
     yield put(action.GetTermsConditions(response));
 

@@ -26,19 +26,19 @@ function CreateUser() {
         },
       });
 
-      setTimeout(() => getTerms(), 1000);
+      // setTimeout(() => getTerms(), 1000);
     } else {
       alert("All Fields Required!");
     }
   }
-  function getTerms() {
-    dispatch({
-      type: "GET_ALL_TERMS",
-    });
-  }
-  useEffect(() => {
-    getTerms();
-  }, []);
+  // function getTerms() {
+  //   dispatch({
+  //     type: "GET_ALL_TERMS",
+  //   });
+  // }
+  // useEffect(() => {
+  //   getTerms();
+  // }, []);
 
   return (
     <div className=" flex flex-col space-y-5 ">

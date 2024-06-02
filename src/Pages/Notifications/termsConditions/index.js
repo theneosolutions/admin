@@ -11,16 +11,16 @@ function CreateUser() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  function getTerms() {
+  const [language, setLanguage] = useState("ar");
+  function getTerms(lan) {
     dispatch({
       type: "GET_ALL_TERMS",
+      payload: lan,
     });
   }
   useEffect(() => {
-    getTerms();
-  }, []);
-
-  const [language, setLanguage] = useState("ar");
+    getTerms(language);
+  }, [language]);
 
   return (
     <div className=" flex flex-col space-y-5 ">
