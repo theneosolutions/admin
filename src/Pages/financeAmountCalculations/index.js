@@ -231,7 +231,6 @@ function AllUsers() {
 
           <div
             ref={targetRef}
-            id="content-to-download"
             style={{
               width: "100%",
               minHeight: "297mm",
