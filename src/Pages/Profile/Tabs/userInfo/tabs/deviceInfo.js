@@ -7,38 +7,37 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 function DeviceInfo() {
-  var state = null;
   const { t } = useTranslation();
 
   const user = useSelector((state) => state.getUserById?.deviceInfo);
   return (
-    <div className="">
-      <div className="space-y-6 my-5   w-full ">
-        <div className="flex flex-row justify-between  ">
-          <a className="  text-gray-700 flex flex-row items-center space-x-2 w-4/12	">
+    <div className="w-full">
+      <div className="  mb-5   w-full flex flex-row">
+        <div className="flex flex-col justify-between   w-1/5 ">
+          <a className=" h-10 text-gray-700 flex flex-row items-center space-x-2	">
             <MdDriveFileRenameOutline />
 
             <a>{t("Device Token:")}</a>
           </a>
-          <a className="text-gray-700 font-semibold w-96 truncate">
-            {user?.deviceToken}
-          </a>
-        </div>
-        <div className="flex flex-row justify-between">
-          <a className=" text-gray-700 flex flex-row items-center space-x-2">
+          <a className="h-10  text-gray-700 flex flex-row items-center space-x-2">
             <RiUserStarLine />
 
             <a> {t("Ip Address:")}</a>
           </a>
-          <a className="text-gray-700 font-semibold">{user?.ipAddress}</a>
-        </div>
-        <div className="flex flex-row justify-between">
-          <a className=" text-gray-700 flex flex-row items-center space-x-2">
+          <a className="h-10  text-gray-700 flex flex-row items-center space-x-2">
             <VscLayersActive />
             <a>{t("Mac Address:")}</a>
           </a>
+        </div>
 
-          <a className="text-gray-700 font-semibold flex flex-row rtl:space-x-reverse space-x-5">
+        <div className="flex flex-col justify-between  w-4/5 ">
+          <a className="h-10  text-gray-700 flex flex-row items-center 	">
+            <a className="overflow-scroll"> {user?.deviceToken}</a>
+          </a>
+          <a className="h-10  text-gray-700 flex flex-row items-center space-x-2">
+            <a> {user?.ipAddress}</a>
+          </a>
+          <a className="h-10 text-gray-700 flex flex-row items-center space-x-2">
             <a>{user?.macAddress}</a>
           </a>
         </div>

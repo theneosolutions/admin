@@ -79,7 +79,7 @@ function ProfileSidebar({ userData }) {
             </div>
           </div>
 
-          <a className="text-sm text-gray-700">{userData?.dateOfBirth}</a>
+          <a className="text-sm text-gray-700">{userData?.hijriDateOfBirth}</a>
         </div>
         <div className=" w-full bg-gray-100 mt-3" style={{ height: 1 }}></div>
 
