@@ -7,6 +7,8 @@ import { RxCross2 } from "react-icons/rx";
 import { CgArrowsExchange } from "react-icons/cg";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { TransferRajhi } from "Services/OtherApis";
+import * as action from "Services/redux/reducer";
 
 function LaonApplication() {
   const { t } = useTranslation();
@@ -52,6 +54,29 @@ function LaonApplication() {
       type: "GET_USER_BY_ID",
       payload: userId,
     });
+  }
+  function Transfer() {
+    dispatch(action.Loading({ Loading: true }));
+    TransferRajhi(userId)
+      .then((data) => {
+        if (data?.error === false) {
+          dispatch(
+            action.Message({
+              open: true,
+              message: "Payment transaction successful",
+              error: false,
+            })
+          );
+          dispatch(action.Loading({ Loading: false }));
+        } else {
+          dispatch(
+            action.Message({ open: true, message: "Error", error: true })
+          );
+          dispatch(action.Loading({ Loading: false }));
+        }
+      })
+      .catch((error) => dispatch(action.Loading({ Loading: false })));
+    console.log("Transfer");
   }
   return (
     <div className="py-5">
@@ -99,7 +124,7 @@ function LaonApplication() {
               <Text heading="Application Number" value={data?.id || 0} />
             </div>
             <div>
-              <a className=" text-green-600 md:px-2 text-md font-semibold uppercase">
+              <a className=" text-green-600 md:px-2 text-md font-semibold ">
                 {data?.status}
               </a>
             </div>
@@ -243,6 +268,16 @@ function LaonApplication() {
             </div>
             <div className="flex flex-col w-full lg:w-1/2  lg:px-4 lg:mt-0 mt-5">
               <div className="w-full lg:w-3/5		space-y-10">
+                {data?.status === "Approved" ? (
+                  <div
+                    onClick={() => Transfer()}
+                    className={` w-min text-white bg-blue-500 hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-2 rounded-md  items-center flex flex-col   `}
+                  >
+                    <div className="uppercase text-xs font-semibold">
+                      Transfer
+                    </div>
+                  </div>
+                ) : null}
                 <Progress
                   heading="Eligibility Loan Amount"
                   value={data?.totalAmount}

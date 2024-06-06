@@ -139,6 +139,22 @@ async function TopUpWalletFunction(data) {
   }
 }
 
+async function TransferRajhi(id) {
+  console.log("helo===================", id);
+  try {
+    const response = await axiosInstance.post(
+      baseUrlLos +
+        `/alrajhi/transfer/paymentTransferBusinessToCustomer?userId=${id}`
+    );
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return message;
+  }
+}
+
 export {
   CheckQuestionStatusInScreen,
   CheckToken,
@@ -148,4 +164,5 @@ export {
   RadeemMoney,
   GetAllOwnersShipIds,
   TopUpWalletFunction,
+  TransferRajhi,
 };
