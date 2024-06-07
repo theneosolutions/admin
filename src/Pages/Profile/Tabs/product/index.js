@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Family from "./tabs/family";
-import Income from "./tabs/income";
+import EmiDetail from "./tabs/EmiDetail";
+import LoanHistory from "./tabs/LoanHistory";
+import TransactionHistory from "./tabs/transactionHistory";
 function Template() {
   const [state, setState] = useState("Emi Detail");
   const getTab = () => {
@@ -50,10 +51,14 @@ export default Template;
 const data = [
   {
     label: "Emi Detail",
-    tab: <Family />,
+    tab: <EmiDetail />,
   },
   {
     label: "Loan History",
-    tab: <Income />,
+    tab: <LoanHistory />,
+  },
+  {
+    label: "Transaction History",
+    tab: <TransactionHistory />,
   },
 ];

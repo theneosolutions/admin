@@ -155,6 +155,21 @@ async function TransferRajhi(id) {
   }
 }
 
+async function TransactionHistory(id) {
+  console.log("helo===================", id);
+  try {
+    const response = await axiosInstance.get(
+      baseUrlLos + `/alrajhi/transfer/fetchUserTransactions?userId=${id}`
+    );
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return message;
+  }
+}
+
 export {
   CheckQuestionStatusInScreen,
   CheckToken,
@@ -165,4 +180,5 @@ export {
   GetAllOwnersShipIds,
   TopUpWalletFunction,
   TransferRajhi,
+  TransactionHistory,
 };
