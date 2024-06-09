@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
+import moment from "moment";
 function Calculations() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -22,7 +22,11 @@ function Calculations() {
       payload: UserId,
     });
   }
-
+  function DateSet(newDate) {
+    var timestamp = parseInt(newDate); // Example timestamp value
+    var date = new Date(timestamp);
+    return moment(date.toString()).subtract(10, "days").calendar();
+  }
   return (
     <div className="p-1 w-full pb-10">
       <div className="overflow-x-auto relative  ">
@@ -65,10 +69,10 @@ function Calculations() {
                   {v?.id}
                 </td>
                 <td scope="row" className="px-3 py-4">
-                  {v?.firstInstallmentDate}
+                  {DateSet(v?.firstInstallmentDate)}
                 </td>
                 <td scope="row" className="px-3 py-4">
-                  {v?.lastInstallmentDate || "NAN"}
+                  {DateSet(v?.lastInstallmentDate) || "NAN"}
                 </td>
                 <td scope="row" className="px-3 py-4">
                   {v?.monthlyInstallment}
