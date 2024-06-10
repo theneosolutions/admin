@@ -41,4 +41,5 @@ function CreateUser() {
 export default withAuthorization(CreateUser, [
   ROLES.ADMIN,
   ROLES.CUSTOMER_CARE,
+  ROLES.UNDER_WRITER,
 ]);

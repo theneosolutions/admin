@@ -131,4 +131,5 @@ function NotificationsScreen() {
 export default withAuthorization(NotificationsScreen, [
   ROLES.ADMIN,
   ROLES.CUSTOMER_CARE,
+  ROLES.UNDER_WRITER,
 ]);

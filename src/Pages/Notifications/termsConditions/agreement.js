@@ -90,7 +90,11 @@ function Aggrement() {
   );
 }
 
-export default withAuthorization(Aggrement, [ROLES.ADMIN, ROLES.CUSTOMER_CARE]);
+export default withAuthorization(Aggrement, [
+  ROLES.ADMIN,
+  ROLES.CUSTOMER_CARE,
+  ROLES.UNDER_WRITER,
+]);
 
 function Description({ heading, handleChange }) {
   return (

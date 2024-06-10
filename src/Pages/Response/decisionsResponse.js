@@ -232,6 +232,7 @@ function CreateUser() {
 export default withAuthorization(CreateUser, [
   ROLES.ADMIN,
   ROLES.CUSTOMER_CARE,
+  ROLES.UNDER_WRITER,
 ]);
 function InputField({ heading, value, onChange, type, style }) {
   const { t } = useTranslation();

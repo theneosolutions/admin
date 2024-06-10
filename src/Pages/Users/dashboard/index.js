@@ -175,6 +175,7 @@ export default withAuthorization(App, [
   ROLES.ADMIN,
   ROLES.CUSTOMER_CARE,
   ROLES.COMPLIANCE,
+  ROLES.UNDER_WRITER,
 ]);
 
 function ActionCenter({ icon, heading, des, image }) {

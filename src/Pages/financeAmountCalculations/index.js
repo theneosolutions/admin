@@ -340,4 +340,5 @@ export default withAuthorization(AllUsers, [
   ROLES.ADMIN,
   ROLES.CUSTOMER_CARE,
   ROLES.COMPLIANCE,
+  ROLES.UNDER_WRITER,
 ]);

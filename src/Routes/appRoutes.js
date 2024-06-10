@@ -111,7 +111,12 @@ const appRoutes = [
   },
 
   {
-    roles: [ROLES.ADMIN, ROLES.CUSTOMER_CARE, ROLES.COMPLIANCE],
+    roles: [
+      ROLES.ADMIN,
+      ROLES.CUSTOMER_CARE,
+      ROLES.COMPLIANCE,
+      ROLES.UNDER_WRITER,
+    ],
     path: "/customers",
     element: <UsersPageLayout />,
     state: "customers",
@@ -195,7 +200,7 @@ const appRoutes = [
     ],
   },
   {
-    roles: [ROLES.ADMIN],
+    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER],
     path: "/selaa",
     element: <SelaaPageLayout />,
     state: "selaa",
@@ -363,7 +368,7 @@ const appRoutes = [
     ],
   },
   {
-    roles: [ROLES.ADMIN, ROLES.CUSTOMER_CARE], // Example roles allowed to access this route
+    roles: [ROLES.ADMIN, ROLES.CUSTOMER_CARE, ROLES.UNDER_WRITER], // Example roles allowed to access this route
 
     path: "/response",
     element: <ResponsePageLayout />,

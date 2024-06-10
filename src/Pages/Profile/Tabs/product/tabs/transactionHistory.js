@@ -83,13 +83,13 @@ function TransactionDetail() {
                   {v?.transactionId}
                 </td>
                 <td scope="row" className="px-3 py-4">
-                  {v?.transactionType || "NAN"}
+                  {v?.transactionType}
                 </td>
                 <td scope="row" className="px-3 py-4">
                   {v?.transactionCurrency}
                 </td>
                 <td scope="row" className="px-3 py-4">
-                  {v?.transactionAmount || "NAN"}
+                  {v?.transactionAmount}
                 </td>
                 <td scope="row" className="px-3 py-4">
                   {v?.statusCheckRetryCount || "NAN"}
@@ -98,10 +98,10 @@ function TransactionDetail() {
                   {v?.status || "NAN"}
                 </td>
                 <td scope="row" className="px-3 py-4">
-                  {v?.senderAccount || "NAN"}
+                  {v?.senderAccount}
                 </td>
                 <td scope="row" className="px-3 py-4">
-                  {v?.receiverAccount || "NAN"}
+                  {v?.receiverAccount}
                 </td>
               </tr>
             ))}
