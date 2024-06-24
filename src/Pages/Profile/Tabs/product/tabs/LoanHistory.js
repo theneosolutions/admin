@@ -46,6 +46,12 @@ function Calculations() {
               <th scope="col" className="px-3 py-3">
                 {t("Monthly Installment")}
               </th>
+              <th scope="col" className="px-3 py-3">
+                {t("Due Installment Date")}
+              </th>
+              <th scope="col" className="px-3 py-3">
+                {t("Months")}
+              </th>
 
               <th scope="col" className="px-3 py-3">
                 {t("Interest Amount Table")}
@@ -66,7 +72,7 @@ function Calculations() {
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
               >
                 <td scope="row" className="px-3 py-4">
-                  {v?.id}
+                  {k + 1}
                 </td>
                 <td scope="row" className="px-3 py-4">
                   {DateSet(v?.firstInstallmentDate)}
@@ -76,6 +82,12 @@ function Calculations() {
                 </td>
                 <td scope="row" className="px-3 py-4">
                   {v?.monthlyInstallment}
+                </td>
+                <td scope="row" className="px-3 py-4">
+                  {v?.dueInstallmentDate || "NAN"}
+                </td>
+                <td scope="row" className="px-3 py-4">
+                  {v?.month || "NAN"}
                 </td>
                 <td scope="row" className="px-3 py-4">
                   {v?.interestAmountTable || "NAN"}

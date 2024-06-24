@@ -150,4 +150,4 @@ function Accomodity() {
     </div>
   );
 }
-export default withAuthorization(Accomodity, [ROLES.ADMIN]);
+export default withAuthorization(Accomodity, [ROLES.ADMIN, ROLES.UNDER_WRITER]);

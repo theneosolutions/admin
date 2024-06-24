@@ -93,7 +93,7 @@ function Wallet() {
     </div>
   );
 }
-export default withAuthorization(Wallet, [ROLES.ADMIN]);
+export default withAuthorization(Wallet, [ROLES.ADMIN, ROLES.UNDER_WRITER]);
 function InputField({ heading, value, onChange, type }) {
   return (
     <div className="flex flex-col w-full">

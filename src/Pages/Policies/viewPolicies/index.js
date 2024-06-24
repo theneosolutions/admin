@@ -77,20 +77,19 @@ function AllPolicies() {
                   <td className="px-3">{t(v?.id)}</td>
                   <td className="px-3">{t(v?.policyName)}</td>
                   <td className="px-3">{t(v?.policyValue)}</td>
-                  {v?.customisableByAdmin === role && (
-                    <th
-                      scope="row"
-                      className=" px-3 py-2 text-gray-900 whitespace-nowrap text-sm"
-                    >
-                      <Button
-                        buttonStyle="font-medium py-1"
-                        buttonValue={t("Update")}
-                        onButtonClick={() => (
-                          setModelOpen2(true), setSelectedData(v)
-                        )}
-                      />
-                    </th>
-                  )}
+
+                  <th
+                    scope="row"
+                    className=" px-3 py-2 text-gray-900 whitespace-nowrap text-sm"
+                  >
+                    <Button
+                      buttonStyle="font-medium py-1"
+                      buttonValue={t("Update")}
+                      onButtonClick={() => (
+                        setModelOpen2(true), setSelectedData(v)
+                      )}
+                    />
+                  </th>
 
                   <td className="px-3 py-2">
                     <div

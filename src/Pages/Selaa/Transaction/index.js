@@ -127,4 +127,4 @@ function AllUsers() {
     </div>
   );
 }
-export default withAuthorization(AllUsers, [ROLES.ADMIN]);
+export default withAuthorization(AllUsers, [ROLES.ADMIN, ROLES.UNDER_WRITER]);

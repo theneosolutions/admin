@@ -400,14 +400,14 @@ const appRoutes = [
           displayText: "Term And Conditions",
         },
       },
-      {
-        path: "/response/aggrement",
-        element: <Aggreement />,
-        state: "response.aggrement",
-        sidebarProps: {
-          displayText: "Agreement",
-        },
-      },
+      // {
+      //   path: "/response/aggrement",
+      //   element: <Aggreement />,
+      //   state: "response.aggrement",
+      //   sidebarProps: {
+      //     displayText: "Agreement",
+      //   },
+      // },
       {
         path: "/response/sms",
         element: <Sms />,
