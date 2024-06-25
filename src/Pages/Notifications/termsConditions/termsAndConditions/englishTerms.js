@@ -25,20 +25,10 @@ function CreateUser() {
           language: "en",
         },
       });
-
-      // setTimeout(() => getTerms(), 1000);
     } else {
       alert("All Fields Required!");
     }
   }
-  // function getTerms() {
-  //   dispatch({
-  //     type: "GET_ALL_TERMS",
-  //   });
-  // }
-  // useEffect(() => {
-  //   getTerms();
-  // }, []);
 
   return (
     <div className=" flex flex-col space-y-5 ">

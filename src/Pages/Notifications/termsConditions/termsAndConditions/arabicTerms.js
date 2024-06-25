@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import CardMain from "Components/Cards/main";
 import { useState } from "react";
 import { Button } from "Components";
@@ -25,20 +25,10 @@ function CreateUser() {
           language: "ar",
         },
       });
-
-      // setTimeout(() => getTerms(), 1000);
     } else {
       alert("All Fields Required!");
     }
   }
-  // function getTerms() {
-  //   dispatch({
-  //     type: "GET_ALL_TERMS",
-  //   });
-  // }
-  // useEffect(() => {
-  //   getTerms();
-  // }, []);
 
   return (
     <div className=" flex flex-col space-y-5 ">
@@ -67,8 +57,9 @@ function CreateUser() {
       <div className=" w-full ">
         <CardMain width="w-full" heading={conditions?.title}>
           <div
+            dir="rtl"
             dangerouslySetInnerHTML={{ __html: conditions?.desc }}
-            className="py-2  pb-20"
+            className="py-2  pb-20 rtl-editor"
           ></div>
         </CardMain>
       </div>
@@ -84,7 +75,7 @@ function Description({ heading, handleChange }) {
         <a className="text-sm text-gray-700 ">{heading}</a>
       </div>
       <div className="	w-full mt-2">
-        <TextEditor handleChange={(e) => handleChange(e)} />
+        <TextEditor handleChange={(e) => handleChange(e)} lan="arabic" />
       </div>
     </div>
   );

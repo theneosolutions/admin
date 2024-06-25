@@ -1,0 +1,12 @@
+/* ReactQuillWrapper.css */
+
+.rtl-editor .ql-editor {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Optional: Customize other aspects of the editor */
+.rtl-editor .ql-container {
+  font-family: "Arial", sans-serif; /* Example font */
+  height: 300px; /* Example height */
+}
