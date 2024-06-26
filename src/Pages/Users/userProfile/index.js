@@ -69,8 +69,14 @@ function LaonApplication() {
           );
           dispatch(action.Loading({ Loading: false }));
         } else {
+          console.log("data", data);
+
           dispatch(
-            action.Message({ open: true, message: "Error", error: true })
+            action.Message({
+              open: true,
+              message: data?.message || "Error",
+              error: true,
+            })
           );
           dispatch(action.Loading({ Loading: false }));
         }
