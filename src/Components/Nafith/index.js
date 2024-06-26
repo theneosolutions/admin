@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Nafith() {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const id = queryParams.get("id");
+
   const report = useSelector((state) => state.getNafith);
   useEffect(() => {
     GetNafithResponse();
@@ -10,7 +15,7 @@ function Nafith() {
   function GetNafithResponse() {
     dispatch({
       type: "GET_NAFITH_REPORT",
-      payload: "d30117de-7fe7-4e64-a9f1-49ff9e24f618",
+      payload: id,
     });
   }
 

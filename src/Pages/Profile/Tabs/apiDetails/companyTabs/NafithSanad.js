@@ -16,7 +16,7 @@ function NafithSanad() {
   const getNafithSanad = useSelector((state) => state.getNafithSanad);
   const [active, setActive] = useState(false);
   useEffect(() => {
-    GetNafithSanad();
+    // GetNafithSanad();
   }, []);
   function GetNafithSanad() {
     dispatch({
@@ -34,7 +34,7 @@ function NafithSanad() {
       <div className=" w-full flex flex-row space-x-5 rtl:space-x-reverse">
         <div className=" w-full flex flex-row space-x-5 rtl:space-x-reverse">
           <div className="w-full px-5 py-5 flex flex-col  lg:flex-row  lg:space-x-10 xl:space-x-14 2xl:space-x-28">
-            <div className="space-y-6  w-full lg:w-1/2">
+            {/* <div className="space-y-6  w-full lg:w-1/2">
               <div className="flex flex-row justify-between">
                 <a className=" text-gray-700 flex flex-row items-center space-x-2">
                   <MdDriveFileRenameOutline />
@@ -59,9 +59,9 @@ function NafithSanad() {
                   <a>{state?.number}</a>
                 </a>
               </div>
-            </div>
-            <div className="space-y-6 lg:mt-0 mt-5 w-full lg:w-1/2">
-              <div className="flex flex-row justify-between">
+            </div> */}
+            <div className="lg:mt-0  w-full lg:w-1/2">
+              {/* <div className="flex flex-row justify-between">
                 <a className=" text-gray-700 flex flex-row items-center space-x-2">
                   <PiCellSignalLowDuotone />
                   <a>{t("Reference_Id")}</a>
@@ -69,8 +69,8 @@ function NafithSanad() {
                 <a className="text-gray-700 font-semibold">
                   {state?.reference_id}
                 </a>
-              </div>
-              <div className="flex flex-row justify-between">
+              </div> */}
+              {/* <div className="flex flex-row justify-between">
                 <a className=" text-gray-700 flex flex-row items-center space-x-2">
                   <TbMathEqualLower />
                   <a>{t("Status")}:</a>
@@ -79,8 +79,8 @@ function NafithSanad() {
                 <a className="text-sm font-semibold uppercase bg-yellow-500 px-3 py-1 rounded-md text-white">
                   {state?.status}
                 </a>
-              </div>
-              <div className="flex flex-row justify-between">
+              </div> */}
+              {/* <div className="flex flex-row justify-between">
                 <a className=" text-gray-700 flex flex-row items-center space-x-2">
                   <FiDollarSign />
                   <a>{t("Total Value:")}</a>
@@ -89,20 +89,20 @@ function NafithSanad() {
                 <a className="text-gray-700 font-semibold">
                   {state?.total_value}
                 </a>
-              </div>
-              <div className="justify-end flex flex-row">
-                <a
-                  onClick={() => setActive(!active)}
-                  className="cursor-pointer hover:opacity-80  duration-200 text-sm font-semibold uppercase bg-green-500 px-3 py-1 rounded-md text-white"
-                >
-                  {active ? "Hide" : t("View Sanad")}
-                </a>
-              </div>
+              </div> */}
+              {/* <div className="justify-end flex flex-row"> */}
+              {/* <a
+                onClick={() => setActive(!active)}
+                className="cursor-pointer hover:opacity-80  duration-200 text-sm font-semibold uppercase bg-green-500 px-3 py-1 rounded-md text-white"
+              >
+                {active ? "Hide" : t("View Sanad")}
+              </a> */}
+              {/* </div> */}
             </div>
           </div>
         </div>
       </div>
-      {active && <Nafith />}
+      {<Nafith />}
     </div>
   );
 }

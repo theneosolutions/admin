@@ -875,15 +875,20 @@ function* GetAllTermsAndConditions({ payload }) {
 }
 
 function* GetNafithReport({ payload }) {
+  console.log("payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
-
+    // https://seulah.com/api/v1/cms/nafith/getUUIDByIdNumber?idNumber=1069282455
     const response = yield call(
-      axiosInstance.post,
-      baseUrlCms +
-        `/nafith/downloadPDF?uuid=d30117de-7fe7-4e64-a9f1-49ff9e24f618`
+      axiosInstance.get,
+      baseUrlCms + `/nafith/getUUIDByIdNumber?idNumber=${payload}`
     );
-    yield put(action.GetNafith(response));
+    console.log(response?.data?.uuid);
+    const response2 = yield call(
+      axiosInstance.post,
+      baseUrlCms + `/nafith/downloadPDF?uuid=${response?.data?.uuid}`
+    );
+    yield put(action.GetNafith(response2));
 
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
