@@ -282,8 +282,8 @@ function LaonApplication() {
                   heading="Eligibility Loan Amount"
                   value={data?.totalAmount}
                   progressValue="50%"
-                  min="Min 2K"
-                  max="Max 4 Lakh"
+                  // min="Min 2K"
+                  // max="Max 4 Lakh"
                 />
 
                 <Progress
