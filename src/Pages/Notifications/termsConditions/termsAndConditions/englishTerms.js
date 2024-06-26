@@ -5,7 +5,7 @@ import { Button } from "Components";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import TextEditor from "../textEditor";
-
+import "../editor.css"; // Import the CSS file for styling
 function CreateUser() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -58,7 +58,7 @@ function CreateUser() {
         <CardMain width="w-full" heading={conditions?.title}>
           <div
             dangerouslySetInnerHTML={{ __html: conditions?.desc }}
-            className="py-2  pb-20"
+            className="py-2  pb-20 custom-list"
           ></div>
         </CardMain>
       </div>

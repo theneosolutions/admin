@@ -10,3 +10,9 @@
   font-family: "Arial", sans-serif; /* Example font */
   height: 300px; /* Example height */
 }
+
+.custom-list ul,
+ol {
+  list-style-type: initial; /* or any other list style */
+  padding-left: 20px; /* adjust padding as needed */
+}

@@ -5,6 +5,7 @@ import { Button } from "Components";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import TextEditor from "../textEditor";
+import "../editor.css"; // Import the CSS file for styling
 
 function CreateUser() {
   const dispatch = useDispatch();
@@ -59,7 +60,7 @@ function CreateUser() {
           <div
             dir="rtl"
             dangerouslySetInnerHTML={{ __html: conditions?.desc }}
-            className="py-2  pb-20 rtl-editor"
+            className="py-2  pb-20 rtl-editor custom-list"
           ></div>
         </CardMain>
       </div>

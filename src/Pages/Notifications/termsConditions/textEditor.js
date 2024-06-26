@@ -10,6 +10,7 @@ const ReactQuillWrapper = ({ handleChange, lan }) => {
 
   const handleChange1 = (value) => {
     setText(value);
+    console.log("value", value);
     handleChange(value);
   };
 

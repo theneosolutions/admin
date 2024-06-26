@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import EmiDetail from "./tabs/EmiDetail";
 import LoanHistory from "./tabs/LoanHistory";
 import TransactionHistory from "./tabs/transactionHistory";
+import { useTranslation } from "react-i18next";
+
 function Template() {
   const [state, setState] = useState("Emi Detail");
+  const { t } = useTranslation();
+
   const getTab = () => {
     const activeItem = data.find((item) => item.label === state);
 
@@ -30,7 +34,7 @@ function Template() {
                   state === v.label ? "border-primary border-b-2" : " "
                 }`}
               >
-                <a className="text-sm">{v.label}</a>
+                <a className="text-sm">{t(v.label)}</a>
               </div>
             </div>
           );

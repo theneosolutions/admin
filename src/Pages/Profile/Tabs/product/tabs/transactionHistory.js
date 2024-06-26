@@ -54,6 +54,9 @@ function TransactionDetail() {
               <th scope="col" className="px-3 py-3">
                 {t("Transaction Amount")}
               </th>
+              <th scope="col" className="px-3 py-3">
+                {t("Finance Amount")}
+              </th>
 
               <th scope="col" className="px-3 py-3">
                 {t("Status Check Retry Count")}
@@ -61,6 +64,15 @@ function TransactionDetail() {
 
               <th scope="col" className="px-3 py-3">
                 {t("Status")}
+              </th>
+              <th scope="col" className="px-3 py-3">
+                {t("Admin Fee")}
+              </th>
+              <th scope="col" className="px-3 py-3">
+                {t("Vat")}
+              </th>
+              <th scope="col" className="px-3 py-3">
+                {t("Total Fee")}
               </th>
               <th scope="col" className="px-3 py-3">
                 {t("Sender Account")}
@@ -92,10 +104,22 @@ function TransactionDetail() {
                   {v?.transactionAmount}
                 </td>
                 <td scope="row" className="px-3 py-4">
+                  {v?.financeAmount}
+                </td>
+                <td scope="row" className="px-3 py-4">
                   {v?.statusCheckRetryCount || "NAN"}
                 </td>
                 <td scope="row" className="px-3 py-4">
                   {v?.status || "NAN"}
+                </td>
+                <td scope="row" className="px-3 py-4">
+                  {v?.adminFee || "NAN"}
+                </td>
+                <td scope="row" className="px-3 py-4">
+                  {v?.vat || "NAN"}
+                </td>
+                <td scope="row" className="px-3 py-4">
+                  {v?.totalFee || "NAN"}
                 </td>
                 <td scope="row" className="px-3 py-4">
                   {v?.senderAccount}
