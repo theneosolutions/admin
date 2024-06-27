@@ -889,12 +889,17 @@ function* GetNafithReport({ payload }) {
       baseUrlCms + `/nafith/downloadPDF?uuid=${response?.data?.uuid}`
     );
     yield put(action.GetNafith(response2));
+    action.Message({ message: "success", open: false, error: false });
 
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     yield put(action.Loading({ Loading: false }));
     const message = error.response.data.message;
-    yield put(action.Message({ message: message, open: true, error: true }));
+    yield put(action.GetNafith({}));
+
+    yield put(
+      action.Message({ message: "Data Not Found!", open: true, error: true })
+    );
   }
 }
 function* GetEmdahReport({ payload }) {

@@ -7,7 +7,10 @@ function Nafith() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
+  const error = useSelector((state) => state.error);
+  const message = useSelector((state) => state.message);
 
+  console.log("erroororo", error);
   const report = useSelector((state) => state.getNafith);
   useEffect(() => {
     GetNafithResponse();
@@ -20,7 +23,11 @@ function Nafith() {
   }
 
   const [pdfURL, setPdfURL] = useState("");
-
+  // useEffect(() => {
+  //   if (message === "Data Not Found!") {
+  //     setPdfURL("");
+  //   }
+  // }, [message]);
   useEffect(() => {
     if (report?.Base64) {
       // Convert the Base64 string to a Blob
@@ -44,17 +51,21 @@ function Nafith() {
   console.log("pdffffffff", pdfURL);
   return (
     <div className=" w-full flex flex-row space-x-5 rtl:space-x-reverse">
-      <div className="w-full ">
-        {pdfURL && (
-          <iframe
-            title="PDF Viewer"
-            src={pdfURL}
-            width="100%"
-            height="1200px"
-            frameBorder="0"
-          ></iframe>
-        )}
-      </div>
+      {message === "Data Not Found!" ? (
+        <></>
+      ) : (
+        <div className="w-full ">
+          {pdfURL && (
+            <iframe
+              title="PDF Viewer"
+              src={pdfURL}
+              width="100%"
+              height="1200px"
+              frameBorder="0"
+            ></iframe>
+          )}
+        </div>
+      )}
     </div>
   );
 }
