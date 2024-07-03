@@ -10,6 +10,7 @@ export const axiosInstance = axios.create({
     "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
     "Access-Control-Allow-Headers":
       "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers",
+    "Accept-Language": LanguageCode(),
   },
 });
 axiosInstance.interceptors.request.use(
@@ -32,6 +33,22 @@ function token() {
 
     if (user?.data?.token) {
       return user?.data?.token;
+    } else {
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
+function LanguageCode() {
+  const preferredLanguage = localStorage.getItem("preferredLanguage");
+  console.log("pefereeee", preferredLanguage);
+  if (preferredLanguage) {
+    // const lan = JSON.parse(preferredLanguage);
+
+    if (preferredLanguage) {
+      return preferredLanguage;
     } else {
       return null;
     }

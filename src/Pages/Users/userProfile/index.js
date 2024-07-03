@@ -14,7 +14,7 @@ function LaonApplication() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [modelOpen, setModelOpen] = useState(false);
-  const [active, setActive] = useState("Pending");
+  const [active, setActive] = useState("Pending_Cashout");
   const [data, setData] = useState("");
 
   const getUserApplication = useSelector((state) => state.getUserApplication);
@@ -27,6 +27,7 @@ function LaonApplication() {
   useEffect(() => {
     getUserLoanDetail();
   }, []);
+  console.log("active", active);
 
   useEffect(() => {
     if (getUserApplication) {
@@ -130,7 +131,13 @@ function LaonApplication() {
               <Text heading="Application Number" value={data?.id || 0} />
             </div>
             <div>
-              <a className=" text-green-600 md:px-2 text-md font-semibold ">
+              <a
+                className={` ${
+                  data?.status === "Rejected_CashOut"
+                    ? "text-red-400"
+                    : "text-green-400"
+                } md:px-2 text-md font-semibold `}
+              >
                 {data?.status}
               </a>
             </div>
@@ -274,7 +281,7 @@ function LaonApplication() {
             </div>
             <div className="flex flex-col w-full lg:w-1/2  lg:px-4 lg:mt-0 mt-5">
               <div className="w-full lg:w-3/5		space-y-10">
-                {data?.status === "Approved" ? (
+                {/* {data?.status === "Approved_CashOut" ? (
                   <div
                     onClick={() => Transfer()}
                     className={` w-min text-white bg-blue-500 hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-2 rounded-md  items-center flex flex-col   `}
@@ -283,7 +290,7 @@ function LaonApplication() {
                       Transfer
                     </div>
                   </div>
-                ) : null}
+                ) : null} */}
                 <Progress
                   heading="Eligibility Loan Amount"
                   value={data?.totalAmount}
@@ -311,22 +318,25 @@ function LaonApplication() {
                 <Text2 heading="Vat on Fee" value={data?.vat} />{" "}
               </div>
               <div className="flex flex-col md:flex-row justify-between mt-10 md:space-x-2">
+                {/* {active === "Pending_Cashout" && (
+                  <Button
+                    setActive={(e) => setActive(e)}
+                    active={active}
+                    value={"Pending_Cashout"}
+                    icon={<PiCheckFatThin className="text-2xl" />}
+                  />
+                )} */}
+
                 <Button
                   setActive={(e) => setActive(e)}
                   active={active}
-                  value="Pending"
-                  icon={<PiCheckFatThin className="text-2xl" />}
-                />
-                <Button
-                  setActive={(e) => setActive(e)}
-                  active={active}
-                  value="Approved"
+                  value="Approved_CashOut"
                   icon={<CgArrowsExchange className="text-2xl" />}
                 />
                 <Button
                   setActive={(e) => setActive(e)}
                   active={active}
-                  value="Reject"
+                  value="Rejected_CashOut"
                   icon={<RxCross2 className="text-2xl" />}
                 />
               </div>
@@ -379,7 +389,13 @@ function Button({ value, icon, active, setActive }) {
       } hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-4 rounded-md  items-center flex flex-col md:mt-0 mt-2  `}
     >
       {icon}
-      <div className="uppercase text-xs font-semibold">{value}</div>
+      <div className="uppercase text-xs font-semibold">
+        {value === "Approved_CashOut"
+          ? "Approved"
+          : value === "Rejected_CashOut"
+          ? "Reject"
+          : "Pending"}
+      </div>
     </div>
   );
 }
