@@ -736,13 +736,16 @@ function* GetAllCards() {
 }
 
 function* SetStatusOfApplication({ payload }) {
+  console.log("payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
     const response = yield call(
       axiosInstance.patch,
       baseUrlLos +
-        `/loanTypeFormula/loanStatusChange?status=${payload?.status}&userId=${payload?.id}`
+        `/loanTypeFormula/loanStatusChange?status=${"Approved"}&userId=${
+          payload?.id
+        }`
     );
     yield put(action.Loading({ Loading: false }));
 

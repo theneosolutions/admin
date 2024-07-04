@@ -42,7 +42,19 @@ function LaonApplication() {
   function SetStatus() {
     dispatch({
       type: "SET_STATUS_OF_APPLICATION",
-      payload: { status: active, id: userId },
+      payload: {
+        status:
+          data?.status === "Pending_Cashout" && active !== "Rejected"
+            ? "Approved_CashOut"
+            : data?.status === "Approved_CashOut" && active !== "Rejected"
+            ? "Approved_CashOut"
+            : active === "Rejected"
+            ? "Rejected_CashOut"
+            : active === "Approved" && data?.status === "Rejected_CashOut"
+            ? "Approved_CashOut"
+            : active,
+        id: userId,
+      },
     });
     setTimeout(() => getUserLoanDetail(), 500);
   }
@@ -85,6 +97,7 @@ function LaonApplication() {
       .catch((error) => dispatch(action.Loading({ Loading: false })));
     console.log("Transfer");
   }
+  console.log("data?.", data?.status);
   return (
     <div className="py-5">
       <CardMain
@@ -133,7 +146,8 @@ function LaonApplication() {
             <div>
               <a
                 className={` ${
-                  data?.status === "Rejected_CashOut"
+                  data?.status === "Rejected_CashOut" ||
+                  data?.status === "Rejected"
                     ? "text-red-400"
                     : "text-green-400"
                 } md:px-2 text-md font-semibold `}
@@ -281,7 +295,7 @@ function LaonApplication() {
             </div>
             <div className="flex flex-col w-full lg:w-1/2  lg:px-4 lg:mt-0 mt-5">
               <div className="w-full lg:w-3/5		space-y-10">
-                {/* {data?.status === "Approved_CashOut" ? (
+                {data?.status === "Approved" ? (
                   <div
                     onClick={() => Transfer()}
                     className={` w-min text-white bg-blue-500 hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-2 rounded-md  items-center flex flex-col   `}
@@ -290,7 +304,25 @@ function LaonApplication() {
                       Transfer
                     </div>
                   </div>
-                ) : null} */}
+                ) : null}
+
+                {data?.status === "Approved_CashOut" ? (
+                  <div
+                    onClick={() =>
+                      window.open(
+                        data?.ibanCertificate,
+                        "_blank",
+                        "noopener,noreferrer"
+                      )
+                    }
+                    className={` w-max text-white bg-blue-500 hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-2 rounded-md  items-center flex flex-col   `}
+                  >
+                    <div className="uppercase text-xs font-semibold">
+                      View Document
+                    </div>
+                  </div>
+                ) : null}
+
                 <Progress
                   heading="Eligibility Loan Amount"
                   value={data?.totalAmount}
@@ -330,13 +362,13 @@ function LaonApplication() {
                 <Button
                   setActive={(e) => setActive(e)}
                   active={active}
-                  value="Approved_CashOut"
+                  value="Approved"
                   icon={<CgArrowsExchange className="text-2xl" />}
                 />
                 <Button
                   setActive={(e) => setActive(e)}
                   active={active}
-                  value="Rejected_CashOut"
+                  value="Rejected"
                   icon={<RxCross2 className="text-2xl" />}
                 />
               </div>
@@ -389,16 +421,11 @@ function Button({ value, icon, active, setActive }) {
       } hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-4 rounded-md  items-center flex flex-col md:mt-0 mt-2  `}
     >
       {icon}
-      <div className="uppercase text-xs font-semibold">
-        {value === "Approved_CashOut"
-          ? "Approved"
-          : value === "Rejected_CashOut"
-          ? "Reject"
-          : "Pending"}
-      </div>
+      <div className="uppercase text-xs font-semibold">{value}</div>
     </div>
   );
 }
+
 function Progress({ heading, value, progressValue, min, max }) {
   return (
     <div className="flex flex-col ">
