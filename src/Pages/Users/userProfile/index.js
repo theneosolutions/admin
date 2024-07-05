@@ -349,8 +349,11 @@ function LaonApplication() {
                 <Text2 heading="Total Fee" value={data?.totalFee} />{" "}
                 <Text2 heading="Vat on Fee" value={data?.vat} />{" "}
               </div>
-              <div className="flex flex-col md:flex-row justify-between mt-10 md:space-x-2">
-                {/* {active === "Pending_Cashout" && (
+
+              {data?.flag ? (
+                <>
+                  <div className="flex flex-col md:flex-row justify-between mt-10 md:space-x-2">
+                    {/* {active === "Pending_Cashout" && (
                   <Button
                     setActive={(e) => setActive(e)}
                     active={active}
@@ -359,33 +362,37 @@ function LaonApplication() {
                   />
                 )} */}
 
-                <Button
-                  setActive={(e) => setActive(e)}
-                  active={active}
-                  value="Approved"
-                  icon={<CgArrowsExchange className="text-2xl" />}
-                />
-                <Button
-                  setActive={(e) => setActive(e)}
-                  active={active}
-                  value="Rejected"
-                  icon={<RxCross2 className="text-2xl" />}
-                />
-              </div>
-              <textarea
-                placeholder="Reason"
-                className=" text-sm max-h-36   border border-gray-300 rounded-md bg-gray-50 outline-none px-3 py-2 mt-4"
-              />
-              <div className="mt-5 flex flex-row justify-between">
-                <div></div>
+                    <Button
+                      setActive={(e) => setActive(e)}
+                      active={active}
+                      value="Approved"
+                      icon={<CgArrowsExchange className="text-2xl" />}
+                    />
+                    <Button
+                      setActive={(e) => setActive(e)}
+                      active={active}
+                      value="Rejected"
+                      icon={<RxCross2 className="text-2xl" />}
+                    />
+                  </div>
+                  <textarea
+                    placeholder="Reason"
+                    className=" text-sm max-h-36   border border-gray-300 rounded-md bg-gray-50 outline-none px-3 py-2 mt-4"
+                  />
+                  <div className="mt-5 flex flex-row justify-between">
+                    <div></div>
 
-                <div
-                  onClick={() => SetStatus()}
-                  className={` w-min text-white bg-blue-500 hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-2 rounded-md  items-center flex flex-col   `}
-                >
-                  <div className="uppercase text-xs font-semibold">Submit</div>
-                </div>
-              </div>
+                    <div
+                      onClick={() => SetStatus()}
+                      className={` w-min text-white bg-blue-500 hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-2 rounded-md  items-center flex flex-col   `}
+                    >
+                      <div className="uppercase text-xs font-semibold">
+                        Submit
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : null}
             </div>
           </div>
         </div>
