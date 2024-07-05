@@ -743,9 +743,7 @@ function* SetStatusOfApplication({ payload }) {
     const response = yield call(
       axiosInstance.patch,
       baseUrlLos +
-        `/loanTypeFormula/loanStatusChange?status=${"Approved"}&userId=${
-          payload?.id
-        }`
+        `/loanTypeFormula/loanStatusChange?status=${payload?.status}&userId=${payload?.id}`
     );
     yield put(action.Loading({ Loading: false }));
 
