@@ -76,5 +76,11 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "tailwindcss": "^3.3.5"
+  },
+  "resolutions": {
+    "ip": "^2.0.1"
+  },
+  "overrides": {
+    "ip": "^2.0.1"
   }
 }

@@ -736,6 +736,7 @@ function* GetAllCards() {
 }
 
 function* SetStatusOfApplication({ payload }) {
+  console.log("payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
