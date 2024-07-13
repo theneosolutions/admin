@@ -5,13 +5,17 @@ import { Model } from "Components";
 import { useDispatch, useSelector } from "react-redux";
 import { RxCross2 } from "react-icons/rx";
 import { CgArrowsExchange } from "react-icons/cg";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { TransferRajhi } from "Services/OtherApis";
 import * as action from "Services/redux/reducer";
+import { IoChevronBackCircleSharp } from "react-icons/io5";
 
 function LaonApplication() {
   const { t } = useTranslation();
+
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const [modelOpen, setModelOpen] = useState(false);
   const [active, setActive] = useState("Pending_Cashout");
@@ -112,6 +116,11 @@ function LaonApplication() {
                 className="h-14 w-14 rounded-full object-cover"
                 src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg"
               /> */}
+              <IoChevronBackCircleSharp
+                className="text-2xl text-black hover:text-gray-700 cursor-pointer duration-300"
+                onClick={() => navigate(-1)}
+              />
+
               <div className="flex flex-col mx-3 space-y-0.5">
                 <a className="text-xs text-gray-400">Name</a>
                 <a className="text-sm text-gray-700 font-semibold">
