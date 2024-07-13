@@ -15,76 +15,81 @@ function LaonApplication() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [modelOpen, setModelOpen] = useState(false);
-  const [applications, setApplications] = useState([]);
-
   const [allApplications, setAllApplications] = useState([]);
   const [pending, setPending] = useState([]);
   const [approved, setApproved] = useState([]);
   const [rejected, setRejected] = useState([]);
-
   const [active, setActive] = useState("All");
 
-  const users = useSelector((state) => state.getApplications);
+  const loanApplications = useSelector((state) => state.getApplications);
 
   function onDelete() {
     setModelOpen(true);
   }
   useEffect(() => {
-    getAllUsersData();
+    getAllloanApplicationsData();
   }, []);
-  function getAllUsersData() {
+  function getAllloanApplicationsData() {
     dispatch({
       type: "GET_LOAN_APPLICATIONS",
     });
   }
 
   useEffect(() => {
-    if (users?.length > 0) {
-      const pendingLoans = users?.filter(
-        (loan) => loan.status.toLowerCase() === "pending"
+    if (loanApplications?.length > 0) {
+      const pendingLoans = loanApplications?.filter(
+        (loan) =>
+          loan.status.toLowerCase() === "pending" ||
+          loan.status.toLowerCase() === "pending_cashout"
       );
-      const approvedLoans = users?.filter(
-        (loan) => loan.status.toLowerCase() === "approved"
+      const approvedLoans = loanApplications?.filter(
+        (loan) =>
+          loan.status.toLowerCase() === "approved" ||
+          loan.status.toLowerCase() === "approved_cashout"
       );
-      const rejectedLoans = users?.filter(
-        (loan) => loan.status.toLowerCase() === "rejected"
+      const rejectedLoans = loanApplications?.filter(
+        (loan) =>
+          loan.status.toLowerCase() === "rejected" ||
+          loan.status.toLowerCase() === "rejected_cashout"
       );
-
-      setAllApplications(users);
+      console.log("loanApplications application", loanApplications);
+      setAllApplications(loanApplications);
 
       setApproved(approvedLoans);
       setPending(pendingLoans);
       setRejected(rejectedLoans);
     }
-  }, [users]);
+  }, [loanApplications]);
 
   return (
     <div className="py-5">
       <div className="flex md:flex-row flex-col  md:space-x-6 rtl:space-x-reverse">
         <Notifications
           active={active === "All"}
-          onClick={() => (setApplications(allApplications), setActive("All"))}
-          value={allApplications?.length}
+          onClick={() => (
+            setAllApplications(loanApplications), setActive("All")
+          )}
+          value={loanApplications?.length}
           heading={t("All Applications")}
           color="text-blue-500 text-xl"
         />
         <Notifications
           active={active === "Approved"}
-          onClick={() => (setApplications(approved), setActive("Approved"))}
+          onClick={() => (setAllApplications(approved), setActive("Approved"))}
           value={approved?.length || 0}
           heading={t("Approved")}
           color="text-green-500 text-xl"
         />
         <Notifications
           active={active === "Pending"}
-          onClick={() => (setApplications(pending), setActive("Pending"))}
+          onClick={() => (setAllApplications(pending), setActive("Pending"))}
           value={pending?.length || 0}
           heading={t("Pending")}
           color="text-orange-500 text-xl"
         />
         <Notifications
           active={active === "Rejected"}
-          onClick={() => (setApplications(rejected), setActive("Rejected"))}
+          onClick={() => (setAllApplications(rejected), setActive("Rejected"))}
           value={rejected?.length || 0}
           heading={t("Rejected")}
           color="text-red-700 text-xl"
@@ -131,7 +136,7 @@ function LaonApplication() {
               </tr>
             </thead>
             <tbody>
-              {users?.map((v, k) => (
+              {allApplications?.map((v, k) => (
                 <tr
                   key={k}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -195,7 +200,7 @@ function LaonApplication() {
       >
         <a className=" text-xl text-gray-800 ">
           {t("Are You Sure To Delete ?")}
-          <span className="font-semibold"> Ali Imtayaz</span>
+          <span className="font-semibold"> </span>
         </a>
       </Model>
     </div>
