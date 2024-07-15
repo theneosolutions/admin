@@ -3,15 +3,15 @@ import * as action from "./reducer";
 import { axiosInstance } from "../constant";
 import { getLanguage } from "functions/getLanguage";
 import axios from "axios";
-var baseUrlSMS = "https://seulah.com/api/v1/sms";
-var baseUrlUser = "https://seulah.com/api/v1/auth";
+var baseUrlSMS = "https://seulah.sa/api/v1/sms";
+var baseUrlUser = "https://seulah.sa/api/v1/auth";
 
 // var baseUrlUser = "https://6b94-39-58-108-151.ngrok-free.app";
 
-var baseUrlDecisions = "https://seulah.com/api/v1/dms";
-var baseUrlLos = "https://seulah.com/api/v1/los";
-var baseUrlCms = "https://seulah.com/api/v1/cms";
-const rolesUrl = "https://seulah.com";
+var baseUrlDecisions = "https://seulah.sa/api/v1/dms";
+var baseUrlLos = "https://seulah.sa/api/v1/los";
+var baseUrlCms = "https://seulah.sa/api/v1/cms";
+const rolesUrl = "https://seulah.sa";
 
 function* GetAllQuestionsData() {
   try {
@@ -1222,13 +1222,13 @@ function* UpdateDbr({ payload }) {
 }
 
 function* LogoutUser({ payload }) {
+  console.log("payload logout", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
     const response1 = yield call(
       axiosInstance.post,
-      baseUrlUser + `/user/signout?userId=1069282455`,
-      payload
+      baseUrlUser + `/user/signout?userId=${payload}`
     );
     yield put(action.Loading({ Loading: false }));
     yield put(

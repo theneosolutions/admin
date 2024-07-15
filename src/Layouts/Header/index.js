@@ -172,7 +172,7 @@ const Dropdown = () => {
 
     dispatch({
       type: "LOGOUT_USER",
-      payload: user?.user?.idNumber,
+      payload: user?.user?.id,
     });
 
     setTimeout(() => {
