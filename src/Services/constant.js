@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const axiosInstance = axios.create({
   headers: {
-    Authorization: token(),
+    authorization: token(),
     "Content-Type": "application/json",
     "ngrok-skip-browser-warning": "69420",
     // "Access-Control-Allow-Origin": "*",
