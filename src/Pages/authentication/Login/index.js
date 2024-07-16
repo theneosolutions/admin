@@ -48,6 +48,7 @@ function Login() {
       payload: {
         idNumber: idNumber,
         password: password,
+        macAddress: "",
       },
     });
   }
