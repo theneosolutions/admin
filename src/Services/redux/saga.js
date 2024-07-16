@@ -2,12 +2,8 @@ import { call, put, takeLatest } from "@redux-saga/core/effects";
 import * as action from "./reducer";
 import { axiosInstance } from "../constant";
 import { getLanguage } from "functions/getLanguage";
-import axios from "axios";
 var baseUrlSMS = "https://seulah.com/api/v1/sms";
 var baseUrlUser = "https://seulah.com/api/v1/auth";
-
-// var baseUrlUser = "https://6b94-39-58-108-151.ngrok-free.app";
-
 var baseUrlDecisions = "https://seulah.com/api/v1/dms";
 var baseUrlLos = "https://seulah.com/api/v1/los";
 var baseUrlCms = "https://seulah.com/api/v1/cms";
