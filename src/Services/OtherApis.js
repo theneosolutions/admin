@@ -23,7 +23,7 @@ async function CheckQuestionStatusInScreen(id) {
 async function GetSeelahHistory() {
   console.log("GetSeelahHistoryGetSeelahTransaction");
   try {
-    const response = await axios.get(baseUrlCms + `/selaApi/history`);
+    const response = await axiosInstance.get(baseUrlCms + `/selaApi/history`);
     return response.data;
   } catch (error) {
     const message = error.response
