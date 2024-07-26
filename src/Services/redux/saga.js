@@ -1877,6 +1877,54 @@ function* GetSeelahTransaction() {
     console.log("error", error);
   }
 }
+function* GetNotificationsHeadings() {
+  console.log("selaa Payload TRANSCATION");
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlSMS + `/fetchNotificationHeading`
+    );
+    console.log("response smsmsmsmsmsmsms", response?.data);
+    yield put(action.GetNotificationHeadings(response?.data));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    console.log("error", error);
+  }
+}
+
+function* SendNotificationSms({ payload }) {
+  let { type, language, role, phone, message } = payload;
+
+  let url;
+  if (role === "none") {
+    url = `/sendCustomSms?mobileNumber=${phone}&languageCode=${language}&heading=${type}&messageBody=${message}`;
+  } else {
+    url = `/sendCustomSms?languageCode=${language}&heading=${type}&messageBody=${message}&userRole=${role}`;
+  }
+  console.log("heloooo from saga", url);
+
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(axiosInstance.get, baseUrlSMS + url);
+    yield put(action.Loading({ Loading: false }));
+    yield put(
+      action.Message({
+        message: "Success",
+        open: true,
+        error: false,
+      })
+    );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -1966,6 +2014,8 @@ export default function* HomeSaga() {
   yield takeLatest("GET_ELIGIBILITY_QUESTIONS", GetEligibilityQuestions);
   yield takeLatest("STATUS_UPDATE_POLICY", Status_Update_Policy);
   yield takeLatest("GET_SELAA_TRANSACTION", GetSeelahTransaction);
+  yield takeLatest("GET_NOTIFICATIONS_HEADINGS", GetNotificationsHeadings);
+  yield takeLatest("SEND_NOTIFICATION_SMS", SendNotificationSms);
 }
 
 // function getLanguage() {

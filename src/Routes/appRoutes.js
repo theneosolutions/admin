@@ -49,6 +49,7 @@ import SelaaHistory from "Pages/Selaa/history";
 import SelaaTransaction from "Pages/Selaa/Transaction";
 import SelaaAccomodity from "Pages/Selaa/accomodity";
 import SelaaWallet from "Pages/Selaa/wallet";
+import AwareNessMessage from "Pages/AwarnessMessage";
 
 const appRoutes = [
   {
@@ -398,6 +399,14 @@ const appRoutes = [
         state: "response.term-conditions",
         sidebarProps: {
           displayText: "Term And Conditions",
+        },
+      },
+      {
+        path: "/response/awareness-messages",
+        element: <AwareNessMessage />,
+        state: "response.awareness-messages",
+        sidebarProps: {
+          displayText: "Awareness Messages",
         },
       },
       // {
