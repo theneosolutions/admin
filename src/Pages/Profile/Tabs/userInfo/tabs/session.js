@@ -18,6 +18,18 @@ function PersonalDetailCard() {
             <th scope="col" className="px-3 py-3 cursor-pointer">
               {t("Logged Out Time")}
             </th>
+            <th scope="col" className="px-3 py-3 cursor-pointer">
+              {t("City")}
+            </th>
+            <th scope="col" className="px-3 py-3 cursor-pointer">
+              {t("Country")}
+            </th>
+            <th scope="col" className="px-3 py-3 cursor-pointer">
+              {t("Ip Address")}
+            </th>
+            <th scope="col" className="px-3 py-3 cursor-pointer">
+              {t("Mac Address")}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -28,15 +40,16 @@ function PersonalDetailCard() {
             >
               <td className="px-3 py-3 ">
                 {moment(v?.loggedInTime).format("LLLL")}
-
-                {/* {moment(v?.loggedInTime).format("MMMM Do YYYY, h:mm:ss a")} */}
               </td>
               {v?.loggedOutTime ? (
                 <td> {moment(v?.loggedOutTime).format("LLLL")}</td>
               ) : (
                 <td>{t("Currently Logged In")} </td>
               )}
-              {/* <td>{v?.loggedOutTime}</td> */}
+              <td>{v?.cityInfo}</td>
+              <td>{v?.countryInfo}</td>
+              <td>{v?.ipAddress}</td>
+              <td>{v?.macAddress}</td>
             </tr>
           ))}
         </tbody>
