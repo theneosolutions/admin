@@ -42,9 +42,12 @@ function PersonalDetailCard() {
                 {moment(v?.loggedInTime).format("LLLL")}
               </td>
               {v?.loggedOutTime ? (
-                <td> {moment(v?.loggedOutTime).format("LLLL")}</td>
+                <td className="px-3">
+                  {" "}
+                  {moment(v?.loggedOutTime).format("LLLL")}
+                </td>
               ) : (
-                <td>{t("Currently Logged In")} </td>
+                <td className="px-3">{t("Currently Logged In")} </td>
               )}
               <td className="px-3">{v?.cityInfo}</td>
               <td className="px-3">{v?.countryInfo}</td>
