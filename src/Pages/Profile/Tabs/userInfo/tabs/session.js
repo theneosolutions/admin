@@ -46,10 +46,10 @@ function PersonalDetailCard() {
               ) : (
                 <td>{t("Currently Logged In")} </td>
               )}
-              <td>{v?.cityInfo}</td>
-              <td>{v?.countryInfo}</td>
-              <td>{v?.ipAddress}</td>
-              <td>{v?.macAddress}</td>
+              <td className="px-3">{v?.cityInfo}</td>
+              <td className="px-3">{v?.countryInfo}</td>
+              <td className="px-3">{v?.ipAddress}</td>
+              <td className="px-3">{v?.macAddress}</td>
             </tr>
           ))}
         </tbody>
