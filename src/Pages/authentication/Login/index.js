@@ -10,6 +10,8 @@ import { ROLES } from "../../../constants/roles";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import LanguageCom from "Components/LanguageCom";
+import { IoEyeOutline } from "react-icons/io5";
+import { IoEyeOffOutline } from "react-icons/io5";
 function Login() {
   const { t } = useTranslation();
 
@@ -19,7 +21,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [active, setActive] = useState("login");
   const message = useSelector((state) => state.message);
-
+  const [eye, setEye] = useState(false);
   const verificationOtp = useSelector((state) => state.verificationOtp);
   const islogin = useSelector((state) => state.islogin);
 
@@ -137,15 +139,28 @@ function Login() {
                   >
                     {t("Password")}
                   </label>
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                    class="bg-gray-50 border border-primary text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5  dark:placeholder-gray-200 dark:text-white outline-none"
-                    required={true}
-                  />
+                  <div className="bg-gray-50 border border-primary text-gray-900 sm:text-sm rounded-lg   items-center  w-full    overflow-hidden flex flex-row justify-between">
+                    <input
+                      type={eye ? "text" : "password"}
+                      name="password"
+                      id="password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      value={password}
+                      class="py-3 px-2.5 w-10/12 bg-gray-50 dark:placeholder-gray-200 dark:text-white outline-none autofill:bg-red-500"
+                      required={true}
+                    />
+                    {eye === false ? (
+                      <IoEyeOutline
+                        className="text-xl cursor-pointer text-gray-600 mx-2"
+                        onClick={() => setEye(!eye)}
+                      />
+                    ) : (
+                      <IoEyeOffOutline
+                        className="text-xl cursor-pointer text-gray-600 mx-2"
+                        onClick={() => setEye(!eye)}
+                      />
+                    )}
+                  </div>
                 </div>
                 <div class="flex items-center justify-between">
                   <div class="flex items-start flex-row space-x-1 rtl:space-x-reverse">
