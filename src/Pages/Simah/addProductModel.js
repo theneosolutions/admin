@@ -41,7 +41,7 @@ function CreateUser({ setModelOpen, data }) {
         productGroup: productGroup,
         serialNumber: serialNumber,
       };
-      console.log("Add Simah Product Data ", temp);
+
       dispatch({
         type: "ADD_PRODUCT_IN_SIMAH",
         payload: temp,

@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Button } from "Components";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import TextEditor from "./textEditor";
 
 function CreateUser() {
   const dispatch = useDispatch();
@@ -23,7 +22,6 @@ function CreateUser() {
   const [message, setMessage] = useState("");
 
   function handleSubmit(e) {
-    console.log("heloooo", type, language, role, phone, message);
     if (type != "" && language != "none") {
       dispatch({
         type: "SEND_NOTIFICATION_SMS",
@@ -169,8 +167,6 @@ function Description({ heading, handleChange }) {
       </div>
       <div className="	w-full mt-2">
         <textarea
-          //   type={type || "text"}
-          //   value={value}
           onChange={(e) => handleChange(e.target.value)}
           className="border-gray-300 border min-h-32 max-h-44 rounded-md px-3 py-1.5 outline-none mt-2 	w-full	"
         />

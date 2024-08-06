@@ -28,7 +28,6 @@ function App() {
   function handleAddElement(newElement) {
     setNewInfo("none");
 
-    console.log("Checkboxes", newElement);
     AddQuestion(newElement); // CALL ADD API ON EVERY FORM BUTTON
   }
 
@@ -54,7 +53,6 @@ function App() {
       newElement.type === "min&max" ||
       newElement.type === "Checkboxes"
     ) {
-      console.log("new element", newElement);
       dispatch({
         type: "ADD_QUESTION",
         payload: newElement,

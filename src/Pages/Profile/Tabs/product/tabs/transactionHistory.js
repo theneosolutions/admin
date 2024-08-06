@@ -25,7 +25,6 @@ function TransactionDetail() {
           action.Message({ open: true, message: "Success", error: false })
         );
         setData(data?.data);
-        console.log("helo", data);
       })
       .catch((error) =>
         dispatch(action.Message({ open: true, message: "Error", error: true }))

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as action from "../../Services/redux/reducer";
 import { useTranslation } from "react-i18next";
 import CardMain from "../../Components/Cards/main";
 import { useState } from "react";
@@ -72,7 +71,7 @@ function App({ setId, formula }) {
         value: finalValue,
         setId: setId,
       };
-      console.log("Final ", obj);
+
       dispatch({
         type: "ADD_NEW_FORMULA",
         payload: obj,
@@ -202,7 +201,7 @@ function App({ setId, formula }) {
                   </div>
                 </CardMain>
               ) : null}
-              {console.log("selected ids", selectedIds)}
+
               {state === "Done" && selectedIds.length > 0 ? (
                 <CardMain
                   heading={t("Formula")}

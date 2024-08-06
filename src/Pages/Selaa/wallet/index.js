@@ -15,7 +15,6 @@ function Wallet() {
   const [ammount, setAmmount] = useState("");
   const [walletName, setWalletName] = useState("");
   const [balance, setBalance] = useState({});
-  console.log("selaBalance", balance);
 
   useEffect(() => {
     getWalletData();
@@ -55,7 +54,6 @@ function Wallet() {
 
   useEffect(() => {
     if (selaBalance?.data) {
-      console.log(JSON.parse(selaBalance?.data));
       setBalance(JSON.parse(selaBalance?.data));
     }
   }, [selaBalance?.data]);

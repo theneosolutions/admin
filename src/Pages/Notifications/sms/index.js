@@ -37,11 +37,10 @@ function NotificationsScreen() {
   }
 
   function onEdit(data) {
-    console.log("data", data);
     setSelectedData(data);
     setModelOpen(true);
   }
-  console.log("selectedDataselectedData", selectedData);
+
   return (
     <div className="py-5">
       <CardMain

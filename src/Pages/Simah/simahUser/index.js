@@ -5,8 +5,6 @@ import CreditReportSummary from "./creditReportSummary";
 import PreviousInquiries from "./previousInquiries";
 import DefaultProductSummary from "./defaultProductSummary";
 import GurantersDefaultSummry from "./gaurantersDefaultSummary";
-import BouncingCheckSummry from "./BouncingCheckSummary";
-import PublicNotes from "./publicNotes";
 import EnforcementJudgement from "./enforcementJudgement";
 import ProductDetail from "./productDetail";
 import MemberNarative from "./memberNarrative";
@@ -44,25 +42,21 @@ function UserSimah({ active }) {
         (item) => item?.ciStatus?.creditInstrumentStatusDescEn
       );
       setState(temp);
-      console.log("All", temp);
     } else if (data?.creditInstrumentDetails && active === "Default Products") {
       const temp = data?.creditInstrumentDetails?.filter(
         (item) => item?.ciStatus?.creditInstrumentStatusDescEn === "Default"
       );
       setState(temp);
-      console.log("Default", temp);
     } else if (data?.creditInstrumentDetails && active === "Closed Products") {
       const temp = data?.creditInstrumentDetails?.filter(
         (item) => item?.ciStatus?.creditInstrumentStatusDescEn === "Closed"
       );
       setState(temp);
-      console.log("Closed", temp);
     } else if (data?.creditInstrumentDetails && active === "Active Products") {
       const temp = data?.creditInstrumentDetails?.filter(
         (item) => item?.ciStatus?.creditInstrumentStatusDescEn === "Active"
       );
       setState(temp);
-      console.log("Active", temp);
     }
   }, [active]);
   return (

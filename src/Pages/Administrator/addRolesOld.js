@@ -42,8 +42,6 @@ function Roles() {
   };
 
   const updatePermissionName = (pageId, value) => {
-    // Find the module and page with the given pageId
-    console.log("page id ", pageId, value);
     const updatedData = rolesData.map((item) => {
       const updatedPages = item.modulesPages.map((page) => {
         if (page.pageId === pageId) {
@@ -100,12 +98,7 @@ function Roles() {
             <div className="flex flex-row w-44 bg-gray-200 text-center rounded-sm items-center justify-center py-2">
               <a>{v?.module}</a>
             </div>
-            <input
-              type="checkbox"
-              className="h-5 w-5"
-              checked={v?.checked}
-              // onChange={() => updateChecked(v?.moduleId, !v?.checked)}
-            />
+            <input type="checkbox" className="h-5 w-5" checked={v?.checked} />
           </div>
 
           <div className="mx-20 space-y-2 mt-2 items-center ">
@@ -130,7 +123,6 @@ export default Roles;
 
 function SubModule({ data, moduleId, onSubModule, onPermissionChange }) {
   const handleChange = (object) => {
-    console.log("id", object);
     onPermissionChange(data.pageId, object); // Call the callback function with the selected value
   };
 
@@ -203,7 +195,6 @@ function Select({ onChange }) {
   const handleChange = (e) => {
     const selectedValue = e.target.value;
     const [id, name] = selectedValue.split(","); // Split the value into ID and name
-    console.log("nammeme", id, name);
 
     onChange({ id, name }); // Call the callback function with both ID and name
   };
@@ -228,44 +219,3 @@ const permissions = [
   { id: "2b143046-5356-4f24-8f1f-6dabee9a5d5a", name: "SAVE" },
   { id: "a959e5c6-7784-4a43-8e64-5847be770130", name: "UPDATE" },
 ];
-//   {
-//     moduleId: "0d4b6412-96eb-4725-945e-5d210598bbcc",
-//     module: "Simah",
-//     modulesPages: [],
-//   },
-//   {
-//     moduleId: "0fbed43b-3a67-4698-b2af-8cf9423b749a",
-//     module: "Decision",
-//     modulesPages: [],
-//   },
-//   {
-//     moduleId: "239a2df4-6fbb-4e33-90c6-3c721ca3e5a3",
-//     module: "Administator",
-//     modulesPages: [],
-//   },
-//   {
-//     moduleId: "3db7e201-389d-48e8-b27d-dafad085c3dd",
-//     module: "Calculations",
-//     modulesPages: [],
-//   },
-//   {
-//     moduleId: "620b9ea5-dc34-4909-9a03-df20bba5edff",
-//     module: "Applications",
-//     modulesPages: [],
-//   },
-//   {
-//     moduleId: "905e7550-e845-4d3f-bd2a-bddfcdd5944a",
-//     module: "Loan Management",
-//     modulesPages: [],
-//   },
-//   {
-//     moduleId: "a7007584-fb4f-4a6f-8aad-0db2a7b8672b",
-//     module: "Notifications",
-//     modulesPages: [],
-//   },
-//   {
-//     moduleId: "b5b0470e-6e83-4575-99c8-9f50bc7f86e5",
-//     module: "Overview",
-//     modulesPages: [],
-//   },
-// ];

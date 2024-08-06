@@ -52,7 +52,7 @@ function LaonApplication() {
           loan.status.toLowerCase() === "rejected" ||
           loan.status.toLowerCase() === "rejected_cashout"
       );
-      console.log("loanApplications application", loanApplications);
+
       setAllApplications(loanApplications);
 
       setApproved(approvedLoans);

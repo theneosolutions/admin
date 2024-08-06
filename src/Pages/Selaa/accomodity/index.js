@@ -18,7 +18,7 @@ function Accomodity() {
   const users = useSelector((state) => state.getAllUsersAll || []);
 
   const [data, setData] = useState([]);
-  console.log(users);
+
   useEffect(() => {
     getOwners();
     getAllUsers();
@@ -34,7 +34,6 @@ function Accomodity() {
       .catch((error) => console.error("Error received:", error));
   }
   function Radeem(id) {
-    console.log("helo", id);
     RadeemMoney(id)
       .then((data) =>
         dispatch(action.Message({ open: true, message: "Success" }))
@@ -54,7 +53,6 @@ function Accomodity() {
           ownershipId: ownerId,
           phone: userData?.mobileNumber,
         };
-        console.log("transfer", temp);
 
         TransferMoney(temp)
           .then((data) =>

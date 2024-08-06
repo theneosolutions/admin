@@ -9,7 +9,7 @@ function Emdah() {
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
   const getEmdahReport = useSelector((state) => state.getEmdahReport);
-  console.log("Emdah", getEmdahReport);
+
   useEffect(() => {
     GetEmdahReport();
   }, []);

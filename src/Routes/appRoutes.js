@@ -3,6 +3,11 @@ import { FaUser } from "react-icons/fa";
 import { IoMdCheckboxOutline } from "react-icons/io";
 import { MdOutlineQuestionAnswer } from "react-icons/md";
 import { ROLES } from "../constants/roles";
+import { GrOverview } from "react-icons/gr";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { TbMoneybag } from "react-icons/tb";
+import { IoNotificationsSharp } from "react-icons/io5";
+import { AiOutlineCalculator } from "react-icons/ai";
 import DashboardIndex from "../Pages/Dashboard/DashboardIndex";
 import DashboardPageLayout from "../Pages/Dashboard/DashboardPageLayout";
 import UserList from "../Pages/Dashboard/UserList";
@@ -13,7 +18,6 @@ import DecisionLayout from "../Pages/Decision/DecisionPageLayout";
 import QuestionsAnswers from "../Pages/Decision/Question&Answers";
 import CreateSet from "../Pages/Decision/CreateSet";
 import CreateDecision from "../Pages/Decision/CreateDecision";
-import AllDecisions from "../Pages/Decision/AllDecisions";
 import CreateUser from "Pages/Users/create-user";
 import Response from "Pages/Response/decisionsResponse";
 import ResponsePageLayout from "Pages/Response/ResponsePageLayout";
@@ -25,7 +29,6 @@ import UserDashboard from "Pages/Users/dashboard";
 import TermAndConditions from "Pages/Notifications/termsConditions";
 import Simah from "Pages/Simah/simah";
 import SimahPageLayout from "Pages/Simah/SimahLayout";
-import Aggreement from "Pages/Notifications/termsConditions/agreement";
 import CalculationsPageLayout from "Pages/Calculations/CalculationsPageLayout";
 import Calculations from "Pages/Calculations";
 import BareMinimumExpense from "Pages/Calculations/BareMinimumExpense";
@@ -33,14 +36,7 @@ import TermsAndRates from "Pages/Calculations/termsAndRates";
 import AddRoles from "Pages/Administrator/AddRoles";
 import AdminPageLayout from "Pages/Administrator/AdminPageLayout";
 import ApplicationsPageLayout from "Pages/Applications/AdminPageLayout";
-import { GrOverview } from "react-icons/gr";
-import { MdOutlineAdminPanelSettings } from "react-icons/md";
-import { TbMoneybag } from "react-icons/tb";
-import { IoNotificationsSharp } from "react-icons/io5";
-import { AiOutlineCalculator } from "react-icons/ai";
 import Sms from "Pages/Notifications/sms";
-
-import UserSimah from "Pages/Simah/simahDownlaod";
 import CustomerEmi from "Pages/Users/customerEmi";
 import PoliciesPageLayout from "Pages/Policies/PoliciesPageLayout";
 import ViewPolicies from "Pages/Policies/viewPolicies";
@@ -156,15 +152,6 @@ const appRoutes = [
           displayText: "Verified Customers",
         },
       },
-
-      // {
-      //   path: "/customers/dump",
-      //   element: <Dump />,
-      //   state: "customers.dump",
-      //   sidebarProps: {
-      //     displayText: "Dump Customers",
-      //   },
-      // },
     ],
   },
   {
@@ -272,15 +259,6 @@ const appRoutes = [
           displayText: "View Policies",
         },
       },
-
-      // {
-      //   path: "/policies/create-policies",
-      //   element: <Policies />,
-      //   state: "policies.create-policies",
-      //   sidebarProps: {
-      //     displayText: "Create Policies",
-      //   },
-      // },
     ],
   },
   {
@@ -358,14 +336,6 @@ const appRoutes = [
           displayText: "Create Decision",
         },
       },
-      // {
-      //   path: "/decisions/all-decisions",
-      //   element: <AllDecisions />,
-      //   state: "decisions.all-decisions",
-      //   sidebarProps: {
-      //     displayText: "All Decisions",
-      //   },
-      // },
     ],
   },
   {
@@ -409,14 +379,7 @@ const appRoutes = [
           displayText: "Awareness Messages",
         },
       },
-      // {
-      //   path: "/response/aggrement",
-      //   element: <Aggreement />,
-      //   state: "response.aggrement",
-      //   sidebarProps: {
-      //     displayText: "Agreement",
-      //   },
-      // },
+
       {
         path: "/response/sms",
         element: <Sms />,
@@ -451,14 +414,6 @@ const appRoutes = [
           displayText: "Simah",
         },
       },
-      // {
-      //   path: "/simah/usercodes",
-      //   element: <UserSimah />,
-      //   state: "simah.usercodes",
-      //   sidebarProps: {
-      //     displayText: "UserSimah",
-      //   },
-      // },
     ],
   },
   {

@@ -21,7 +21,6 @@ function CreateAddSMS({ setModelOpen, selectedData }) {
       language !== "none"
     ) {
       if (selectedData) {
-        console.log("selected dtaaaa", selectedData);
         dispatch({
           type: "CREATE_SMS",
           payload: {

@@ -2,7 +2,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 function PersonalDetailCard({ data = [] }) {
-  console.log("datatatatatatatatata", data);
   const { t } = useTranslation();
   return (
     <div className="w-full flex flex-col  overflow-x-auto">

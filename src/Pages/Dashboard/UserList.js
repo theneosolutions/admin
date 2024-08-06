@@ -36,9 +36,7 @@ function App() {
       type: "GET_LOAN_APPLICATIONS",
     });
   }
-  function onDelete() {
-    setModelOpen(true);
-  }
+
   function getBalance() {
     dispatch({
       type: "GET_BALANCE",
@@ -47,7 +45,6 @@ function App() {
 
   useEffect(() => {
     if (selaBalance?.data) {
-      console.log(JSON.parse(selaBalance?.data));
       setBalance(JSON.parse(selaBalance?.data));
     }
   }, [selaBalance?.data]);

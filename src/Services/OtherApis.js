@@ -21,7 +21,6 @@ async function CheckQuestionStatusInScreen(id) {
 }
 
 async function GetSeelahHistory() {
-  console.log("GetSeelahHistoryGetSeelahTransaction");
   try {
     const response = await axiosInstance.get(baseUrlCms + `/selaApi/history`);
     return response.data;
@@ -52,15 +51,12 @@ async function CheckToken(id, token) {
 }
 
 async function UpdateDbr(data) {
-  console.log("Starting UpdateDbr function", data);
-
   try {
     const response = await axiosInstance.put(
       `${baseUrlLos}/dbr/calculation/updateDBRcalculation`,
       data
     );
 
-    console.log("response", response);
     return response.data;
   } catch (error) {
     if (error.response) {
@@ -124,7 +120,6 @@ async function GetAllOwnersShipIds() {
 }
 
 async function TopUpWalletFunction(data) {
-  console.log("helo", data);
   try {
     const response = await axiosInstance.post(
       baseUrlCms + `/selaApi/topUpWalletAmount`,
@@ -140,7 +135,6 @@ async function TopUpWalletFunction(data) {
 }
 
 async function TransferRajhi(id) {
-  console.log("helo===================", id);
   try {
     const response = await axiosInstance.post(
       baseUrlLos +
@@ -156,7 +150,6 @@ async function TransferRajhi(id) {
 }
 
 async function TransactionHistory(id) {
-  console.log("helo===================", id);
   try {
     const response = await axiosInstance.get(
       baseUrlLos + `/alrajhi/transfer/fetchUserTransactions?userId=${id}`
@@ -167,6 +160,22 @@ async function TransactionHistory(id) {
       ? error.response.data.message
       : "An error occurred";
     return message;
+  }
+}
+
+async function ResetFailedAttemps(id) {
+  try {
+    const response = await axiosInstance.post(
+      baseUrlUser + `/user/resetFailedAttempts?idNumber=${id}`
+    );
+    console.log("response", response);
+    return response.data;
+  } catch (error) {
+    console.log("response error", error?.response);
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return error.response;
   }
 }
 
@@ -181,4 +190,5 @@ export {
   TopUpWalletFunction,
   TransferRajhi,
   TransactionHistory,
+  ResetFailedAttemps,
 };

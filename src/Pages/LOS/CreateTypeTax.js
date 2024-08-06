@@ -28,7 +28,6 @@ function App() {
       const arrayOfObjects = Object.entries(parsedTenureTex).map(
         ([key, value]) => ({ [key]: null })
       );
-      console.log("arrayOfObjects", arrayOfObjects);
 
       setProcessingFee(arrayOfObjects);
       setVatFee(arrayOfObjects);

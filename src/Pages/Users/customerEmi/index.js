@@ -13,7 +13,6 @@ function VerifiedUsers() {
 
   const getAllUsersEmi = useSelector((state) => state.getAllUsersEmi);
 
-  console.log("getAllUsersEmi", getAllUsersEmi);
   useEffect(() => {
     getAllUsersEmiData();
   }, []);

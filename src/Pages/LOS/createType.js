@@ -68,7 +68,7 @@ function App() {
       const newKey = key + " Months";
       transformedObject[newKey] = mergedObject[key];
     }
-    console.log("transformedObject", transformedObject);
+
     dispatch({
       type: "CREATE_LOAN_TYPE",
       payload: { reason, image, language, transformedObject },

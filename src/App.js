@@ -1,7 +1,4 @@
 import React, { useEffect } from "react";
-
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import LocalesConfig from "./Localization/LocalesConfig";
 import { store } from "./Services/redux/store";
 import { Provider } from "react-redux";
@@ -23,11 +20,9 @@ function App() {
   LocalesConfig(lng);
 
   return (
-    //HTML5Backend For Drag and drop Component in Applications page
-
     <Provider store={store}>
       <html dir={dir}>
-        <DndProvider backend={HTML5Backend}>{<Routes />}</DndProvider>
+        <Routes />
       </html>
     </Provider>
   );

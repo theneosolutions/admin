@@ -2,12 +2,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainLayout from "../Layouts/MainLayout";
 import { routes } from "./routes";
 import Profile from "Pages/Profile";
-import TestPage from "Pages/TestPage/test2";
 import Applications from "Pages/Applications";
 import MyAccount from "Pages/MyAccount";
 import Login from "Pages/authentication/Login";
 import ForgetPassword from "Pages/authentication/resetpassword";
-import ReactFlow from "../Pages/ReactFlow";
 import UserAnswer from "../Pages/Users/user-answers";
 import CreateScreens from "../Pages/Decision/createScreens";
 import CreateLaonTax from "Pages/LOS/CreateTypeTax";
@@ -15,7 +13,6 @@ import ViewScreen from "Pages/Decision/ViewScreens";
 import UserLoanApplications from "Pages/LOS/userLoanApplication";
 import CreateNotification from "Pages/Notifications/addNotification/createNotification";
 import CreateNotificationTest from "Pages/Notifications/addNotification/testCreateNotification";
-
 import UserProfile from "Pages/Users/userProfile";
 import AddNewProduct from "Pages/LOS/installments/addNewProduct";
 import AddSms from "Pages/Notifications/sms/addSms";
@@ -69,8 +66,6 @@ function App() {
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
-          <Route path="/apitree" element={<ReactFlow />} />
-          <Route path="/test" element={<TestPage />} />
         </Routes>
       </BrowserRouter>
     </MainTemplate>

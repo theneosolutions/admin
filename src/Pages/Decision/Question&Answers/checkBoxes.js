@@ -48,17 +48,6 @@ function Checboxes({ onAddElement, language }) {
   };
 
   const AddQuestionToDatabase = () => {
-    console.log("heloooo", {
-      heading,
-      headingArabic,
-      question,
-      questionArabic,
-      options: options.map(({ value }) => ({
-        optionArabic: value.optionArabic,
-        optionEnglish: value.optionEnglish,
-      })),
-      type: "Checkboxes",
-    });
     onAddElement({
       heading,
       headingArabic,
@@ -71,7 +60,6 @@ function Checboxes({ onAddElement, language }) {
       type: "Checkboxes",
       languageCode: language,
     });
-    // resetState();
   };
 
   return (

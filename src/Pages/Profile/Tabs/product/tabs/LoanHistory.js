@@ -12,7 +12,7 @@ function Calculations() {
   const queryParams = new URLSearchParams(location.search);
   const UserId = queryParams.get("user");
   const getAllUsersEmi = useSelector((state) => state.getUserApplication);
-  console.log("get emi", getAllUsersEmi);
+
   useEffect(() => {
     getAllUsersEmiData();
   }, []);

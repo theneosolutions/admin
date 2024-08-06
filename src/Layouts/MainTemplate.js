@@ -10,12 +10,10 @@ function MainTemplate({ children }) {
 
   const loading = useSelector((state) => state.Loading);
 
-  const islogin = useSelector((state) => state.islogin);
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
   const error = useSelector((state) => state.error);
 
-  console.log("islogin ##########", islogin);
   const handleClose = () => {
     dispatch(action.Message({ open: false }));
   };
@@ -61,14 +59,13 @@ function MainTemplate({ children }) {
             token: user?.data?.token,
           })
         );
-        console.log("isloginnnnnnn");
+
         Logout(user?.data?.user?.id);
       }
     }
   }, []);
 
   function Logout(id) {
-    console.log("id", id);
     dispatch(
       action.Auth({
         islogin: false,

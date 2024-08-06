@@ -1,4 +1,4 @@
-export function ConvertToQuery(path, array) {
+function ConvertToQuery(path, array) {
   if (!Array.isArray(array) || array.length === 0) {
     return "";
   }

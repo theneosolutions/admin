@@ -12,6 +12,8 @@ import { FaCodeCompare } from "react-icons/fa6";
 import { RiHistoryFill } from "react-icons/ri";
 import UserInfo from "./Tabs/userInfo";
 import { useTranslation } from "react-i18next";
+import { ResetFailedAttemps } from "Services/OtherApis";
+import * as action from "Services/redux/reducer";
 
 function Template() {
   const dispatch = useDispatch();
@@ -56,6 +58,38 @@ function Template() {
     setUserData(user);
   }, [user]);
 
+  function ResetAttempts() {
+    ResetFailedAttemps(id)
+      .then((data) => {
+        if (data?.status != 200) {
+          dispatch(
+            action.Message({
+              open: true,
+              message: data?.data?.message,
+              error: true,
+            })
+          );
+        } else {
+          dispatch(
+            action.Message({
+              open: true,
+              message: "Success",
+              error: false,
+            })
+          );
+          dispatch({
+            type: "GET_USER_BY_ID",
+            payload: userId,
+          });
+        }
+        console.log("helo", data);
+      })
+      .catch(
+        (error) => console.log("error")
+        // dispatch(action.Message({ open: true, message: "Error", error: true }))
+      );
+  }
+
   return (
     <div className="flex flex-col">
       <div className="bg-white px-5 py-3  lg:mt-0 mt-4 justify-between flex flex-row items-center">
@@ -81,11 +115,20 @@ function Template() {
                 {t("Blocked")}
               </div>
             ) : userData?.user.accountStatus === "0" ? (
-              <div
-                className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
-                        duration-300 text-green-500"
-              >
-                {t("Active")}
+              <div className="flex flex-row space-x-4">
+                <div
+                  className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
+                      duration-300 text-green-500"
+                >
+                  {t("Active")}
+                </div>
+                <div
+                  onClick={() => ResetAttempts()}
+                  className=" border border-red-400 px-3 py-1 w-max rounded-md cursor-pointer 
+                      duration-300 text-red-500"
+                >
+                  {t("Reset Counter")}
+                </div>
               </div>
             ) : null}
           </div>

@@ -5,14 +5,8 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./editor.css"; // Import the CSS file for styling
 
-const ReactQuillWrapper = ({ handleChange, lan }) => {
+const ReactQuillWrapper = ({ handleChange, lan, value }) => {
   const [text, setText] = useState("");
-
-  const handleChange1 = (value) => {
-    setText(value);
-    console.log("value", value);
-    handleChange(value);
-  };
 
   const modules = {
     toolbar: [
@@ -46,10 +40,10 @@ const ReactQuillWrapper = ({ handleChange, lan }) => {
   return (
     <div className="">
       <ReactQuill
-        value={text}
+        value={value}
         modules={modules}
         formats={formats}
-        onChange={handleChange1}
+        onChange={handleChange}
         className={lan === "arabic" ? "rtl-editor" : ""} // Apply the RTL class here
       />
     </div>

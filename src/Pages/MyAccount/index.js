@@ -23,7 +23,6 @@ function MyAccount() {
     setLastName(user?.user?.mobileNumber);
     setMobile(user?.user?.mobileNumber);
   }, [user]);
-  console.log("user", user);
 
   function update() {
     if (!disabled) {
@@ -38,7 +37,6 @@ function MyAccount() {
         type: "UPDATE_USER_DATA",
         payload: temp,
       });
-      console.log("update", temp);
     }
     setDisabled(!disabled);
   }

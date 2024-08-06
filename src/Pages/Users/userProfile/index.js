@@ -31,15 +31,11 @@ function LaonApplication() {
   useEffect(() => {
     getUserLoanDetail();
   }, []);
-  console.log("active", active);
 
   useEffect(() => {
     if (getUserApplication) {
       setData(getUserApplication?.loanApplication);
-      console.log(
-        "helooooooooooo",
-        getUserApplication?.loanApplication?.status
-      );
+
       setActive(getUserApplication?.loanApplication?.status);
     }
   }, [getUserApplication]);
@@ -86,8 +82,6 @@ function LaonApplication() {
           );
           dispatch(action.Loading({ Loading: false }));
         } else {
-          console.log("data", data);
-
           dispatch(
             action.Message({
               open: true,
@@ -99,9 +93,8 @@ function LaonApplication() {
         }
       })
       .catch((error) => dispatch(action.Loading({ Loading: false })));
-    console.log("Transfer");
   }
-  console.log("data?.", data?.status);
+
   return (
     <div className="py-5">
       <CardMain

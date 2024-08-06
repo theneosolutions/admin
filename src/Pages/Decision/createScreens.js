@@ -57,7 +57,6 @@ function CreateQuestionsSet() {
     });
   };
   function AddQuestionToArray() {
-    console.log(currentId, currentObject);
     setModelOpen(false);
     setSelectedIds([
       ...selectedIds,

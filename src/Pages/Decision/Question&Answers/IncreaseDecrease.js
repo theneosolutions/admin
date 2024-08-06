@@ -117,7 +117,7 @@ function IncreaseDecrease({ onAddElement, language }) {
       headingArabic: increaserBoxState.headingArabic,
       languageCode: language,
     };
-    console.log(temp);
+
     onAddElement(temp);
   }
   return (

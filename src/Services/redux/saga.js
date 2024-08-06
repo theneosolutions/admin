@@ -64,7 +64,6 @@ function* GetSingleQuestion(payload) {
 function* GetSingleSetData(payload) {
   try {
     yield put(action.Loading({ Loading: true }));
-    console.log("getLanguage", getLanguage());
     const response = yield call(
       axiosInstance.get,
       baseUrlDecisions +
@@ -206,7 +205,6 @@ function* AddAnswertoQuestion({ payload }) {
   }
 }
 function* UpdateAmlRecord({ payload }) {
-  console.log("payload", payload);
   try {
     const response = yield call(
       axiosInstance.patch,
@@ -282,7 +280,7 @@ function* GetAllUsersEmi(payload) {
       axiosInstance.get,
       baseUrlLos + `/getAllUserDetails`
     );
-    console.log("response of emi", response);
+
     yield put(action.GetAllUsersEmi(response.data));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
@@ -317,7 +315,6 @@ function* AddNewUser({ payload }) {
   }
 }
 function* UpdateUserData({ payload }) {
-  console.log("update user", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -631,7 +628,6 @@ function* GetAppFlow() {
   }
 }
 function* GetGosiApi(payload) {
-  console.log("payload", payload?.payload);
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
@@ -642,14 +638,13 @@ function* GetGosiApi(payload) {
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     const message = error.response.data.message;
-    console.log("messssage", message);
+
     yield put(action.GetGosiData({ data: null }));
     yield put(action.Loading({ Loading: false }));
   }
 }
 
 function* CreateNotification({ payload }) {
-  console.log("payloan notification", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -735,7 +730,6 @@ function* GetAllCards() {
 }
 
 function* SetStatusOfApplication({ payload }) {
-  console.log("payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -800,7 +794,7 @@ function* DeleteUserById({ payload }) {
       axiosInstance.delete,
       baseUrlUser + `/user/deleteUser?userId=${payload}`
     );
-    console.log("response", response);
+
     yield put(
       action.Message({ message: "User Deleted !", open: true, error: false })
     );
@@ -856,7 +850,6 @@ function* AddTermsAndConditions({ payload }) {
 }
 
 function* GetAllTermsAndConditions({ payload }) {
-  console.log("payload Terms", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -875,7 +868,6 @@ function* GetAllTermsAndConditions({ payload }) {
 }
 
 function* GetNafithReport({ payload }) {
-  console.log("payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
     // https://seulah.com/api/v1/cms/nafith/getUUIDByIdNumber?idNumber=1069282455
@@ -883,7 +875,7 @@ function* GetNafithReport({ payload }) {
       axiosInstance.get,
       baseUrlCms + `/nafith/getUUIDByIdNumber?idNumber=${payload}`
     );
-    console.log(response?.data?.uuid);
+
     const response2 = yield call(
       axiosInstance.post,
       baseUrlCms + `/nafith/downloadPDF?uuid=${response?.data?.uuid}`
@@ -910,7 +902,7 @@ function* GetEmdahReport({ payload }) {
       axiosInstance.get,
       baseUrlCms + `/doc/getAgreementByUserId?idNumber=${payload}`
     );
-    console.log("response Emdah", response?.data);
+
     yield put(action.GetEmdahReport(response?.data));
 
     yield put(action.Loading({ Loading: false }));
@@ -921,7 +913,6 @@ function* GetEmdahReport({ payload }) {
   }
 }
 function* getUserLoanEmi({ payload }) {
-  console.log("heloooo", payload);
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
@@ -931,7 +922,7 @@ function* getUserLoanEmi({ payload }) {
           payload?.userId
         }&setId=1&loanTypeId=${payload?.setId}&languageCode=${getLanguage()}`
     );
-    console.log("response Emdah", response?.data);
+
     yield put(action.GetSimgleLoanTypeEmi(response));
     yield put(action.Message({ message: "successEmi", error: false }));
 
@@ -943,7 +934,6 @@ function* getUserLoanEmi({ payload }) {
   }
 }
 function* getTermsRatesCalculations({ payload }) {
-  console.log("heloooo", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -952,7 +942,7 @@ function* getTermsRatesCalculations({ payload }) {
       baseUrlLos +
         `/term/rates/calculate?financeAmount=${payload.financeAmmount}&term=${payload?.term}&userId=${payload.userId}`
     );
-    console.log("calculations", response?.data);
+
     yield put(action.GetTermRatesCalculations(response));
     yield put(action.Message({ message: "successEmi", error: false }));
 
@@ -1193,7 +1183,6 @@ function* DeleteDbr({ payload }) {
 }
 
 function* UpdateDbr({ payload }) {
-  console.log("dbr update", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1218,7 +1207,6 @@ function* UpdateDbr({ payload }) {
 }
 
 function* LogoutUser({ payload }) {
-  console.log("payload logout", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1453,7 +1441,6 @@ function* DeleteTermsAndRate({ payload }) {
 }
 
 function* AddNewRoleName({ payload }) {
-  console.log("payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1477,7 +1464,6 @@ function* AddNewRoleName({ payload }) {
   }
 }
 function* GetAllRoles({ payload }) {
-  console.log("payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1485,7 +1471,7 @@ function* GetAllRoles({ payload }) {
       axiosInstance.get,
       rolesUrl + `/api/v1/roles/all`
     );
-    console.log("response", response1);
+
     yield put(action.GetAllRoles(response1));
 
     yield put(action.Loading({ Loading: false }));
@@ -1527,7 +1513,6 @@ function* AddModulesToRole({ payload }) {
 }
 
 function* DeleteSet({ payload }) {
-  console.log("payload", payload);
   try {
     const response = yield call(
       axiosInstance.delete,
@@ -1567,7 +1552,6 @@ function* CreateSMS({ payload }) {
 }
 
 function* GetSimahReport({ payload }) {
-  console.log("GetSimahReport payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1575,7 +1559,7 @@ function* GetSimahReport({ payload }) {
       axiosInstance.get,
       baseUrlLos + `/simah/${payload}/creditBureauReport`
     );
-    console.log("response", response1?.data);
+
     yield put(action.GetSimahReport(response1?.data));
 
     yield put(action.Loading({ Loading: false }));
@@ -1594,7 +1578,6 @@ function* GetSimahReport({ payload }) {
 }
 
 function* AddProductInSimah({ payload }) {
-  console.log("payload simah", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1628,8 +1611,6 @@ function* AddProductInSimah({ payload }) {
   }
 }
 function* UpdateSimahProduct({ payload }) {
-  console.log("payload simah", payload);
-
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1663,12 +1644,11 @@ function* UpdateSimahProduct({ payload }) {
   }
 }
 function* GetAllSms({ payload }) {
-  console.log("GetAllSms payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
     const response1 = yield call(axiosInstance.get, baseUrlSMS + `/getAllSMS`);
-    console.log("response", response1?.data);
+
     yield put(action.GetSmsOtp(response1?.data));
 
     yield put(action.Loading({ Loading: false }));
@@ -1687,7 +1667,6 @@ function* GetAllSms({ payload }) {
 }
 
 function* GetAllDevicesToken({ payload }) {
-  console.log("GetAllDevicesToken 22");
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1695,7 +1674,7 @@ function* GetAllDevicesToken({ payload }) {
       axiosInstance.get,
       baseUrlUser + `/temp_user/getDevices`
     );
-    console.log("response", response1?.data);
+
     yield put(action.GetDevicesTokens(response1));
 
     yield put(action.Loading({ Loading: false }));
@@ -1714,7 +1693,6 @@ function* GetAllDevicesToken({ payload }) {
 }
 
 function* GetAmlDetails({ payload }) {
-  console.log("Aml Payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1722,7 +1700,7 @@ function* GetAmlDetails({ payload }) {
       axiosInstance.get,
       baseUrlCms + `/screening/getAmlRecordByIdNumber?idNumber=${payload}`
     );
-    console.log("response", response1?.data);
+
     yield put(action.GetAmlRecord(response1?.data));
 
     yield put(action.Loading({ Loading: false }));
@@ -1741,14 +1719,13 @@ function* GetAmlDetails({ payload }) {
 }
 
 function* GetAllPolicies({ payload }) {
-  console.log("Policies Payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
     const response1 = yield call(
       axiosInstance.get,
       baseUrlDecisions + `/policy/fetchAllPolices`
     );
-    console.log("response", response1?.data);
+
     yield put(action.GetAllPolicies(response1?.data));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
@@ -1758,14 +1735,13 @@ function* GetAllPolicies({ payload }) {
   }
 }
 function* UpdatePolicy({ payload }) {
-  console.log("payload policy", payload);
   try {
     const response = yield call(
       axiosInstance.post,
       baseUrlDecisions +
         `/policy/update?newValue=${payload?.newValue}&policyId=${payload?.policyId}&userId=${payload?.userId}`
     );
-    console.log("response policy update", response);
+
     const message = response.data.message;
     yield put(action.Message({ message: message, open: true, error: false }));
   } catch (error) {
@@ -1774,7 +1750,6 @@ function* UpdatePolicy({ payload }) {
   }
 }
 function* DeleteSMS({ payload }) {
-  console.log("Delete SMS", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1801,7 +1776,7 @@ function* GetAllPoliciesHistory({ payload }) {
       axiosInstance.get,
       baseUrlDecisions + `/policy/fetchAuditByPolicyId?policyId=${payload}`
     );
-    console.log("response", response1?.data);
+
     yield put(action.GetPolicyHistory(response1?.data));
 
     yield put(action.Loading({ Loading: false }));
@@ -1813,7 +1788,6 @@ function* GetAllPoliciesHistory({ payload }) {
 }
 
 function* GetEligibilityQuestions({ payload }) {
-  console.log("eligibility Payload", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1822,7 +1796,7 @@ function* GetEligibilityQuestions({ payload }) {
       baseUrlDecisions +
         `/screen/getAllScreenWithQuestionDetail?languageCode=${getLanguage()}&userId=${payload}`
     );
-    console.log("response", response?.data);
+
     yield put(action.GetEligibilityQuestions(response));
 
     yield put(action.Loading({ Loading: false }));
@@ -1833,15 +1807,13 @@ function* GetEligibilityQuestions({ payload }) {
   }
 }
 function* Status_Update_Policy({ payload }) {
-  console.log("payload policy status", payload);
-
   var url;
   if (payload?.status === "approve") {
     url = `/policy/approve?auditId=${payload.id}&userId=${payload.userId}`;
   } else if (payload.status === "reject") {
     url = `/policy/reject?auditId=${payload.id}&userId=${payload.userId}`;
   }
-  console.log("urllll", url);
+
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1861,7 +1833,6 @@ function* Status_Update_Policy({ payload }) {
 }
 
 function* GetSeelahTransaction() {
-  console.log("selaa Payload TRANSCATION");
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1869,7 +1840,7 @@ function* GetSeelahTransaction() {
       axiosInstance.get,
       baseUrlCms + `/selaApi/transactions`
     );
-    console.log("response", response);
+
     yield put(action.GetSeelahTransaction(response));
 
     yield put(action.Loading({ Loading: false }));
@@ -1878,7 +1849,6 @@ function* GetSeelahTransaction() {
   }
 }
 function* GetNotificationsHeadings() {
-  console.log("selaa Payload TRANSCATION");
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1886,7 +1856,7 @@ function* GetNotificationsHeadings() {
       axiosInstance.get,
       baseUrlSMS + `/fetchNotificationHeading`
     );
-    console.log("response smsmsmsmsmsmsms", response?.data);
+
     yield put(action.GetNotificationHeadings(response?.data));
 
     yield put(action.Loading({ Loading: false }));
@@ -1904,7 +1874,6 @@ function* SendNotificationSms({ payload }) {
   } else {
     url = `/sendCustomSms?languageCode=${language}&heading=${type}&messageBody=${message}&userRole=${role}`;
   }
-  console.log("heloooo from saga", url);
 
   try {
     yield put(action.Loading({ Loading: true }));

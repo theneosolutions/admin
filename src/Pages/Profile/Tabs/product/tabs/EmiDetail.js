@@ -26,11 +26,11 @@ function Calculations() {
       const EmiDetail = getAllUsersEmi?.filter(
         (user) => user?.userId === parseInt(UserId)
       );
-      console.log("getAllUsersEmi", EmiDetail);
+
       setData(EmiDetail);
     }
   }, [getAllUsersEmi]);
-  console.log("data", data);
+
   return (
     <div className="p-1 w-full pb-10">
       <div className="overflow-x-auto relative  ">
