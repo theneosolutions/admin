@@ -28,7 +28,8 @@ function AllUsers() {
   const users = useSelector((state) => state.getAllUsersAll || []);
 
   function onDelete(user) {
-    setSelectedUserId(user?.userId);
+    console.log("user", user);
+    setSelectedUserId(user?.id);
     setModelOpen(true);
   }
   useEffect(() => {
@@ -40,6 +41,7 @@ function AllUsers() {
     });
   }
   function DeleteUser() {
+    console.log("selectedUserId", selectedUserId);
     setModelOpen(false);
     dispatch({
       type: "DELETE_USER_BY_ID",
@@ -133,12 +135,12 @@ function AllUsers() {
                 >
                   {t("Action")}
                 </th>
-                <th
+                {/* <th
                   scope="col"
                   className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
                 >
                   {t("Edit/Delete")}
-                </th>
+                </th> */}
               </tr>
             </thead>
             <tbody>
@@ -219,7 +221,7 @@ function AllUsers() {
                       </div>
                     ) : null}
                   </td>
-                  <th
+                  {/* <th
                     scope="row"
                     className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10"
                   >
@@ -228,10 +230,10 @@ function AllUsers() {
                       <img
                         src={Delete}
                         className="h-6 cursor-pointer"
-                        onClick={() => onDelete(v?.eligibilityResult)}
+                        onClick={() => onDelete(v)}
                       />
                     </div>
-                  </th>
+                  </th> */}
                 </tr>
               ))}
             </tbody>

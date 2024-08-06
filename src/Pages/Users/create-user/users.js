@@ -217,6 +217,12 @@ function Calender({ heading, value, onChange }) {
         selected={value}
         onChange={(date) => onChange(date)}
         className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
+        showYearDropdown
+        showMonthDropdown
+        dropdownMode="select" // Can be "scroll" or "select"
+        maxDate={new Date()} // Set maximum selectable date to today
+        yearDropdownItemNumber={100} // Number of years to display in the dropdown
+        scrollableYearDropdown
       />
     </div>
   );

@@ -16,7 +16,7 @@ function AntiFraud() {
 
   const ID = queryParams.get("id");
 
-  function GetNafathDetail() {
+  function GetAmlDetail() {
     dispatch({
       type: "GET_AML_DETAILS",
       payload: ID,
@@ -24,7 +24,7 @@ function AntiFraud() {
   }
 
   useEffect(() => {
-    GetNafathDetail();
+    GetAmlDetail();
   }, []);
   function reset() {
     setModelOpen(false);
@@ -34,6 +34,8 @@ function AntiFraud() {
       type: "UPDATE_AML_RECORD",
       payload: { score, level, idNumber: ID },
     });
+    setModelOpen(false);
+    GetAmlDetail();
   }
   useEffect(() => {
     if (amlData?.entityAlertLevel && amlData?.entityAlertScore) {

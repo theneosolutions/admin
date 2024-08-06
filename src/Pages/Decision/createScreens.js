@@ -116,7 +116,12 @@ function CreateQuestionsSet() {
       type: "DELETE_SET",
       payload: id,
     });
-    setTimeout(() => navigate("/decisions/create-set", 500));
+
+    dispatch({
+      type: "GET_ALL_SETS",
+    });
+
+    setTimeout(() => navigate("/decisions/create-set", 1000));
   }
   function reset() {
     setModelOpen(false);

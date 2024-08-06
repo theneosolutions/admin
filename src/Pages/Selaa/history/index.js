@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
 import { ROLES } from "../../../constants/roles";
 import { GetSeelahHistory } from "Services/OtherApis";
+import * as action from "../../../Services/redux/reducer";
+
 function AllUsers() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -16,9 +18,21 @@ function AllUsers() {
     getAllUsersData();
   }, []);
   function getAllUsersData() {
+    dispatch(action.Loading({ Loading: true }));
     GetSeelahHistory()
-      .then((data) => console.log("Data received:", setData(data)))
-      .catch((error) => console.error("Error received:", error));
+      .then((data) =>
+        console.log(
+          "Data received:",
+          setData(data),
+          dispatch(action.Loading({ Loading: false }))
+        )
+      )
+      .catch(
+        (error) => (
+          console.error("Error received:", error),
+          dispatch(action.Loading({ Loading: true }))
+        )
+      );
   }
 
   return (

@@ -135,7 +135,7 @@ function VerifiedUsers() {
                   scope="col"
                   className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
                 >
-                  {t("Edit/Delete")}
+                  {t("Delete")}
                 </th>
               </tr>
             </thead>
@@ -219,7 +219,7 @@ function VerifiedUsers() {
                     className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10"
                   >
                     <div className="flex flex-row space-x-3 rtl:space-x-reverse">
-                      <img src={Edit} className="h-6 cursor-pointer" />
+                      {/* <img src={Edit} className="h-6 cursor-pointer" /> */}
                       <img
                         src={Delete}
                         className="h-6 cursor-pointer"
