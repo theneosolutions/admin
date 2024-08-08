@@ -40,12 +40,12 @@ function OptScreen({ otp, LoginFunction, resendOtp }) {
   const handleSubmit = (e) => {
     if (inputs.every((input) => input.trim() !== "")) {
       const all = inputs.join("");
-      if (otp === all) {
-        LoginFunction();
-        // router.push(`/resetpassword/newpin?idnumber=${idnumber}`);
-      } else {
-        alert("Invalid Otp!");
-      }
+      console.log("all", all);
+
+      LoginFunction(all);
+      // router.push(`/resetpassword/newpin?idnumber=${idnumber}`);
+
+      // alert("Invalid Otp!");
     }
   };
   useEffect(() => {

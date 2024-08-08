@@ -346,6 +346,7 @@ function* UserLogin({ payload }) {
       baseUrlUser + `/user/signin`,
       payload
     );
+    console.log("response.data.", response.data);
     if (response.data.token) {
       yield put(
         action.Auth({
@@ -378,10 +379,16 @@ function* LoginOtpVerification({ payload }) {
       baseUrlUser + `/user/otpVerification`,
       payload
     );
-    if (response?.data?.otp) {
-      yield put(action.VerificationOtp(response.data));
+    console.log("response.data", response?.status);
+    if (response?.status === 200) {
+      //  yield put(action.VerificationOtp(response.data));
+      console.log("helloo");
       yield put(
-        action.Message({ message: "Otp Success", open: false, error: false })
+        action.Message({
+          message: "Otp Recieved Login",
+          open: false,
+          error: false,
+        })
       );
     }
 
