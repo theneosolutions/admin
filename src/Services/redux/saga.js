@@ -1323,16 +1323,26 @@ function* ResetOtpVerification({ payload }) {
       axiosInstance.post,
       baseUrlUser + `/user/forgot-password?idNumber=${payload.idNumber}`
     );
-    if (response?.data?.otp) {
-      yield put(action.ForgetVerificationOtp(response.data));
+    console.log("helo", response);
+    if (response?.status === 200) {
       yield put(
         action.Message({
-          message: "reset Otp Success",
+          message: "Forget Password Api Success",
           open: false,
           error: false,
         })
       );
     }
+    // if (response?.da) {
+    //   // yield put(action.ForgetVerificationOtp(response.data));
+    //   yield put(
+    //     action.Message({
+    //       message: "reset Otp Success",
+    //       open: false,
+    //       error: false,
+    //     })
+    //   );
+    // }
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     const message = error.response.data.message;

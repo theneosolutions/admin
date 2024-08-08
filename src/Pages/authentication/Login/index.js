@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import LanguageCom from "Components/LanguageCom";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
+import bcrypt from "bcryptjs";
 function Login() {
   const { t } = useTranslation();
 
@@ -30,6 +31,16 @@ function Login() {
   const role = useSelector((state) => state.role);
   const token = useSelector((state) => state.token);
 
+  const encodePassword = () => {
+    console.log(
+      "process.env.REACT_APP_SECRET_KEY",
+      process.env.REACT_APP_SECRET_KEY
+    );
+    const combined = password + process.env.REACT_APP_SECRET_KEY;
+    const encoded = btoa(combined);
+    return encoded;
+  };
+
   function Login(otp) {
     dispatch({
       type: "LOGIN_USER",
@@ -46,8 +57,8 @@ function Login() {
       dispatch(action.Message({ message: "" })); // Closing the message
     }
   }, [verificationOtp, message]);
+
   function sendOtp() {
-    console.log("differenececeec");
     dispatch({
       type: "LOGIN_OTP_VERIFICATION",
       payload: {
