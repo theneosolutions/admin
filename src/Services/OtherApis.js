@@ -1,10 +1,10 @@
 import axios from "axios";
 import { axiosInstance } from "./constant";
 
-var baseUrlDecisions = "https://seulah.com/api/v1/dms";
-var baseUrlUser = "https://seulah.com/api/v1/auth";
-var baseUrlLos = "https://seulah.com/api/v1/los";
-var baseUrlCms = "https://seulah.com/api/v1/cms";
+var baseUrlDecisions = "https://seulah.sa/api/v1/dms";
+var baseUrlUser = "https://seulah.sa/api/v1/auth";
+var baseUrlLos = "https://seulah.sa/api/v1/los";
+var baseUrlCms = "https://seulah.sa/api/v1/cms";
 
 async function CheckQuestionStatusInScreen(id) {
   try {
