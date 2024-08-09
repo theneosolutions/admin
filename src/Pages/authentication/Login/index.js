@@ -32,11 +32,7 @@ function Login() {
   const token = useSelector((state) => state.token);
 
   const encodePassword = () => {
-    console.log(
-      "process.env.REACT_APP_SECRET_KEY",
-      process.env.REACT_APP_SECRET_KEY
-    );
-    const combined = password + process.env.REACT_APP_SECRET_KEY;
+    const combined = password + "@Zayk!@3AfO0$*^qC";
     const encoded = btoa(combined);
     return encoded;
   };
@@ -46,7 +42,7 @@ function Login() {
       type: "LOGIN_USER",
       payload: {
         idNumber: idNumber,
-        password: password,
+        password: encodePassword(),
         otp: otp,
       },
     });
@@ -63,7 +59,7 @@ function Login() {
       type: "LOGIN_OTP_VERIFICATION",
       payload: {
         idNumber: idNumber,
-        password: password,
+        password: encodePassword(),
         macAddress: "",
       },
     });
