@@ -20,12 +20,17 @@ function Login() {
   const error = useSelector((state) => state.error);
 
   const [otp, setOtp] = useState("");
+  const encodePassword = (e) => {
+    const combined = e + "@Zayk!@3AfO0$*^qC";
+    const encoded = btoa(combined);
+    return encoded;
+  };
   function PasswordScreen(e) {
     dispatch({
       type: "CHANGE_PASSWORD",
       payload: {
         idNumber: idNumber,
-        newPassword: e,
+        newPassword: encodePassword(e),
         otp: otp,
       },
     });
