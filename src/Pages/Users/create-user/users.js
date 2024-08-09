@@ -41,7 +41,6 @@ function CreateUser({}) {
     const encoded = btoa(combined);
     return encoded;
   };
-
   function CreateNewUser() {
     if (
       validatePassword() &&
@@ -62,7 +61,7 @@ function CreateUser({}) {
           idNumber: idNumber,
           email: email,
           role: [role],
-          password: encodePassword(e),
+          password: encodePassword(password),
           dateOfBirth: date,
         },
       });
