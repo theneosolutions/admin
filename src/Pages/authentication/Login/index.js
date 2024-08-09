@@ -12,7 +12,6 @@ import { useTranslation } from "react-i18next";
 import LanguageCom from "Components/LanguageCom";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
-import bcrypt from "bcryptjs";
 function Login() {
   const { t } = useTranslation();
 
