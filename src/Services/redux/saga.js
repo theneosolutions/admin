@@ -17,6 +17,7 @@ function* GetAllQuestionsData() {
       axiosInstance.get,
       baseUrlDecisions + "/eligibilityQuestions/getAllQuestions"
     );
+    console.log("50 50 ");
     yield put(action.GetAllQuestions(response.data));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
