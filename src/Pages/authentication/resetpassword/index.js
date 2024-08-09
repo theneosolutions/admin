@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
 import "./login.css";
 import Logo from "../../../Assets/Images/logo.svg";
-import { Alert, Snackbar } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
 import ResetPassord from "./resetPassord";
 import NewPassword from "./newPassword";
 import { useTranslation } from "react-i18next";
-
 import { useNavigate } from "react-router-dom";
 import LanguageCom from "Components/LanguageCom";
 
@@ -19,24 +17,30 @@ function Login() {
   const [idNumber, setIdNumber] = useState("");
   const [active, setActive] = useState("login");
   const message = useSelector((state) => state.message);
-  const verificationOtp = useSelector((state) => state.forgetVerificationOtp);
+  const error = useSelector((state) => state.error);
 
+  const [otp, setOtp] = useState("");
+  const encodePassword = (e) => {
+    const combined = e + "@Zayk!@3AfO0$*^qC";
+    const encoded = btoa(combined);
+    return encoded;
+  };
   function PasswordScreen(e) {
     dispatch({
       type: "CHANGE_PASSWORD",
       payload: {
         idNumber: idNumber,
-        newPassword: e,
-        otp: verificationOtp,
+        newPassword: encodePassword(e),
+        otp: otp,
       },
     });
   }
   useEffect(() => {
-    if (verificationOtp && message === "reset Otp Success") {
+    if (message === "Forget Password Api Success" && error === false) {
       setActive("otp");
       dispatch(action.Message({ message: "" }));
     }
-  }, [verificationOtp, message]);
+  }, [error, message]);
   function sendOtp() {
     dispatch({
       type: "RESET_OTP_VERIFICATION",
@@ -105,8 +109,7 @@ function Login() {
           )}
           {active === "otp" && (
             <ResetPassord
-              otp={verificationOtp}
-              PasswordScreen={() => setActive("newPassword")}
+              PasswordScreen={(e) => (setOtp(e), setActive("newPassword"))}
               resendOtp={() => sendOtp()}
             />
           )}

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
-function OptScreen({ otp, PasswordScreen, resendOtp }) {
+function OptScreen({ PasswordScreen, resendOtp }) {
   const [inputs, setInputs] = useState(["", "", "", ""]);
   const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const [secondsLeft, setSecondsLeft] = useState(60);
@@ -34,11 +34,8 @@ function OptScreen({ otp, PasswordScreen, resendOtp }) {
   const handleSubmit = (e) => {
     if (inputs.every((input) => input.trim() !== "")) {
       const all = inputs.join("");
-      if (otp === all) {
-        PasswordScreen();
-      } else {
-        alert("Invalid Otp!");
-      }
+
+      PasswordScreen(all);
     }
   };
   useEffect(() => {

@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import LanguageCom from "Components/LanguageCom";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
+import bcrypt from "bcryptjs";
 function Login() {
   const { t } = useTranslation();
 
@@ -21,6 +22,8 @@ function Login() {
   const [password, setPassword] = useState("");
   const [active, setActive] = useState("login");
   const message = useSelector((state) => state.message);
+  const error = useSelector((state) => state.error);
+
   const [eye, setEye] = useState(false);
   const verificationOtp = useSelector((state) => state.verificationOtp);
   const islogin = useSelector((state) => state.islogin);
@@ -28,28 +31,35 @@ function Login() {
   const role = useSelector((state) => state.role);
   const token = useSelector((state) => state.token);
 
-  function Login() {
+  const encodePassword = () => {
+    const combined = password + "@Zayk!@3AfO0$*^qC";
+    const encoded = btoa(combined);
+    return encoded;
+  };
+
+  function Login(otp) {
     dispatch({
       type: "LOGIN_USER",
       payload: {
         idNumber: idNumber,
-        password: password,
-        otp: verificationOtp,
+        password: encodePassword(),
+        otp: otp,
       },
     });
   }
   useEffect(() => {
-    if (verificationOtp && message) {
+    if (message === "Otp Recieved Login" && error === false) {
       setActive("otp");
       dispatch(action.Message({ message: "" })); // Closing the message
     }
   }, [verificationOtp, message]);
+
   function sendOtp() {
     dispatch({
       type: "LOGIN_OTP_VERIFICATION",
       payload: {
         idNumber: idNumber,
-        password: password,
+        password: encodePassword(),
         macAddress: "",
       },
     });
@@ -65,7 +75,7 @@ function Login() {
   useEffect(() => {
     if (islogin && role && token) {
       dispatch(action.Message({ message: "" })); // Closing the message
-      dispatch(action.VerificationOtp({ otp: null }));
+      // dispatch(action.VerificationOtp({ otp: null }));
       if (role === ROLES.ADMIN) {
         navigate("/dashboard/account");
       } else if (role === ROLES.COMPLIANCE) {
@@ -207,7 +217,7 @@ function Login() {
           {active === "otp" && (
             <OtpScreen
               otp={verificationOtp}
-              LoginFunction={() => Login()}
+              LoginFunction={(e) => Login(e)}
               resendOtp={() => sendOtp()}
             />
           )}

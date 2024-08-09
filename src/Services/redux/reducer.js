@@ -209,10 +209,10 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getScreenName = data;
     },
-    VerificationOtp: (state, action) => {
-      const { otp } = action.payload;
-      state.verificationOtp = otp;
-    },
+    // VerificationOtp: (state, action) => {
+    //   const { otp } = action.payload;
+    //   state.verificationOtp = otp;
+    // },
     GetAllDBR: (state, action) => {
       const { data } = action.payload;
       state.getAllDBR = data;
