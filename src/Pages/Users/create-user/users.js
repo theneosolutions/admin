@@ -36,6 +36,12 @@ function CreateUser({}) {
   const [date, setDate] = useState(new Date());
   const [role, setRole] = useState(ROLES.MODERATOR);
 
+  const encodePassword = (e) => {
+    const combined = e + "@Zayk!@3AfO0$*^qC";
+    const encoded = btoa(combined);
+    return encoded;
+  };
+
   function CreateNewUser() {
     if (
       validatePassword() &&
@@ -56,7 +62,7 @@ function CreateUser({}) {
           idNumber: idNumber,
           email: email,
           role: [role],
-          password: password,
+          password: encodePassword(e),
           dateOfBirth: date,
         },
       });
