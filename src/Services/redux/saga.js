@@ -2,12 +2,15 @@ import { call, put, takeLatest } from "@redux-saga/core/effects";
 import * as action from "./reducer";
 import { axiosInstance } from "../constant";
 import { getLanguage } from "functions/getLanguage";
-var baseUrlSMS = "https://seulah.com/api/v1/sms";
-var baseUrlUser = "https://seulah.com/api/v1/auth";
-var baseUrlDecisions = "https://seulah.com/api/v1/dms";
-var baseUrlLos = "https://seulah.com/api/v1/los";
-var baseUrlCms = "https://seulah.com/api/v1/cms";
-const rolesUrl = "https://seulah.com";
+
+import config from "../../config";
+
+var baseUrlSMS = `${config.API_URL}/api/v1/sms`;
+var baseUrlUser = `${config.API_URL}/api/v1/auth`;
+var baseUrlDecisions = `${config.API_URL}/api/v1/dms`;
+var baseUrlLos = `${config.API_URL}/api/v1/los`;
+var baseUrlCms = `${config.API_URL}/api/v1/cms`;
+const rolesUrl = `${config.API_URL}`;
 
 function* GetAllQuestionsData() {
   try {
@@ -1057,6 +1060,7 @@ function* ActiveDeactiveUser({ payload }) {
 }
 
 function* GetBalance({ payload }) {
+  console.log("helloooooo from config", config.API_URL);
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
