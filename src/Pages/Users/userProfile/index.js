@@ -286,7 +286,7 @@ function LaonApplication() {
                   </div>
                   <div className="flex flex-col">
                     <a className="text-xs text-gray-400 uppercase">
-                      Intrest Ratio
+                      Interest Ratio
                     </a>
                     <a className="text-xl text-gray-600 font-semibold opacity-90">
                       {data?.interestAmount}
@@ -320,7 +320,7 @@ function LaonApplication() {
                     className={` w-max text-white bg-blue-500 hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-2 rounded-md  items-center flex flex-col   `}
                   >
                     <div className="uppercase text-xs font-semibold">
-                      View Document
+                      View Emdha
                     </div>
                   </div>
                 ) : null}
@@ -412,7 +412,7 @@ function LaonApplication() {
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">
-          {t("Are You Sure To Delete ?")}
+          {t("Are you sure to delete ?")}
           <span className="font-semibold"> Ali Imtayaz</span>
         </a>
       </Model>

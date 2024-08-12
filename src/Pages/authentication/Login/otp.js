@@ -7,7 +7,7 @@ function OptScreen({ otp, LoginFunction, resendOtp }) {
   const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const [secondsLeft, setSecondsLeft] = useState(60);
   const { t } = useTranslation();
-
+  const buttonRef = useRef(null);
   const handleInput = (index, e) => {
     const value = e.target.value;
     const newInputs = [...inputs];
@@ -26,10 +26,20 @@ function OptScreen({ otp, LoginFunction, resendOtp }) {
     } else {
       // Handle regular input
       if (currentLength >= maxLength) {
+        console.log("currentLength maxLength inside", currentLength, maxLength);
         // If input is filled
         if (index < inputRefs.length - 1) {
+          console.log(
+            "currentLength maxLength inside inside",
+            inputRefs.length,
+            index
+          );
+
           // If not the last input, move focus to the next input
           inputRefs[index + 1].current.focus();
+        } else {
+          // If it is the last input, move focus to the button
+          buttonRef.current.focus();
         }
       }
     }
@@ -64,7 +74,7 @@ function OptScreen({ otp, LoginFunction, resendOtp }) {
       <div class="mx-auto flex w-full max-w-md flex-col space-y-16">
         <div class="flex flex-col items-center justify-center text-center space-y-2">
           <div class="font-semibold text-3xl">
-            <p>{t("Id Number Verification")}</p>
+            <p>{t("ID Number Verification")}</p>
           </div>
           <div class="flex flex-row text-sm font-medium text-gray-400">
             <p>{t("We have sent a code to your ID Number")}</p>
@@ -91,6 +101,7 @@ function OptScreen({ otp, LoginFunction, resendOtp }) {
           <div class="flex flex-col space-y-5 mt-10">
             <div>
               <button
+                ref={buttonRef}
                 onClick={() => handleSubmit()}
                 class="w-full text-white bg-primary hover:bg-opacity-80 duration-300  focus:outline-none font-medium rounded-lg text-sm px-5 py-4 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >

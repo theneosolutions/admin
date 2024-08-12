@@ -78,7 +78,7 @@ function CreateUser({}) {
     } else {
       dispatch(
         action.Message({
-          message: "All Fields Required!",
+          message: "All fields are required!",
           open: true,
           error: true,
         })

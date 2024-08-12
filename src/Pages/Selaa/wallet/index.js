@@ -45,7 +45,7 @@ function Wallet() {
       dispatch(
         action.Message({
           open: true,
-          message: "All Fields Required!",
+          message: "All fields are required!",
           error: true,
         })
       );
