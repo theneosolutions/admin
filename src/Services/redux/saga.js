@@ -1508,6 +1508,25 @@ function* GetAllRoles({ payload }) {
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
+function* GetPermissionsOfRole({ payload }) {
+  console.log("by iddddd", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      rolesUrl + `/role/${payload}/permissions`
+    );
+
+    yield put(action.GetUserPermissions(response));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
 function* AddModulesToRole({ payload }) {
   try {
     yield put(action.Loading({ Loading: true }));
@@ -2002,7 +2021,7 @@ export default function* HomeSaga() {
   yield takeLatest("UPDATE_TERM_AND_RATES", UpdateTermAndRates);
   yield takeLatest("DELETE_TERMS_AND_RATES", DeleteTermsAndRate);
   yield takeLatest("ADD_NEW_ROLE_NAME", AddNewRoleName);
-  yield takeLatest("GET_ALL_ROLES", GetAllRoles);
+
   yield takeLatest("ADD_MODULES_TO_ROLES", AddModulesToRole);
   yield takeLatest("DELETE_SET", DeleteSet);
   yield takeLatest("CREATE_SMS", CreateSMS);
@@ -2027,6 +2046,8 @@ export default function* HomeSaga() {
   yield takeLatest("GET_NOTIFICATIONS_HEADINGS", GetNotificationsHeadings);
   yield takeLatest("SEND_NOTIFICATION_SMS", SendNotificationSms);
   yield takeLatest("GET_ALL_PERMISSIONS", GetAllPermissions);
+  yield takeLatest("GET_ALL_ROLES", GetAllRoles);
+  yield takeLatest("GET_PERMISSIONS_OF_ROLE", GetPermissionsOfRole);
 }
 
 // function getLanguage() {

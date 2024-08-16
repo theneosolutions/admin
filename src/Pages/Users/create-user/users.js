@@ -1,21 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState, useRef } from "react";
 import { Button } from "Components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
 import { ROLES } from "../../../constants/roles";
 
 function CreateUser({}) {
   const dispatch = useDispatch();
-
+  const getAllRolesData = useSelector((state) => state.getAllRoles);
   const [image, setImage] = useState(null);
   const { t } = useTranslation();
 
   const fileInputRef = useRef(null);
-
+  console.log("getAllRolesData", getAllRolesData);
   function handleSelectImage(e) {
     if (e.target.files && e.target.files[0]) {
       setImage(URL.createObjectURL(e.target.files[0]));
@@ -34,7 +34,7 @@ function CreateUser({}) {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [date, setDate] = useState(new Date());
-  const [role, setRole] = useState(ROLES.MODERATOR);
+  const [role, setRole] = useState();
 
   const encodePassword = (e) => {
     const combined = e + "@Zayk!@3AfO0$*^qC";
@@ -85,6 +85,7 @@ function CreateUser({}) {
       );
     }
   }
+  console.log("role", role);
   const validatePassword = () => {
     const minLength = 8;
     const hasUppercase = /[A-Z]/.test(password);
@@ -104,6 +105,19 @@ function CreateUser({}) {
       return false;
     }
   };
+  function getAllRoles() {
+    dispatch({
+      type: "GET_ALL_ROLES",
+    });
+  }
+  useEffect(() => {
+    getAllRoles();
+  }, []);
+  useEffect(() => {
+    if (getAllRolesData?.length > 0) {
+      setRole(getAllRolesData[0]?.id);
+    }
+  }, [getAllRolesData]);
   return (
     <form
       onSubmit={handleSubmit}
@@ -154,6 +168,7 @@ function CreateUser({}) {
                 onChange={(e) => setPassword(e)}
               />
               <Select
+                data={getAllRolesData}
                 heading={t("Choose Role")}
                 type="select"
                 options={t(role)}
@@ -184,17 +199,9 @@ function CreateUser({}) {
 }
 export default CreateUser;
 
-function Select({ heading, value, onChange }) {
+function Select({ heading, value, onChange, data }) {
   const { t } = useTranslation();
 
-  var options = [
-    { value: "mod", label: ROLES.MODERATOR },
-    { value: "compliance", label: ROLES.COMPLIANCE },
-    { value: "customer", label: ROLES.CUSTOMER_CARE },
-    { value: "admin", label: ROLES.ADMIN },
-    { value: "sale", label: ROLES.SALES },
-    { value: "credit", label: ROLES.UNDER_WRITER },
-  ];
   return (
     <div className="flex flex-col w-full">
       <a className="text-sm text-gray-700">{heading}</a>{" "}
@@ -203,9 +210,9 @@ function Select({ heading, value, onChange }) {
         value={value}
         className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
       >
-        {options.map((option, index) => (
-          <option key={index} value={option.value}>
-            {t(option.label)}
+        {data.map((option, index) => (
+          <option key={index} value={option.id}>
+            {t(option.name)}
           </option>
         ))}
       </select>
