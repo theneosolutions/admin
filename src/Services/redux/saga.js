@@ -10,7 +10,7 @@ var baseUrlUser = `${config.API_URL}/api/v1/auth`;
 var baseUrlDecisions = `${config.API_URL}/api/v1/dms`;
 var baseUrlLos = `${config.API_URL}/api/v1/los`;
 var baseUrlCms = `${config.API_URL}/api/v1/cms`;
-const rolesUrl = `${config.API_URL}`;
+const rolesUrl = `https://202d-39-58-103-10.ngrok-free.app/api/v1`;
 
 function* GetAllQuestionsData() {
   try {
@@ -1463,12 +1463,13 @@ function* DeleteTermsAndRate({ payload }) {
 }
 
 function* AddNewRoleName({ payload }) {
+  console.log("loggs", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
     const response1 = yield call(
       axiosInstance.post,
-      rolesUrl + `/v1/roles/create`,
+      rolesUrl + `/role`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -1489,10 +1490,7 @@ function* GetAllRoles({ payload }) {
   try {
     yield put(action.Loading({ Loading: true }));
 
-    const response1 = yield call(
-      axiosInstance.get,
-      rolesUrl + `/api/v1/roles/all`
-    );
+    const response1 = yield call(axiosInstance.get, rolesUrl + "/role");
 
     yield put(action.GetAllRoles(response1));
 
@@ -1527,6 +1525,27 @@ function* AddModulesToRole({ payload }) {
         error: false,
       })
     );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* GetAllPermissions({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(axiosInstance.get, rolesUrl + "/permission");
+    console.log("heloooooo", response);
+    yield put(action.GetPermissions(response));
+    yield put(action.Loading({ Loading: false }));
+    // yield put(
+    //   action.Message({
+    //     message: response.data.message,
+    //     open: true,
+    //     error: false,
+    //   })
+    // );
   } catch (error) {
     yield put(action.Loading({ Loading: false }));
     const message = error.response.data.message;
@@ -2007,6 +2026,7 @@ export default function* HomeSaga() {
   yield takeLatest("GET_SELAA_TRANSACTION", GetSeelahTransaction);
   yield takeLatest("GET_NOTIFICATIONS_HEADINGS", GetNotificationsHeadings);
   yield takeLatest("SEND_NOTIFICATION_SMS", SendNotificationSms);
+  yield takeLatest("GET_ALL_PERMISSIONS", GetAllPermissions);
 }
 
 // function getLanguage() {

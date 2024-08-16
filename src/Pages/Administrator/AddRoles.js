@@ -1,50 +1,97 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import RoleModel from "../../Components/RoleModel";
 import { useDispatch, useSelector } from "react-redux";
 
 function Roles() {
   const dispatch = useDispatch();
-  const [role, setRole] = useState("");
+  const [selectedItems, setSelectedItems] = useState({});
+  const [expandedModule, setExpandedModule] = useState(null);
   const [modelOpen, setModelOpen] = useState(false);
-  const [array, setArray] = useState([]);
-
   const getAllRolesData = useSelector((state) => state.getAllRoles);
+  const getPermissions = useSelector((state) => state.permissions);
+  const [role, setRole] = useState("");
+  // Toggle module expansion
+  console.log("getPermissions", getPermissions);
+  const toggleModuleExpansion = (moduleId) => {
+    if (expandedModule === moduleId) {
+      setExpandedModule(null); // Close the expanded module
+    } else {
+      setExpandedModule(moduleId); // Open the clicked module
+    }
+  };
 
+  // Helper function to check if all submodules are selected
+  const areAllSubmodulesSelected = (module) => {
+    if (!module.subMenu || module.subMenu.length === 0) return false;
+    return module.subMenu.every((sub) => selectedItems[sub.id]);
+  };
+
+  // Handle parent checkbox change
+  const handleParentChange = (module) => {
+    setSelectedItems((prevSelectedItems) => {
+      const newSelectedItems = { ...prevSelectedItems };
+
+      if (areAllSubmodulesSelected(module)) {
+        // If all submodules are selected, unselect all
+        module.subMenu.forEach((sub) => {
+          delete newSelectedItems[sub.id];
+        });
+        delete newSelectedItems[module.moduleId];
+      } else {
+        // If not all submodules are selected, select all
+        newSelectedItems[module.moduleId] = true;
+        module.subMenu?.forEach((sub) => {
+          newSelectedItems[sub.id] = true;
+        });
+      }
+      return newSelectedItems;
+    });
+  };
+
+  // Handle child checkbox change
+  const handleChildChange = (module, subModule) => {
+    setSelectedItems((prevSelectedItems) => {
+      const newSelectedItems = { ...prevSelectedItems };
+
+      if (newSelectedItems[subModule.id]) {
+        // Uncheck the child
+        delete newSelectedItems[subModule.id];
+      } else {
+        // Check the child
+        newSelectedItems[subModule.id] = true;
+      }
+
+      // Check if all submodules are selected to decide parent state
+      if (areAllSubmodulesSelected(module)) {
+        newSelectedItems[module.moduleId] = true;
+      } else {
+        delete newSelectedItems[module.moduleId];
+      }
+
+      return newSelectedItems;
+    });
+  };
   function getAllRoles() {
     dispatch({
       type: "GET_ALL_ROLES",
+    });
+    dispatch({
+      type: "GET_ALL_PERMISSIONS",
     });
   }
   useEffect(() => {
     getAllRoles();
   }, []);
 
-  function AddToArray(value) {
-    if (array.includes(value)) {
-      setArray(array.filter((item) => item !== value));
-    } else {
-      setArray([...array, value]);
-    }
-  }
-  function AddModules() {
-    const data = {
-      roleId: role,
-      modules: array,
-    };
-    dispatch({
-      type: "ADD_MODULES_TO_ROLES",
-      payload: data,
-    });
-  }
   useEffect(() => {
     if (getAllRolesData?.length > 0) {
       setRole(getAllRolesData[0]?.id);
     }
   }, [getAllRolesData]);
+
   return (
-    <div
-      className={`bg-white rounded shadow-sm px-5 py-4 rtl:space-x-reverse space-y-4`}
-    >
+    <div className="bg-white rounded shadow-sm px-5 py-4 space-y-4">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-col w-1/2">
           <a>Select Role</a>
@@ -56,80 +103,124 @@ function Roles() {
             {getAllRolesData?.map((v, k) => {
               return (
                 <option key={k} value={v?.id}>
-                  {v?.roleName}
+                  {v?.name}
                 </option>
               );
             })}
           </select>
         </div>
         <RoleModel
-          GetAllRoles={() => getAllRoles()}
+          // GetAllRoles={() => getAllRoles()}
           setModelOpen={(e) => setModelOpen(e)}
           modelOpen={modelOpen}
         />
       </div>
-
-      {data?.map((v, k) => (
-        <div key={k}>
-          <div className="flex flex-row items-center space-x-2 rtl:space-x-reverse">
-            <div className="flex flex-row w-44 bg-gray-200 text-center rounded-sm items-center justify-center py-2">
-              <a>{v?.module}</a>
+      {data.map((module) => (
+        <div key={module.moduleId}>
+          <div className="flex flex-row items-center space-x-2">
+            <div
+              className="flex flex-row w-44 bg-gray-200 text-center rounded-sm items-center justify-center py-2 cursor-pointer"
+              onClick={() => toggleModuleExpansion(module.moduleId)}
+            >
+              <a>{module.module}</a>
+              {expandedModule === module.moduleId ? (
+                <FaChevronUp className="ml-2" />
+              ) : (
+                <FaChevronDown className="ml-2" />
+              )}
             </div>
             <input
               type="checkbox"
               className="h-5 w-5"
-              checked={array.includes(v?.moduleId)}
-              onChange={() => AddToArray(v?.moduleId)}
+              checked={Boolean(selectedItems[module.moduleId])}
+              onChange={() => handleParentChange(module)}
             />
           </div>
+          {expandedModule === module.moduleId && (
+            <div className="ml-8 mt-4 space-y-2">
+              {module.subMenu?.map((subModule) => (
+                <div
+                  key={subModule.id}
+                  className="ml-8 mt-2 flex flex-row space-x-3 items-center"
+                >
+                  <div className="flex flex-row w-44 bg-gray-200 text-center rounded-sm items-center justify-center py-2">
+                    <a>{subModule.module}</a>
+                  </div>
+                  <input
+                    type="checkbox"
+                    className="h-5 w-5"
+                    checked={Boolean(selectedItems[subModule.id])}
+                    onChange={() => handleChildChange(module, subModule)}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       ))}
       <div
-        onClick={() => AddModules()}
         className="rounded-md text-center text-white text-sm px-5 py-2 h-min bg-blue-500 hover:bg-blue-600 cursor-pointer duration-300 w-max"
+        onClick={() => console.log("Submit Clicked")}
       >
         <a>Submit</a>
       </div>
     </div>
   );
 }
+
 export default Roles;
 
 const data = [
   {
     moduleId: "b5b0470e-6e83-4575-99c8-9f50bc7f86e5",
-    module: "OVERVIEW",
-  },
-  {
-    moduleId: "0d4b6412-96eb-4725-945e-5d210598bbcc",
-    module: "SIMAH",
-  },
-  {
-    moduleId: "0fbed43b-3a67-4698-b2af-8cf9423b749a",
-    module: "DECISIONS",
-  },
-  {
-    moduleId: "239a2df4-6fbb-4e33-90c6-3c721ca3e5a3",
-    module: "ADMINISTRATOR",
-  },
-  {
-    moduleId: "3db7e201-389d-48e8-b27d-dafad085c3dd",
-    module: "CALCULATIONS",
-  },
-  {
-    moduleId: "518f1b7d-5582-4fa4-9761-bfe41b2e0952",
-    module: "CUSTOMERS",
+    module: "Overview",
+    subMenu: [
+      {
+        id: 1,
+        module: "Account",
+      },
+    ],
   },
   {
     moduleId: "620b9ea5-dc34-4909-9a03-df20bba5edff",
-    module: "APPLICATIONS",
+    module: "Applications",
+    subMenu: [
+      {
+        id: 2,
+        module: "Loan Applications",
+      },
+    ],
   },
   {
-    moduleId: "905e7550-e845-4d3f-bd2a-bddfcdd5944a",
-    module: "LOAN_MANAGEMENT",
+    moduleId: "518f1b7d-5582-4fa4-9761-bfe41b2e0952",
+    module: "Customers",
+    subMenu: [
+      {
+        id: 3,
+        module: "Customers Dashboard",
+      },
+      {
+        id: 4,
+        module: "All Customers",
+      },
+      {
+        id: 5,
+        module: "Verified Customers",
+      },
+    ],
   },
   {
-    moduleId: "a7007584-fb4f-4a6f-8aad-0db2a7b8672b",
-    module: "NOTIFICATIONS",
+    moduleId: "239a2df4-6fbb-4e33-90c6-3c721ca3e5a3",
+    module: "Administator",
+    subMenu: [
+      {
+        id: 6,
+        module: "Create Admin",
+      },
+      {
+        id: 7,
+        module: "Create Rights To User",
+      },
+    ],
   },
 ];

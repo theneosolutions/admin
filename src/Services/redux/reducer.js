@@ -62,6 +62,7 @@ const initialState = {
   getEligibilityQuestions: [],
   getSeelahTransaction: [],
   getNotificationHeadings: [],
+  permissions: [],
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -285,6 +286,10 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.getNotificationHeadings = data;
     },
+    GetPermissions: (state, action) => {
+      const { data } = action.payload;
+      state.permissions = data;
+    },
   },
 });
 export const {
@@ -343,6 +348,7 @@ export const {
   GetEligibilityQuestions,
   GetSeelahTransaction,
   GetNotificationHeadings,
+  GetPermissions,
 } = Reducer.actions;
 
 export default Reducer.reducer;
