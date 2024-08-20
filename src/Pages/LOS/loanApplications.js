@@ -115,7 +115,7 @@ function LaonApplication() {
                   {t("Loan Ammount")}
                 </th>
                 <th scope="col" className="px-3 py-3">
-                  {t("Intrest Ammount")}
+                  {t("Interest Ammount")}
                 </th>
 
                 <th scope="col" className="px-3 py-3">
@@ -199,7 +199,7 @@ function LaonApplication() {
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">
-          {t("Are You Sure To Delete ?")}
+          {t("Are you sure to delete this ?")}
           <span className="font-semibold"> </span>
         </a>
       </Model>

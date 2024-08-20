@@ -55,7 +55,7 @@ function NotificationsScreen() {
                   {t("Email")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("Id Number")}
+                  {t("ID Number")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Mobile Number")}

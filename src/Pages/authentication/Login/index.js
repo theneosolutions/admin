@@ -12,7 +12,6 @@ import { useTranslation } from "react-i18next";
 import LanguageCom from "Components/LanguageCom";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
-import bcrypt from "bcryptjs";
 function Login() {
   const { t } = useTranslation();
 
@@ -159,7 +158,7 @@ function Login() {
                       class="py-3 px-2.5 w-10/12 bg-gray-50 dark:placeholder-gray-200 dark:text-white outline-none autofill:bg-red-500"
                       required={true}
                     />
-                    {eye === false ? (
+                    {eye === true ? (
                       <IoEyeOutline
                         className="text-xl cursor-pointer text-gray-600 mx-2"
                         onClick={() => setEye(!eye)}

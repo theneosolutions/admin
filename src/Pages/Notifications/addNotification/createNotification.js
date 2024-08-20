@@ -48,7 +48,7 @@ function CreateUser() {
       navigation !== "none"
     ) {
       if (checked === false && mainUserId === "") {
-        alert("All Fields Required!");
+        alert("All fields are required!");
       } else {
         const tempp = {
           subject: subject,
@@ -63,7 +63,7 @@ function CreateUser() {
         });
       }
     } else {
-      alert("All Fields Required!");
+      alert("All fields are required!");
     }
   }
 

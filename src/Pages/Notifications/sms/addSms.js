@@ -45,7 +45,7 @@ function CreateAddSMS({ setModelOpen, selectedData }) {
 
       setTimeout(() => setModelOpen(false), 500);
     } else {
-      alert("All Fields Required!");
+      alert("All fields are required!");
     }
   }
 

@@ -54,7 +54,7 @@ const appRoutes = [
     state: "home",
   },
   {
-    id: "Overview",
+    code: "overview",
     roles: [ROLES.ADMIN, ROLES.SALES], // Example roles allowed to access this route
     path: "/dashboard",
     element: <DashboardPageLayout />,
@@ -65,11 +65,13 @@ const appRoutes = [
     },
     child: [
       {
+        code: "overview_account",
         index: true,
         element: <DashboardIndex />,
         state: "dashboard.index",
       },
       {
+        code: "overview_account",
         path: "/dashboard/account",
         element: <UserList />,
         state: "dashboard.account",
@@ -81,7 +83,7 @@ const appRoutes = [
   },
 
   {
-    id: "APPLICATIONS",
+    code: "applications",
     roles: [ROLES.ADMIN, ROLES.SALES, ROLES.UNDER_WRITER],
     path: "/applications",
     element: <ApplicationsPageLayout />,
@@ -92,11 +94,13 @@ const appRoutes = [
     },
     child: [
       {
+        code: "loan_applications",
         index: true,
         element: <LoanApplications />,
         state: "applications.index",
       },
       {
+        code: "loan_applications",
         path: "/applications/loan",
         element: <LoanApplications />,
         state: "applications.loan",
@@ -108,6 +112,7 @@ const appRoutes = [
   },
 
   {
+    code: "customers",
     roles: [
       ROLES.ADMIN,
       ROLES.CUSTOMER_CARE,
@@ -123,20 +128,24 @@ const appRoutes = [
     },
     child: [
       {
+        code: "customers_dashboard",
         index: true,
         element: <UserDashboard />,
         state: "customers.index",
       },
 
       {
+        code: "customers_dashboard",
         path: "/customers/dashboard",
         element: <UserDashboard />,
         state: "customers.dashboard",
+
         sidebarProps: {
           displayText: "Customers Dashboard",
         },
       },
       {
+        code: "all_customers",
         path: "/customers/allcustomers",
         element: <AllUsers />,
         state: "customers.allcustomers",
@@ -145,6 +154,7 @@ const appRoutes = [
         },
       },
       {
+        code: "verified_customers",
         path: "/customers/verified",
         element: <Verified />,
         state: "customers.verified",
@@ -155,6 +165,8 @@ const appRoutes = [
     ],
   },
   {
+    code: "administrator",
+
     roles: [ROLES.ADMIN],
     path: "/admin",
     element: <AdminPageLayout />,
@@ -165,11 +177,13 @@ const appRoutes = [
     },
     child: [
       {
+        code: "create_admin",
         index: true,
         element: <AddRoles />,
         state: "admin.index",
       },
       {
+        code: "create_admin",
         path: "/admin/create-admin",
         element: <CreateUser />,
         state: "admin.create-admin",
@@ -178,6 +192,7 @@ const appRoutes = [
         },
       },
       {
+        code: "assign_permissions_to_roles",
         path: "/admin/add-roles",
         element: <AddRoles />,
         state: "admin./add-roles",
@@ -188,6 +203,7 @@ const appRoutes = [
     ],
   },
   {
+    code: "seela",
     roles: [ROLES.ADMIN, ROLES.UNDER_WRITER],
     path: "/selaa",
     element: <SelaaPageLayout />,
@@ -198,11 +214,13 @@ const appRoutes = [
     },
     child: [
       {
+        code: "seela_history",
         index: true,
         element: <SelaaHistory />,
         state: "selaa.index",
       },
       {
+        code: "seela_history",
         path: "/selaa/history",
         element: <SelaaHistory />,
         state: "selaa.history",
@@ -211,6 +229,7 @@ const appRoutes = [
         },
       },
       {
+        code: "seela_transaction",
         path: "/selaa/transaction",
         element: <SelaaTransaction />,
         state: "selaa.transaction",
@@ -219,6 +238,7 @@ const appRoutes = [
         },
       },
       {
+        code: "seela_commodity",
         path: "/selaa/commodity",
         element: <SelaaAccomodity />,
         state: "selaa.commodity",
@@ -227,6 +247,7 @@ const appRoutes = [
         },
       },
       {
+        code: "seela_wallet",
         path: "/selaa/wallet",
         element: <SelaaWallet />,
         state: "selaa.wallet",
@@ -237,6 +258,7 @@ const appRoutes = [
     ],
   },
   {
+    code: "policies",
     roles: [ROLES.ADMIN, ROLES.UNDER_WRITER],
     path: "/policies",
     element: <PoliciesPageLayout />,
@@ -247,11 +269,13 @@ const appRoutes = [
     },
     child: [
       {
+        code: "view_policies",
         index: true,
         element: <ViewPolicies />,
         state: "policies.index",
       },
       {
+        code: "view_policies",
         path: "/policies/view-policies",
         element: <ViewPolicies />,
         state: "policies.view-policies",
@@ -263,7 +287,7 @@ const appRoutes = [
   },
   {
     roles: [ROLES.ADMIN, ROLES.UNDER_WRITER],
-
+    code: "loan_management",
     path: "/los",
     element: <DecisionLayout />,
     state: "los",
@@ -273,11 +297,13 @@ const appRoutes = [
     },
     child: [
       {
+        code: "create_type",
         index: true,
         element: <LosPageLayout />,
         state: "los.index",
       },
       {
+        code: "create_type",
         path: "/los/create-type",
         element: <CreateType />,
         state: "los.create-type",
@@ -286,6 +312,7 @@ const appRoutes = [
         },
       },
       {
+        code: "customer_emi",
         path: "/los/emi",
         element: <CustomerEmi />,
         state: "los.emi",
@@ -297,7 +324,7 @@ const appRoutes = [
   },
   {
     roles: [ROLES.ADMIN, ROLES.MODERATOR, ROLES.UNDER_WRITER],
-
+    code: "decisions",
     path: "/decisions",
     element: <DecisionLayout />,
     state: "decisions",
@@ -307,11 +334,13 @@ const appRoutes = [
     },
     child: [
       {
+        code: "questions",
         index: true,
         element: <QuestionsAnswers />,
         state: "decisions.index",
       },
       {
+        code: "questions",
         path: "/decisions/q/a",
         element: <QuestionsAnswers />,
         state: "decisions.qa",
@@ -320,6 +349,7 @@ const appRoutes = [
         },
       },
       {
+        code: "create_set",
         path: "/decisions/create-set",
         element: <CreateSet />,
         state: "decisions.create-set",
@@ -329,6 +359,7 @@ const appRoutes = [
       },
 
       {
+        code: "create_decisions",
         path: "/decisions/create-decision",
         element: <CreateDecision />,
         state: "decisions.create-decision",
@@ -340,7 +371,7 @@ const appRoutes = [
   },
   {
     roles: [ROLES.ADMIN, ROLES.CUSTOMER_CARE, ROLES.UNDER_WRITER], // Example roles allowed to access this route
-
+    code: "notifications",
     path: "/response",
     element: <ResponsePageLayout />,
     state: "response",
@@ -350,12 +381,14 @@ const appRoutes = [
     },
     child: [
       {
+        code: "notifications_dashboard",
         index: true,
         element: <Response />,
         state: "response.index",
       },
 
       {
+        code: "notifications_dashboard",
         path: "/response/notifications",
         element: <Notifications />,
         state: "response.notifications",
@@ -364,6 +397,7 @@ const appRoutes = [
         },
       },
       {
+        code: "terms_and_conditions",
         path: "/response/term-conditions",
         element: <TermAndConditions />,
         state: "response.term-conditions",
@@ -372,6 +406,7 @@ const appRoutes = [
         },
       },
       {
+        code: "awareness_messages",
         path: "/response/awareness-messages",
         element: <AwareNessMessage />,
         state: "response.awareness-messages",
@@ -381,6 +416,7 @@ const appRoutes = [
       },
 
       {
+        code: "add_sms",
         path: "/response/sms",
         element: <Sms />,
         state: "response.sms",
@@ -392,7 +428,7 @@ const appRoutes = [
   },
   {
     roles: [ROLES.ADMIN, ROLES.UNDER_WRITER], // Example roles allowed to access this route
-
+    code: "simah",
     path: "/simah",
     element: <SimahPageLayout />,
     state: "simah",
@@ -402,11 +438,13 @@ const appRoutes = [
     },
     child: [
       {
+        code: "simah_dashboard",
         index: true,
         element: <Simah />,
         state: "simah.index",
       },
       {
+        code: "simah_dashboard",
         path: "/simah/codes",
         element: <Simah />,
         state: "simah.codes",
@@ -417,6 +455,7 @@ const appRoutes = [
     ],
   },
   {
+    code: "calculations",
     roles: [ROLES.ADMIN, ROLES.UNDER_WRITER], // Example roles allowed to access this route
     path: "/calculations",
     element: <CalculationsPageLayout />,
@@ -427,11 +466,13 @@ const appRoutes = [
     },
     child: [
       {
+        code: "calculations_dbr",
         index: true,
         element: <Calculations />,
         state: "calculations.index",
       },
       {
+        code: "calculations_dbr",
         path: "/calculations/dbr",
         element: <Calculations />,
         state: "calculations.dbr",
@@ -440,6 +481,7 @@ const appRoutes = [
         },
       },
       {
+        code: "calculations_bare_minimum_expenses",
         path: "/calculations/bare-minimum-expense",
         element: <BareMinimumExpense />,
         state: "calculations.bare-minimum-expense",
@@ -448,6 +490,7 @@ const appRoutes = [
         },
       },
       {
+        code: "calculations_terms_and_rates",
         path: "/calculations/terms-rates",
         element: <TermsAndRates />,
         state: "calculations.terms-rates",

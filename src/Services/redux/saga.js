@@ -2,12 +2,14 @@ import { call, put, takeLatest } from "@redux-saga/core/effects";
 import * as action from "./reducer";
 import { axiosInstance } from "../constant";
 import { getLanguage } from "functions/getLanguage";
-var baseUrlSMS = "https://seulah.sa/api/v1/sms";
-var baseUrlUser = "https://seulah.sa/api/v1/auth";
-var baseUrlDecisions = "https://seulah.sa/api/v1/dms";
-var baseUrlLos = "https://seulah.sa/api/v1/los";
-var baseUrlCms = "https://seulah.sa/api/v1/cms";
-const rolesUrl = "https://seulah.sa";
+import config from "../../config";
+
+var baseUrlSMS = `${config.API_URL}/api/v1/sms`;
+var baseUrlUser = `${config.API_URL}/api/v1/auth`;
+var baseUrlDecisions = `${config.API_URL}/api/v1/dms`;
+var baseUrlLos = `${config.API_URL}/api/v1/los`;
+var baseUrlCms = `${config.API_URL}/api/v1/cms`;
+const rolesUrl = `https://50fe-39-58-103-188.ngrok-free.app/api/v1`;
 
 function* GetAllQuestionsData() {
   try {
@@ -17,6 +19,7 @@ function* GetAllQuestionsData() {
       axiosInstance.get,
       baseUrlDecisions + "/eligibilityQuestions/getAllQuestions"
     );
+    console.log("50 50 ");
     yield put(action.GetAllQuestions(response.data));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
@@ -1056,6 +1059,7 @@ function* ActiveDeactiveUser({ payload }) {
 }
 
 function* GetBalance({ payload }) {
+  console.log("helloooooo from config", config.API_URL);
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
@@ -1458,12 +1462,13 @@ function* DeleteTermsAndRate({ payload }) {
 }
 
 function* AddNewRoleName({ payload }) {
+  console.log("loggs", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
     const response1 = yield call(
       axiosInstance.post,
-      rolesUrl + `/v1/roles/create`,
+      baseUrlUser + `/role`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -1484,10 +1489,7 @@ function* GetAllRoles({ payload }) {
   try {
     yield put(action.Loading({ Loading: true }));
 
-    const response1 = yield call(
-      axiosInstance.get,
-      rolesUrl + `/api/v1/roles/all`
-    );
+    const response1 = yield call(axiosInstance.get, baseUrlUser + "/role");
 
     yield put(action.GetAllRoles(response1));
 
@@ -1495,10 +1497,29 @@ function* GetAllRoles({ payload }) {
     yield put(
       action.Message({
         message: response1.data.message,
-        open: true,
+        open: false,
         error: false,
       })
     );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* GetPermissionsOfRole({ payload }) {
+  console.log("by iddddd", payload);
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlUser + `/role/${payload}/permissions`
+    );
+
+    yield put(action.GetUserPermissions(response));
+
+    yield put(action.Loading({ Loading: false }));
   } catch (error) {
     yield put(action.Loading({ Loading: false }));
     const message = error.response.data.message;
@@ -1511,7 +1532,7 @@ function* AddModulesToRole({ payload }) {
 
     const response = yield call(
       axiosInstance.post,
-      rolesUrl + `/v1/roles/add-modules`,
+      baseUrlUser + `/v1/roles/add-modules`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -1522,6 +1543,27 @@ function* AddModulesToRole({ payload }) {
         error: false,
       })
     );
+  } catch (error) {
+    yield put(action.Loading({ Loading: false }));
+    const message = error.response.data.message;
+    yield put(action.Message({ message: message, open: true, error: true }));
+  }
+}
+function* GetAllPermissions({ payload }) {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(axiosInstance.get, baseUrlUser + "/permission");
+    console.log("heloooooo", response);
+    yield put(action.GetPermissions(response));
+    yield put(action.Loading({ Loading: false }));
+    // yield put(
+    //   action.Message({
+    //     message: response.data.message,
+    //     open: true,
+    //     error: false,
+    //   })
+    // );
   } catch (error) {
     yield put(action.Loading({ Loading: false }));
     const message = error.response.data.message;
@@ -1978,7 +2020,7 @@ export default function* HomeSaga() {
   yield takeLatest("UPDATE_TERM_AND_RATES", UpdateTermAndRates);
   yield takeLatest("DELETE_TERMS_AND_RATES", DeleteTermsAndRate);
   yield takeLatest("ADD_NEW_ROLE_NAME", AddNewRoleName);
-  yield takeLatest("GET_ALL_ROLES", GetAllRoles);
+
   yield takeLatest("ADD_MODULES_TO_ROLES", AddModulesToRole);
   yield takeLatest("DELETE_SET", DeleteSet);
   yield takeLatest("CREATE_SMS", CreateSMS);
@@ -2002,6 +2044,9 @@ export default function* HomeSaga() {
   yield takeLatest("GET_SELAA_TRANSACTION", GetSeelahTransaction);
   yield takeLatest("GET_NOTIFICATIONS_HEADINGS", GetNotificationsHeadings);
   yield takeLatest("SEND_NOTIFICATION_SMS", SendNotificationSms);
+  yield takeLatest("GET_ALL_PERMISSIONS", GetAllPermissions);
+  yield takeLatest("GET_ALL_ROLES", GetAllRoles);
+  yield takeLatest("GET_PERMISSIONS_OF_ROLE", GetPermissionsOfRole);
 }
 
 // function getLanguage() {

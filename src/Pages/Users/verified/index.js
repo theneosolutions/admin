@@ -111,7 +111,7 @@ function VerifiedUsers() {
                   {t("User Id")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("Id Number")}
+                  {t("ID Number")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Questions")}
@@ -253,7 +253,7 @@ function VerifiedUsers() {
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">
-          {t("Are You Sure To Delete ?")}
+          {t("Are you sure to delete ?")}
           <span className="font-semibold"> {username}</span>
         </a>
       </Model>

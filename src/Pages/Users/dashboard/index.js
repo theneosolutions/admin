@@ -163,7 +163,7 @@ function App() {
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">
-          {t("Are You Sure To Delete ?")}
+          {t("Are you sure to delete ?")}
           <span className="font-semibold"> </span>
         </a>
       </Model>

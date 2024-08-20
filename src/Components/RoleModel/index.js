@@ -12,10 +12,12 @@ function Component({ setModelOpen, modelOpen, GetAllRoles }) {
     if (role) {
       dispatch({
         type: "ADD_NEW_ROLE_NAME",
-        payload: { roleName: role, valid: true },
+        payload: {
+          name: role,
+        },
       });
       setModelOpen(false);
-      setTimeout(() => GetAllRoles(), 500);
+      // setTimeout(() => GetAllRoles(), 500);
     }
   }
 

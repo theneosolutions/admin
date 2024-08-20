@@ -47,7 +47,7 @@ function CreateUser() {
         },
       });
     } else {
-      alert("All Fields Required!");
+      alert("All fields are required!");
     }
   }
 

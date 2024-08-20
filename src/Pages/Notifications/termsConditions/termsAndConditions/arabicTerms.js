@@ -29,7 +29,7 @@ function CreateUser() {
       });
       setEdit(false);
     } else {
-      alert("All Fields Required!");
+      alert("All fields are required!");
     }
   }
 

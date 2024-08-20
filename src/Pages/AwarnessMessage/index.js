@@ -28,7 +28,7 @@ function CreateUser() {
         payload: { type, language, role, phone, message },
       });
     } else {
-      alert("All Fields Required!");
+      alert("All fields are required!");
     }
   }
 
