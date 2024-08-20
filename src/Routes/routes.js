@@ -16,6 +16,7 @@ const PageWrapper = (props) => {
 };
 
 const generateRoute = (routes) => {
+  console.log("route =========", routes);
   return routes.map((route, index) =>
     route.index ? (
       <Route
@@ -32,7 +33,8 @@ const generateRoute = (routes) => {
             {route.element}
           </PageWrapper>
         }
-        key={index}>
+        key={index}
+      >
         {route.child && generateRoute(route.child)}
       </Route>
     )

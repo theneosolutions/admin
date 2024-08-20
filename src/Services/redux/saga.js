@@ -10,7 +10,7 @@ var baseUrlUser = `${config.API_URL}/api/v1/auth`;
 var baseUrlDecisions = `${config.API_URL}/api/v1/dms`;
 var baseUrlLos = `${config.API_URL}/api/v1/los`;
 var baseUrlCms = `${config.API_URL}/api/v1/cms`;
-const rolesUrl = `https://202d-39-58-103-10.ngrok-free.app/api/v1`;
+const rolesUrl = `https://50fe-39-58-103-188.ngrok-free.app/api/v1`;
 
 function* GetAllQuestionsData() {
   try {
@@ -1469,7 +1469,7 @@ function* AddNewRoleName({ payload }) {
 
     const response1 = yield call(
       axiosInstance.post,
-      rolesUrl + `/role`,
+      baseUrlUser + `/role`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -1490,7 +1490,7 @@ function* GetAllRoles({ payload }) {
   try {
     yield put(action.Loading({ Loading: true }));
 
-    const response1 = yield call(axiosInstance.get, rolesUrl + "/role");
+    const response1 = yield call(axiosInstance.get, baseUrlUser + "/role");
 
     yield put(action.GetAllRoles(response1));
 
@@ -1498,7 +1498,7 @@ function* GetAllRoles({ payload }) {
     yield put(
       action.Message({
         message: response1.data.message,
-        open: true,
+        open: false,
         error: false,
       })
     );
@@ -1515,7 +1515,7 @@ function* GetPermissionsOfRole({ payload }) {
 
     const response = yield call(
       axiosInstance.get,
-      rolesUrl + `/role/${payload}/permissions`
+      baseUrlUser + `/role/${payload}/permissions`
     );
 
     yield put(action.GetUserPermissions(response));
@@ -1533,7 +1533,7 @@ function* AddModulesToRole({ payload }) {
 
     const response = yield call(
       axiosInstance.post,
-      rolesUrl + `/v1/roles/add-modules`,
+      baseUrlUser + `/v1/roles/add-modules`,
       payload
     );
     yield put(action.Loading({ Loading: false }));
@@ -1554,7 +1554,7 @@ function* GetAllPermissions({ payload }) {
   try {
     yield put(action.Loading({ Loading: true }));
 
-    const response = yield call(axiosInstance.get, rolesUrl + "/permission");
+    const response = yield call(axiosInstance.get, baseUrlUser + "/permission");
     console.log("heloooooo", response);
     yield put(action.GetPermissions(response));
     yield put(action.Loading({ Loading: false }));
