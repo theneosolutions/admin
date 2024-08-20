@@ -16,23 +16,18 @@ function App({ isOpen, toggleSidebar }) {
   const userRole = useSelector((state) => state.role); // Assuming the user role is stored in the Redux state under `user.role`
 
   // Filter routes based on user role
-  const filteredRoutes = appRoutes.filter((route) => {
-    // Assuming each route has a `roles` property containing an array of roles
-    if (route.roles) {
-      return route.roles.includes(userRole);
-    }
-    return false; // Include routes without roles or sidebarProps
-  });
 
   const filteredRoutes2 = appRoutes
     .map((route) => {
       // Check if the main route matches by name
-      const isRouteMatch = data.some((item) => item.code === route.code);
+      const isRouteMatch = userRole?.permissions?.some(
+        (item) => item.code === route.code
+      );
 
       // Filter subMenus if they exist and match by code
       const filteredSubMenus = route.child
         ? route.child.filter((subMenu) =>
-            data.some((item) =>
+            userRole?.permissions?.some((item) =>
               item.subMenus.some((sub) => sub.code === subMenu.code)
             )
           )
@@ -49,7 +44,6 @@ function App({ isOpen, toggleSidebar }) {
     })
     .filter((route) => route !== null);
 
-  console.log("Filtered Routes 2: ", filteredRoutes2);
   return (
     <div className="flex  flex-col bg-greeen-400">
       <div

@@ -3,11 +3,10 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import withAuthorization from "../../../constants/authorization";
-import { ROLES } from "../../../constants/roles";
 import EnglishTerms from "./termsAndConditions/englishTerms";
 import ArabicTerms from "./termsAndConditions/arabicTerms";
 
-function CreateUser() {
+function TermsConditions() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -38,8 +37,4 @@ function CreateUser() {
     </div>
   );
 }
-export default withAuthorization(CreateUser, [
-  ROLES.ADMIN,
-  ROLES.CUSTOMER_CARE,
-  ROLES.UNDER_WRITER,
-]);
+export default withAuthorization(TermsConditions, "terms_and_conditions");

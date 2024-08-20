@@ -2,7 +2,6 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { FaUser } from "react-icons/fa";
 import { IoMdCheckboxOutline } from "react-icons/io";
 import { MdOutlineQuestionAnswer } from "react-icons/md";
-import { ROLES } from "../constants/roles";
 import { GrOverview } from "react-icons/gr";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { TbMoneybag } from "react-icons/tb";
@@ -55,7 +54,6 @@ const appRoutes = [
   },
   {
     code: "overview",
-    roles: [ROLES.ADMIN, ROLES.SALES], // Example roles allowed to access this route
     path: "/dashboard",
     element: <DashboardPageLayout />,
     state: "dashboard",
@@ -84,7 +82,6 @@ const appRoutes = [
 
   {
     code: "applications",
-    roles: [ROLES.ADMIN, ROLES.SALES, ROLES.UNDER_WRITER],
     path: "/applications",
     element: <ApplicationsPageLayout />,
     state: "applications",
@@ -113,12 +110,6 @@ const appRoutes = [
 
   {
     code: "customers",
-    roles: [
-      ROLES.ADMIN,
-      ROLES.CUSTOMER_CARE,
-      ROLES.COMPLIANCE,
-      ROLES.UNDER_WRITER,
-    ],
     path: "/customers",
     element: <UsersPageLayout />,
     state: "customers",
@@ -166,8 +157,6 @@ const appRoutes = [
   },
   {
     code: "administrator",
-
-    roles: [ROLES.ADMIN],
     path: "/admin",
     element: <AdminPageLayout />,
     state: "admin",
@@ -204,7 +193,6 @@ const appRoutes = [
   },
   {
     code: "seela",
-    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER],
     path: "/selaa",
     element: <SelaaPageLayout />,
     state: "selaa",
@@ -259,7 +247,6 @@ const appRoutes = [
   },
   {
     code: "policies",
-    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER],
     path: "/policies",
     element: <PoliciesPageLayout />,
     state: "policies",
@@ -286,7 +273,6 @@ const appRoutes = [
     ],
   },
   {
-    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER],
     code: "loan_management",
     path: "/los",
     element: <DecisionLayout />,
@@ -323,7 +309,6 @@ const appRoutes = [
     ],
   },
   {
-    roles: [ROLES.ADMIN, ROLES.MODERATOR, ROLES.UNDER_WRITER],
     code: "decisions",
     path: "/decisions",
     element: <DecisionLayout />,
@@ -370,7 +355,6 @@ const appRoutes = [
     ],
   },
   {
-    roles: [ROLES.ADMIN, ROLES.CUSTOMER_CARE, ROLES.UNDER_WRITER], // Example roles allowed to access this route
     code: "notifications",
     path: "/response",
     element: <ResponsePageLayout />,
@@ -427,7 +411,6 @@ const appRoutes = [
     ],
   },
   {
-    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER], // Example roles allowed to access this route
     code: "simah",
     path: "/simah",
     element: <SimahPageLayout />,
@@ -456,7 +439,6 @@ const appRoutes = [
   },
   {
     code: "calculations",
-    roles: [ROLES.ADMIN, ROLES.UNDER_WRITER], // Example roles allowed to access this route
     path: "/calculations",
     element: <CalculationsPageLayout />,
     state: "calculations",

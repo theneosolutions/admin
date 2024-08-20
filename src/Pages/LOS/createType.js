@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import UplaodIcon from "Assets/Images/upload.svg";
 import { CiCircleRemove } from "react-icons/ci";
 import withAuthorization from "../../constants/authorization";
-import { ROLES } from "../../constants/roles";
 import TermsAndRates from "Pages/Calculations/termsAndRates";
 function App() {
   const { t } = useTranslation();
@@ -274,4 +273,4 @@ function App() {
   );
 }
 
-export default withAuthorization(App, [ROLES.ADMIN, ROLES.UNDER_WRITER]);
+export default withAuthorization(App, "create_type");

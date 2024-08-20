@@ -4,7 +4,6 @@ import CardMain from "../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import withAuthorization from "../../constants/authorization";
-import { ROLES } from "../../constants/roles";
 import CreateBME from "./createBareMinimum";
 import Edit from "../../Assets/Images/edit.svg";
 import Delete from "../../Assets/Images/delete.svg";
@@ -152,7 +151,7 @@ function BareMinimumExpense() {
     </div>
   );
 }
-export default withAuthorization(BareMinimumExpense, [
-  ROLES.ADMIN,
-  ROLES.UNDER_WRITER,
-]);
+export default withAuthorization(
+  BareMinimumExpense,
+  "calculations_bare_minimum_expenses"
+);

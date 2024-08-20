@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import withAuthorization from "../../constants/authorization";
-import { ROLES } from "../../constants/roles";
 
 function CreateUser() {
   const { t } = useTranslation();
@@ -229,11 +228,7 @@ function CreateUser() {
     </div>
   );
 }
-export default withAuthorization(CreateUser, [
-  ROLES.ADMIN,
-  ROLES.CUSTOMER_CARE,
-  ROLES.UNDER_WRITER,
-]);
+export default withAuthorization(CreateUser, "notifications_dashboard");
 function InputField({ heading, value, onChange, type, style }) {
   const { t } = useTranslation();
 

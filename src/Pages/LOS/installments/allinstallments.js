@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import CardMain from "../../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
-import withAuthorization from "../../../constants/authorization";
-import { ROLES } from "../../../constants/roles";
 
 function InstallmentsScreen() {
   const { t } = useTranslation();
@@ -81,7 +79,4 @@ function InstallmentsScreen() {
     </div>
   );
 }
-export default withAuthorization(InstallmentsScreen, [
-  ROLES.ADMIN,
-  ROLES.UNDER_WRITER,
-]);
+export default InstallmentsScreen;

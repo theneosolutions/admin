@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
 import OtpScreen from "./otp";
 import { useNavigate } from "react-router-dom";
-import { ROLES } from "../../../constants/roles";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import LanguageCom from "Components/LanguageCom";
@@ -73,24 +72,21 @@ function Login() {
   }
   useEffect(() => {
     if (islogin && role && token) {
-      dispatch(action.Message({ message: "" })); // Closing the message
-      // dispatch(action.VerificationOtp({ otp: null }));
-      if (role === ROLES.ADMIN) {
-        navigate("/dashboard/account");
-      } else if (role === ROLES.COMPLIANCE) {
-        navigate("/customers/dashboard");
-      } else if (role === ROLES.CUSTOMER_CARE) {
-        navigate("/customers/dashboard");
-      } else if (role === ROLES.UNDER_WRITER) {
-        navigate("/los/create-type");
-      } else if (role === ROLES.MODERATOR) {
-        // setActive("login");
-        navigate("/decisions/q/a");
-      } else if (role === ROLES.SALES) {
-        navigate("/dashboard/account");
+      console.log(role?.permissions[0]?.subMenus[0]);
+      const value = appRoutes.find((item) =>
+        item?.child?.find(
+          (sub) => sub.code === role?.permissions[0]?.subMenus[0]?.code
+        )
+      );
+
+      if (value?.child[0]?.path) {
+        navigate(value?.child[0]?.path);
       } else {
         navigate("/dashboard/account");
       }
+
+      dispatch(action.Message({ message: "" })); // Closing the message
+
       setActive("login");
     }
   }, [islogin, role, token]);
@@ -226,3 +222,185 @@ function Login() {
   );
 }
 export default Login;
+const appRoutes = [
+  {
+    code: "overview",
+    path: "/dashboard",
+
+    child: [
+      {
+        code: "overview_account",
+        path: "/dashboard/account",
+      },
+    ],
+  },
+
+  {
+    code: "applications",
+    path: "/applications",
+
+    child: [
+      {
+        code: "loan_applications",
+        path: "/applications/loan",
+      },
+    ],
+  },
+
+  {
+    code: "customers",
+    path: "/customers",
+
+    child: [
+      {
+        code: "customers_dashboard",
+        path: "/customers/dashboard",
+      },
+      {
+        code: "all_customers",
+        path: "/customers/allcustomers",
+      },
+      {
+        code: "verified_customers",
+        path: "/customers/verified",
+      },
+    ],
+  },
+  {
+    code: "administrator",
+    path: "/admin",
+
+    child: [
+      {
+        code: "create_admin",
+        path: "/admin/create-admin",
+      },
+      {
+        code: "assign_permissions_to_roles",
+        path: "/admin/add-roles",
+      },
+    ],
+  },
+  {
+    code: "seela",
+    path: "/selaa",
+
+    child: [
+      {
+        code: "seela_history",
+        path: "/selaa/history",
+      },
+      {
+        code: "seela_transaction",
+        path: "/selaa/transaction",
+      },
+      {
+        code: "seela_commodity",
+        path: "/selaa/commodity",
+      },
+      {
+        code: "seela_wallet",
+        path: "/selaa/wallet",
+      },
+    ],
+  },
+  {
+    code: "policies",
+    path: "/policies",
+
+    child: [
+      {
+        code: "view_policies",
+        path: "/policies/view-policies",
+      },
+    ],
+  },
+  {
+    code: "loan_management",
+    path: "/los",
+    child: [
+      {
+        code: "create_type",
+        path: "/los/create-type",
+      },
+      {
+        code: "customer_emi",
+        path: "/los/emi",
+      },
+    ],
+  },
+  {
+    code: "decisions",
+    path: "/decisions",
+
+    child: [
+      {
+        code: "questions",
+        path: "/decisions/q/a",
+      },
+      {
+        code: "create_set",
+        path: "/decisions/create-set",
+      },
+
+      {
+        code: "create_decisions",
+        path: "/decisions/create-decision",
+      },
+    ],
+  },
+  {
+    code: "notifications",
+    path: "/response",
+
+    child: [
+      {
+        code: "notifications_dashboard",
+        path: "/response/notifications",
+      },
+      {
+        code: "terms_and_conditions",
+        path: "/response/term-conditions",
+      },
+      {
+        code: "awareness_messages",
+        path: "/response/awareness-messages",
+      },
+
+      {
+        code: "add_sms",
+        path: "/response/sms",
+      },
+    ],
+  },
+  {
+    code: "simah",
+    path: "/simah",
+
+    child: [
+      {
+        code: "simah_dashboard",
+        path: "/simah/codes",
+      },
+    ],
+  },
+  {
+    code: "calculations",
+    path: "/calculations",
+
+    child: [
+      {
+        code: "calculations_dbr",
+        path: "/calculations/dbr",
+      },
+      {
+        code: "calculations_bare_minimum_expenses",
+        path: "/calculations/bare-minimum-expense",
+      },
+      {
+        code: "calculations_terms_and_rates",
+        path: "/calculations/terms-rates",
+      },
+    ],
+  },
+];

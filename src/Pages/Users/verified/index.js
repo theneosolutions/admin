@@ -10,7 +10,6 @@ import { Model, Avatar } from "../../../Components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
-import { ROLES } from "../../../constants/roles";
 import { LuSearch } from "react-icons/lu";
 
 function VerifiedUsers() {
@@ -261,9 +260,4 @@ function VerifiedUsers() {
   );
 }
 
-export default withAuthorization(VerifiedUsers, [
-  ROLES.ADMIN,
-  ROLES.CUSTOMER_CARE,
-  ROLES.COMPLIANCE,
-  ROLES.UNDER_WRITER,
-]);
+export default withAuthorization(VerifiedUsers, "verified_customers");

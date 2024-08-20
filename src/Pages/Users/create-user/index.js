@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import User from "./users";
 import Model2 from "Components/Model2";
 import withAuthorization from "../../../constants/authorization";
-import { ROLES } from "../../../constants/roles";
 
 function NotificationsScreen() {
   const { t } = useTranslation();
@@ -104,4 +103,4 @@ function NotificationsScreen() {
   );
 }
 
-export default withAuthorization(NotificationsScreen, [ROLES.ADMIN]);
+export default withAuthorization(NotificationsScreen, "create_admin");

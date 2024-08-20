@@ -4,8 +4,7 @@ import CardMain from "../../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
-import { ROLES } from "../../../constants/roles";
-import { GetSeelahHistory } from "Services/OtherApis";
+
 function AllUsers() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -127,4 +126,4 @@ function AllUsers() {
     </div>
   );
 }
-export default withAuthorization(AllUsers, [ROLES.ADMIN, ROLES.UNDER_WRITER]);
+export default withAuthorization(AllUsers, "seela_transaction");

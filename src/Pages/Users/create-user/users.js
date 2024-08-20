@@ -6,7 +6,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
-import { ROLES } from "../../../constants/roles";
 
 function CreateUser({}) {
   const dispatch = useDispatch();

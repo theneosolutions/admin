@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import RoleModel from "../../Components/RoleModel";
 import { UpdatePermissions } from "Services/OtherApis";
 import * as action from "Services/redux/reducer";
+import withAuthorization from "constants/authorization";
 
 function Roles() {
   const dispatch = useDispatch();
@@ -238,7 +239,7 @@ function Roles() {
   );
 }
 
-export default Roles;
+export default withAuthorization(Roles, "assign_permissions_to_roles");
 
 const data = [
   {

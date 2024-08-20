@@ -4,7 +4,6 @@ import CardMain from "../../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
 
 import withAuthorization from "../../../constants/authorization";
-import { ROLES } from "../../../constants/roles";
 import Model2 from "Components/Model2";
 import AddSms from "../sms/addSms";
 import Delete from "../../../Assets/Images/delete.svg";
@@ -127,8 +126,4 @@ function NotificationsScreen() {
     </div>
   );
 }
-export default withAuthorization(NotificationsScreen, [
-  ROLES.ADMIN,
-  ROLES.CUSTOMER_CARE,
-  ROLES.UNDER_WRITER,
-]);
+export default withAuthorization(NotificationsScreen, "add_sms");

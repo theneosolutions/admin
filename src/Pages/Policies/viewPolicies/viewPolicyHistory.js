@@ -4,8 +4,6 @@ import CardMain from "../../../Components/Cards/main";
 import { Model } from "../../../Components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import withAuthorization from "../../../constants/authorization";
-import { ROLES } from "../../../constants/roles";
 import { useLocation } from "react-router-dom";
 import { Button } from "Components";
 
@@ -142,7 +140,4 @@ function ViewPolicyHistory() {
     </div>
   );
 }
-export default withAuthorization(ViewPolicyHistory, [
-  ROLES.ADMIN,
-  ROLES.UNDER_WRITER,
-]);
+export default ViewPolicyHistory;

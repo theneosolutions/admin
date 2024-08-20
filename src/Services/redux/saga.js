@@ -9,7 +9,6 @@ var baseUrlUser = `${config.API_URL}/api/v1/auth`;
 var baseUrlDecisions = `${config.API_URL}/api/v1/dms`;
 var baseUrlLos = `${config.API_URL}/api/v1/los`;
 var baseUrlCms = `${config.API_URL}/api/v1/cms`;
-const rolesUrl = `https://50fe-39-58-103-188.ngrok-free.app/api/v1`;
 
 function* GetAllQuestionsData() {
   try {
@@ -19,7 +18,7 @@ function* GetAllQuestionsData() {
       axiosInstance.get,
       baseUrlDecisions + "/eligibilityQuestions/getAllQuestions"
     );
-    console.log("50 50 ");
+
     yield put(action.GetAllQuestions(response.data));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
@@ -349,14 +348,14 @@ function* UserLogin({ payload }) {
       baseUrlUser + `/user/signin`,
       payload
     );
-    console.log("response.data.", response.data);
-    if (response.data.token) {
+
+    if (response?.data?.token) {
       yield put(
         action.Auth({
-          user: response.data,
+          user: response?.data?.user,
           islogin: true,
-          role: response.data.roles[0],
-          token: response.data.token,
+          role: response.data?.user?.roles[0],
+          token: response?.data?.token,
         })
       );
       localStorage.setItem(
@@ -382,10 +381,8 @@ function* LoginOtpVerification({ payload }) {
       baseUrlUser + `/user/otpVerification`,
       payload
     );
-    console.log("response.data", response?.status);
+
     if (response?.status === 200) {
-      //  yield put(action.VerificationOtp(response.data));
-      console.log("helloo");
       yield put(
         action.Message({
           message: "Otp Recieved Login",
@@ -1059,7 +1056,6 @@ function* ActiveDeactiveUser({ payload }) {
 }
 
 function* GetBalance({ payload }) {
-  console.log("helloooooo from config", config.API_URL);
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
@@ -2048,14 +2044,3 @@ export default function* HomeSaga() {
   yield takeLatest("GET_ALL_ROLES", GetAllRoles);
   yield takeLatest("GET_PERMISSIONS_OF_ROLE", GetPermissionsOfRole);
 }
-
-// function getLanguage() {
-//   const preferredLanguage = localStorage.getItem("preferredLanguage");
-//   if (preferredLanguage) {
-//     // const lan = JSON.parse(preferredLanguage);
-//     console.log(preferredLanguage);
-//     return preferredLanguage;
-//   } else {
-//     return "ar";
-//   }
-// }

@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
-import { ROLES } from "../../../constants/roles";
 import { Button } from "Components";
 import * as action from "../../../Services/redux/reducer";
 
@@ -91,7 +90,7 @@ function Wallet() {
     </div>
   );
 }
-export default withAuthorization(Wallet, [ROLES.ADMIN, ROLES.UNDER_WRITER]);
+export default withAuthorization(Wallet, "seela_wallet");
 function InputField({ heading, value, onChange, type }) {
   return (
     <div className="flex flex-col w-full">

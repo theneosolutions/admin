@@ -16,7 +16,6 @@ const PageWrapper = (props) => {
 };
 
 const generateRoute = (routes) => {
-  console.log("route =========", routes);
   return routes.map((route, index) =>
     route.index ? (
       <Route

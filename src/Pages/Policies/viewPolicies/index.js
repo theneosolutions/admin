@@ -6,7 +6,6 @@ import { Model } from "../../../Components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
-import { ROLES } from "../../../constants/roles";
 import Model2 from "Components/Model2";
 import UpdatePolicy from "./updatePolicy";
 import { Button } from "Components";
@@ -138,7 +137,4 @@ function AllPolicies() {
     </div>
   );
 }
-export default withAuthorization(AllPolicies, [
-  ROLES.ADMIN,
-  ROLES.UNDER_WRITER,
-]);
+export default withAuthorization(AllPolicies, "view_policies");

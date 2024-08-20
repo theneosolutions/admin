@@ -7,7 +7,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import withAuthorization from "../../constants/authorization";
-import { ROLES } from "../../constants/roles";
 import { getLanguage } from "functions/getLanguage";
 
 function CreateQuestionsSet() {
@@ -178,11 +177,7 @@ function CreateQuestionsSet() {
   );
 }
 
-export default withAuthorization(CreateQuestionsSet, [
-  ROLES.ADMIN,
-  ROLES.UNDER_WRITER,
-  ROLES.MODERATOR,
-]);
+export default withAuthorization(CreateQuestionsSet, "create_set");
 
 function InputField({ name, setName, placeholder }) {
   const { t } = useTranslation();

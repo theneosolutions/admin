@@ -4,7 +4,6 @@ import CardMain from "../../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
-import { ROLES } from "../../../constants/roles";
 import * as action from "../../../Services/redux/reducer";
 
 import {
@@ -148,4 +147,4 @@ function Accomodity() {
     </div>
   );
 }
-export default withAuthorization(Accomodity, [ROLES.ADMIN, ROLES.UNDER_WRITER]);
+export default withAuthorization(Accomodity, "seela_commodity");

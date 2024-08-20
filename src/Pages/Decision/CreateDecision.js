@@ -9,7 +9,6 @@ import Delete from "../../Assets/Images/delete.svg";
 import { useTranslation } from "react-i18next";
 import Response from "./response";
 import withAuthorization from "../../constants/authorization";
-import { ROLES } from "../../constants/roles";
 import { getLanguage } from "functions/getLanguage";
 
 const CreateDesicion = () => {
@@ -295,11 +294,7 @@ const CreateDesicion = () => {
   );
 };
 
-export default withAuthorization(CreateDesicion, [
-  ROLES.ADMIN,
-  ROLES.UNDER_WRITER,
-  ROLES.MODERATOR,
-]);
+export default withAuthorization(CreateDesicion, "create_decisions");
 
 function Checboxes({ singleQuestion, checkedValues, setCheckedValues }) {
   const { t } = useTranslation();

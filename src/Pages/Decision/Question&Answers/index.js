@@ -3,7 +3,6 @@ import CardMain from "Components/Cards/main";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import withAuthorization from "constants/authorization";
-import { ROLES } from "constants/roles";
 import ViewQuestions from "./viewQuestions";
 import TextBox from "./TextBox";
 import Boolean from "./Boolean";
@@ -118,8 +117,4 @@ function App() {
     </div>
   );
 }
-export default withAuthorization(App, [
-  ROLES.ADMIN,
-  ROLES.UNDER_WRITER,
-  ROLES.MODERATOR,
-]);
+export default withAuthorization(App, "questions");

@@ -18,7 +18,6 @@ import SplineChart from "Components/chart/SplineChart";
 
 import { Model } from "Components";
 import withAuthorization from "../../constants/authorization";
-import { ROLES } from "../../constants/roles";
 function App() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -168,7 +167,7 @@ function App() {
   );
 }
 
-export default withAuthorization(App, [ROLES.ADMIN, ROLES.SALES]);
+export default withAuthorization(App, "overview_account");
 
 function ActionCenter({ icon, heading, des }) {
   return (

@@ -4,7 +4,7 @@ import ProductList from "./Tabs/product";
 import { useDispatch, useSelector } from "react-redux";
 import Members from "./Tabs/members";
 import withAuthorization from "../../constants/authorization";
-import { ROLES } from "../../constants/roles";
+
 import { useTranslation } from "react-i18next";
 import { Button } from "Components";
 import Model2 from "Components/Model2";
@@ -149,7 +149,7 @@ function Simah() {
   );
 }
 
-export default withAuthorization(Simah, [ROLES.ADMIN, ROLES.UNDER_WRITER]);
+export default withAuthorization(Simah, "simah_dashboard");
 const data = [
   {
     label: "SIMAH Product List",

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
-import { ROLES } from "../../../constants/roles";
 
 function VerifiedUsers() {
   const dispatch = useDispatch();
@@ -114,7 +113,4 @@ function VerifiedUsers() {
   );
 }
 
-export default withAuthorization(VerifiedUsers, [
-  ROLES.ADMIN,
-  ROLES.UNDER_WRITER,
-]);
+export default withAuthorization(VerifiedUsers, "customer_emi");

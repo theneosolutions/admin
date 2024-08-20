@@ -12,7 +12,6 @@ import RadialBarChart from "Components/chart/RadialBarChart";
 import BarwithMarkersChart from "Components/chart/BarwithMarkersChart";
 import { Model } from "Components";
 import withAuthorization from "../../../constants/authorization";
-import { ROLES } from "../../../constants/roles";
 
 function App() {
   const { t } = useTranslation();
@@ -171,12 +170,7 @@ function App() {
   );
 }
 
-export default withAuthorization(App, [
-  ROLES.ADMIN,
-  ROLES.CUSTOMER_CARE,
-  ROLES.COMPLIANCE,
-  ROLES.UNDER_WRITER,
-]);
+export default withAuthorization(App, "customers_dashboard");
 
 function ActionCenter({ icon, heading, des, image }) {
   return (

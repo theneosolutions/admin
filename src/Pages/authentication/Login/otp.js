@@ -26,15 +26,8 @@ function OptScreen({ otp, LoginFunction, resendOtp }) {
     } else {
       // Handle regular input
       if (currentLength >= maxLength) {
-        console.log("currentLength maxLength inside", currentLength, maxLength);
         // If input is filled
         if (index < inputRefs.length - 1) {
-          console.log(
-            "currentLength maxLength inside inside",
-            inputRefs.length,
-            index
-          );
-
           // If not the last input, move focus to the next input
           inputRefs[index + 1].current.focus();
         } else {
@@ -50,7 +43,6 @@ function OptScreen({ otp, LoginFunction, resendOtp }) {
   const handleSubmit = (e) => {
     if (inputs.every((input) => input.trim() !== "")) {
       const all = inputs.join("");
-      console.log("all", all);
 
       LoginFunction(all);
       // router.push(`/resetpassword/newpin?idnumber=${idnumber}`);

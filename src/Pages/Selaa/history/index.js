@@ -4,7 +4,6 @@ import CardMain from "../../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
-import { ROLES } from "../../../constants/roles";
 import { GetSeelahHistory } from "Services/OtherApis";
 import * as action from "../../../Services/redux/reducer";
 
@@ -20,12 +19,8 @@ function AllUsers() {
   function getAllUsersData() {
     dispatch(action.Loading({ Loading: true }));
     GetSeelahHistory()
-      .then((data) =>
-        console.log(
-          "Data received:",
-          setData(data),
-          dispatch(action.Loading({ Loading: false }))
-        )
+      .then(
+        (data) => (setData(data), dispatch(action.Loading({ Loading: false })))
       )
       .catch(
         (error) => (
@@ -146,4 +141,4 @@ function AllUsers() {
     </div>
   );
 }
-export default withAuthorization(AllUsers, [ROLES.ADMIN, ROLES.UNDER_WRITER]);
+export default withAuthorization(AllUsers, "seela_history");

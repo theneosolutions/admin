@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import CardMain from "../../../Components/Cards/main";
-import Edit from "../../../Assets/Images/edit.svg";
-import Delete from "../../../Assets/Images/delete.svg";
 import { Model, Avatar } from "../../../Components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
-import { ROLES } from "../../../constants/roles";
 import { LuSearch } from "react-icons/lu";
 
 function AllUsers() {
@@ -272,9 +269,4 @@ function AllUsers() {
     </div>
   );
 }
-export default withAuthorization(AllUsers, [
-  ROLES.ADMIN,
-  ROLES.CUSTOMER_CARE,
-  ROLES.COMPLIANCE,
-  ROLES.UNDER_WRITER,
-]);
+export default withAuthorization(AllUsers, "all_customers");

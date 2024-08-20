@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useEffect } from "react";
 import withAuthorization from "../../constants/authorization";
-import { ROLES } from "../../constants/roles";
 import CreateDBR from "./dbrCreate";
 import { Model } from "../../Components";
 import Model2 from "Components/Model2";
@@ -172,7 +171,4 @@ function Calculations() {
     </div>
   );
 }
-export default withAuthorization(Calculations, [
-  ROLES.ADMIN,
-  ROLES.UNDER_WRITER,
-]);
+export default withAuthorization(Calculations, "calculations_dbr");

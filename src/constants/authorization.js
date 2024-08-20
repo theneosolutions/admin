@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 // This HOC checks if the user is authorized to access the component
-const withAuthorization = (WrappedComponent, allowedRoles) => {
+const withAuthorization = (WrappedComponent, code) => {
   return () => {
+    const roles = useSelector((state) => state?.role);
+
     useEffect(() => {
       const storage = localStorage.getItem("user");
 
@@ -14,16 +16,16 @@ const withAuthorization = (WrappedComponent, allowedRoles) => {
         }
       }
     }, []);
-    const userRole = useSelector((state) => state.role);
+    const hasPermission = roles?.permissions.some((item) =>
+      item.subMenus.some((subMenu) => subMenu.code === code)
+    );
 
-    if (!allowedRoles.includes(userRole)) {
-      // const origin = window.location.origin + "/404";
-      // User is not authorized, handle the unauthorized access (e.g., redirect to a different page)
-      // return (window.location.href = origin);
-      return null;
+    // If no matching code is found, return null (or a fallback component)
+    if (!hasPermission) {
+      return null; // Or you could return a <NotFound /> component or redirect
     }
 
-    // User is authorized, render the component
+    // If the user has the correct permission, render the WrappedComponent
     return <WrappedComponent />;
   };
 };

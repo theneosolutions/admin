@@ -4,8 +4,9 @@ import { useState } from "react";
 import { Button } from "Components";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import withAuthorization from "constants/authorization";
 
-function CreateUser() {
+function Awareness() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -117,7 +118,7 @@ function CreateUser() {
     </div>
   );
 }
-export default CreateUser;
+export default withAuthorization(Awareness, "awareness_messages");
 
 function Select({ heading, value, onChange, data, disabled = false }) {
   const { t } = useTranslation();

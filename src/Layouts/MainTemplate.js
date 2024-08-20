@@ -45,8 +45,8 @@ function MainTemplate({ children }) {
         dispatch(
           action.Auth({
             islogin: user?.islogin,
-            user: user?.data,
-            role: user?.data?.roles[0],
+            user: user?.data?.user,
+            role: user?.data?.user?.roles[0],
             token: user?.data?.token,
           })
         );
@@ -54,8 +54,8 @@ function MainTemplate({ children }) {
         dispatch(
           action.Auth({
             islogin: user?.islogin,
-            user: user?.data,
-            role: user?.data?.roles[0],
+            user: user?.data?.user,
+            role: user?.data?.user?.roles[0],
             token: user?.data?.token,
           })
         );

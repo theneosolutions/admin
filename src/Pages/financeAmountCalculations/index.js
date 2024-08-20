@@ -3,8 +3,6 @@ import { useTranslation } from "react-i18next";
 import CardMain from "Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import withAuthorization from "constants/authorization";
-import { ROLES } from "constants/roles";
 import { useLocation } from "react-router-dom";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
@@ -337,9 +335,4 @@ function AllUsers() {
     </div>
   );
 }
-export default withAuthorization(AllUsers, [
-  ROLES.ADMIN,
-  ROLES.CUSTOMER_CARE,
-  ROLES.COMPLIANCE,
-  ROLES.UNDER_WRITER,
-]);
+export default AllUsers;
