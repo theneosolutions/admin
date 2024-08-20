@@ -2,7 +2,6 @@ import { call, put, takeLatest } from "@redux-saga/core/effects";
 import * as action from "./reducer";
 import { axiosInstance } from "../constant";
 import { getLanguage } from "functions/getLanguage";
-
 import config from "../../config";
 
 var baseUrlSMS = `${config.API_URL}/api/v1/sms`;
