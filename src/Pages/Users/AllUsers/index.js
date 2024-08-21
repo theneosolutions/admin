@@ -57,9 +57,10 @@ function AllUsers() {
   }
   useEffect(() => {
     if (users) {
-      const data = users.filter(
-        (person) => person?.roles[0]?.name === "ROLE_USER"
-      );
+      // setUsersData(users);
+      // setNewUsersData(users);
+      const data = users.filter((person) => person?.roles[0]?.code === "user");
+      console.log("data", data);
       setUsersData(data);
       setNewUsersData(data);
     }

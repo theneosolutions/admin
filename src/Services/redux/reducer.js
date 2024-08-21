@@ -196,8 +196,8 @@ const Reducer = createSlice({
       state.getSimahCodes = data;
     },
     GetAllUsersAll: (state, action) => {
-      const { data } = action.payload;
-      state.getAllUsersAll = data;
+      // const { data } = action.payload;
+      state.getAllUsersAll = action.payload;
     },
     SelaBalance: (state, action) => {
       const { data } = action.payload;

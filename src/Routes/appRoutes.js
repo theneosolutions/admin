@@ -45,7 +45,7 @@ import SelaaTransaction from "Pages/Selaa/Transaction";
 import SelaaAccomodity from "Pages/Selaa/accomodity";
 import SelaaWallet from "Pages/Selaa/wallet";
 import AwareNessMessage from "Pages/AwarnessMessage";
-
+import { CODE } from "../constants/codes";
 const appRoutes = [
   {
     index: true,
@@ -53,7 +53,7 @@ const appRoutes = [
     state: "home",
   },
   {
-    code: "overview",
+    code: CODE.OVERVIEW,
     path: "/dashboard",
     element: <DashboardPageLayout />,
     state: "dashboard",
@@ -63,13 +63,13 @@ const appRoutes = [
     },
     child: [
       {
-        code: "overview_account",
+        code: CODE.OVERVIEW_ACCOUNT,
         index: true,
         element: <DashboardIndex />,
         state: "dashboard.index",
       },
       {
-        code: "overview_account",
+        code: CODE.OVERVIEW_ACCOUNT,
         path: "/dashboard/account",
         element: <UserList />,
         state: "dashboard.account",
@@ -79,9 +79,8 @@ const appRoutes = [
       },
     ],
   },
-
   {
-    code: "applications",
+    code: CODE.APPLICATIONS,
     path: "/applications",
     element: <ApplicationsPageLayout />,
     state: "applications",
@@ -91,13 +90,13 @@ const appRoutes = [
     },
     child: [
       {
-        code: "loan_applications",
+        code: CODE.LOAN_APPLICATIONS,
         index: true,
         element: <LoanApplications />,
         state: "applications.index",
       },
       {
-        code: "loan_applications",
+        code: CODE.LOAN_APPLICATIONS,
         path: "/applications/loan",
         element: <LoanApplications />,
         state: "applications.loan",
@@ -109,7 +108,7 @@ const appRoutes = [
   },
 
   {
-    code: "customers",
+    code: CODE.CUSTOMERS,
     path: "/customers",
     element: <UsersPageLayout />,
     state: "customers",
@@ -119,14 +118,14 @@ const appRoutes = [
     },
     child: [
       {
-        code: "customers_dashboard",
+        code: CODE.CUSTOMER_DASHBOARD,
         index: true,
         element: <UserDashboard />,
         state: "customers.index",
       },
 
       {
-        code: "customers_dashboard",
+        code: CODE.CUSTOMER_DASHBOARD,
         path: "/customers/dashboard",
         element: <UserDashboard />,
         state: "customers.dashboard",
@@ -136,7 +135,7 @@ const appRoutes = [
         },
       },
       {
-        code: "all_customers",
+        code: CODE.ALL_CUSTOMERS,
         path: "/customers/allcustomers",
         element: <AllUsers />,
         state: "customers.allcustomers",
@@ -145,7 +144,7 @@ const appRoutes = [
         },
       },
       {
-        code: "verified_customers",
+        code: CODE.VERIFIED_CUSTOMERS,
         path: "/customers/verified",
         element: <Verified />,
         state: "customers.verified",
@@ -156,7 +155,7 @@ const appRoutes = [
     ],
   },
   {
-    code: "administrator",
+    code: CODE.ADMINISTRATOR,
     path: "/admin",
     element: <AdminPageLayout />,
     state: "admin",
@@ -166,13 +165,13 @@ const appRoutes = [
     },
     child: [
       {
-        code: "create_admin",
+        code: CODE.CREATE_ADMIN,
         index: true,
         element: <AddRoles />,
         state: "admin.index",
       },
       {
-        code: "create_admin",
+        code: CODE.CREATE_ADMIN,
         path: "/admin/create-admin",
         element: <CreateUser />,
         state: "admin.create-admin",
@@ -181,7 +180,7 @@ const appRoutes = [
         },
       },
       {
-        code: "assign_permissions_to_roles",
+        code: CODE.ASSIGN_PERMISSIONS_TO_ROLE,
         path: "/admin/add-roles",
         element: <AddRoles />,
         state: "admin./add-roles",
@@ -192,7 +191,7 @@ const appRoutes = [
     ],
   },
   {
-    code: "seela",
+    code: CODE.SEELA,
     path: "/selaa",
     element: <SelaaPageLayout />,
     state: "selaa",
@@ -202,13 +201,13 @@ const appRoutes = [
     },
     child: [
       {
-        code: "seela_history",
+        code: CODE.SEELA_HISTORY,
         index: true,
         element: <SelaaHistory />,
         state: "selaa.index",
       },
       {
-        code: "seela_history",
+        code: CODE.SEELA_HISTORY,
         path: "/selaa/history",
         element: <SelaaHistory />,
         state: "selaa.history",
@@ -217,7 +216,7 @@ const appRoutes = [
         },
       },
       {
-        code: "seela_transaction",
+        code: CODE.SEELA_TRANSACTION,
         path: "/selaa/transaction",
         element: <SelaaTransaction />,
         state: "selaa.transaction",
@@ -226,7 +225,7 @@ const appRoutes = [
         },
       },
       {
-        code: "seela_commodity",
+        code: CODE.SEELA_COMMODITY,
         path: "/selaa/commodity",
         element: <SelaaAccomodity />,
         state: "selaa.commodity",
@@ -235,7 +234,7 @@ const appRoutes = [
         },
       },
       {
-        code: "seela_wallet",
+        code: CODE.SEELA_WALLET,
         path: "/selaa/wallet",
         element: <SelaaWallet />,
         state: "selaa.wallet",
@@ -246,7 +245,7 @@ const appRoutes = [
     ],
   },
   {
-    code: "policies",
+    code: CODE.POLICIES,
     path: "/policies",
     element: <PoliciesPageLayout />,
     state: "policies",
@@ -256,13 +255,13 @@ const appRoutes = [
     },
     child: [
       {
-        code: "view_policies",
+        code: CODE.VIEW_POLICIES,
         index: true,
         element: <ViewPolicies />,
         state: "policies.index",
       },
       {
-        code: "view_policies",
+        code: CODE.VIEW_POLICIES,
         path: "/policies/view-policies",
         element: <ViewPolicies />,
         state: "policies.view-policies",
@@ -273,7 +272,7 @@ const appRoutes = [
     ],
   },
   {
-    code: "loan_management",
+    code: CODE.LOAN_MANAGEMENT,
     path: "/los",
     element: <DecisionLayout />,
     state: "los",
@@ -283,13 +282,13 @@ const appRoutes = [
     },
     child: [
       {
-        code: "create_type",
+        code: CODE.CREATE_TYPE,
         index: true,
         element: <LosPageLayout />,
         state: "los.index",
       },
       {
-        code: "create_type",
+        code: CODE.CREATE_TYPE,
         path: "/los/create-type",
         element: <CreateType />,
         state: "los.create-type",
@@ -298,7 +297,7 @@ const appRoutes = [
         },
       },
       {
-        code: "customer_emi",
+        code: CODE.CUSTOMER_EMI,
         path: "/los/emi",
         element: <CustomerEmi />,
         state: "los.emi",
@@ -309,7 +308,7 @@ const appRoutes = [
     ],
   },
   {
-    code: "decisions",
+    code: CODE.DECISIONS,
     path: "/decisions",
     element: <DecisionLayout />,
     state: "decisions",
@@ -319,13 +318,13 @@ const appRoutes = [
     },
     child: [
       {
-        code: "questions",
+        code: CODE.QUESTIONS,
         index: true,
         element: <QuestionsAnswers />,
         state: "decisions.index",
       },
       {
-        code: "questions",
+        code: CODE.QUESTIONS,
         path: "/decisions/q/a",
         element: <QuestionsAnswers />,
         state: "decisions.qa",
@@ -334,7 +333,7 @@ const appRoutes = [
         },
       },
       {
-        code: "create_set",
+        code: CODE.CREATE_SET,
         path: "/decisions/create-set",
         element: <CreateSet />,
         state: "decisions.create-set",
@@ -344,7 +343,7 @@ const appRoutes = [
       },
 
       {
-        code: "create_decisions",
+        code: CODE.CREATE_DECISION,
         path: "/decisions/create-decision",
         element: <CreateDecision />,
         state: "decisions.create-decision",
@@ -355,7 +354,7 @@ const appRoutes = [
     ],
   },
   {
-    code: "notifications",
+    code: CODE.NOTIFICATIONS,
     path: "/response",
     element: <ResponsePageLayout />,
     state: "response",
@@ -365,14 +364,14 @@ const appRoutes = [
     },
     child: [
       {
-        code: "notifications_dashboard",
+        code: CODE.NOTIFICATIONS_DASHBOARD,
         index: true,
         element: <Response />,
         state: "response.index",
       },
 
       {
-        code: "notifications_dashboard",
+        code: CODE.NOTIFICATIONS_DASHBOARD,
         path: "/response/notifications",
         element: <Notifications />,
         state: "response.notifications",
@@ -381,7 +380,7 @@ const appRoutes = [
         },
       },
       {
-        code: "terms_and_conditions",
+        code: CODE.TERMS_AND_CONDITIONS,
         path: "/response/term-conditions",
         element: <TermAndConditions />,
         state: "response.term-conditions",
@@ -390,7 +389,7 @@ const appRoutes = [
         },
       },
       {
-        code: "awareness_messages",
+        code: CODE.AWARNESS_MESSAGE,
         path: "/response/awareness-messages",
         element: <AwareNessMessage />,
         state: "response.awareness-messages",
@@ -400,7 +399,7 @@ const appRoutes = [
       },
 
       {
-        code: "add_sms",
+        code: CODE.ADD_SMS,
         path: "/response/sms",
         element: <Sms />,
         state: "response.sms",
@@ -411,7 +410,7 @@ const appRoutes = [
     ],
   },
   {
-    code: "simah",
+    code: CODE.SIMAH,
     path: "/simah",
     element: <SimahPageLayout />,
     state: "simah",
@@ -421,13 +420,13 @@ const appRoutes = [
     },
     child: [
       {
-        code: "simah_dashboard",
+        code: CODE.SIMAH_DASHBOARD,
         index: true,
         element: <Simah />,
         state: "simah.index",
       },
       {
-        code: "simah_dashboard",
+        code: CODE.SIMAH_DASHBOARD,
         path: "/simah/codes",
         element: <Simah />,
         state: "simah.codes",
@@ -438,7 +437,7 @@ const appRoutes = [
     ],
   },
   {
-    code: "calculations",
+    code: CODE.CALCULATIONS,
     path: "/calculations",
     element: <CalculationsPageLayout />,
     state: "calculations",
@@ -448,13 +447,13 @@ const appRoutes = [
     },
     child: [
       {
-        code: "calculations_dbr",
+        code: CODE.CALCULATIONS_DBR,
         index: true,
         element: <Calculations />,
         state: "calculations.index",
       },
       {
-        code: "calculations_dbr",
+        code: CODE.CALCULATIONS_DBR,
         path: "/calculations/dbr",
         element: <Calculations />,
         state: "calculations.dbr",
@@ -463,7 +462,7 @@ const appRoutes = [
         },
       },
       {
-        code: "calculations_bare_minimum_expenses",
+        code: CODE.CALCULATION_BARE_MINIMUM_EXPENSE,
         path: "/calculations/bare-minimum-expense",
         element: <BareMinimumExpense />,
         state: "calculations.bare-minimum-expense",
@@ -472,7 +471,7 @@ const appRoutes = [
         },
       },
       {
-        code: "calculations_terms_and_rates",
+        code: CODE.CALCULATIONS_TERMS_AND_RATES,
         path: "/calculations/terms-rates",
         element: <TermsAndRates />,
         state: "calculations.terms-rates",

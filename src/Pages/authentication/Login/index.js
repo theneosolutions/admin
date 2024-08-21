@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import LanguageCom from "Components/LanguageCom";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
+import { CODE } from "../../../constants/codes";
 function Login() {
   const { t } = useTranslation();
 
@@ -224,181 +225,177 @@ function Login() {
 export default Login;
 const appRoutes = [
   {
-    code: "overview",
+    code: CODE.OVERVIEW,
     path: "/dashboard",
 
     child: [
       {
-        code: "overview_account",
+        code: CODE.OVERVIEW_ACCOUNT,
         path: "/dashboard/account",
       },
     ],
   },
 
   {
-    code: "applications",
+    code: CODE.APPLICATIONS,
     path: "/applications",
 
     child: [
       {
-        code: "loan_applications",
+        code: CODE.LOAN_APPLICATIONS,
         path: "/applications/loan",
       },
     ],
   },
 
   {
-    code: "customers",
+    code: CODE.CUSTOMERS,
     path: "/customers",
 
     child: [
       {
-        code: "customers_dashboard",
+        code: CODE.CUSTOMER_DASHBOARD,
         path: "/customers/dashboard",
       },
       {
-        code: "all_customers",
+        code: CODE.ALL_CUSTOMERS,
         path: "/customers/allcustomers",
       },
       {
-        code: "verified_customers",
+        code: CODE.VERIFIED_CUSTOMERS,
         path: "/customers/verified",
       },
     ],
   },
   {
-    code: "administrator",
+    code: CODE.ADMINISTRATOR,
     path: "/admin",
 
     child: [
       {
-        code: "create_admin",
+        code: CODE.CREATE_ADMIN,
         path: "/admin/create-admin",
       },
       {
-        code: "assign_permissions_to_roles",
+        code: CODE.ASSIGN_PERMISSIONS_TO_ROLE,
         path: "/admin/add-roles",
       },
     ],
   },
   {
-    code: "seela",
+    code: CODE.SEELA,
     path: "/selaa",
 
     child: [
       {
-        code: "seela_history",
+        code: CODE.SEELA_HISTORY,
         path: "/selaa/history",
       },
       {
-        code: "seela_transaction",
+        code: CODE.SEELA_TRANSACTION,
         path: "/selaa/transaction",
       },
       {
-        code: "seela_commodity",
+        code: CODE.SEELA_COMMODITY,
         path: "/selaa/commodity",
       },
       {
-        code: "seela_wallet",
+        code: CODE.SEELA_WALLET,
         path: "/selaa/wallet",
       },
     ],
   },
   {
-    code: "policies",
+    code: CODE.POLICIES,
     path: "/policies",
 
     child: [
       {
-        code: "view_policies",
+        code: CODE.VIEW_POLICIES,
         path: "/policies/view-policies",
       },
     ],
   },
   {
-    code: "loan_management",
+    code: CODE.LOAN_MANAGEMENT,
     path: "/los",
     child: [
       {
-        code: "create_type",
+        code: CODE.CREATE_TYPE,
         path: "/los/create-type",
       },
       {
-        code: "customer_emi",
+        code: CODE.CUSTOMER_EMI,
         path: "/los/emi",
       },
     ],
   },
   {
-    code: "decisions",
+    code: CODE.DECISIONS,
     path: "/decisions",
 
     child: [
       {
-        code: "questions",
+        code: CODE.QUESTIONS,
         path: "/decisions/q/a",
       },
       {
-        code: "create_set",
+        code: CODE.CREATE_SET,
         path: "/decisions/create-set",
       },
 
       {
-        code: "create_decisions",
+        code: CODE.CREATE_DECISION,
         path: "/decisions/create-decision",
       },
     ],
   },
   {
-    code: "notifications",
+    code: CODE.NOTIFICATIONS,
     path: "/response",
-
     child: [
       {
-        code: "notifications_dashboard",
+        code: CODE.NOTIFICATIONS_DASHBOARD,
         path: "/response/notifications",
       },
       {
-        code: "terms_and_conditions",
+        code: CODE.TERMS_AND_CONDITIONS,
         path: "/response/term-conditions",
       },
       {
-        code: "awareness_messages",
+        code: CODE.AWARNESS_MESSAGE,
         path: "/response/awareness-messages",
       },
-
       {
-        code: "add_sms",
+        code: CODE.ADD_SMS,
         path: "/response/sms",
       },
     ],
   },
   {
-    code: "simah",
+    code: CODE.SIMAH,
     path: "/simah",
-
     child: [
       {
-        code: "simah_dashboard",
+        code: CODE.SIMAH_DASHBOARD,
         path: "/simah/codes",
       },
     ],
   },
   {
-    code: "calculations",
+    code: CODE.CALCULATIONS,
     path: "/calculations",
-
     child: [
       {
-        code: "calculations_dbr",
+        code: CODE.CALCULATIONS_DBR,
         path: "/calculations/dbr",
       },
       {
-        code: "calculations_bare_minimum_expenses",
+        code: CODE.CALCULATION_BARE_MINIMUM_EXPENSE,
         path: "/calculations/bare-minimum-expense",
       },
       {
-        code: "calculations_terms_and_rates",
+        code: CODE.CALCULATIONS_TERMS_AND_RATES,
         path: "/calculations/terms-rates",
       },
     ],

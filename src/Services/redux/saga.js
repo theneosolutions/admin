@@ -1016,13 +1016,15 @@ function* GetSimahCodes({ payload }) {
 }
 
 function* GetAllUsersAll({ payload }) {
+  console.log("helo from users", payload);
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
       axiosInstance.get,
       baseUrlUser + `/user/getAllUser`
     );
-    yield put(action.GetAllUsersAll(response));
+    console.log("helo from users", response?.data);
+    yield put(action.GetAllUsersAll(response?.data));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     yield put(action.Loading({ Loading: false }));
