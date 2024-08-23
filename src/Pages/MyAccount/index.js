@@ -9,20 +9,38 @@ function MyAccount() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
-  const [disabled, setDisabled] = useState(false);
+  console.log("user from profile", user);
+  const [disabled, setDisabled] = useState(true);
   const { t } = useTranslation();
+  const stateUser = useSelector((state) => state.getUserById?.user);
 
+  console.log("state user ######", stateUser);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobile, setMobile] = useState("");
 
   useEffect(() => {
-    setName(user?.user?.firstName);
-    setEmail(user?.user?.email);
-    setLastName(user?.user?.mobileNumber);
-    setMobile(user?.user?.mobileNumber);
+    if (user) {
+      getUser();
+    }
   }, [user]);
+
+  function getUser() {
+    dispatch({
+      type: "GET_USER_BY_ID",
+      payload: user?.id,
+    });
+  }
+
+  useEffect(() => {
+    if (stateUser) {
+      setName(stateUser?.firstName);
+      setEmail(stateUser?.email);
+      setLastName(stateUser?.lastName);
+      setMobile(stateUser?.mobileNumber);
+    }
+  }, [stateUser]);
 
   function update() {
     if (!disabled) {
@@ -37,6 +55,7 @@ function MyAccount() {
         type: "UPDATE_USER_DATA",
         payload: temp,
       });
+      setTimeout(() => getUser(), 500);
     }
     setDisabled(!disabled);
   }
@@ -87,14 +106,14 @@ function MyAccount() {
             <InputField
               disabled={true}
               heading={t("ID number")}
-              value={user?.user?.idNumber}
+              value={stateUser?.idNumber}
               onChange={(e) => console.log("helo", e)}
             />
 
             <InputField
               disabled={true}
               heading={t("Role")}
-              value={user?.user?.roles[0]?.name}
+              value={stateUser?.roles[0]?.name}
               onChange={(e) => console.log("helo", e)}
             />
           </div>
