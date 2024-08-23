@@ -31,6 +31,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => {
     // If the response is successful, just return it
+    //  console.log("helo from state",) store.getState()
     return response;
   },
   (error) => {

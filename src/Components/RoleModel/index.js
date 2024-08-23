@@ -17,7 +17,8 @@ function Component({ setModelOpen, modelOpen, GetAllRoles }) {
         },
       });
       setModelOpen(false);
-      // setTimeout(() => GetAllRoles(), 500);
+      setTimeout(() => GetAllRoles(), 500);
+      setRole("");
     }
   }
 

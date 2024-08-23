@@ -181,6 +181,7 @@ function Roles() {
             </select>
           </div>
           <RoleModel
+            GetAllRoles={() => getAllRoles()}
             setModelOpen={(e) => setModelOpen(e)}
             modelOpen={modelOpen}
           />

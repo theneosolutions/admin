@@ -28,16 +28,15 @@ function NotificationsScreen() {
 
   useEffect(() => {
     if (users) {
-      const data = users.filter(
-        (person) => person?.roles[0]?.name !== "ROLE_USER"
-      );
+      console.log("user Admin", users);
+      const data = users.filter((person) => person?.roles[0]?.name !== "User");
       setUsersData(data);
     }
   }, [users]);
   return (
     <div className="py-5">
       <CardMain
-        width="w-full "
+        width="w-full"
         heading={t("All Admins and Moderators")}
         showButton={true}
         buttonValue={t("Add New User")}
@@ -96,7 +95,10 @@ function NotificationsScreen() {
           reset={() => reset()}
           heading="Add User"
         >
-          <User setModelOpen={(e) => setModelOpen(e)} />
+          <User
+            setModel={(e) => setModelOpen(e)}
+            getAllUsers={() => getAllNotifictions()}
+          />
         </Model2>
       ) : null}
     </div>

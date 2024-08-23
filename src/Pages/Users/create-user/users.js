@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
 
-function CreateUser({}) {
+function CreateUser({ getAllUsers, setModel }) {
   const dispatch = useDispatch();
   const getAllRolesData = useSelector((state) => state.getAllRoles);
   const [image, setImage] = useState(null);
@@ -64,6 +64,9 @@ function CreateUser({}) {
           dateOfBirth: date,
         },
       });
+      setModel(false);
+      setTimeout(() => getAllUsers(), 500);
+      // getAllUsers();
 
       // setModelOpen(false);
     } else if (!validatePassword()) {
