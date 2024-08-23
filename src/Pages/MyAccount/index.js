@@ -55,7 +55,7 @@ function MyAccount() {
         type: "UPDATE_USER_DATA",
         payload: temp,
       });
-      setTimeout(() => getUser(), 500);
+      // setTimeout(() => getUser(), 500);
     }
     setDisabled(!disabled);
   }

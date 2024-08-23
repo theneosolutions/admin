@@ -53,6 +53,7 @@ const appRoutes = [
     state: "home",
   },
   {
+    id: 1,
     code: CODE.OVERVIEW,
     path: "/dashboard",
     element: <DashboardPageLayout />,
@@ -63,12 +64,14 @@ const appRoutes = [
     },
     child: [
       {
+        id: 2,
         code: CODE.OVERVIEW_ACCOUNT,
         index: true,
         element: <DashboardIndex />,
         state: "dashboard.index",
       },
       {
+        id: 2,
         code: CODE.OVERVIEW_ACCOUNT,
         path: "/dashboard/account",
         element: <UserList />,
@@ -80,6 +83,7 @@ const appRoutes = [
     ],
   },
   {
+    id: 3,
     code: CODE.APPLICATIONS,
     path: "/applications",
     element: <ApplicationsPageLayout />,
@@ -90,12 +94,14 @@ const appRoutes = [
     },
     child: [
       {
+        id: 4,
         code: CODE.LOAN_APPLICATIONS,
         index: true,
         element: <LoanApplications />,
         state: "applications.index",
       },
       {
+        id: 4,
         code: CODE.LOAN_APPLICATIONS,
         path: "/applications/loan",
         element: <LoanApplications />,
@@ -106,8 +112,8 @@ const appRoutes = [
       },
     ],
   },
-
   {
+    id: 5,
     code: CODE.CUSTOMERS,
     path: "/customers",
     element: <UsersPageLayout />,
@@ -118,6 +124,7 @@ const appRoutes = [
     },
     child: [
       {
+        id: 6,
         code: CODE.CUSTOMER_DASHBOARD,
         index: true,
         element: <UserDashboard />,
@@ -125,6 +132,7 @@ const appRoutes = [
       },
 
       {
+        id: 6,
         code: CODE.CUSTOMER_DASHBOARD,
         path: "/customers/dashboard",
         element: <UserDashboard />,
@@ -135,6 +143,7 @@ const appRoutes = [
         },
       },
       {
+        id: 7,
         code: CODE.ALL_CUSTOMERS,
         path: "/customers/allcustomers",
         element: <AllUsers />,
@@ -144,6 +153,7 @@ const appRoutes = [
         },
       },
       {
+        id: 8,
         code: CODE.VERIFIED_CUSTOMERS,
         path: "/customers/verified",
         element: <Verified />,
@@ -155,6 +165,7 @@ const appRoutes = [
     ],
   },
   {
+    id: 9,
     code: CODE.ADMINISTRATOR,
     path: "/admin",
     element: <AdminPageLayout />,
@@ -165,12 +176,14 @@ const appRoutes = [
     },
     child: [
       {
+        id: 10,
         code: CODE.CREATE_ADMIN,
         index: true,
         element: <AddRoles />,
         state: "admin.index",
       },
       {
+        id: 10,
         code: CODE.CREATE_ADMIN,
         path: "/admin/create-admin",
         element: <CreateUser />,
@@ -180,6 +193,7 @@ const appRoutes = [
         },
       },
       {
+        id: 11,
         code: CODE.ASSIGN_PERMISSIONS_TO_ROLE,
         path: "/admin/add-roles",
         element: <AddRoles />,
@@ -191,6 +205,7 @@ const appRoutes = [
     ],
   },
   {
+    id: 12,
     code: CODE.SEELA,
     path: "/selaa",
     element: <SelaaPageLayout />,
@@ -201,12 +216,14 @@ const appRoutes = [
     },
     child: [
       {
+        id: 13,
         code: CODE.SEELA_HISTORY,
         index: true,
         element: <SelaaHistory />,
         state: "selaa.index",
       },
       {
+        id: 13,
         code: CODE.SEELA_HISTORY,
         path: "/selaa/history",
         element: <SelaaHistory />,
@@ -216,6 +233,7 @@ const appRoutes = [
         },
       },
       {
+        id: 14,
         code: CODE.SEELA_TRANSACTION,
         path: "/selaa/transaction",
         element: <SelaaTransaction />,
@@ -225,6 +243,7 @@ const appRoutes = [
         },
       },
       {
+        id: 15,
         code: CODE.SEELA_COMMODITY,
         path: "/selaa/commodity",
         element: <SelaaAccomodity />,
@@ -234,6 +253,7 @@ const appRoutes = [
         },
       },
       {
+        id: 16,
         code: CODE.SEELA_WALLET,
         path: "/selaa/wallet",
         element: <SelaaWallet />,
@@ -245,6 +265,7 @@ const appRoutes = [
     ],
   },
   {
+    id: 17,
     code: CODE.POLICIES,
     path: "/policies",
     element: <PoliciesPageLayout />,
@@ -255,12 +276,14 @@ const appRoutes = [
     },
     child: [
       {
+        id: 18,
         code: CODE.VIEW_POLICIES,
         index: true,
         element: <ViewPolicies />,
         state: "policies.index",
       },
       {
+        id: 18,
         code: CODE.VIEW_POLICIES,
         path: "/policies/view-policies",
         element: <ViewPolicies />,
@@ -272,6 +295,7 @@ const appRoutes = [
     ],
   },
   {
+    id: 21,
     code: CODE.LOAN_MANAGEMENT,
     path: "/los",
     element: <DecisionLayout />,
@@ -282,12 +306,14 @@ const appRoutes = [
     },
     child: [
       {
+        id: 22,
         code: CODE.CREATE_TYPE,
         index: true,
         element: <LosPageLayout />,
         state: "los.index",
       },
       {
+        id: 22,
         code: CODE.CREATE_TYPE,
         path: "/los/create-type",
         element: <CreateType />,
@@ -297,6 +323,7 @@ const appRoutes = [
         },
       },
       {
+        id: 23,
         code: CODE.CUSTOMER_EMI,
         path: "/los/emi",
         element: <CustomerEmi />,
@@ -308,6 +335,7 @@ const appRoutes = [
     ],
   },
   {
+    id: 24,
     code: CODE.DECISIONS,
     path: "/decisions",
     element: <DecisionLayout />,
@@ -318,12 +346,14 @@ const appRoutes = [
     },
     child: [
       {
+        id: 25,
         code: CODE.QUESTIONS,
         index: true,
         element: <QuestionsAnswers />,
         state: "decisions.index",
       },
       {
+        id: 25,
         code: CODE.QUESTIONS,
         path: "/decisions/q/a",
         element: <QuestionsAnswers />,
@@ -333,6 +363,7 @@ const appRoutes = [
         },
       },
       {
+        id: 26,
         code: CODE.CREATE_SET,
         path: "/decisions/create-set",
         element: <CreateSet />,
@@ -343,6 +374,7 @@ const appRoutes = [
       },
 
       {
+        id: 27,
         code: CODE.CREATE_DECISION,
         path: "/decisions/create-decision",
         element: <CreateDecision />,
@@ -354,6 +386,7 @@ const appRoutes = [
     ],
   },
   {
+    id: 28,
     code: CODE.NOTIFICATIONS,
     path: "/response",
     element: <ResponsePageLayout />,
@@ -364,6 +397,7 @@ const appRoutes = [
     },
     child: [
       {
+        id: 29,
         code: CODE.NOTIFICATIONS_DASHBOARD,
         index: true,
         element: <Response />,
@@ -371,6 +405,8 @@ const appRoutes = [
       },
 
       {
+        id: 29,
+
         code: CODE.NOTIFICATIONS_DASHBOARD,
         path: "/response/notifications",
         element: <Notifications />,
@@ -380,6 +416,7 @@ const appRoutes = [
         },
       },
       {
+        id: 30,
         code: CODE.TERMS_AND_CONDITIONS,
         path: "/response/term-conditions",
         element: <TermAndConditions />,
@@ -389,6 +426,7 @@ const appRoutes = [
         },
       },
       {
+        id: 31,
         code: CODE.AWARNESS_MESSAGE,
         path: "/response/awareness-messages",
         element: <AwareNessMessage />,
@@ -399,6 +437,7 @@ const appRoutes = [
       },
 
       {
+        id: 32,
         code: CODE.ADD_SMS,
         path: "/response/sms",
         element: <Sms />,
@@ -410,6 +449,7 @@ const appRoutes = [
     ],
   },
   {
+    id: 33,
     code: CODE.SIMAH,
     path: "/simah",
     element: <SimahPageLayout />,
@@ -420,12 +460,14 @@ const appRoutes = [
     },
     child: [
       {
+        id: 34,
         code: CODE.SIMAH_DASHBOARD,
         index: true,
         element: <Simah />,
         state: "simah.index",
       },
       {
+        id: 34,
         code: CODE.SIMAH_DASHBOARD,
         path: "/simah/codes",
         element: <Simah />,
@@ -437,6 +479,7 @@ const appRoutes = [
     ],
   },
   {
+    id: 35,
     code: CODE.CALCULATIONS,
     path: "/calculations",
     element: <CalculationsPageLayout />,
@@ -447,12 +490,14 @@ const appRoutes = [
     },
     child: [
       {
+        id: 36,
         code: CODE.CALCULATIONS_DBR,
         index: true,
         element: <Calculations />,
         state: "calculations.index",
       },
       {
+        id: 36,
         code: CODE.CALCULATIONS_DBR,
         path: "/calculations/dbr",
         element: <Calculations />,
@@ -462,6 +507,7 @@ const appRoutes = [
         },
       },
       {
+        id: 37,
         code: CODE.CALCULATION_BARE_MINIMUM_EXPENSE,
         path: "/calculations/bare-minimum-expense",
         element: <BareMinimumExpense />,
@@ -471,6 +517,7 @@ const appRoutes = [
         },
       },
       {
+        id: 38,
         code: CODE.CALCULATIONS_TERMS_AND_RATES,
         path: "/calculations/terms-rates",
         element: <TermsAndRates />,

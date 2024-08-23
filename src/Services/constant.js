@@ -1,7 +1,47 @@
 import axios from "axios";
 import { store } from "./redux/store";
 import * as action from "./redux/reducer";
+import appRoutes from "Routes/appRoutes";
+const RouteId = () => {
+  const currentPath = window.location.pathname; // Get current path, e.g., '/admin/add-roles'
 
+  // Function to find the route code based on the current path
+  const findRoute = (routes, path) => {
+    for (let route of routes) {
+      if (route.path === path) {
+        return route.id;
+      }
+      if (route.child) {
+        const childCode = findRoute(route.child, path);
+        if (childCode) return childCode;
+      }
+    }
+    return null;
+  };
+
+  // Function to progressively check for matches, removing the last segment if no match is found
+  const findMatchingRouteCode = (routes, path) => {
+    let currentPath = path;
+    let currentRouteCode = findRoute(routes, currentPath);
+
+    while (!currentRouteCode && currentPath.includes("/")) {
+      // Remove the last segment of the path
+      currentPath = currentPath.substring(0, currentPath.lastIndexOf("/"));
+      currentRouteCode = findRoute(routes, currentPath);
+    }
+
+    return currentRouteCode;
+  };
+
+  const currentRouteCode = findMatchingRouteCode(appRoutes, currentPath);
+
+  if (currentRouteCode) {
+    console.log("chala code", currentRouteCode);
+    return currentRouteCode;
+  } else {
+    return 0;
+  }
+};
 export const axiosInstance = axios.create({
   headers: {
     Authorization: token(),
@@ -13,6 +53,7 @@ export const axiosInstance = axios.create({
     "Access-Control-Allow-Headers":
       "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers",
     "Accept-Language": LanguageCode(),
+    // "x-mod-id": RouteId(),
   },
 });
 axiosInstance.interceptors.request.use(
@@ -21,6 +62,7 @@ axiosInstance.interceptors.request.use(
     if (tokenValue) {
       config.headers.Authorization = tokenValue;
     }
+    config.headers["x-mod-id"] = RouteId();
     return config;
   },
   (error) => {
@@ -30,8 +72,8 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    // If the response is successful, just return it
-    //  console.log("helo from state",) store.getState()
+    // console.log("route id )))))))))", RouteId());
+
     return response;
   },
   (error) => {
@@ -106,3 +148,19 @@ function LanguageCode() {
     return null;
   }
 }
+
+const Routes = () => {
+  const routes = appRoutes
+    .filter((v) => !v.index) // Filter out objects with index in main array
+    .map((v) => {
+      const { code, path, child } = v;
+      // Filter out child objects with index
+      const filteredChildren =
+        child
+          ?.filter((c) => !c.index)
+          .map(({ code, path }) => ({ code, path })) || [];
+      return { path, child: filteredChildren, code };
+    });
+  console.log("Filtered Routes:", routes);
+  return routes;
+};
