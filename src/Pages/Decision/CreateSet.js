@@ -164,7 +164,9 @@ function CreateQuestionsSet() {
             return (
               <div
                 key={k}
-                onClick={() => navigate(`/create-screen?id=${v.id}`)}
+                onClick={() =>
+                  navigate(`/decisions/create-set/create-screen?id=${v.id}`)
+                }
                 className="w-full bg-gray-200 text-center mt-4 py-6 rounded-md hover:bg-gray-300 duration-300 cursor-pointer"
               >
                 {getLanguage() === "ar" ? v.nameAr : v.name}

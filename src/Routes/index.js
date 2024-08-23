@@ -29,22 +29,35 @@ function App() {
         <Routes>
           <Route path="/" element={<MainLayout />}>
             {routes}
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/customers/allcustomers/profile"
+              element={<Profile />}
+            />
+            <Route path="/customers/verified/profile" element={<Profile />} />
             <Route path="/applications" element={<Applications />} />
             <Route path="/my-account" element={<MyAccount />} />
             <Route path="/user-answers" element={<UserAnswer />} />
-            <Route path="/create-screen" element={<CreateScreens />} />
+            <Route
+              path="/decisions/create-set/create-screen"
+              element={<CreateScreens />}
+            />
             <Route path="/los/create-loan-tax" element={<CreateLaonTax />} />
-            <Route path="/view-screen" element={<ViewScreen />} />
+            <Route
+              path="/decisions/create-set/view-screen"
+              element={<ViewScreen />}
+            />
             <Route path="/404" element={<NotFound />} />
-            <Route path="/simah/usercodes" element={<UserSimah />} />
+            <Route
+              path="/customers/verified/simah/usercodes"
+              element={<UserSimah />}
+            />
             <Route path="/user-eligibility" element={<UserEligibility />} />
             <Route
               path="/finance-amount-calculations"
               element={<FinanceAmountCalculations />}
             />
             <Route
-              path="/view-policy-history"
+              path="/policies/view-policies/view-policy-history"
               element={<ViewPolicyHistory />}
             />
 
@@ -53,14 +66,17 @@ function App() {
               element={<UserLoanApplications />}
             />
             <Route
-              path="/create-notifications"
+              path="/response/notifications/create-notifications"
               element={<CreateNotification />}
             />
             <Route
               path="/create-notifications-test"
               element={<CreateNotificationTest />}
             />
-            <Route path="/user-profile" element={<UserProfile />} />
+            <Route
+              path="/applications/loan/user-profile"
+              element={<UserProfile />}
+            />
             <Route path="/add-Product" element={<AddNewProduct />} />
             <Route path="/add-sms" element={<AddSms />} />
           </Route>

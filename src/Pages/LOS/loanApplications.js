@@ -161,7 +161,11 @@ function LaonApplication() {
                   <td className="px-3 py-4">{v.status}</td>
                   <td className="px-3 py-4">
                     <div
-                      onClick={() => navigate(`/user-profile?id=${v.userId}`)}
+                      onClick={() =>
+                        navigate(
+                          `/applications/loan/user-profile?id=${v.userId}`
+                        )
+                      }
                       className=" border border-primary px-3 py-1 w-max rounded-md cursor-pointer hover:bg-primary hover:text-white duration-300"
                     >
                       {t("View Details")}

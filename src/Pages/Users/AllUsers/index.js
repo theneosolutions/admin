@@ -157,7 +157,7 @@ function AllUsers() {
                       }
                       onClick={() =>
                         navigate(
-                          `/profile?id=${v?.idNumber}&name=Profile&user=${v?.id}`
+                          `/customers/allcustomers/profile?id=${v?.idNumber}&name=Profile&user=${v?.id}`
                         )
                       }
                     />

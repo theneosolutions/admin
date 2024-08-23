@@ -157,7 +157,7 @@ function VerifiedUsers() {
                       }
                       onClick={() =>
                         navigate(
-                          `/profile?id=${v?.user?.user?.idNumber}&name=Profile&user=${v?.user?.user?.id}`
+                          `/customers/verified/profile?id=${v?.user?.user?.idNumber}&name=Profile&user=${v?.user?.user?.id}`
                         )
                       }
                     />
@@ -208,7 +208,9 @@ function VerifiedUsers() {
                   <td className="px-3 py-4">
                     <div
                       onClick={() =>
-                        navigate(`/simah/usercodes?id=${v?.user?.user?.id}`)
+                        navigate(
+                          `/customers/verified/simah/usercodes?id=${v?.user?.user?.id}`
+                        )
                       }
                       className=" border border-blue-600 px-3 py-1 w-max rounded-md cursor-pointer 
                         duration-300 text-blue-600"

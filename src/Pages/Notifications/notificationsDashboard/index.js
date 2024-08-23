@@ -53,7 +53,9 @@ function NotificationsScreen() {
         icon={<IoNotifications className="text-primary text-xl" />}
         showButton={true}
         buttonValue={t("Add New Notification")}
-        onButtonClick={() => navigate("/create-notifications")}
+        onButtonClick={() =>
+          navigate("/response/notifications/create-notifications")
+        }
       >
         <div className="overflow-x-auto relative  mt-4">
           <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">

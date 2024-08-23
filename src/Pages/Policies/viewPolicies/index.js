@@ -93,7 +93,9 @@ function AllPolicies() {
                   <td className="px-3 py-2">
                     <div
                       onClick={() =>
-                        navigate(`/view-policy-history?id=${v?.id}`)
+                        navigate(
+                          `/policies/view-policies/view-policy-history?id=${v?.id}`
+                        )
                       }
                       className="  px-3 py-2 w-max rounded-md cursor-pointer  duration-300 bg-blue-400  text-white"
                     >

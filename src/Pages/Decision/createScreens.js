@@ -146,7 +146,9 @@ function CreateQuestionsSet() {
           width="md:w-3/5 w-full h-min "
           showButton={true}
           buttonValue={t("View All Screens")}
-          onButtonClick={() => navigate(`/view-screen?id=${id}`)} // Attach click handler
+          onButtonClick={() =>
+            navigate(`/decisions/create-set/view-screen?id=${id}`)
+          } // Attach click handler
         >
           <div className="w-full flex flex-col mt-3 overflow-x-auto">
             <table className="mt-4 w-full text-sm text-left text-gray-500 dark:text-gray-400">
