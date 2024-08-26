@@ -3,7 +3,7 @@ import * as action from "./reducer";
 import { axiosInstance } from "../constant";
 import { getLanguage } from "functions/getLanguage";
 import config from "../../config";
-
+import axios from "axios";
 var baseUrlSMS = `${config.API_URL}/api/v1/sms`;
 var baseUrlUser = `${config.API_URL}/api/v1/auth`;
 var baseUrlDecisions = `${config.API_URL}/api/v1/dms`;
@@ -1874,17 +1874,23 @@ function* Status_Update_Policy({ payload }) {
   try {
     yield put(action.Loading({ Loading: true }));
 
-    const response = yield call(axiosInstance.post, baseUrlDecisions + url);
+    const response = yield call(axios.post, baseUrlDecisions + url, null, {
+      headers: {
+        "x-mod-id": payload.modId, // Assuming `modId` is available in payload
+      },
+    });
     yield put(action.Loading({ Loading: false }));
 
-    action.Message({
-      message: response.data.message,
-      open: true,
-      error: false,
-    });
+    yield put(
+      action.Message({
+        message: response.data.message,
+        open: true,
+        error: false,
+      })
+    );
   } catch (error) {
     yield put(action.Loading({ Loading: false }));
-    const message = error.response.data.message;
+    const message = error.response?.data?.message || "Something went wrong";
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }

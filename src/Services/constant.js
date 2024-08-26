@@ -148,19 +148,3 @@ function LanguageCode() {
     return null;
   }
 }
-
-const Routes = () => {
-  const routes = appRoutes
-    .filter((v) => !v.index) // Filter out objects with index in main array
-    .map((v) => {
-      const { code, path, child } = v;
-      // Filter out child objects with index
-      const filteredChildren =
-        child
-          ?.filter((c) => !c.index)
-          .map(({ code, path }) => ({ code, path })) || [];
-      return { path, child: filteredChildren, code };
-    });
-  console.log("Filtered Routes:", routes);
-  return routes;
-};

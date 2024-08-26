@@ -6,12 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "Components";
-
+import { CODE } from "constants/codes";
 function ViewPolicyHistory() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const location = useLocation();
   const [modelOpen, setModelOpen] = useState(false);
+  const [approve, setApprove] = useState(false);
+  const [reject, setReject] = useState(false);
+  const [approveId, setApproveId] = useState();
+  const [rejectId, setRejectId] = useState();
   const [selectedId, setSelectedId] = useState(false);
 
   const getPolicyHistory = useSelector((state) => state.getPolicyHistory);
@@ -23,6 +27,11 @@ function ViewPolicyHistory() {
   useEffect(() => {
     getAllPoliciesFunction();
   }, []);
+  useEffect(() => {
+    if (role) {
+      CheckPermission();
+    }
+  }, [role]);
   function getAllPoliciesFunction() {
     dispatch({
       type: "GET_ALL_POLICIES_HISTORY",
@@ -30,13 +39,58 @@ function ViewPolicyHistory() {
     });
   }
 
+  console.log("roles iddddd", role?.permissions);
   function FunctionApproveReject(v) {
-    dispatch({
-      type: "STATUS_UPDATE_POLICY",
-      payload: { id: selectedId, userId: user?.user?.id, status: v },
-    });
+    let routeId;
 
-    setTimeout(() => (setModelOpen(false), getAllPoliciesFunction()), 600);
+    if (v === "approve") {
+      routeId = approveId;
+    } else if (v === "reject") {
+      routeId = rejectId;
+    }
+
+    if (routeId) {
+      dispatch({
+        type: "STATUS_UPDATE_POLICY",
+        payload: { id: selectedId, userId: id, status: v, modId: routeId },
+      });
+
+      setTimeout(
+        () => (
+          setModelOpen(false), getAllPoliciesFunction(), CheckPermission()
+        ),
+        1000
+      );
+    }
+  }
+  console.log("role role rola", role);
+  function CheckPermission() {
+    let policies = role?.permissions.find(
+      (item) => item.code === CODE.POLICIES
+    );
+
+    if (policies) {
+      let approve = policies?.subMenus?.find(
+        (item) => item.code === CODE.APPROVE_POLICY
+      );
+      let reject = policies?.subMenus?.find(
+        (item) => item.code === CODE.REJECT_POLICY
+      );
+
+      if (approve) {
+        console.log("approve id ######", approve?.id);
+        setApproveId(approve?.id);
+        setApprove(true);
+      }
+      if (reject) {
+        setRejectId(reject?.id);
+        console.log("reject id ######", reject?.id);
+        setReject(true);
+      }
+    } else {
+      setApprove(false);
+      setReject(false);
+    }
   }
 
   return (
@@ -94,14 +148,16 @@ function ViewPolicyHistory() {
                         <>{t("APPROVED")}</>
                       ) : (
                         <div className="">
-                          {v?.policyRole === role ? (
-                            <div className="space-x-3  rtl:space-x-reverse">
+                          <div className="space-x-3  rtl:space-x-reverse">
+                            {approve && (
                               <Button
                                 buttonValue={t("Approve")}
                                 onButtonClick={() => (
                                   setSelectedId(v?.id), setModelOpen(true)
                                 )}
                               />
+                            )}
+                            {reject && (
                               <Button
                                 buttonValue={t("Reject")}
                                 buttonColor="bg-red-600"
@@ -109,10 +165,9 @@ function ViewPolicyHistory() {
                                   setSelectedId(v?.id), setModelOpen(true)
                                 )}
                               />
-                            </div>
-                          ) : (
-                            t("Pending")
-                          )}
+                            )}
+                            {!reject && !approve && "Pending"}
+                          </div>
                         </div>
                       )}
                     </div>

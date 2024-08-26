@@ -15,16 +15,16 @@ function CreateUser({ setModelOpen, data }) {
   const message = useSelector((state) => state.message);
   const error = useSelector((state) => state.error);
   const user = useSelector((state) => state.user);
-
+  console.log("userrrrr", user);
   const [policyName, setPolicyName] = useState("");
   const [policyValue, setPolicyValue] = useState("");
 
   function UpdatePolicy() {
-    if (policyValue != "" && user?.user?.id && data?.id) {
+    if (policyValue != "" && user?.id && data?.id) {
       var temp = {
         newValue: policyValue,
         policyId: data?.id,
-        userId: user?.user?.id,
+        userId: user?.id,
       };
       dispatch({
         type: "UPDATE_POLICY",
