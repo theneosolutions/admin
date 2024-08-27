@@ -247,7 +247,6 @@ function* AddUsersAnswersToSet({ payload }) {
         `/formula/calculateFormula?setId=${payload.id}&userId=8`,
       payload.numericData
     );
-    console.log("response2", response2.data.data);
   } catch (error) {
     yield put(action.Loading({ Loading: false }));
 
@@ -671,7 +670,7 @@ function* CreateNotification({ payload }) {
         },
       }
     );
-    console.log("response", response);
+
     yield put(
       action.Message({
         message: "Notification Sent!",
@@ -1016,14 +1015,13 @@ function* GetSimahCodes({ payload }) {
 }
 
 function* GetAllUsersAll({ payload }) {
-  console.log("helo from users", payload);
   try {
     yield put(action.Loading({ Loading: true }));
     const response = yield call(
       axiosInstance.get,
       baseUrlUser + `/user/getAllUser`
     );
-    console.log("helo from users", response?.data);
+
     yield put(action.GetAllUsersAll(response?.data));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
@@ -1325,7 +1323,7 @@ function* ResetOtpVerification({ payload }) {
       axiosInstance.post,
       baseUrlUser + `/user/reset-password?idNumber=${payload.idNumber}`
     );
-    console.log("helo", response);
+
     if (response?.status === 200) {
       yield put(
         action.Message({
@@ -1460,7 +1458,6 @@ function* DeleteTermsAndRate({ payload }) {
 }
 
 function* AddNewRoleName({ payload }) {
-  console.log("loggs", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1506,7 +1503,6 @@ function* GetAllRoles({ payload }) {
   }
 }
 function* GetPermissionsOfRole({ payload }) {
-  console.log("by iddddd", payload);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1552,7 +1548,7 @@ function* GetAllPermissions({ payload }) {
     yield put(action.Loading({ Loading: true }));
 
     const response = yield call(axiosInstance.get, baseUrlUser + "/permission");
-    console.log("heloooooo", response);
+
     yield put(action.GetPermissions(response));
     yield put(action.Loading({ Loading: false }));
     // yield put(

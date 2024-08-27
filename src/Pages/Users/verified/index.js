@@ -53,7 +53,7 @@ function VerifiedUsers() {
       const data = users.filter(
         (person) => person?.user?.user?.roles[0]?.code === "user"
       );
-      console.log("users verified ##", data);
+
       setUsersData(data);
       setNewUsersData(data);
     }

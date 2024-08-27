@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import RoleModel from "../../Components/RoleModel";
+import RoleModel from "Components/RoleModel";
 import { UpdatePermissions } from "Services/OtherApis";
 import * as action from "Services/redux/reducer";
 import withAuthorization from "constants/authorization";
 
-function Roles() {
+function AddPermissionsToRoles() {
   const dispatch = useDispatch();
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [expandedModule, setExpandedModule] = useState(null);
-  const getPermissions = useSelector((state) => state.permissions);
 
-  const [modelOpen, setModelOpen] = useState(false);
+  const getPermissions = useSelector((state) => state.permissions);
   const getAllRolesData = useSelector((state) => state.getAllRoles);
   const getUserPermission = useSelector((state) => state.userPermissions);
+
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [expandedModule, setExpandedModule] = useState(null);
+  const [modelOpen, setModelOpen] = useState(false);
   const [role, setRole] = useState("");
 
   useEffect(() => {
@@ -114,20 +115,28 @@ function Roles() {
 
   const handleSubmit = () => {
     const selectedIds = getSelectedIds().toString();
-    console.log("Selected IDs:", selectedIds);
-    // console.log("Selected Items", selectedItems);
-    console.log("Role Id", role);
+
     // You can now use this array of selected IDs as needed
 
-    UpdatePermissions(role, selectedIds).then((res) =>
-      dispatch(
+    if (selectedIds) {
+      UpdatePermissions(role, selectedIds).then((res) =>
+        dispatch(
+          action.Message({
+            message: res.message || "Error",
+            open: true,
+            error: false,
+          })
+        )
+      );
+    } else {
+      return dispatch(
         action.Message({
-          message: res.message || "Error",
+          message: "Please Select Atleast 1 Permissions",
           open: true,
-          error: false,
+          error: true,
         })
-      )
-    );
+      );
+    }
   };
   function getAllRoles() {
     dispatch({
@@ -171,13 +180,15 @@ function Roles() {
               onChange={(e) => setRole(e.target.value)}
               value={role}
             >
-              {getAllRolesData?.map((v, k) => {
-                return (
-                  <option key={k} value={v?.id}>
-                    {v?.name}
-                  </option>
-                );
-              })}
+              {getAllRolesData
+                .filter((item) => item.name != "User")
+                ?.map((v, k) => {
+                  return (
+                    <option key={k} value={v?.id}>
+                      {v?.name}
+                    </option>
+                  );
+                })}
             </select>
           </div>
           <RoleModel
@@ -240,7 +251,10 @@ function Roles() {
   );
 }
 
-export default withAuthorization(Roles, "assign_permissions_to_roles");
+export default withAuthorization(
+  AddPermissionsToRoles,
+  "assign_permissions_to_roles"
+);
 
 const data = [
   {

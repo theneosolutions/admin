@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import CardMain from "../../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
-import User from "./users";
+import User from "./CreateUserModel";
 import Model2 from "Components/Model2";
 import withAuthorization from "../../../constants/authorization";
 
-function NotificationsScreen() {
+function CreateNewAdmin() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const users = useSelector((state) => state.getAllUsersAll || []);
+
   const [usersData, setUsersData] = useState([]);
 
   const [modelOpen, setModelOpen] = useState(false);
@@ -28,7 +29,6 @@ function NotificationsScreen() {
 
   useEffect(() => {
     if (users) {
-      console.log("user Admin", users);
       const data = users.filter((person) => person?.roles[0]?.name !== "User");
       setUsersData(data);
     }
@@ -74,6 +74,7 @@ function NotificationsScreen() {
                     scope="row"
                     className="px-3 py-4 flex flex-row space-x-3 items-center rtl:space-x-reverse"
                   >
+                    {/* {v?.firstName} */}
                     {v?.firstName + " " + v?.lastName}
                   </td>
                   <td scope="row" className="px-3 py-4">
@@ -105,4 +106,4 @@ function NotificationsScreen() {
   );
 }
 
-export default withAuthorization(NotificationsScreen, "create_admin");
+export default withAuthorization(CreateNewAdmin, "create_admin");

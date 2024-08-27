@@ -11,8 +11,11 @@ import SearchIcon from "../../Assets/Images/searchIcon.svg";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+
 function Header({ isOpen, toggleSidebar, className }) {
   const { t } = useTranslation();
+  const user = useSelector((state) => state?.user);
+  console.log("state user", user);
 
   return (
     <div
@@ -29,11 +32,11 @@ function Header({ isOpen, toggleSidebar, className }) {
           </div>
         )}
         <div className=" flex-row items-center space-x-2 rtl:space-x-reverse md:flex hidden">
-          <img src={SearchIcon} />
+          {/* <img src={SearchIcon} />
           <input
             placeholder={t("Search")}
             className="header-input bg-transparent outline-none text-white"
-          />
+          /> */}
         </div>
       </div>
       <div className="flex flex-row md:space-x-3 space-x-1 rtl:space-x-reverse items-center">
@@ -44,8 +47,10 @@ function Header({ isOpen, toggleSidebar, className }) {
         </div>
         <div className="flex flex-row text-sm text-white items-center space-x-3 rtl:space-x-reverse">
           <div className="flex flex-col items-end">
-            <a className="text-xs">Admin</a>
-            <a className="font-semibold md:text-base text-xs">Zain Malik</a>
+            <a className="text-xs">{user?.roles[0]?.name}</a>
+            <a className="font-semibold md:text-base text-xs">
+              {user?.firstName}
+            </a>
           </div>
           <img
             className="md:h-10 md:w-10 h-6 w-6 rounded-full border border-white"
@@ -172,7 +177,7 @@ const Dropdown = () => {
 
     dispatch({
       type: "LOGOUT_USER",
-      payload: user?.user?.id,
+      payload: user?.id,
     });
 
     setTimeout(() => {

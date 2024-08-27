@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import CardMain from "../../Components/Cards/main";
+import CardMain from "Components/Cards/main";
 import { useState } from "react";
 import { Button } from "Components";
 import { useTranslation } from "react-i18next";

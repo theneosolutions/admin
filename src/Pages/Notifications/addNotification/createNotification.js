@@ -142,9 +142,7 @@ function CreateUser() {
                     value={mainUserId}
                     checked={checked}
                     usersData={tokens}
-                    setMainUserId={(e) => (
-                      setMainUserId(e), console.log("id", e)
-                    )}
+                    setMainUserId={(e) => setMainUserId(e)}
                     mainUserId={mainUserId}
                   />
                 </div>

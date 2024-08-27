@@ -9,12 +9,11 @@ function MyAccount() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
-  console.log("user from profile", user);
+
   const [disabled, setDisabled] = useState(true);
   const { t } = useTranslation();
   const stateUser = useSelector((state) => state.getUserById?.user);
 
-  console.log("state user ######", stateUser);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [lastName, setLastName] = useState("");

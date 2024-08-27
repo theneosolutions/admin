@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Button } from "Components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -7,33 +7,28 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
 
-function CreateUser({ getAllUsers, setModel }) {
+function CreateUserModel({ getAllUsers, setModel }) {
   const dispatch = useDispatch();
-  const getAllRolesData = useSelector((state) => state.getAllRoles);
-  const [image, setImage] = useState(null);
-  const { t } = useTranslation();
 
-  const fileInputRef = useRef(null);
-  console.log("getAllRolesData", getAllRolesData);
-  function handleSelectImage(e) {
-    if (e.target.files && e.target.files[0]) {
-      setImage(URL.createObjectURL(e.target.files[0]));
-    }
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    CreateNewUser();
-  }
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [idNumber, setIdNumber] = useState("");
   const [number, setNumber] = useState("");
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [date, setDate] = useState(new Date());
-  const [role, setRole] = useState();
+  const [role, setRole] = useState("none");
+
+  const { t } = useTranslation();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    CreateNewUser();
+  }
+
+  const getAllRolesData = useSelector((state) => state.getAllRoles);
 
   const encodePassword = (e) => {
     const combined = e + "@Zayk!@3AfO0$*^qC";
@@ -42,43 +37,15 @@ function CreateUser({ getAllUsers, setModel }) {
   };
   function CreateNewUser() {
     if (
-      validatePassword() &&
-      email &&
-      username &&
-      firstName &&
-      number &&
-      idNumber &&
-      role &&
-      date
+      !firstName ||
+      !lastName ||
+      !email ||
+      !username ||
+      !idNumber ||
+      !number ||
+      !date
     ) {
-      dispatch({
-        type: "Add_NEW_USER",
-        payload: {
-          firstName: firstName,
-          username: username,
-          mobileNumber: number,
-          idNumber: idNumber,
-          email: email,
-          role: [role],
-          password: encodePassword(password),
-          dateOfBirth: date,
-        },
-      });
-      setModel(false);
-      setTimeout(() => getAllUsers(), 500);
-      // getAllUsers();
-
-      // setModelOpen(false);
-    } else if (!validatePassword()) {
-      dispatch(
-        action.Message({
-          message: "Password does not meet requirements ",
-          open: true,
-          error: true,
-        })
-      );
-    } else {
-      dispatch(
+      return dispatch(
         action.Message({
           message: "All fields are required!",
           open: true,
@@ -86,8 +53,44 @@ function CreateUser({ getAllUsers, setModel }) {
         })
       );
     }
+    if (!validatePassword()) {
+      console.log("errrororor", role);
+      return dispatch(
+        action.Message({
+          message: "Password does not meet requirements ",
+          open: true,
+          error: true,
+        })
+      );
+    }
+    if (role === "none") {
+      return dispatch(
+        action.Message({
+          message: "Please Select Role",
+          open: true,
+          error: true,
+        })
+      );
+    }
+    console.log("validate", role);
+    dispatch({
+      type: "Add_NEW_USER",
+      payload: {
+        lastName: lastName,
+        firstName: firstName,
+        username: username,
+        mobileNumber: number,
+        idNumber: idNumber,
+        email: email,
+        role: [role],
+        password: encodePassword(password),
+        dateOfBirth: date,
+      },
+    });
+    setModel(false);
+    setTimeout(() => getAllUsers(), 500);
   }
-  console.log("role", role);
+
   const validatePassword = () => {
     const minLength = 8;
     const hasUppercase = /[A-Z]/.test(password);
@@ -115,11 +118,11 @@ function CreateUser({ getAllUsers, setModel }) {
   useEffect(() => {
     getAllRoles();
   }, []);
-  useEffect(() => {
-    if (getAllRolesData?.length > 0) {
-      setRole(getAllRolesData[0]?.id);
-    }
-  }, [getAllRolesData]);
+  // useEffect(() => {
+  //   if (getAllRolesData?.length > 0) {
+  //     setRole(getAllRolesData[0]?.id);
+  //   }
+  // }, [getAllRolesData]);
   return (
     <form
       onSubmit={handleSubmit}
@@ -154,6 +157,11 @@ function CreateUser({ getAllUsers, setModel }) {
             </div>
             <div className="md:w-1/2 w-full md:mt-0 mt-3 space-y-5">
               <InputField
+                heading={t("Last Name")}
+                value={lastName}
+                onChange={(e) => setLastName(e)}
+              />
+              <InputField
                 heading={t("User Name")}
                 value={username}
                 onChange={(e) => setUserName(e)}
@@ -169,15 +177,18 @@ function CreateUser({ getAllUsers, setModel }) {
                 value={password}
                 onChange={(e) => setPassword(e)}
               />
-              <Select
-                data={getAllRolesData}
-                heading={t("Choose Role")}
-                type="select"
-                options={t(role)}
-                onChange={(e) => setRole(e)}
-              />
             </div>
           </div>
+          <div className="mt-3">
+            <Select
+              data={getAllRolesData.filter((item) => item.name != "User")}
+              heading={t("Choose Role")}
+              type="select"
+              value={t(role)}
+              onChange={(e) => setRole(e)}
+            />
+          </div>
+
           <div className="flex flex-row justify-end mt-10 px-14">
             <Button
               type="submit"
@@ -187,19 +198,10 @@ function CreateUser({ getAllUsers, setModel }) {
           </div>
         </div>
       </div>
-
-      <div className="w-full">
-        <input
-          ref={fileInputRef}
-          type="file"
-          onChange={handleSelectImage}
-          style={{ display: "none" }}
-        />
-      </div>
     </form>
   );
 }
-export default CreateUser;
+export default CreateUserModel;
 
 function Select({ heading, value, onChange, data }) {
   const { t } = useTranslation();
@@ -212,6 +214,7 @@ function Select({ heading, value, onChange, data }) {
         value={value}
         className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
       >
+        <option value={"none"}>{t("none")}</option>
         {data.map((option, index) => (
           <option key={index} value={option.id}>
             {t(option.name)}

@@ -36,7 +36,6 @@ const RouteId = () => {
   const currentRouteCode = findMatchingRouteCode(appRoutes, currentPath);
 
   if (currentRouteCode) {
-    console.log("chala code", currentRouteCode);
     return currentRouteCode;
   } else {
     return 0;
@@ -53,7 +52,6 @@ export const axiosInstance = axios.create({
     "Access-Control-Allow-Headers":
       "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers",
     "Accept-Language": LanguageCode(),
-    // "x-mod-id": RouteId(),
   },
 });
 axiosInstance.interceptors.request.use(
@@ -72,8 +70,6 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    // console.log("route id )))))))))", RouteId());
-
     return response;
   },
   (error) => {
@@ -81,7 +77,7 @@ axiosInstance.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       // Handle the 401 error (e.g., log out the user, redirect to login, etc.)
       console.log("Unauthorized access - maybe redirect to login?");
-      // You can also add custom behavior like dispatching a logout action
+
       Logout();
       store.dispatch({ islogin: false });
     }

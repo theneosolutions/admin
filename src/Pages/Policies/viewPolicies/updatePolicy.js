@@ -15,7 +15,7 @@ function CreateUser({ setModelOpen, data }) {
   const message = useSelector((state) => state.message);
   const error = useSelector((state) => state.error);
   const user = useSelector((state) => state.user);
-  console.log("userrrrr", user);
+
   const [policyName, setPolicyName] = useState("");
   const [policyValue, setPolicyValue] = useState("");
 

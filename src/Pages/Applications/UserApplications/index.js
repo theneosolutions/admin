@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import CardMain from "Components/Cards/main";
-import Edit from "Assets/Images/edit.svg";
 import Delete from "Assets/Images/delete.svg";
 import { Model, Avatar } from "Components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import withAuthorization from "../../constants/authorization";
+import withAuthorization from "../../../constants/authorization";
 
 function LaonApplication() {
   const navigate = useNavigate();
@@ -176,7 +175,6 @@ function LaonApplication() {
                     className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10"
                   >
                     <div className="flex flex-row space-x-3 rtl:space-x-reverse">
-                      {/* <img src={Edit} className="h-6 cursor-pointer" /> */}
                       <img
                         src={Delete}
                         className="h-6 cursor-pointer"

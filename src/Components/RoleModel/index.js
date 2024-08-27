@@ -55,7 +55,7 @@ function AddRole({ setRole, role, AddNewRole }) {
       <input
         onChange={(e) => setRole(e.target.value)}
         value={role}
-        class="mt-2 bg-gray-50 border border-gray-200 text-gray-900 sm:text-sm rounded-lg  block w-96 p-2.5  dark:placeholder-gray-200 dark:text-white outline-none"
+        className="mt-2 bg-gray-50 border border-gray-200 text-gray-900 sm:text-sm rounded-lg  block w-96 p-2.5  dark:placeholder-gray-200 dark:text-white outline-none"
         required={true}
       />
       <div

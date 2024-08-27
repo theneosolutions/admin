@@ -355,5 +355,3 @@ function Checboxes({ singleQuestion, checkedValues, setCheckedValues }) {
     </form>
   );
 }
-
-// export default Checboxes;

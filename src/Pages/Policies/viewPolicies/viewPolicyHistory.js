@@ -39,7 +39,6 @@ function ViewPolicyHistory() {
     });
   }
 
-  console.log("roles iddddd", role?.permissions);
   function FunctionApproveReject(v) {
     let routeId;
 
@@ -63,7 +62,7 @@ function ViewPolicyHistory() {
       );
     }
   }
-  console.log("role role rola", role);
+
   function CheckPermission() {
     let policies = role?.permissions.find(
       (item) => item.code === CODE.POLICIES
@@ -78,13 +77,12 @@ function ViewPolicyHistory() {
       );
 
       if (approve) {
-        console.log("approve id ######", approve?.id);
         setApproveId(approve?.id);
         setApprove(true);
       }
       if (reject) {
         setRejectId(reject?.id);
-        console.log("reject id ######", reject?.id);
+
         setReject(true);
       }
     } else {

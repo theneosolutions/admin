@@ -25,7 +25,6 @@ function AllUsers() {
   const users = useSelector((state) => state.getAllUsersAll || []);
 
   function onDelete(user) {
-    console.log("user", user);
     setSelectedUserId(user?.id);
     setModelOpen(true);
   }
@@ -38,7 +37,6 @@ function AllUsers() {
     });
   }
   function DeleteUser() {
-    console.log("selectedUserId", selectedUserId);
     setModelOpen(false);
     dispatch({
       type: "DELETE_USER_BY_ID",
@@ -60,7 +58,7 @@ function AllUsers() {
       // setUsersData(users);
       // setNewUsersData(users);
       const data = users.filter((person) => person?.roles[0]?.code === "user");
-      console.log("data", data);
+
       setUsersData(data);
       setNewUsersData(data);
     }

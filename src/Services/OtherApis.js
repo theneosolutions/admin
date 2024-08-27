@@ -32,24 +32,6 @@ async function GetSeelahHistory() {
   }
 }
 
-async function CheckToken(id, token) {
-  try {
-    const response = await axiosInstance.post(
-      baseUrlUser + `/user/tokenValidationForAdmin`,
-      {
-        token: token,
-        idNumber: id,
-      }
-    );
-    return response.data;
-  } catch (error) {
-    const message = error.response
-      ? error.response.data.message
-      : "An error occurred";
-    return message;
-  }
-}
-
 async function UpdateDbr(data) {
   try {
     const response = await axiosInstance.put(
@@ -168,10 +150,9 @@ async function ResetFailedAttemps(id) {
     const response = await axiosInstance.post(
       baseUrlUser + `/user/resetFailedAttempts?idNumber=${id}`
     );
-    console.log("response", response);
+
     return response.data;
   } catch (error) {
-    console.log("response error", error?.response);
     const message = error.response
       ? error.response.data.message
       : "An error occurred";
@@ -180,15 +161,13 @@ async function ResetFailedAttemps(id) {
 }
 
 async function UpdatePermissions(id, permissions) {
-  console.log("role Id ==== ", id, "permissions === ", permissions);
   try {
     const response = await axiosInstance.put(
       baseUrlUser + `/role/${id}/permissions?permissionIds=${permissions}`
     );
-    console.log("response", response);
+
     return response.data;
   } catch (error) {
-    console.log("response error", error?.response);
     const message = error.response
       ? error.response.data.message
       : "An error occurred";
@@ -198,7 +177,6 @@ async function UpdatePermissions(id, permissions) {
 
 export {
   CheckQuestionStatusInScreen,
-  CheckToken,
   UpdateDbr,
   GetSeelahHistory,
   TransferMoney,

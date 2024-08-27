@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainLayout from "../Layouts/MainLayout";
 import { routes } from "./routes";
 import Profile from "Pages/Profile";
-import Applications from "Pages/Applications";
+import Applications from "Pages/Applications/Layout";
 import MyAccount from "Pages/MyAccount";
 import Login from "Pages/authentication/Login";
 import ForgetPassword from "Pages/authentication/resetpassword";

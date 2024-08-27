@@ -3,9 +3,9 @@ import React from "react";
 function NotFound() {
   return (
     <section>
-      <div class=" text-white">
-        <div class="flex h-screen">
-          <div class="m-auto text-center">
+      <div className=" text-white">
+        <div className="flex h-screen">
+          <div className="m-auto text-center">
             <div>
               <svg
                 width="631"
@@ -266,12 +266,12 @@ function NotFound() {
                 </defs>
               </svg>
             </div>
-            <p class="text-sm md:text-base text-yellow-500 p-2 mb-4">
+            <p className="text-sm md:text-base text-yellow-500 p-2 mb-4">
               The stuff you were looking for doesn't exist
             </p>
             <a
               //   href="/"
-              class="bg-transparent hover:bg-yellow-500 text-yellow-500 hover:text-white rounded shadow hover:shadow-lg py-2 px-4 border border-yellow-500 hover:border-transparent"
+              className="bg-transparent hover:bg-yellow-500 text-yellow-500 hover:text-white rounded shadow hover:shadow-lg py-2 px-4 border border-yellow-500 hover:border-transparent"
             >
               Retry
             </a>

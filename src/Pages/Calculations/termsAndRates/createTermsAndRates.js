@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import * as action from "Services/redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 
-function CreateUser({ setModelOpen, data }) {
+function CreateTermsAndRates({ setModelOpen, data }) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -138,7 +138,7 @@ function CreateUser({ setModelOpen, data }) {
     </form>
   );
 }
-export default CreateUser;
+export default CreateTermsAndRates;
 
 function InputField({ heading, value, onChange, type }) {
   return (
