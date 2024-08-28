@@ -17,7 +17,7 @@ function AddPermissionsToRoles() {
   const [expandedModule, setExpandedModule] = useState(null);
   const [modelOpen, setModelOpen] = useState(false);
   const [role, setRole] = useState("");
-
+  console.log("selectedItems", selectedItems);
   useEffect(() => {
     dispatch({ type: "GET_ALL_PERMISSIONS" });
   }, [dispatch]);
@@ -46,39 +46,65 @@ function AddPermissionsToRoles() {
   };
 
   const handleChildChange = (module, subModule) => {
+    console.log(
+      "handle $$$$$4",
+      "module",
+      module,
+      "submodule ",
+      subModule,
+      "selectedItems",
+      selectedItems
+    );
     setSelectedItems((prevSelectedItems) => {
       const parentIndex = prevSelectedItems.findIndex(
         (item) => item.id === module.id
       );
+
       const isSelected =
         parentIndex !== -1 &&
         prevSelectedItems[parentIndex].subMenus.some(
           (sub) => sub.id === subModule.id
         );
 
+      let updatedItems = prevSelectedItems.map((item) => ({
+        ...item,
+        subMenus: [...item.subMenus],
+      }));
       if (isSelected) {
+        // updatedItems = [...prevSelectedItems];
         // If the submodule is already selected, remove it
         const updatedSubMenus = prevSelectedItems[parentIndex].subMenus.filter(
           (sub) => sub.id !== subModule.id
         );
 
         // Update the parent module with the new subMenus
-        const updatedItems = [...prevSelectedItems];
+
         if (updatedSubMenus.length > 0) {
           updatedItems[parentIndex] = { ...module, subMenus: updatedSubMenus };
         } else {
           // If no subMenus left, remove the parent module as well
           updatedItems.splice(parentIndex, 1);
         }
-
         return updatedItems;
       } else {
         // If the submodule is not selected, add it under the correct parent
-        const updatedItems = [...prevSelectedItems];
+
+        // console.log("$$$$$$$$$", updatedItems[parentIndex].subMenus);
+
         if (parentIndex !== -1) {
+          // console.log(
+          //   "parentIndex",
+          //   parentIndex,
+          //   "isSelected",
+          //   isSelected,
+          //   updatedItems,
+          //   "checkingIndex",
+          //   updatedItems[parentIndex].subMenus
+          // );
           // If the parent is already selected, update its subMenus
           updatedItems[parentIndex].subMenus.push(subModule);
         } else {
+          // console.log("tum tum ");
           // If the parent is not selected, add the parent with the submodule
           updatedItems.push({ ...module, subMenus: [subModule] });
         }
@@ -89,12 +115,26 @@ function AddPermissionsToRoles() {
   };
 
   const isModuleSelected = (module) => {
+    // console.log("selected items 2222", selectedItems);
+
     return selectedItems.some((item) => item.id === module.id);
   };
 
   const isSubModuleSelected = (module, subModule) => {
+    // console.log("module", module, "submodule", subModule);
     const parent = selectedItems.find((item) => item.id === module.id);
-    return parent && parent.subMenus.some((sub) => sub.id === subModule.id);
+    // console.log(
+    //   "selected SS Modules",
+    //   "module",
+    //   module,
+    //   "subModule",
+    //   subModule,
+    //   "parent",
+    //   parent
+    // );
+    return parent
+      ? parent.subMenus.some((sub) => sub.id === subModule.id)
+      : false;
   };
 
   const getSelectedIds = () => {
