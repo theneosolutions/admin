@@ -11,7 +11,11 @@ function AddPermissionsToRoles() {
 
   const getPermissions = useSelector((state) => state.permissions);
   const getAllRolesData = useSelector((state) => state.getAllRoles);
+  const state = useSelector((state) => state);
+  console.log("statttte", state);
   const getUserPermission = useSelector((state) => state.userPermissions);
+
+  const [selectedIds, setSelectedIds] = useState([]);
 
   const [selectedItems, setSelectedItems] = useState([]);
   const [expandedModule, setExpandedModule] = useState(null);
@@ -102,6 +106,30 @@ function AddPermissionsToRoles() {
     });
   };
 
+  const isActionSelected = (module) => {
+    return selectedIds.some((item) => item === module?.id);
+  };
+
+  const pushIdInArray = (module) => {
+    console.log("isActionSelected", module);
+
+    const select = selectedIds.some((item) => item === module?.id);
+    console.log("already have", select);
+    if (select) {
+      let temp = selectedIds.filter((item) => item != module.id);
+
+      console.log("temp", temp);
+      setSelectedIds(temp);
+    }
+    if (!select) {
+      setSelectedIds([...selectedIds, module.id]);
+    }
+
+    console.log("isActionSelected", selectedIds);
+  };
+
+  // console.log("isActionSelected", isActionSelected());
+
   const isModuleSelected = (module) => {
     // console.log("selected items 2222", selectedItems);
 
@@ -133,30 +161,46 @@ function AddPermissionsToRoles() {
     return ids;
   };
 
-  const handleSubmit = () => {
-    const selectedIds = getSelectedIds().toString();
-
-    // You can now use this array of selected IDs as needed
-
-    if (selectedIds) {
-      UpdatePermissions(role, selectedIds).then((res) =>
-        dispatch(
-          action.Message({
-            message: res.message || "Error",
-            open: true,
-            error: false,
-          })
-        )
-      );
-    } else {
-      return dispatch(
-        action.Message({
-          message: "Please Select Atleast 1 Permissions",
-          open: true,
-          error: true,
-        })
-      );
+  useEffect(() => {
+    if (data2) {
+      data2?.some((item) => {
+        item?.subMenus.some((sub) => {
+          if (sub?.actions) {
+            sub?.actions.forEach((action) => {
+              setSelectedIds([...selectedIds, action.id]);
+            });
+          }
+        });
+      });
     }
+  }, [data2]);
+
+  const handleSubmit = () => {
+    console.log("selectedids", selectedIds, getSelectedIds());
+
+    // const selectedIds = getSelectedIds().toString();
+
+    // // You can now use this array of selected IDs as needed
+
+    // if (selectedIds) {
+    //   UpdatePermissions(role, selectedIds).then((res) =>
+    //     dispatch(
+    //       action.Message({
+    //         message: res.message || "Error",
+    //         open: true,
+    //         error: false,
+    //       })
+    //     )
+    //   );
+    // } else {
+    //   return dispatch(
+    //     action.Message({
+    //       message: "Please Select Atleast 1 Permissions",
+    //       open: true,
+    //       error: true,
+    //     })
+    //   );
+    // }
   };
   function getAllRoles() {
     dispatch({
@@ -173,12 +217,12 @@ function AddPermissionsToRoles() {
     }
   }, [role]);
   useEffect(() => {
-    if (getUserPermission) {
+    if (data2) {
       setSelectedItems([]);
       setExpandedModule(null);
-      setSelectedItems(getUserPermission);
+      setSelectedItems(data2);
     }
-  }, [getUserPermission]);
+  }, [data2]);
   useEffect(() => {
     getAllRoles();
   }, []);
@@ -218,7 +262,7 @@ function AddPermissionsToRoles() {
           />
         </div>
       </div>
-      {getPermissions.map((module) => (
+      {data2.map((module) => (
         <div key={module.id}>
           <div className="flex flex-row items-center space-x-2">
             <div
@@ -242,23 +286,7 @@ function AddPermissionsToRoles() {
           {expandedModule === module.id && (
             <div className="ml-8 mt-4 space-y-2">
               {module.subMenus?.map((subModule) => (
-                <div
-                  key={subModule.id}
-                  className="ml-8 mt-2 flex flex-row space-x-3 items-center"
-                >
-                  <div className="flex flex-row w-44 bg-gray-200 text-center rounded-sm items-center justify-center py-2">
-                    <a>{subModule.name}</a>
-                  </div>
-                  <input
-                    type="checkbox"
-                    className="h-5 w-5"
-                    checked={isSubModuleSelected(module, subModule)}
-                    onChange={() => handleChildChange(module, subModule)}
-                  />
-                </div>
-              ))}
-              <div className="ml-8 mt-4 space-y-2">
-                {module.subMenus?.map((subModule) => (
+                <div>
                   <div
                     key={subModule.id}
                     className="ml-8 mt-2 flex flex-row space-x-3 items-center"
@@ -273,8 +301,26 @@ function AddPermissionsToRoles() {
                       onChange={() => handleChildChange(module, subModule)}
                     />
                   </div>
-                ))}
-              </div>
+                  <div className="ml-8 mt-4 space-y-2">
+                    {subModule.actions?.map((action) => (
+                      <div
+                        key={action.id}
+                        className="ml-8 mt-2 flex flex-row space-x-3 items-center"
+                      >
+                        <div className="flex flex-row w-44 bg-gray-200 text-center rounded-sm items-center justify-center py-2">
+                          <a>{action.name}</a>
+                        </div>
+                        <input
+                          type="checkbox"
+                          className="h-5 w-5"
+                          checked={isActionSelected(action)}
+                          onChange={() => pushIdInArray(action)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </div>
