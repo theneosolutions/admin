@@ -257,7 +257,7 @@ function AddPermissionsToRoles() {
                   />
                 </div>
               ))}
-              <div className="ml-8 mt-4 space-y-2">
+              {/* <div className="ml-8 mt-4 space-y-2">
                 {module.subMenus?.map((subModule) => (
                   <div
                     key={subModule.id}
@@ -274,7 +274,7 @@ function AddPermissionsToRoles() {
                     />
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
           )}
         </div>
