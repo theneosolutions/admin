@@ -10,7 +10,6 @@
 # testing
 /coverage
 # production
-src/config.js
 
 # misc
 .DS_Store
