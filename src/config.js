@@ -2,7 +2,7 @@ const ENV = process.env.REACT_APP_ENV || "production";
 
 const config = {
   development: {
-    API_URL: "https://sa.com",
+    API_URL: "https://seulah.com",
     FEATURE_FLAG: true,
   },
   production: {
