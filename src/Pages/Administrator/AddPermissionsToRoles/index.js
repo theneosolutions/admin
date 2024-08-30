@@ -11,8 +11,8 @@ function AddPermissionsToRoles() {
 
   const getPermissions = useSelector((state) => state.permissions);
   const getAllRolesData = useSelector((state) => state.getAllRoles);
-  const state = useSelector((state) => state);
-  console.log("statttte", state);
+  const state = useSelector((state) => state.role);
+
   const getUserPermission = useSelector((state) => state.userPermissions);
 
   const [selectedIds, setSelectedIds] = useState([]);
@@ -21,10 +21,10 @@ function AddPermissionsToRoles() {
   const [expandedModule, setExpandedModule] = useState(null);
   const [modelOpen, setModelOpen] = useState(false);
   const [role, setRole] = useState("");
-  console.log("selectedItems", selectedItems);
-  useEffect(() => {
-    dispatch({ type: "GET_ALL_PERMISSIONS" });
-  }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch({ type: "GET_ALL_PERMISSIONS" });
+  // }, [dispatch]);
 
   const toggleModuleExpansion = (moduleId) => {
     setExpandedModule(expandedModule === moduleId ? null : moduleId);
@@ -47,18 +47,23 @@ function AddPermissionsToRoles() {
         ];
       }
     });
+
+    const temp = selectedItems?.some((item) => item.code === module.code);
+
+    if (temp) {
+      module.subMenus?.forEach((subModule) => {
+        subModule.actions?.forEach((action) => {
+          if (selectedIds.includes(action.id)) {
+            setSelectedIds((prevSelectedIds) =>
+              prevSelectedIds.filter((id) => id !== action.id)
+            );
+          }
+        });
+      });
+    }
   };
 
   const handleChildChange = (module, subModule) => {
-    console.log(
-      "handle $$$$$4",
-      "module",
-      module,
-      "submodule ",
-      subModule,
-      "selectedItems",
-      selectedItems
-    );
     setSelectedItems((prevSelectedItems) => {
       const parentIndex = prevSelectedItems.findIndex(
         (item) => item.id === module.id
@@ -97,47 +102,58 @@ function AddPermissionsToRoles() {
           // If the parent is already selected, update its subMenus
           updatedItems[parentIndex].subMenus.push(subModule);
         } else {
-          // console.log("tum tum ");
-          // If the parent is not selected, add the parent with the submodule
           updatedItems.push({ ...module, subMenus: [subModule] });
         }
         return updatedItems;
       }
     });
+
+    let temp = selectedItems?.some((item) =>
+      item.subMenus?.some((sub) => sub.code === subModule?.code)
+    );
+
+    if (temp) {
+      subModule?.actions.some((item) => {
+        if (selectedIds.includes(item.id)) {
+          // Remove the item.id from selectedIds
+          setSelectedIds((prevSelectedIds) =>
+            prevSelectedIds.filter((id) => id !== item.id)
+          );
+        }
+      });
+    }
   };
 
-  const isActionSelected = (module) => {
+  const isActionSelected = (module, submodules) => {
+    let temp = selectedItems?.some((menu) =>
+      menu.subMenus?.some((item) => item.code === submodules.code)
+    );
+
+    if (!temp) {
+      // Handle clearing `selectedIds` outside this function, such as in a `useEffect`
+      return false;
+    }
+
     return selectedIds.some((item) => item === module?.id);
   };
-
   const pushIdInArray = (module) => {
-    console.log("isActionSelected", module);
-
     const select = selectedIds.some((item) => item === module?.id);
-    console.log("already have", select);
+
     if (select) {
       let temp = selectedIds.filter((item) => item != module.id);
 
-      console.log("temp", temp);
       setSelectedIds(temp);
     }
     if (!select) {
       setSelectedIds([...selectedIds, module.id]);
     }
-
-    console.log("isActionSelected", selectedIds);
   };
 
-  // console.log("isActionSelected", isActionSelected());
-
   const isModuleSelected = (module) => {
-    // console.log("selected items 2222", selectedItems);
-
     return selectedItems.some((item) => item.id === module.id);
   };
 
   const isSubModuleSelected = (module, subModule) => {
-    // console.log("module", module, "submodule", subModule);
     const parent = selectedItems.find((item) => item.id === module.id);
 
     return parent
@@ -162,23 +178,27 @@ function AddPermissionsToRoles() {
   };
 
   useEffect(() => {
-    if (data2) {
-      data2?.some((item) => {
-        item?.subMenus.some((sub) => {
+    if (getUserPermission) {
+      const newIds = [];
+
+      getUserPermission.forEach((item) => {
+        item?.subMenus.forEach((sub) => {
           if (sub?.actions) {
-            sub?.actions.forEach((action) => {
-              setSelectedIds([...selectedIds, action.id]);
+            sub.actions.forEach((action) => {
+              newIds.push(action.id);
             });
           }
         });
       });
+
+      setSelectedIds((prevSelectedIds) => [...prevSelectedIds, ...newIds]);
     }
-  }, [data2]);
-
+  }, [getUserPermission]);
   const handleSubmit = () => {
-    console.log("selectedids", selectedIds, getSelectedIds());
+    const temp = [...selectedIds, ...getSelectedIds()];
 
-    // const selectedIds = getSelectedIds().toString();
+    console.log("selectedids temp", temp.sort());
+    // const selectedIds = temp.toString();
 
     // // You can now use this array of selected IDs as needed
 
@@ -208,21 +228,21 @@ function AddPermissionsToRoles() {
     });
   }
 
+  // useEffect(() => {
+  //   if (role) {
+  //     dispatch({
+  //       type: "GET_PERMISSIONS_OF_ROLE",
+  //       payload: role,
+  //     });
+  //   }
+  // }, [role]);
   useEffect(() => {
-    if (role) {
-      dispatch({
-        type: "GET_PERMISSIONS_OF_ROLE",
-        payload: role,
-      });
-    }
-  }, [role]);
-  useEffect(() => {
-    if (data2) {
+    if (getUserPermission) {
       setSelectedItems([]);
       setExpandedModule(null);
-      setSelectedItems(data2);
+      setSelectedItems(getUserPermission);
     }
-  }, [data2]);
+  }, [getUserPermission]);
   useEffect(() => {
     getAllRoles();
   }, []);
@@ -262,7 +282,7 @@ function AddPermissionsToRoles() {
           />
         </div>
       </div>
-      {data2.map((module) => (
+      {getPermissions?.map((module) => (
         <div key={module.id}>
           <div className="flex flex-row items-center space-x-2">
             <div
@@ -313,7 +333,7 @@ function AddPermissionsToRoles() {
                         <input
                           type="checkbox"
                           className="h-5 w-5"
-                          checked={isActionSelected(action)}
+                          checked={isActionSelected(action, subModule)}
                           onChange={() => pushIdInArray(action)}
                         />
                       </div>
@@ -339,269 +359,3 @@ export default withAuthorization(
   AddPermissionsToRoles,
   "assign_permissions_to_roles"
 );
-
-const data = [
-  {
-    id: 1,
-    key: "overview",
-    name: "Overview",
-    subMenus: [
-      {
-        id: 2,
-        key: "overview_account",
-        name: "Account",
-      },
-    ],
-  },
-  {
-    id: 3,
-    key: "applications",
-    name: "Applications",
-    subMenus: [
-      {
-        id: 4,
-        key: "loan_applications",
-        name: "Loan Applications",
-      },
-    ],
-  },
-  {
-    id: 5,
-    key: "customers",
-    name: "Customers",
-    subMenus: [
-      {
-        id: 6,
-        key: "customers_dashboard",
-        name: "Customers Dashboard",
-      },
-      {
-        id: 7,
-        key: "all_customers",
-        name: "All Customers",
-      },
-      {
-        id: 8,
-        key: "verified_customers",
-        name: "Verified Customers",
-      },
-    ],
-  },
-];
-
-const data2 = [
-  {
-    id: 1,
-    name: "Overview",
-    code: "overview",
-    subMenus: [
-      {
-        id: 2,
-        name: "Account",
-        code: "overview_account",
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: "Applications",
-    code: "applications",
-    subMenus: [
-      {
-        id: 4,
-        name: "Loan Applications",
-        code: "loan_applications",
-      },
-    ],
-  },
-  {
-    id: 5,
-    name: "Customers",
-    code: "customers",
-    subMenus: [
-      {
-        id: 6,
-        name: "Customers Dashboard",
-        code: "customers_dashboard",
-      },
-      {
-        id: 7,
-        name: "All Customers",
-        code: "all_customers",
-      },
-      {
-        id: 8,
-        name: "Verified Customers",
-        code: "verified_customers",
-      },
-    ],
-  },
-  {
-    id: 9,
-    name: "Administrator",
-    code: "administrator",
-    subMenus: [
-      {
-        id: 10,
-        name: "Create Admin",
-        code: "create_admin",
-      },
-      {
-        id: 11,
-        name: "Assign Permissions to Roles",
-        code: "assign_permissions_to_roles",
-      },
-    ],
-  },
-  {
-    id: 12,
-    name: "Seela",
-    code: "seela",
-    subMenus: [
-      {
-        id: 13,
-        name: "History",
-        code: "seela_history",
-      },
-      {
-        id: 14,
-        name: "Transaction",
-        code: "seela_transaction",
-      },
-      {
-        id: 15,
-        name: "Commodity",
-        code: "seela_commodity",
-      },
-      {
-        id: 16,
-        name: "Wallet",
-        code: "seela_wallet",
-      },
-    ],
-  },
-  {
-    id: 17,
-    name: "Policies",
-    code: "policies",
-    subMenus: [
-      {
-        id: 18,
-        name: "View Policies",
-        code: "view_policies",
-        actions: [
-          {
-            id: 19,
-            name: "Approve Policy",
-            code: "approve_policy",
-          },
-          {
-            id: 20,
-            name: "Reject Policy",
-            code: "reject_policy",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: 21,
-    name: "Loan Management",
-    code: "loan_management",
-    subMenus: [
-      {
-        id: 22,
-        name: "Create Type",
-        code: "create_type",
-      },
-      {
-        id: 23,
-        name: "Customer EMI",
-        code: "customer_emi",
-      },
-    ],
-  },
-  {
-    id: 24,
-    name: "Decisions",
-    code: "decisions",
-    subMenus: [
-      {
-        id: 25,
-        name: "Questions",
-        code: "questions",
-      },
-      {
-        id: 26,
-        name: "Create Set",
-        code: "create_set",
-      },
-      {
-        id: 27,
-        name: "Create Decisions",
-        code: "create_decisions",
-      },
-    ],
-  },
-  {
-    id: 28,
-    name: "Notifications",
-    code: "notifications",
-    subMenus: [
-      {
-        id: 29,
-        name: "Notifications",
-        code: "notifications_dashboard",
-      },
-      {
-        id: 30,
-        name: "Terms and Conditions",
-        code: "terms_and_conditions",
-      },
-      {
-        id: 31,
-        name: "Awareness Messages",
-        code: "awareness_messages",
-      },
-      {
-        id: 32,
-        name: "Add SMS",
-        code: "add_sms",
-      },
-    ],
-  },
-  {
-    id: 33,
-    name: "Simah",
-    code: "simah",
-    subMenus: [
-      {
-        id: 34,
-        name: "Simah",
-        code: "simah_dashboard",
-      },
-    ],
-  },
-  {
-    id: 35,
-    name: "Calculations",
-    code: "calculations",
-    subMenus: [
-      {
-        id: 36,
-        name: "DBR",
-        code: "calculations_dbr",
-      },
-      {
-        id: 37,
-        name: "Bare Minimum Expenses",
-        code: "calculations_bare_minimum_expenses",
-      },
-      {
-        id: 38,
-        name: "Terms and Rates",
-        code: "calculations_terms_and_rates",
-      },
-    ],
-  },
-];
