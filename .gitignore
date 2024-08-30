@@ -10,7 +10,7 @@
 # testing
 /coverage
 # production
-./src/config
+/src/config
 
 # misc
 .DS_Store
