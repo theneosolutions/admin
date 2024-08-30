@@ -1,4 +1,4 @@
-const ENV = process.env.REACT_APP_ENV || "production";
+const ENV = process.env.REACT_APP_ENV || "dev";
 
 const config = {
   development: {
@@ -9,8 +9,8 @@ const config = {
     API_URL: "https://seulah.sa",
     FEATURE_FLAG: false,
   },
-  localhost: {
-    API_URL: "http://localhost:3000",
+  dev: {
+    API_URL: "https://seulah.dev",
     FEATURE_FLAG: true,
   },
 };
