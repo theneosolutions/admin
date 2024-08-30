@@ -7,7 +7,7 @@ import { Model, Avatar } from "Components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
-
+import { CODE } from "constants/codes";
 function LaonApplication() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -208,7 +208,7 @@ function LaonApplication() {
   );
 }
 
-export default withAuthorization(LaonApplication, "loan_applications");
+export default withAuthorization(LaonApplication, CODE.LOAN_APPLICATIONS);
 
 function Notifications({ heading, value, color, onClick, active }) {
   return (

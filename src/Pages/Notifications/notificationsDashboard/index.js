@@ -5,7 +5,7 @@ import CardMain from "../../../Components/Cards/main";
 import { IoNotifications } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../../Services/redux/reducer";
-
+import { CODE } from "constants/codes";
 import withAuthorization from "../../../constants/authorization";
 function NotificationsScreen() {
   const { t } = useTranslation();
@@ -102,7 +102,7 @@ function NotificationsScreen() {
 }
 export default withAuthorization(
   NotificationsScreen,
-  "notifications_dashboard"
+  CODE.NOTIFICATIONS_DASHBOARD
 );
 function Notifications({ heading, value, color }) {
   return (

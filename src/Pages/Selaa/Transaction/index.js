@@ -4,7 +4,7 @@ import CardMain from "../../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
-
+import { CODE } from "constants/codes";
 function AllUsers() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -126,4 +126,4 @@ function AllUsers() {
     </div>
   );
 }
-export default withAuthorization(AllUsers, "seela_transaction");
+export default withAuthorization(AllUsers, CODE.SEELA_TRANSACTION);

@@ -8,6 +8,7 @@ import TextBox from "./TextBox";
 import Boolean from "./Boolean";
 import IncreaseDecrease from "./IncreaseDecrease";
 import Checboxes from "./checkBoxes";
+import { CODE } from "constants/codes";
 function App() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -117,4 +118,4 @@ function App() {
     </div>
   );
 }
-export default withAuthorization(App, "questions");
+export default withAuthorization(App, CODE.QUESTIONS);

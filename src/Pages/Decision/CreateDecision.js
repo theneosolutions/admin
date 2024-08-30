@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import Response from "./response";
 import withAuthorization from "../../constants/authorization";
 import { getLanguage } from "functions/getLanguage";
-
+import { CODE } from "constants/codes";
 const CreateDesicion = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -294,7 +294,7 @@ const CreateDesicion = () => {
   );
 };
 
-export default withAuthorization(CreateDesicion, "create_decisions");
+export default withAuthorization(CreateDesicion, CODE.CREATE_DECISION);
 
 function Checboxes({ singleQuestion, checkedValues, setCheckedValues }) {
   const { t } = useTranslation();

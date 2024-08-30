@@ -9,7 +9,7 @@ import withAuthorization from "../../../constants/authorization";
 import Model2 from "Components/Model2";
 import UpdatePolicy from "./updatePolicy";
 import { Button } from "Components";
-
+import { CODE } from "constants/codes";
 function AllPolicies() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -139,4 +139,4 @@ function AllPolicies() {
     </div>
   );
 }
-export default withAuthorization(AllPolicies, "view_policies");
+export default withAuthorization(AllPolicies, CODE.VIEW_POLICIES);

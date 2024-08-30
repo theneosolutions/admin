@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
 import { LuSearch } from "react-icons/lu";
-
+import { CODE } from "constants/codes";
 function AllUsers() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -268,4 +268,4 @@ function AllUsers() {
     </div>
   );
 }
-export default withAuthorization(AllUsers, "all_customers");
+export default withAuthorization(AllUsers, CODE.ALL_CUSTOMERS);

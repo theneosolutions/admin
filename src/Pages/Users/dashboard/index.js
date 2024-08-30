@@ -12,7 +12,7 @@ import RadialBarChart from "Components/chart/RadialBarChart";
 import BarwithMarkersChart from "Components/chart/BarwithMarkersChart";
 import { Model } from "Components";
 import withAuthorization from "../../../constants/authorization";
-
+import { CODE } from "constants/codes";
 function App() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -170,7 +170,7 @@ function App() {
   );
 }
 
-export default withAuthorization(App, "customers_dashboard");
+export default withAuthorization(App, CODE.CUSTOMER_DASHBOARD);
 
 function ActionCenter({ icon, heading, des, image }) {
   return (

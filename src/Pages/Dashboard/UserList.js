@@ -15,7 +15,7 @@ import { LuWallet2 } from "react-icons/lu";
 import ColumnChart from "Components/chart/ColumnChart";
 import PieChart from "Components/chart/PieChart";
 import SplineChart from "Components/chart/SplineChart";
-
+import { CODE } from "constants/codes";
 import { Model } from "Components";
 import withAuthorization from "../../constants/authorization";
 function App() {
@@ -167,7 +167,7 @@ function App() {
   );
 }
 
-export default withAuthorization(App, "overview_account");
+export default withAuthorization(App, CODE.OVERVIEW_ACCOUNT);
 
 function ActionCenter({ icon, heading, des }) {
   return (

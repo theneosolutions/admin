@@ -9,7 +9,7 @@ import withAuthorization from "../../../constants/authorization";
 import CreateTermsAndRates from "../termsAndRates/createTermsAndRates";
 import { Model } from "../../../Components";
 import Model2 from "Components/Model2";
-
+import { CODE } from "constants/codes";
 function TermAndRates() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -170,4 +170,7 @@ function TermAndRates() {
     </div>
   );
 }
-export default withAuthorization(TermAndRates, "calculations_terms_and_rates");
+export default withAuthorization(
+  TermAndRates,
+  CODE.CALCULATIONS_TERMS_AND_RATES
+);

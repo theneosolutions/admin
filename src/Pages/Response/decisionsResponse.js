@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import withAuthorization from "../../constants/authorization";
-
+import { CODE } from "constants/codes";
 function CreateUser() {
   const { t } = useTranslation();
 
@@ -228,7 +228,7 @@ function CreateUser() {
     </div>
   );
 }
-export default withAuthorization(CreateUser, "notifications_dashboard");
+export default withAuthorization(CreateUser, CODE.NOTIFICATIONS_DASHBOARD);
 function InputField({ heading, value, onChange, type, style }) {
   const { t } = useTranslation();
 

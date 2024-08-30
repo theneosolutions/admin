@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "Components";
 import Model2 from "Components/Model2";
 import AddProductModel from "./addProductModel";
-
+import { CODE } from "constants/codes";
 function Simah() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -149,7 +149,7 @@ function Simah() {
   );
 }
 
-export default withAuthorization(Simah, "simah_dashboard");
+export default withAuthorization(Simah, CODE.SIMAH_DASHBOARD);
 const data = [
   {
     label: "SIMAH Product List",

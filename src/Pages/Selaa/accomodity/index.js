@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
 import * as action from "../../../Services/redux/reducer";
-
+import { CODE } from "constants/codes";
 import {
   TransferMoney,
   RadeemMoney,
@@ -147,4 +147,4 @@ function Accomodity() {
     </div>
   );
 }
-export default withAuthorization(Accomodity, "seela_commodity");
+export default withAuthorization(Accomodity, CODE.SEELA_COMMODITY);

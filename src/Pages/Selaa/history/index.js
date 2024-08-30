@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
 import { GetSeelahHistory } from "Services/OtherApis";
 import * as action from "../../../Services/redux/reducer";
-
+import { CODE } from "constants/codes";
 function AllUsers() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -141,4 +141,4 @@ function AllUsers() {
     </div>
   );
 }
-export default withAuthorization(AllUsers, "seela_history");
+export default withAuthorization(AllUsers, CODE.SEELA_HISTORY);

@@ -4,7 +4,7 @@ import CardMain from "../../Components/Cards/main";
 import Edit from "../../Assets/Images/edit.svg";
 import Delete from "../../Assets/Images/delete.svg";
 import { useDispatch, useSelector } from "react-redux";
-
+import { CODE } from "constants/codes";
 import { useEffect } from "react";
 import withAuthorization from "../../constants/authorization";
 import CreateDBR from "./dbrCreate";
@@ -171,4 +171,4 @@ function Calculations() {
     </div>
   );
 }
-export default withAuthorization(Calculations, "calculations_dbr");
+export default withAuthorization(Calculations, CODE.CALCULATIONS_DBR);

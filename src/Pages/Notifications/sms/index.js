@@ -8,7 +8,7 @@ import Model2 from "Components/Model2";
 import AddSms from "../sms/addSms";
 import Delete from "../../../Assets/Images/delete.svg";
 import Edit from "../../../Assets/Images/edit.svg";
-
+import { CODE } from "constants/codes";
 function NotificationsScreen() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -126,4 +126,4 @@ function NotificationsScreen() {
     </div>
   );
 }
-export default withAuthorization(NotificationsScreen, "add_sms");
+export default withAuthorization(NotificationsScreen, CODE.ADD_SMS);

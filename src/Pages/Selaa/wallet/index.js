@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
 import { Button } from "Components";
 import * as action from "../../../Services/redux/reducer";
-
+import { CODE } from "constants/codes";
 import { TopUpWalletFunction } from "Services/OtherApis";
 function Wallet() {
   const dispatch = useDispatch();
@@ -90,7 +90,7 @@ function Wallet() {
     </div>
   );
 }
-export default withAuthorization(Wallet, "seela_wallet");
+export default withAuthorization(Wallet, CODE.SEELA_WALLET);
 function InputField({ heading, value, onChange, type }) {
   return (
     <div className="flex flex-col w-full">

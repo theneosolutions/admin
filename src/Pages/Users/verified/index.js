@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
 import { LuSearch } from "react-icons/lu";
-
+import { CODE } from "constants/codes";
 function VerifiedUsers() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -265,4 +265,4 @@ function VerifiedUsers() {
   );
 }
 
-export default withAuthorization(VerifiedUsers, "verified_customers");
+export default withAuthorization(VerifiedUsers, CODE.VERIFIED_CUSTOMERS);

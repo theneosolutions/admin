@@ -6,6 +6,7 @@ import UplaodIcon from "Assets/Images/upload.svg";
 import { CiCircleRemove } from "react-icons/ci";
 import withAuthorization from "../../constants/authorization";
 import TermsAndRates from "Pages/Calculations/termsAndRates";
+import { CODE } from "constants/codes";
 function App() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -273,4 +274,4 @@ function App() {
   );
 }
 
-export default withAuthorization(App, "create_type");
+export default withAuthorization(App, CODE.CREATE_TYPE);

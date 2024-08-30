@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
-
+import { CODE } from "constants/codes";
 function VerifiedUsers() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -113,4 +113,4 @@ function VerifiedUsers() {
   );
 }
 
-export default withAuthorization(VerifiedUsers, "customer_emi");
+export default withAuthorization(VerifiedUsers, CODE.CUSTOMER_EMI);

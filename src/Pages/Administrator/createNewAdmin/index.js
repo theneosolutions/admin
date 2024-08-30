@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import User from "./CreateUserModel";
 import Model2 from "Components/Model2";
 import withAuthorization from "../../../constants/authorization";
-
+import { CODE } from "constants/codes";
 function CreateNewAdmin() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -106,4 +106,4 @@ function CreateNewAdmin() {
   );
 }
 
-export default withAuthorization(CreateNewAdmin, "create_admin");
+export default withAuthorization(CreateNewAdmin, CODE.CREATE_ADMIN);

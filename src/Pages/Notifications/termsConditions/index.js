@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import withAuthorization from "../../../constants/authorization";
 import EnglishTerms from "./termsAndConditions/englishTerms";
 import ArabicTerms from "./termsAndConditions/arabicTerms";
-
+import { CODE } from "constants/codes";
 function TermsConditions() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -37,4 +37,4 @@ function TermsConditions() {
     </div>
   );
 }
-export default withAuthorization(TermsConditions, "terms_and_conditions");
+export default withAuthorization(TermsConditions, CODE.TERMS_AND_CONDITIONS);

@@ -5,7 +5,7 @@ import RoleModel from "Components/RoleModel";
 import { UpdatePermissions } from "Services/OtherApis";
 import * as action from "Services/redux/reducer";
 import withAuthorization from "constants/authorization";
-
+import { CODE } from "constants/codes";
 function AddPermissionsToRoles() {
   const dispatch = useDispatch();
 
@@ -357,5 +357,5 @@ function AddPermissionsToRoles() {
 
 export default withAuthorization(
   AddPermissionsToRoles,
-  "assign_permissions_to_roles"
+  CODE.ASSIGN_PERMISSIONS_TO_ROLE
 );

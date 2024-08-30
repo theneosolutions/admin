@@ -9,7 +9,7 @@ import Edit from "../../Assets/Images/edit.svg";
 import Delete from "../../Assets/Images/delete.svg";
 import { Model } from "../../Components";
 import Model2 from "Components/Model2";
-
+import { CODE } from "constants/codes";
 function BareMinimumExpense() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -153,5 +153,5 @@ function BareMinimumExpense() {
 }
 export default withAuthorization(
   BareMinimumExpense,
-  "calculations_bare_minimum_expenses"
+  CODE.CALCULATION_BARE_MINIMUM_EXPENSE
 );
