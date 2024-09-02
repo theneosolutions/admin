@@ -42,8 +42,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts --max_old_space_size=4096 start FAST_REFRESH=false",
-    "build": "react-scripts --max_old_space_size=4096 build",
+    "start:development": "cross-env NODE_ENV=development env-cmd -f .env.development react-scripts --max_old_space_size=4096 start FAST_REFRESH=false",
+    "start:production": "cross-env NODE_ENV=production env-cmd -f .env.production react-scripts --max_old_space_size=4096 start FAST_REFRESH=false",
+    "start:staging": "cross-env NODE_ENV=staging env-cmd -f .env.staging react-scripts --max_old_space_size=4096 start FAST_REFRESH=false",
+    "build:development": "cross-env NODE_ENV=development env-cmd -f .env.development react-scripts --max_old_space_size=4096 build",
+    "build:production": "cross-env NODE_ENV=production env-cmd -f .env.production react-scripts --max_old_space_size=4096 build",
+    "build:staging": "cross-env NODE_ENV=staging env-cmd -f .env.staging react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -67,6 +71,8 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "cross-env": "^7.0.3",
+    "env-cmd": "^10.1.0",
     "tailwindcss": "^3.3.5"
   },
   "resolutions": {
