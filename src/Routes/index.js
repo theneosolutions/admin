@@ -22,7 +22,7 @@ import UserSimah from "Pages/Simah/simahDownlaod";
 import UserEligibility from "Pages/userEligibility";
 import FinanceAmountCalculations from "Pages/financeAmountCalculations";
 import ViewPolicyHistory from "Pages/Policies/viewPolicies/viewPolicyHistory";
-///kkkk
+
 function App() {
   return (
     <MainTemplate>
