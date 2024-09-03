@@ -52,7 +52,7 @@ function AllUsers() {
                   {t("Certificates")}
                 </th>
                 <th scope="col" className="px-3 py-3">
-                  {t("Lended Id")}
+                  {t("Lender Id")}
                 </th>
 
                 <th scope="col" className="px-3 py-3">
