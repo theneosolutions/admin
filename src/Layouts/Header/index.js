@@ -41,8 +41,8 @@ function Header({ isOpen, toggleSidebar, className }) {
       </div>
       <div className="flex flex-row md:space-x-3 space-x-1 rtl:space-x-reverse items-center">
         <div className="flex flex-row md:space-x-3 space-x-1 rtl:space-x-reverse md:px-5 px-1">
-          <Icons icon={Alarm} />
-          <Icons icon={Message} notification={true} />
+          {/* <Icons icon={Alarm} />
+          <Icons icon={Message} notification={true} /> */}
           <Icons2 icon={Globe} />
         </div>
         <div className="flex flex-row text-sm text-white items-center space-x-3 rtl:space-x-reverse">

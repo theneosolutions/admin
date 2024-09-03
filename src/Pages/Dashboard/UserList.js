@@ -81,7 +81,7 @@ function App() {
         />
       </div>
 
-      <div className="flex flex-col lg:flex-row lg:space-x-6 rtl:space-x-reverse">
+      {/* <div className="flex flex-col lg:flex-row lg:space-x-6 rtl:space-x-reverse">
         <CardMain
           width="w-full lg:w-8/12 lg:mt-0 mt-4 h-min "
           heading={t("My Applications")}
@@ -145,7 +145,7 @@ function App() {
             <SplineChart />
           </div>
         </CardMain>
-      </div>
+      </div> */}
 
       <Model
         heading={t("Delete User")}
