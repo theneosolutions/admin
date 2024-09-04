@@ -226,7 +226,6 @@ function App() {
                     </div>
                   ))}
                 </div>
-
                 <div className="flex flex-col">
                   <div className=" flex row items-end justify-end">
                     <button

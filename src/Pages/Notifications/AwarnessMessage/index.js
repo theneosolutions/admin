@@ -44,7 +44,7 @@ function Awareness() {
       <div className="md:mt-0 mt-5 bg-gray-200  md:w-full">
         <CardMain width="w-full" heading={t("Create Notification")}>
           <div className="flex  flex-col  mt-5 rtl:space-x-reverse ">
-            <div className="flex flex-row space-x-10">
+            <div className="flex flex-row space-x-10 rtl:space-x-reverse">
               <Select
                 data={messageTypes}
                 heading={t("Messsage Type")}
@@ -60,7 +60,7 @@ function Awareness() {
                 onChange={(e) => setLanguage(e)}
               />
             </div>
-            <div className="flex flex-row space-x-10 w-full mt-7">
+            <div className="flex flex-row space-x-10 w-full mt-7 rtl:space-x-reverse">
               <div className="w-1/2">
                 <Select
                   disabled={checked}
@@ -72,7 +72,7 @@ function Awareness() {
                 />
               </div>
 
-              <div className="flex flex-row  w-1/2 space-x-8">
+              <div className="flex flex-row  w-1/2 space-x-8 rtl:space-x-reverse">
                 {checked && (
                   <InputField
                     heading={t("Phone Number")}
@@ -82,7 +82,7 @@ function Awareness() {
                 )}
 
                 <div className="flex flex-col w-32 ">
-                  <a className="text-sm text-gray-700 ">Phone</a>
+                  <a className="text-sm text-gray-700 ">{t("Phone")}</a>
                   <input
                     type="checkbox"
                     className="h-5 w-5 mt-3"

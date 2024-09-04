@@ -68,10 +68,10 @@ function AllUsers() {
                   {t("owner ship Id")}
                 </th>
                 <th scope="col" className="px-3 py-3">
-                  {t("redeemAllowed")}
+                  {t("redeem Allowed")}
                 </th>
                 <th scope="col" className="px-3 py-3">
-                  {t("wallet")}
+                  {t("Wallet")}
                 </th>
                 <th scope="col" className="px-3 py-3">
                   {t("File")}
@@ -114,7 +114,7 @@ function AllUsers() {
                       }
                       className="w-max px-3 py-1 rounded-md text-white bg-green-500 cursor-pointer hover:opacity-80 duration-200"
                     >
-                      Owner Ship File
+                      {t("Owner Ship File")}
                     </div>
                   </td>
                 </tr>

@@ -25,7 +25,7 @@ function VerifiedUsers() {
     <div className="py-5">
       <CardMain
         width="w-full"
-        heading={t("Customers Emi")}
+        heading={t("Customers EMI")}
         iconStyle="text-3xl text-primary"
       >
         <div className="overflow-x-auto relative  mt-4">
