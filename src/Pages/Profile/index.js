@@ -115,7 +115,7 @@ function Template() {
                 {t("Blocked")}
               </div>
             ) : userData?.user.accountStatus === "0" ? (
-              <div className="flex flex-row space-x-4">
+              <div className="flex flex-row space-x-4 rtl:space-x-reverse">
                 <div
                   className=" border border-green-400 px-3 py-1 w-max rounded-md cursor-pointer 
                       duration-300 text-green-500"

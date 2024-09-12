@@ -53,7 +53,7 @@ function CreateNewAdmin() {
                   {t("Email")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("ID Number")}
+                  {t("Id Number")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Mobile Number")}

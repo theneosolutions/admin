@@ -60,20 +60,24 @@ function Wallet() {
     <div className="py-5 flex flex-row space-x-4">
       <div className="w-1/2 border border-gray-300 rounded-xl px-4 py-4">
         <div>
-          <a className="text-lg">Balance : {balance?.amount}</a>
+          <a className="text-lg">
+            {t("Balance")} : {balance?.amount}
+          </a>
         </div>
-        <a className="text-lg">Locked : {balance?.locked}</a>
+        <a className="text-lg">
+          {t("Locked")} : {balance?.locked}
+        </a>
       </div>
       <div className="w-1/2 border border-gray-300 rounded-xl px-4 py-4">
         <div className=" w-full md:mt-0 mt-3 space-y-5">
           <InputField
-            heading={"Amount"}
+            heading={t("Amount")}
             value={ammount}
             onChange={(e) => setAmmount(e)}
           />
           <InputField
             type={"text"}
-            heading={"Wallet Name"}
+            heading={t("Wallet Name")}
             value={walletName}
             onChange={(e) => setWalletName(e)}
           />
@@ -82,7 +86,7 @@ function Wallet() {
           <Button
             onButtonClick={() => TopUpWallet()}
             type="submit"
-            buttonValue={"Submit"}
+            buttonValue={t("Submit")}
             buttonStyle="px-20 py-2 w-full "
           />
         </div>

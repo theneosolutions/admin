@@ -27,16 +27,16 @@ function App() {
             <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
               <tr>
                 <th scope="col" className="px-2 py-3 cursor-pointer">
-                  Question
+                  {t("Question")}
                 </th>
                 <th scope="col" className="px-6 py-3 cursor-pointer">
-                  Options
+                  {t("Options")}
                 </th>
                 <th scope="col" className="px-6 py-3 cursor-pointer">
-                  User Answers
+                  {t("User Answers")}
                 </th>
                 <th scope="col" className="px-6 py-3 cursor-pointer">
-                  Action
+                  {t("Action")}
                 </th>
               </tr>
             </thead>
@@ -59,7 +59,7 @@ function App() {
                                     
                                       }`}
                             />
-                            <span>Yes</span>
+                            <span>{t("Yes")}</span>
                           </div>
                         );
                       })}
@@ -73,7 +73,7 @@ function App() {
                                     
                                       }`}
                         />
-                        <span>Yes</span>
+                        <span>{t("Yes")}</span>
                       </div>
                     </td>
                     <td className="px-6 py-3">

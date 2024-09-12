@@ -85,7 +85,7 @@ function App() {
           style1="lg:w-1/3"
         />
       </div>
-      <div className="flex flex-col lg:flex-row lg:space-x-6 rtl:space-x-reverse">
+      {/* <div className="flex flex-col lg:flex-row lg:space-x-6 rtl:space-x-reverse">
         <CardMain
           width="w-full lg:w-2/3 lg:mt-0 mt-4 "
           heading={t("Monthly Activity Of Users")}
@@ -148,7 +148,7 @@ function App() {
             <BarwithMarkersChart />
           </div>
         </CardMain>
-      </div>
+      </div> */}
 
       <Model
         heading={t("Delete User")}

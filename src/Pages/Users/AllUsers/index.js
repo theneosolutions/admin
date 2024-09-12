@@ -105,7 +105,7 @@ function AllUsers() {
                   {t("Guardian Name")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("ID Number")}
+                  {t("Id Number")}
                 </th>
 
                 <th scope="col" className="px-3 py-3">
@@ -186,7 +186,7 @@ function AllUsers() {
                       }
                       className="  px-3 py-1 w-max rounded-md cursor-pointer  duration-300 bg-blue-400  text-white"
                     >
-                      Check Eligibility
+                      {t("Check Eligibility")}
                     </div>
                   </td>
 

@@ -58,11 +58,11 @@ function ViewQuestions({ getAllQuestion }) {
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                 >
                   <td className="px-2 py-4">{v?.heading}</td>
-                  <td className="px-2 py-4">{v?.headingAr}</td>
+                  <td className="px-2 py-4 amiri-regular">{v?.headingAr}</td>
                   <td className="px-2 py-4 overflow-wrap text-sky-700">
                     {v?.question}
                   </td>
-                  <td className="px-2 py-4 overflow-wrap text-sky-700">
+                  <td className="px-2 py-4 overflow-wrap text-sky-700 amiri-regular">
                     {v?.questionAr}
                   </td>
                   <td className="px-2 py-4">{v?.type}</td>

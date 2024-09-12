@@ -119,7 +119,7 @@ function Accomodity() {
                       }
                       className="w-max px-3 py-1 rounded-md text-white bg-blue-500 cursor-pointer hover:opacity-80 duration-200"
                     >
-                      Owner Ship File
+                      {t("Owner Ship File")}
                     </div>
                   </td>
                   <td className="px-3">
@@ -127,7 +127,7 @@ function Accomodity() {
                       onClick={() => Transfer(v?.ownershipId, v?.userId)}
                       className="w-max px-3 py-1 rounded-md text-white bg-green-500 cursor-pointer hover:opacity-80 duration-200"
                     >
-                      Transfer
+                      {t("Transfer")}
                     </div>
                   </td>
                   <td className="px-3">
@@ -135,7 +135,7 @@ function Accomodity() {
                       onClick={() => Radeem(v?.ownershipId)}
                       className="w-max px-3 py-1 rounded-md text-white bg-green-500 cursor-pointer hover:opacity-80 duration-200"
                     >
-                      Radeem
+                      {t("Radeem")}
                     </div>
                   </td>
                 </tr>

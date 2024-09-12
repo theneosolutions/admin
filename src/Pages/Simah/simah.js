@@ -92,7 +92,7 @@ function Simah() {
           })}
         </div>
         {state === "SIMAH Product List" && (
-          <div className="mx-3 flex flex-row space-x-3">
+          <div className="mx-3 flex flex-row space-x-3 rtl:space-x-reverse">
             <input
               value={search}
               onChange={(e) =>
