@@ -43,10 +43,7 @@ const RouteId = () => {
 };
 export const axiosInstance = axios.create({
   headers: {
-    Authorization: token(),
     "Content-Type": "application/json",
-    "ngrok-skip-browser-warning": "69420",
-    // "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": "true",
     "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
     "Access-Control-Allow-Headers":
@@ -78,8 +75,8 @@ axiosInstance.interceptors.response.use(
       // Handle the 401 error (e.g., log out the user, redirect to login, etc.)
       console.log("Unauthorized access - maybe redirect to login?");
 
-      Logout();
-      store.dispatch({ islogin: false });
+      // Logout();
+      // store.dispatch({ islogin: false });
     }
     return Promise.reject(error);
   }
