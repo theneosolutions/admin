@@ -36,15 +36,7 @@ function CreateUserModel({ getAllUsers, setModel }) {
     return encoded;
   };
   function CreateNewUser() {
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !username ||
-      !idNumber ||
-      !number ||
-      !date
-    ) {
+    if (!firstName || !lastName || !email || !username || !number || !date) {
       return dispatch(
         action.Message({
           message: "All fields are required!",
@@ -80,7 +72,7 @@ function CreateUserModel({ getAllUsers, setModel }) {
         firstName: firstName,
         username: username,
         mobileNumber: number,
-        idNumber: idNumber,
+        idNumber: username,
         email: email,
         role: [role],
         password: encodePassword(password),
@@ -143,11 +135,11 @@ function CreateUserModel({ getAllUsers, setModel }) {
                 value={email}
                 onChange={(e) => setEmail(e)}
               />
-              <InputField
+              {/* <InputField
                 heading={t("ID number")}
                 value={idNumber}
                 onChange={(e) => setIdNumber(e)}
-              />
+              /> */}
               <InputField
                 type="number"
                 heading={t("Mobile Number")}
@@ -172,11 +164,6 @@ function CreateUserModel({ getAllUsers, setModel }) {
                 value={date}
                 onChange={(e) => setDate(e)}
               />
-              <InputField
-                heading={t("Password")}
-                value={password}
-                onChange={(e) => setPassword(e)}
-              />
             </div>
           </div>
           <div className="mt-3">
@@ -186,6 +173,12 @@ function CreateUserModel({ getAllUsers, setModel }) {
               type="select"
               value={t(role)}
               onChange={(e) => setRole(e)}
+            />
+            <div className="mt-3"></div>
+            <InputField
+              heading={t("Password")}
+              value={password}
+              onChange={(e) => setPassword(e)}
             />
           </div>
 
