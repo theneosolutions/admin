@@ -47,7 +47,7 @@ function Awareness() {
             <div className="flex flex-row space-x-10 rtl:space-x-reverse">
               <Select
                 data={messageTypes}
-                heading={t("Messsage Type")}
+                heading={t("Message Type")}
                 type="select"
                 value={type}
                 onChange={(e) => setType(e)}

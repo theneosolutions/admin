@@ -5,10 +5,11 @@ import RoleModel from "Components/RoleModel";
 import { UpdatePermissions } from "Services/OtherApis";
 import * as action from "Services/redux/reducer";
 import withAuthorization from "constants/authorization";
+import { useTranslation } from "react-i18next";
 
 function AddPermissionsToRoles() {
   const dispatch = useDispatch();
-
+  const { t } = useTranslation();
   const getPermissions = useSelector((state) => state.permissions);
   const getAllRolesData = useSelector((state) => state.getAllRoles);
   const getUserPermission = useSelector((state) => state.userPermissions);
@@ -194,7 +195,7 @@ function AddPermissionsToRoles() {
       <div className="bg-white rounded shadow-sm px-5 py-4 space-y-4">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col w-1/2">
-            <a>Select Role</a>
+            <a>{t("Select Role")}</a>
             <select
               className=" py-2 px-3 border rounded   mt-1"
               onChange={(e) => setRole(e.target.value)}

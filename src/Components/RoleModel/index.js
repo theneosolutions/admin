@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import Model from "../Model2";
+import { useTranslation } from "react-i18next";
 function Component({ setModelOpen, modelOpen, GetAllRoles }) {
   const dispatch = useDispatch();
-
+  const { t } = useTranslation();
   const [role, setRole] = useState("");
   function reset() {
     setModelOpen(false);
@@ -28,7 +29,7 @@ function Component({ setModelOpen, modelOpen, GetAllRoles }) {
         onClick={() => setModelOpen(true)}
         className="rounded-md text-white text-sm px-5 py-2 h-min bg-blue-500 hover:bg-blue-600 cursor-pointer duration-300"
       >
-        <a>Add New Role</a>
+        <a> {t("Add New Role")}</a>
       </div>
       {modelOpen ? (
         <Model
@@ -48,10 +49,12 @@ function Component({ setModelOpen, modelOpen, GetAllRoles }) {
   );
 }
 export default Component;
+
 function AddRole({ setRole, role, AddNewRole }) {
+  const { t } = useTranslation();
   return (
     <div className="px-5 py-5">
-      <a>Add New Role</a>
+      <a> {t("Add New Role")}</a>
       <input
         onChange={(e) => setRole(e.target.value)}
         value={role}
@@ -64,7 +67,7 @@ function AddRole({ setRole, role, AddNewRole }) {
           role ? "bg-blue-500 hover:bg-blue-600 cursor-pointer" : "bg-gray-300"
         }`}
       >
-        <a>Add New Role</a>
+        <a> {t("Add New Role")}</a>
       </div>
     </div>
   );

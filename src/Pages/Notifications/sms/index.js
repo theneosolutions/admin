@@ -44,7 +44,7 @@ function NotificationsScreen() {
     <div className="py-5">
       <CardMain
         width="w-full "
-        heading={t("Sms And Otp")}
+        heading={t("Sms & Otp")}
         showButton={true}
         buttonValue={t("Add New Sms or Otp")}
         onButtonClick={() => (setModelOpen(true), setSelectedData(null))}

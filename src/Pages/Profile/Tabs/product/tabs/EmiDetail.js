@@ -52,7 +52,7 @@ function Calculations() {
               </th>
 
               <th scope="col" className="px-3 py-3">
-                {t("Simah Libilities")}
+                {t("Simah Liabilities")}
               </th>
 
               <th scope="col" className="px-3 py-3">

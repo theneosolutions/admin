@@ -85,13 +85,13 @@ function CreateQuestionsSet() {
                 <InputField
                   setName={setName}
                   name={name}
-                  placeholder="Set Name In Englsih"
+                  placeholder={t("Set Name In Englsih")}
                 />
                 <div className="mt-2">
                   <InputField
                     setName={setNameArabic}
                     name={nameArabic}
-                    placeholder="Set Name In Arabic"
+                    placeholder={t("Set Name In Arabic")}
                   />
                 </div>
               </div>
