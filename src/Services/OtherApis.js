@@ -175,7 +175,50 @@ async function UpdatePermissions(id, permissions) {
   }
 }
 
+async function BankCreate(payload) {
+  console.log("50 50 ", payload);
+  try {
+    const response = await axiosInstance.post(
+      baseUrlLos + `/seulah/bank/`,
+      payload
+    );
+    console.log("rssss", response);
+    return response;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return error.response;
+  }
+}
+
+async function GetBankList() {
+  try {
+    const response = await axiosInstance.get(baseUrlLos + `/seulah/bank/`);
+    console.log("rssss", response);
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return error.response;
+  }
+}
+async function EditBankDetail() {
+  try {
+    const response = await axiosInstance.put(baseUrlLos + `/seulah/bank/`);
+    console.log("rssss", response);
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return error.response;
+  }
+}
+
 export {
+  EditBankDetail,
   CheckQuestionStatusInScreen,
   UpdateDbr,
   GetSeelahHistory,
@@ -187,4 +230,6 @@ export {
   TransactionHistory,
   ResetFailedAttemps,
   UpdatePermissions,
+  BankCreate,
+  GetBankList,
 };

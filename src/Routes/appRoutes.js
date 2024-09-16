@@ -46,6 +46,11 @@ import SelaaAccomodity from "Pages/Selaa/accomodity";
 import SelaaWallet from "Pages/Selaa/wallet";
 import AwareNessMessage from "Pages/Notifications/AwarnessMessage";
 import { CODE } from "../constants/codes";
+import BankAccountPageLayout from "Pages/BankAccounts/bankAccountPageLayout";
+
+import Disbursement from "Pages/BankAccounts/disburstment";
+import RepaymentAccount from "Pages/BankAccounts/repayment";
+
 const appRoutes = [
   {
     index: true,
@@ -524,6 +529,47 @@ const appRoutes = [
         state: "calculations.terms-rates",
         sidebarProps: {
           displayText: "Terms And Rates",
+        },
+      },
+    ],
+  },
+
+  {
+    id: 39,
+    code: CODE.SEULAH_BANK_ACCOUNT_DETAILS,
+    path: "/seulah_bank_details",
+    element: <BankAccountPageLayout />,
+    state: "seulah_bank_details",
+    sidebarProps: {
+      displayText: "Seulah Bank Account Details",
+      icon: <MdOutlineQuestionAnswer />,
+    },
+    child: [
+      {
+        id: 40,
+        code: CODE.DISBURSEMENT_ACCOUNT,
+        index: true,
+        element: <Disbursement />,
+        state: "seulah_bank_details.index",
+      },
+      {
+        id: 40,
+        code: CODE.DISBURSEMENT_ACCOUNT,
+        path: "/seulah_bank_details/disbursement",
+        element: <Disbursement />,
+        state: "seulah_bank_details.disbursement",
+        sidebarProps: {
+          displayText: "Disbursement Account",
+        },
+      },
+      {
+        id: 41,
+        code: CODE.REPAYMENT_ACCOUNT,
+        path: "/seulah_bank_details/repayment",
+        element: <RepaymentAccount />,
+        state: "seulah_bank_details.repayment",
+        sidebarProps: {
+          displayText: "Repayment Account",
         },
       },
     ],

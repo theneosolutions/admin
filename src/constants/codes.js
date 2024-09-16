@@ -37,4 +37,8 @@ export const CODE = {
   CALCULATIONS_DBR: "calculations_dbr",
   CALCULATION_BARE_MINIMUM_EXPENSE: "calculations_bare_minimum_expenses",
   CALCULATIONS_TERMS_AND_RATES: "calculations_terms_and_rates",
+
+  SEULAH_BANK_ACCOUNT_DETAILS: "seulah_bank_account_details",
+  DISBURSEMENT_ACCOUNT: "disbursement_account",
+  REPAYMENT_ACCOUNT: "repayment_account",
 };
