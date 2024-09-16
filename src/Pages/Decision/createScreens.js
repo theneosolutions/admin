@@ -297,7 +297,7 @@ function CreateQuestionsSet() {
               onClick={() => CreateScreen()}
               className="w-full px-2 text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10 mt-10"
             >
-              Add to form
+              {t("Add to form")}
             </button>
           </CardMain>
         )}

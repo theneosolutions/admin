@@ -147,7 +147,7 @@ function CreateUser() {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <a className="text-sm text-gray-700 ">All Users</a>
+                  <a className="text-sm text-gray-700 ">{t("All Users")}</a>
                   <input
                     type="checkbox"
                     className="h-5 w-5 mt-3"

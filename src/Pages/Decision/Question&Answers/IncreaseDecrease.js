@@ -205,7 +205,7 @@ function IncreaseDecrease({ onAddElement, language }) {
           type="submit"
           className="px-5 w-max text-sm bg-sky-800 text-white rounded hover:bg-sky-700 h-10 mt-4"
         >
-          Add to form
+          {t("Add to form")}
         </button>
       </div>
     </form>

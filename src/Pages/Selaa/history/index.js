@@ -75,7 +75,7 @@ function AllUsers() {
                   {t("owner")}
                 </th>
                 <th scope="col" className="px-3 py-3">
-                  {t("owner ship Id")}
+                  {t("ownership Id")}
                 </th>
                 <th scope="col" className="px-3 py-3">
                   {t("redeem Allowed")}

@@ -204,9 +204,12 @@ async function GetBankList() {
     return error.response;
   }
 }
-async function EditBankDetail() {
+async function DeleteBank(payload) {
+  console.log("payload  delete", payload);
   try {
-    const response = await axiosInstance.put(baseUrlLos + `/seulah/bank/`);
+    const response = await axiosInstance.delete(
+      baseUrlLos + `/seulah/bank?accountType=${payload}`
+    );
     console.log("rssss", response);
     return response.data;
   } catch (error) {
@@ -218,7 +221,8 @@ async function EditBankDetail() {
 }
 
 export {
-  EditBankDetail,
+  // EditBankDetail,
+  DeleteBank,
   CheckQuestionStatusInScreen,
   UpdateDbr,
   GetSeelahHistory,

@@ -94,7 +94,7 @@ function CreateUser({ setModelOpen, data }) {
               />
 
               <InputField
-                heading={t("Discription")}
+                heading={t("Description")}
                 value={discription}
                 onChange={(e) => setDiscription(e)}
               />
