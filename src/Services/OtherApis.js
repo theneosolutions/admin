@@ -179,7 +179,7 @@ async function BankCreate(payload) {
   console.log("50 50 ", payload);
   try {
     const response = await axiosInstance.post(
-      baseUrlLos + `/seulah/bank/`,
+      baseUrlLos + `/seulah/bank`,
       payload
     );
     console.log("rssss", response);
@@ -194,7 +194,7 @@ async function BankCreate(payload) {
 
 async function GetBankList() {
   try {
-    const response = await axiosInstance.get(baseUrlLos + `/seulah/bank/`);
+    const response = await axiosInstance.get(baseUrlLos + `/seulah/bank`);
     console.log("rssss", response);
     return response.data;
   } catch (error) {

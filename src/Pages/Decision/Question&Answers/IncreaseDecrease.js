@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-
+import { useTranslation } from "react-i18next";
 export default IncreaseDecrease;
 
 function IncreaseDecrease({ onAddElement, language }) {
+  const { t } = useTranslation();
   const defaultState = {
     heading: "",
     headingArabic: "",

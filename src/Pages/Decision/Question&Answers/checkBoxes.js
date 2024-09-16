@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-
+import { useTranslation } from "react-i18next";
 export default Checboxes;
 
 function Checboxes({ onAddElement, language }) {
+  const { t } = useTranslation();
   const defaultOptions = [{ value: { optionArabic: "", optionEnglish: "" } }];
   const [options, setOptions] = useState(defaultOptions);
   const [heading, setHeading] = useState("");
