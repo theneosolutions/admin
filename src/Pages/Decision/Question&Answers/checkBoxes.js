@@ -49,6 +49,7 @@ function Checboxes({ onAddElement, language }) {
   };
 
   const AddQuestionToDatabase = () => {
+    const { t } = useTranslation();
     onAddElement({
       heading,
       headingArabic,
