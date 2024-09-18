@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { FaEdit } from "react-icons/fa";
 import { BankCreate, DeleteBank, GetBankList } from "Services/OtherApis";
 import { useTranslation } from "react-i18next";
 import * as action from "../../Services/redux/reducer";
 import { useDispatch } from "react-redux";
+
 function Disbursement() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -101,14 +101,14 @@ function Disbursement() {
           <div className="w-full space-y-4 pt-10 pb-10">
             <Input
               disabled={disable}
-              title="Acccount Title"
+              title="Account Title"
               value={title}
               onChange={(e) => setTitle(e)}
               name="title"
             />
             <Input
               disabled={disable}
-              title="Acccount Number"
+              title="Account Number"
               value={accountNumber}
               onChange={(e) => setAccountNumber(e)}
               name="accountnumber"
