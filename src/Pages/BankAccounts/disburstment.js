@@ -3,7 +3,7 @@ import { BankCreate, DeleteBank, GetBankList } from "Services/OtherApis";
 import { useTranslation } from "react-i18next";
 import * as action from "../../Services/redux/reducer";
 import { useDispatch } from "react-redux";
-
+import { Model, Avatar } from "Components";
 function Disbursement() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -12,7 +12,7 @@ function Disbursement() {
   const [accountNumber, setAccountNumber] = useState("");
   const [iban, setIban] = useState("");
   const [disable, setDisable] = useState(false);
-
+  const [modelOpen, setModelOpen] = useState(false);
   useEffect(() => {
     getBankListsData();
   }, []);
@@ -62,6 +62,7 @@ function Disbursement() {
   function deleteAccount() {
     DeleteBank(ACCOUNT_TYPE).then((res) => {
       if (res === "Deleted") {
+        setModelOpen(false);
         setAccountNumber("");
         setIban("");
         setTitle("");
@@ -92,12 +93,7 @@ function Disbursement() {
             <a className="text-2xl font-semibold">
               {t("Disbursement Account")}
             </a>
-            {/* <Fadisable
-              className=" text-secondary text-3xl cursor-pointer hover:opacity-70 duration-300"
-              onClick={() => setDisable((prev) => !prev)}
-            /> */}
           </div>
-
           <div className="w-full space-y-4 pt-10 pb-10">
             <Input
               disabled={disable}
@@ -133,7 +129,7 @@ function Disbursement() {
               {t("Save")}
             </button>
             <div
-              onClick={() => (disable ? deleteAccount() : null)}
+              onClick={() => (disable ? setModelOpen(true) : null)}
               className={`${
                 !disable
                   ? "bg-red-300"
@@ -145,6 +141,21 @@ function Disbursement() {
           </div>
         </div>
       </div>
+      <Model
+        heading={t("Delete Bank")}
+        isOpen={modelOpen}
+        style="w-1/3"
+        innerStyle="py-10"
+        setState={() => setModelOpen(!modelOpen)}
+        action1Value={t("Cancel")}
+        action2Value={t("Delete")}
+        action2={() => deleteAccount()}
+        action1={() => setModelOpen(!modelOpen)}
+      >
+        <a className=" text-xl text-gray-800 ">
+          {t("Are you sure to delete ?")}
+        </a>
+      </Model>
     </form>
   );
 }

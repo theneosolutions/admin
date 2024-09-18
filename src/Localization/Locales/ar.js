@@ -419,7 +419,7 @@ export default {
   "Account Number": "رقم الحساب",
   IBAN: "ايبان",
   Save: "حفظ",
-  "": "",
+  "Delete Bank": "حذف البنك",
   "": "",
   "": "",
   "": "",

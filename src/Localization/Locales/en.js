@@ -421,7 +421,7 @@ export default {
   "Account Number": "Account Number",
   IBAN: "IBAN",
   Save: "Save",
-  "": "",
+  "Delete Bank": "Delete Bank",
   "": "",
   "": "",
   "": "",
