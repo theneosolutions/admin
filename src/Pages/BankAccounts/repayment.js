@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { BankCreate, GetBankList } from "Services/OtherApis";
+import { BankCreate, GetBankList, DeleteBank } from "Services/OtherApis";
 import { useTranslation } from "react-i18next";
+import * as action from "../../Services/redux/reducer";
+import { useDispatch } from "react-redux";
 
 function Disbursement() {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const ACCOUNT_TYPE = "SEULAH_COLLECTION";
   const [title, setTitle] = useState("");
@@ -11,8 +14,12 @@ function Disbursement() {
   const [disable, setDisable] = useState(true);
 
   useEffect(() => {
+    getBankListsData();
+  }, []);
+  function getBankListsData() {
     GetBankList().then((res) => {
       let data = res.find((item) => item.accountType === ACCOUNT_TYPE);
+
       if (!data) {
         setDisable(false);
       } else {
@@ -23,8 +30,7 @@ function Disbursement() {
       setAccountNumber(data?.accountNumber);
       setIban(data?.iban);
     });
-  }, []);
-
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -36,13 +42,47 @@ function Disbursement() {
         accountType: ACCOUNT_TYPE,
       };
       BankCreate(temp).then((res) => {
-        console.log("ressssppspsp", res);
-        alert(res?.data);
+        if (res.status === 200) {
+          setDisable(true);
+          dispatch(
+            action.Message({ open: true, message: "Data Saved!", error: false })
+          );
+        } else {
+          dispatch(
+            action.Message({
+              open: true,
+              message: "Some Thing Went Wrong",
+              error: true,
+            })
+          );
+        }
       });
     }
   };
   function deleteAccount() {
-    console.log("delete account");
+    DeleteBank(ACCOUNT_TYPE).then((res) => {
+      if (res === "Deleted") {
+        setAccountNumber("");
+        setIban("");
+        setTitle("");
+        getBankListsData();
+        dispatch(
+          action.Message({
+            open: true,
+            message: "Successfully Deleted!",
+            error: false,
+          })
+        );
+      } else {
+        dispatch(
+          action.Message({
+            open: true,
+            message: "Some Thing Went Wrong",
+            error: true,
+          })
+        );
+      }
+    });
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -88,7 +128,11 @@ function Disbursement() {
             </button>
             <div
               onClick={() => (disable ? deleteAccount() : null)}
-              className={` bg-red-400  w-44 text-center text-white py-2 rounded-lg mb-4 cursor-pointer duration-300 hover:bg-opacity-85 `}
+              className={`${
+                !disable
+                  ? "bg-red-300"
+                  : " bg-red-400 duration-300 hover:bg-opacity-85 cursor-pointer"
+              }   w-44 text-center text-white py-2 rounded-lg mb-4   `}
             >
               {t("Delete")}
             </div>
