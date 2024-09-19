@@ -379,7 +379,7 @@ export default {
   Eligibility: "الاهلية",
   "Selaa History": "تاريخ سلعة",
   owner: "المالك",
-  "ownership Id": "رقم الملكية",
+  "ownership Id": "معرف الملكية",
   "redeem Allowed": "الاسترداد المسموح به",
   "Selaa Transaction": "معاملة سلعة",
   "Lender Id": "رقم المقرض",

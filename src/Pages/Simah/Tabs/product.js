@@ -74,14 +74,14 @@ function SimahProductList({ data, GetSimahCodes }) {
                       onClick={() => UpdateProductStatus(true, v?.id)}
                       className="bg-green-500 px-3 py-2 rounded-md text-white text-center cursor-pointer hover:bg-green-600 duration-300"
                     >
-                      Activate
+                      {t("Activate")}
                     </div>
                   ) : (
                     <div
                       onClick={() => UpdateProductStatus(false, v?.id)}
                       className="bg-red-500 px-3 py-2 rounded-md text-white text-center cursor-pointer hover:bg-red-600 duration-300"
                     >
-                      Deactivate
+                      {t("Deactivate")}
                     </div>
                   )}
                 </td>
