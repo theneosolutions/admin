@@ -17,6 +17,7 @@ export const CODE = {
   SEELA_WALLET: "seela_wallet",
   POLICIES: "policies",
   VIEW_POLICIES: "view_policies",
+  UPDATE_POLICY: "update_policy",
   APPROVE_POLICY: "approve_policy",
   REJECT_POLICY: "reject_policy",
   LOAN_MANAGEMENT: "loan_management",

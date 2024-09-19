@@ -66,6 +66,10 @@ function MainTemplate({ children }) {
   }, []);
 
   function Logout(id) {
+    dispatch({
+      type: "LOGOUT_USER",
+      payload: id,
+    });
     dispatch(
       action.Auth({
         islogin: false,
@@ -75,10 +79,6 @@ function MainTemplate({ children }) {
       })
     );
     localStorage.removeItem("user");
-    dispatch({
-      type: "LOGOUT_USER",
-      payload: id,
-    });
     window.location.href = "/login";
   }
 

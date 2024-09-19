@@ -9,7 +9,7 @@ import withAuthorization from "../../../constants/authorization";
 import Model2 from "Components/Model2";
 import UpdatePolicy from "./updatePolicy";
 import { Button } from "Components";
-
+import { CODE } from "constants/codes";
 function AllPolicies() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ function AllPolicies() {
   const [selectedData, setSelectedData] = useState();
   const getAllPolicies = useSelector((state) => state.getAllPolicies);
   const role = useSelector((state) => state.role);
-
+  const [updateButton, setUpdateButton] = useState(false);
   useEffect(() => {
     getAllPoliciesFunction();
   }, []);
@@ -33,6 +33,29 @@ function AllPolicies() {
     setModelOpen2(false);
     setSelectedData({});
   }
+  useEffect(() => {
+    if (role) {
+      CheckPermission();
+    }
+  }, [role]);
+  function CheckPermission() {
+    let policies = role?.permissions.find(
+      (item) => item.code === CODE.POLICIES
+    );
+
+    if (policies) {
+      let button = policies?.subMenus?.find(
+        (item) => item.code === CODE.UPDATE_POLICY
+      );
+
+      if (button) {
+        setUpdateButton(true);
+      }
+    } else {
+      setUpdateButton(false);
+    }
+  }
+
   return (
     <div className="py-5">
       <CardMain
@@ -61,6 +84,11 @@ function AllPolicies() {
                     {t("Edit/Delete")}
                   </th>
                 )}
+                {updateButton && (
+                  <th scope="col" className="px-3 py-3">
+                    {t("Update")}
+                  </th>
+                )}
 
                 <th scope="col" className="px-3 py-3">
                   {t("History")}
@@ -76,19 +104,20 @@ function AllPolicies() {
                   <td className="px-3">{t(v?.id)}</td>
                   <td className="px-3">{t(v?.policyName)}</td>
                   <td className="px-3">{t(v?.policyValue)}</td>
-
-                  <th
-                    scope="row"
-                    className=" px-3 py-2 text-gray-900 whitespace-nowrap text-sm"
-                  >
-                    <Button
-                      buttonStyle="font-medium py-1"
-                      buttonValue={t("Update")}
-                      onButtonClick={() => (
-                        setModelOpen2(true), setSelectedData(v)
-                      )}
-                    />
-                  </th>
+                  {updateButton && (
+                    <th
+                      scope="row"
+                      className=" px-3 py-2 text-gray-900 whitespace-nowrap text-sm"
+                    >
+                      <Button
+                        buttonStyle="font-medium py-1"
+                        buttonValue={t("Update")}
+                        onButtonClick={() => (
+                          setModelOpen2(true), setSelectedData(v)
+                        )}
+                      />
+                    </th>
+                  )}
 
                   <td className="px-3 py-2">
                     <div

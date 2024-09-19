@@ -119,7 +119,7 @@ function Accomodity() {
                       }
                       className="w-max px-3 py-1 rounded-md text-white bg-blue-500 cursor-pointer hover:opacity-80 duration-200"
                     >
-                      {t("OwnerShip File")}
+                      {t("Owner Ship File")}
                     </div>
                   </td>
                   <td className="px-3">

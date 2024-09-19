@@ -82,22 +82,22 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-function Logout() {
-  store.dispatch(
-    action.Auth({
-      islogin: false,
-      user: null,
-      role: null,
-      token: null,
-    })
-  );
-  localStorage.removeItem("user");
-  store.dispatch({
-    type: "LOGOUT_USER",
-    payload: user(),
-  });
-  window.location.href = "/login";
-}
+// function Logout() {
+//   store.dispatch(
+//     action.Auth({
+//       islogin: false,
+//       user: null,
+//       role: null,
+//       token: null,
+//     })
+//   );
+//   localStorage.removeItem("user");
+//   store.dispatch({
+//     type: "LOGOUT_USER",
+//     payload: user(),
+//   });
+//   window.location.href = "/login";
+// }
 
 function user() {
   const storage = localStorage.getItem("user");

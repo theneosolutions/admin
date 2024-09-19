@@ -300,7 +300,7 @@ const appRoutes = [
     ],
   },
   {
-    id: 21,
+    id: 22,
     code: CODE.LOAN_MANAGEMENT,
     path: "/los",
     element: <DecisionLayout />,
@@ -311,14 +311,14 @@ const appRoutes = [
     },
     child: [
       {
-        id: 22,
+        id: 23,
         code: CODE.CREATE_TYPE,
         index: true,
         element: <LosPageLayout />,
         state: "los.index",
       },
       {
-        id: 22,
+        id: 23,
         code: CODE.CREATE_TYPE,
         path: "/los/create-type",
         element: <CreateType />,
@@ -328,7 +328,7 @@ const appRoutes = [
         },
       },
       {
-        id: 23,
+        id: 24,
         code: CODE.CUSTOMER_EMI,
         path: "/los/emi",
         element: <CustomerEmi />,
@@ -340,7 +340,7 @@ const appRoutes = [
     ],
   },
   {
-    id: 24,
+    id: 25,
     code: CODE.DECISIONS,
     path: "/decisions",
     element: <DecisionLayout />,
@@ -351,14 +351,14 @@ const appRoutes = [
     },
     child: [
       {
-        id: 25,
+        id: 26,
         code: CODE.QUESTIONS,
         index: true,
         element: <QuestionsAnswers />,
         state: "decisions.index",
       },
       {
-        id: 25,
+        id: 26,
         code: CODE.QUESTIONS,
         path: "/decisions/q/a",
         element: <QuestionsAnswers />,
@@ -368,7 +368,7 @@ const appRoutes = [
         },
       },
       {
-        id: 26,
+        id: 27,
         code: CODE.CREATE_SET,
         path: "/decisions/create-set",
         element: <CreateSet />,
@@ -379,7 +379,7 @@ const appRoutes = [
       },
 
       {
-        id: 27,
+        id: 28,
         code: CODE.CREATE_DECISION,
         path: "/decisions/create-decision",
         element: <CreateDecision />,
@@ -391,7 +391,7 @@ const appRoutes = [
     ],
   },
   {
-    id: 28,
+    id: 29,
     code: CODE.NOTIFICATIONS,
     path: "/response",
     element: <ResponsePageLayout />,
@@ -402,7 +402,7 @@ const appRoutes = [
     },
     child: [
       {
-        id: 29,
+        id: 30,
         code: CODE.NOTIFICATIONS_DASHBOARD,
         index: true,
         element: <Response />,
@@ -410,7 +410,7 @@ const appRoutes = [
       },
 
       {
-        id: 29,
+        id: 30,
 
         code: CODE.NOTIFICATIONS_DASHBOARD,
         path: "/response/notifications",
@@ -421,7 +421,7 @@ const appRoutes = [
         },
       },
       {
-        id: 30,
+        id: 31,
         code: CODE.TERMS_AND_CONDITIONS,
         path: "/response/term-conditions",
         element: <TermAndConditions />,
@@ -431,7 +431,7 @@ const appRoutes = [
         },
       },
       {
-        id: 31,
+        id: 32,
         code: CODE.AWARNESS_MESSAGE,
         path: "/response/awareness-messages",
         element: <AwareNessMessage />,
@@ -442,7 +442,7 @@ const appRoutes = [
       },
 
       {
-        id: 32,
+        id: 33,
         code: CODE.ADD_SMS,
         path: "/response/sms",
         element: <Sms />,
@@ -454,7 +454,7 @@ const appRoutes = [
     ],
   },
   {
-    id: 33,
+    id: 34,
     code: CODE.SIMAH,
     path: "/simah",
     element: <SimahPageLayout />,
@@ -465,14 +465,14 @@ const appRoutes = [
     },
     child: [
       {
-        id: 34,
+        id: 35,
         code: CODE.SIMAH_DASHBOARD,
         index: true,
         element: <Simah />,
         state: "simah.index",
       },
       {
-        id: 34,
+        id: 35,
         code: CODE.SIMAH_DASHBOARD,
         path: "/simah/codes",
         element: <Simah />,
@@ -484,7 +484,7 @@ const appRoutes = [
     ],
   },
   {
-    id: 35,
+    id: 36,
     code: CODE.CALCULATIONS,
     path: "/calculations",
     element: <CalculationsPageLayout />,
@@ -495,14 +495,14 @@ const appRoutes = [
     },
     child: [
       {
-        id: 36,
+        id: 37,
         code: CODE.CALCULATIONS_DBR,
         index: true,
         element: <Calculations />,
         state: "calculations.index",
       },
       {
-        id: 36,
+        id: 37,
         code: CODE.CALCULATIONS_DBR,
         path: "/calculations/dbr",
         element: <Calculations />,
@@ -512,7 +512,7 @@ const appRoutes = [
         },
       },
       {
-        id: 37,
+        id: 38,
         code: CODE.CALCULATION_BARE_MINIMUM_EXPENSE,
         path: "/calculations/bare-minimum-expense",
         element: <BareMinimumExpense />,
@@ -522,7 +522,7 @@ const appRoutes = [
         },
       },
       {
-        id: 38,
+        id: 39,
         code: CODE.CALCULATIONS_TERMS_AND_RATES,
         path: "/calculations/terms-rates",
         element: <TermsAndRates />,
@@ -535,7 +535,7 @@ const appRoutes = [
   },
 
   {
-    id: 39,
+    id: 40,
     code: CODE.SEULAH_BANK_ACCOUNT_DETAILS,
     path: "/seulah_bank_details",
     element: <BankAccountPageLayout />,
@@ -546,14 +546,14 @@ const appRoutes = [
     },
     child: [
       {
-        id: 40,
+        id: 41,
         code: CODE.DISBURSEMENT_ACCOUNT,
         index: true,
         element: <Disbursement />,
         state: "seulah_bank_details.index",
       },
       {
-        id: 40,
+        id: 41,
         code: CODE.DISBURSEMENT_ACCOUNT,
         path: "/seulah_bank_details/disbursement",
         element: <Disbursement />,
@@ -563,7 +563,7 @@ const appRoutes = [
         },
       },
       {
-        id: 41,
+        id: 42,
         code: CODE.REPAYMENT_ACCOUNT,
         path: "/seulah_bank_details/repayment",
         element: <RepaymentAccount />,
