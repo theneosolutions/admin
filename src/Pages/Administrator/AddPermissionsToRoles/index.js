@@ -15,10 +15,13 @@ function AddPermissionsToRoles() {
   const getUserPermission = useSelector((state) => state.userPermissions);
 
   const [selectedItems, setSelectedItems] = useState([]);
+  const [disableUpdateRoute, setDisableUpdateRoute] = useState(false);
+  const [disableApproveRejectRoute, setDisableApproveRejectRoute] =
+    useState(false);
   const [expandedModule, setExpandedModule] = useState(null);
   const [modelOpen, setModelOpen] = useState(false);
   const [role, setRole] = useState("");
-  console.log("selectedItems", selectedItems);
+
   useEffect(() => {
     dispatch({ type: "GET_ALL_PERMISSIONS" });
   }, [dispatch]);
@@ -47,15 +50,6 @@ function AddPermissionsToRoles() {
   };
 
   const handleChildChange = (module, subModule) => {
-    console.log(
-      "handle $$$$$4",
-      "module",
-      module,
-      "submodule ",
-      subModule,
-      "selectedItems",
-      selectedItems
-    );
     setSelectedItems((prevSelectedItems) => {
       const parentIndex = prevSelectedItems.findIndex(
         (item) => item.id === module.id
@@ -72,7 +66,6 @@ function AddPermissionsToRoles() {
         subMenus: [...item.subMenus],
       }));
       if (isSelected) {
-        // updatedItems = [...prevSelectedItems];
         // If the submodule is already selected, remove it
         const updatedSubMenus = prevSelectedItems[parentIndex].subMenus.filter(
           (sub) => sub.id !== subModule.id
@@ -104,13 +97,10 @@ function AddPermissionsToRoles() {
   };
 
   const isModuleSelected = (module) => {
-    // console.log("selected items 2222", selectedItems);
-
     return selectedItems.some((item) => item.id === module.id);
   };
 
   const isSubModuleSelected = (module, subModule) => {
-    // console.log("module", module, "submodule", subModule);
     const parent = selectedItems.find((item) => item.id === module.id);
 
     return parent
@@ -133,6 +123,21 @@ function AddPermissionsToRoles() {
 
     return ids;
   };
+
+  useEffect(() => {
+    if (selectedItems) {
+      if (getSelectedIds().includes(19)) {
+        setDisableApproveRejectRoute(true);
+      } else {
+        setDisableApproveRejectRoute(false);
+      }
+      if (getSelectedIds().includes(20) || getSelectedIds().includes(21)) {
+        setDisableUpdateRoute(true);
+      } else {
+        setDisableUpdateRoute(false);
+      }
+    }
+  }, [selectedItems]);
 
   const handleSubmit = () => {
     const selectedIds = getSelectedIds().toString();
@@ -251,6 +256,15 @@ function AddPermissionsToRoles() {
                     <a>{subModule.name}</a>
                   </div>
                   <input
+                    disabled={
+                      subModule?.id === 20
+                        ? disableApproveRejectRoute
+                        : false || subModule?.id === 21
+                        ? disableApproveRejectRoute
+                        : false || subModule?.id === 19
+                        ? disableUpdateRoute
+                        : false
+                    }
                     type="checkbox"
                     className="h-5 w-5"
                     checked={isSubModuleSelected(module, subModule)}
@@ -258,24 +272,6 @@ function AddPermissionsToRoles() {
                   />
                 </div>
               ))}
-              {/* <div className="ml-8 mt-4 space-y-2">
-                {module.subMenus?.map((subModule) => (
-                  <div
-                    key={subModule.id}
-                    className="ml-8 mt-2 flex flex-row space-x-3 items-center"
-                  >
-                    <div className="flex flex-row w-44 bg-gray-200 text-center rounded-sm items-center justify-center py-2">
-                      <a>{subModule.name}</a>
-                    </div>
-                    <input
-                      type="checkbox"
-                      className="h-5 w-5"
-                      checked={isSubModuleSelected(module, subModule)}
-                      onChange={() => handleChildChange(module, subModule)}
-                    />
-                  </div>
-                ))}
-              </div> */}
             </div>
           )}
         </div>
@@ -294,269 +290,3 @@ export default withAuthorization(
   AddPermissionsToRoles,
   "assign_permissions_to_roles"
 );
-
-const data = [
-  {
-    id: 1,
-    key: "overview",
-    name: "Overview",
-    subMenus: [
-      {
-        id: 2,
-        key: "overview_account",
-        name: "Account",
-      },
-    ],
-  },
-  {
-    id: 3,
-    key: "applications",
-    name: "Applications",
-    subMenus: [
-      {
-        id: 4,
-        key: "loan_applications",
-        name: "Loan Applications",
-      },
-    ],
-  },
-  {
-    id: 5,
-    key: "customers",
-    name: "Customers",
-    subMenus: [
-      {
-        id: 6,
-        key: "customers_dashboard",
-        name: "Customers Dashboard",
-      },
-      {
-        id: 7,
-        key: "all_customers",
-        name: "All Customers",
-      },
-      {
-        id: 8,
-        key: "verified_customers",
-        name: "Verified Customers",
-      },
-    ],
-  },
-];
-
-const data2 = [
-  {
-    id: 1,
-    name: "Overview",
-    code: "overview",
-    subMenus: [
-      {
-        id: 2,
-        name: "Account",
-        code: "overview_account",
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: "Applications",
-    code: "applications",
-    subMenus: [
-      {
-        id: 4,
-        name: "Loan Applications",
-        code: "loan_applications",
-      },
-    ],
-  },
-  {
-    id: 5,
-    name: "Customers",
-    code: "customers",
-    subMenus: [
-      {
-        id: 6,
-        name: "Customers Dashboard",
-        code: "customers_dashboard",
-      },
-      {
-        id: 7,
-        name: "All Customers",
-        code: "all_customers",
-      },
-      {
-        id: 8,
-        name: "Verified Customers",
-        code: "verified_customers",
-      },
-    ],
-  },
-  {
-    id: 9,
-    name: "Administrator",
-    code: "administrator",
-    subMenus: [
-      {
-        id: 10,
-        name: "Create Admin",
-        code: "create_admin",
-      },
-      {
-        id: 11,
-        name: "Assign Permissions to Roles",
-        code: "assign_permissions_to_roles",
-      },
-    ],
-  },
-  {
-    id: 12,
-    name: "Seela",
-    code: "seela",
-    subMenus: [
-      {
-        id: 13,
-        name: "History",
-        code: "seela_history",
-      },
-      {
-        id: 14,
-        name: "Transaction",
-        code: "seela_transaction",
-      },
-      {
-        id: 15,
-        name: "Commodity",
-        code: "seela_commodity",
-      },
-      {
-        id: 16,
-        name: "Wallet",
-        code: "seela_wallet",
-      },
-    ],
-  },
-  {
-    id: 17,
-    name: "Policies",
-    code: "policies",
-    subMenus: [
-      {
-        id: 18,
-        name: "View Policies",
-        code: "view_policies",
-        actions: [
-          {
-            id: 19,
-            name: "Approve Policy",
-            code: "approve_policy",
-          },
-          {
-            id: 20,
-            name: "Reject Policy",
-            code: "reject_policy",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: 21,
-    name: "Loan Management",
-    code: "loan_management",
-    subMenus: [
-      {
-        id: 22,
-        name: "Create Type",
-        code: "create_type",
-      },
-      {
-        id: 23,
-        name: "Customer EMI",
-        code: "customer_emi",
-      },
-    ],
-  },
-  {
-    id: 24,
-    name: "Decisions",
-    code: "decisions",
-    subMenus: [
-      {
-        id: 25,
-        name: "Questions",
-        code: "questions",
-      },
-      {
-        id: 26,
-        name: "Create Set",
-        code: "create_set",
-      },
-      {
-        id: 27,
-        name: "Create Decisions",
-        code: "create_decisions",
-      },
-    ],
-  },
-  {
-    id: 28,
-    name: "Notifications",
-    code: "notifications",
-    subMenus: [
-      {
-        id: 29,
-        name: "Notifications",
-        code: "notifications_dashboard",
-      },
-      {
-        id: 30,
-        name: "Terms and Conditions",
-        code: "terms_and_conditions",
-      },
-      {
-        id: 31,
-        name: "Awareness Messages",
-        code: "awareness_messages",
-      },
-      {
-        id: 32,
-        name: "Add SMS",
-        code: "add_sms",
-      },
-    ],
-  },
-  {
-    id: 33,
-    name: "Simah",
-    code: "simah",
-    subMenus: [
-      {
-        id: 34,
-        name: "Simah",
-        code: "simah_dashboard",
-      },
-    ],
-  },
-  {
-    id: 35,
-    name: "Calculations",
-    code: "calculations",
-    subMenus: [
-      {
-        id: 36,
-        name: "DBR",
-        code: "calculations_dbr",
-      },
-      {
-        id: 37,
-        name: "Bare Minimum Expenses",
-        code: "calculations_bare_minimum_expenses",
-      },
-      {
-        id: 38,
-        name: "Terms and Rates",
-        code: "calculations_terms_and_rates",
-      },
-    ],
-  },
-];
