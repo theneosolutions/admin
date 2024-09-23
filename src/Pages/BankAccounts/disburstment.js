@@ -18,7 +18,7 @@ function Disbursement() {
   }, []);
   function getBankListsData() {
     GetBankList().then((res) => {
-      let data = res.find((item) => item.accountType === ACCOUNT_TYPE);
+      let data = res?.find((item) => item?.accountType === ACCOUNT_TYPE);
 
       if (!data) {
         setDisable(false);
@@ -45,7 +45,11 @@ function Disbursement() {
         if (res.status === 200) {
           setDisable(true);
           dispatch(
-            action.Message({ open: true, message: "Data Saved!", error: false })
+            action.Message({
+              open: true,
+              message: "Account details are saved successfully",
+              error: false,
+            })
           );
         } else {
           dispatch(
@@ -95,7 +99,7 @@ function Disbursement() {
             </a>
           </div>
           <div className="w-full space-y-4 pt-10 pb-10">
-            <Input
+            <InputTitle
               disabled={disable}
               title="Account Title"
               value={title}
@@ -109,7 +113,7 @@ function Disbursement() {
               onChange={(e) => setAccountNumber(e)}
               name="accountnumber"
             />
-            <Input
+            <InputIBAN
               disabled={disable}
               title="IBAN"
               value={iban}
@@ -161,15 +165,26 @@ function Disbursement() {
 }
 export default Disbursement;
 
-function Input({ title, placeholder, value, onChange, name, disabled }) {
+function InputTitle({ title, placeholder, value, onChange, name, disabled }) {
   const { t } = useTranslation();
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    // Regular expression to allow only alphabets (both uppercase and lowercase)
+    const regex = /^[A-Za-z.\s]*$/;
+
+    if (regex.test(inputValue)) {
+      onChange(inputValue); // Call the onChange function only if input is valid
+    }
+  };
+
   return (
     <div className="flex flex-row justify-between items-center">
       <div className="flex flex-col w-full">
         <a>{t(title)}</a>
         <input
           disabled={disabled}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={handleInputChange}
           placeholder={t(placeholder)}
           value={value}
           className={`py-2 px-3 ${
@@ -177,6 +192,72 @@ function Input({ title, placeholder, value, onChange, name, disabled }) {
           } rounded-lg mt-1`}
           name={name}
           required
+        />
+      </div>
+    </div>
+  );
+}
+
+function InputIBAN({ title, placeholder, value, onChange, name, disabled }) {
+  const { t } = useTranslation();
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    // Regular expression to allow only alphabets (both uppercase and lowercase)
+    const regex = /^[A-Za-z0-9]*$/;
+
+    if (regex.test(inputValue)) {
+      onChange(inputValue); // Call the onChange function only if input is valid
+    }
+  };
+
+  return (
+    <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-col w-full">
+        <a>{t(title)}</a>
+        <input
+          disabled={disabled}
+          onChange={handleInputChange}
+          placeholder={t(placeholder)}
+          value={value}
+          className={`py-2 px-3 ${
+            disabled ? "bg-gray-300" : "bg-gray-200 border border-gray-300"
+          } rounded-lg mt-1`}
+          name={name}
+          required
+        />
+      </div>
+    </div>
+  );
+}
+
+function Input({ title, placeholder, value, onChange, name, disabled }) {
+  const { t } = useTranslation();
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    // Regular expression to allow only numbers (0-9)
+    const regex = /^[0-9]*$/;
+
+    if (regex.test(inputValue)) {
+      onChange(inputValue); // Call the onChange function only if input is valid
+    }
+  };
+  return (
+    <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-col w-full">
+        <a>{t(title)}</a>
+        <input
+          disabled={disabled}
+          onChange={handleInputChange}
+          placeholder={t(placeholder)}
+          value={value}
+          className={`py-2 px-3 ${
+            disabled ? "bg-gray-300" : "bg-gray-200 border border-gray-300"
+          } rounded-lg mt-1`}
+          name={name}
+          required
+          type="numeric"
         />
       </div>
     </div>

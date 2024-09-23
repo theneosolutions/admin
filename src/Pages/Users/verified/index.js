@@ -133,12 +133,12 @@ function VerifiedUsers() {
                 <th scope="col" className="px-3 py-3">
                   {t("Simah Report")}
                 </th>
-                <th
+                {/* <th
                   scope="col"
                   className="px-3 py-3 cursor-pointer  sticky right-0 bg-white z-10"
                 >
                   {t("Delete")}
-                </th>
+                </th> */}
               </tr>
             </thead>
             <tbody>
@@ -218,12 +218,12 @@ function VerifiedUsers() {
                       {t("View Simah Report")}
                     </div>
                   </td>
-                  <th
+                  {/* <th
                     scope="row"
                     className=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white sticky right-0 bg-white z-10"
                   >
                     <div className="flex flex-row space-x-3 rtl:space-x-reverse">
-                      {/* <img src={Edit} className="h-6 cursor-pointer" /> */}
+                      
                       <img
                         src={Delete}
                         className="h-6 cursor-pointer"
@@ -237,7 +237,7 @@ function VerifiedUsers() {
                         }
                       />
                     </div>
-                  </th>
+                  </th>hjk */}
                 </tr>
               ))}
             </tbody>
