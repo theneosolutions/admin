@@ -422,7 +422,7 @@ export default {
   IBAN: "IBAN",
   Save: "Save",
   "Delete Bank": "Delete Bank",
-  "": "",
+  "Add SMS And OTP": "Add SMS And OTP",
   "": "",
   "": "",
   "": "",

@@ -164,16 +164,6 @@ const Dropdown = () => {
   }
   function Logout() {
     dispatch(action.Loading({ Loading: true }));
-    dispatch(
-      action.Auth({
-        user: null,
-        islogin: false,
-        role: null,
-        token: null,
-      })
-    );
-
-    localStorage.removeItem("user");
 
     dispatch({
       type: "LOGOUT_USER",
@@ -181,6 +171,16 @@ const Dropdown = () => {
     });
 
     setTimeout(() => {
+      // dispatch(
+      //   action.Auth({
+      //     user: null,
+      //     islogin: false,
+      //     role: null,
+      //     token: null,
+      //   })
+      // );
+
+      // localStorage.removeItem("user");
       navigate("/login");
       dispatch(action.Loading({ Loading: false }));
     }, 500);

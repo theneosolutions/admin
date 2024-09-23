@@ -50,7 +50,7 @@ function AllUsers() {
       type: "ACTIVE_DEACTIVE_USER",
       payload: { idNumber, id },
     });
-    setTimeout(() => getAllUsersData(), 500);
+    setTimeout(() => getAllUsersData(), 1000);
     setModelOpen2(false);
   }
   useEffect(() => {

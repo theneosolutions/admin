@@ -1043,7 +1043,7 @@ function* ActiveDeactiveUser({ payload }) {
       action.Message({
         message: response?.data?.message,
         open: true,
-        error: true,
+        error: false,
       })
     );
 
@@ -1214,6 +1214,7 @@ function* UpdateDbr({ payload }) {
 }
 
 function* LogoutUser({ payload }) {
+  console.log("axiosInstanceaxiosInstance", axiosInstance);
   try {
     yield put(action.Loading({ Loading: true }));
 
@@ -1221,6 +1222,12 @@ function* LogoutUser({ payload }) {
       axiosInstance.post,
       baseUrlUser + `/user/signout?userId=${payload}`
     );
+    yield put(
+      action.Auth({ user: null, islogin: false, role: null, token: null })
+    );
+
+    localStorage.removeItem("user");
+    window.location.href = "/login";
     yield put(action.Loading({ Loading: false }));
     yield put(
       action.Message({
@@ -1870,11 +1877,16 @@ function* Status_Update_Policy({ payload }) {
   try {
     yield put(action.Loading({ Loading: true }));
 
-    const response = yield call(axios.post, baseUrlDecisions + url, null, {
-      headers: {
-        "x-mod-id": payload.modId, // Assuming `modId` is available in payload
-      },
-    });
+    const response = yield call(
+      axiosInstance.post,
+      baseUrlDecisions + url,
+      null,
+      {
+        headers: {
+          "x-mod-id": payload.modId, // Assuming `modId` is available in payload
+        },
+      }
+    );
     yield put(action.Loading({ Loading: false }));
 
     yield put(

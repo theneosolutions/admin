@@ -23,8 +23,15 @@ function Wallet() {
       type: "GET_BALANCE",
     });
   }
-  function reset() {
-    dispatch(action.Message({ open: true, message: "Success", error: false }));
+  function reset(data) {
+    console.log("datatatata", data);
+    if (data?.error === false) {
+      dispatch(
+        action.Message({ open: true, message: "Success", error: false })
+      );
+    } else {
+      dispatch(action.Message({ open: true, message: "Error", error: true }));
+    }
 
     getWalletData();
   }
@@ -33,13 +40,10 @@ function Wallet() {
       TopUpWalletFunction({
         amount: ammount,
         walletName: walletName,
-      })
-        .then((data) => reset())
-        .catch((error) =>
-          dispatch(
-            action.Message({ open: true, message: "Error", error: true })
-          )
-        );
+      }).then((data) => reset(data));
+      // .catch((error) =>
+      //   dispatch(action.Message({ open: true, message: error, error: true }))
+      // );
     } else {
       dispatch(
         action.Message({
