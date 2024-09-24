@@ -34,11 +34,17 @@ function CreateUser({ setModelOpen, data }) {
           type: "UPDATE_EXPENSE",
           payload: updatedTemp,
         });
+        setTimeout(() => {
+          setModelOpen(false);
+        }, 700);
       } else {
         dispatch({
           type: "ADD_NEW_EXPENSE",
           payload: temp,
         });
+        setTimeout(() => {
+          setModelOpen(false);
+        }, 700);
       }
     } else {
       dispatch(

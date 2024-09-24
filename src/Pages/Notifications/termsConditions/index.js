@@ -33,7 +33,11 @@ function TermsConditions() {
           <option value="en">{t("EN")}</option>
         </select>
       </div>
-      {language === "ar" ? <ArabicTerms /> : <EnglishTerms />}
+      {language === "ar" ? (
+        <ArabicTerms getTerms={() => getTerms(language)} />
+      ) : (
+        <EnglishTerms getTerms={() => getTerms(language)} />
+      )}
     </div>
   );
 }

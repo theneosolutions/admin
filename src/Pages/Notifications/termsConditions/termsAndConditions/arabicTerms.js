@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TextEditor from "../textEditor";
 import "../editor.css"; // Import the CSS file for styling
 
-function CreateUser() {
+function CreateUser({ getTerms }) {
   const [edit, setEdit] = useState(false);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -28,6 +28,7 @@ function CreateUser() {
         },
       });
       setEdit(false);
+      setTimeout(() => getTerms(), 700);
     } else {
       alert("All fields are required!");
     }

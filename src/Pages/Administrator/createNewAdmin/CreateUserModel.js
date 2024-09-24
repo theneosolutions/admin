@@ -120,7 +120,7 @@ function CreateUserModel({ getAllUsers, setModel }) {
       onSubmit={handleSubmit}
       className="items-center justify-center flex flex-col"
     >
-      <div className=" bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-20 px-4 py-5 ">
+      <div className="dark:bg-gray-800 bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-20 px-4 py-5 ">
         <div className="flex flex-col ">
           <div className=" w-full  flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
             <div className=" md:w-1/2 w-full space-y-5">
@@ -201,11 +201,11 @@ function Select({ heading, value, onChange, data }) {
 
   return (
     <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700">{heading}</a>{" "}
+      <a className="text-sm text-gray-700 dark:text-white">{heading}</a>{" "}
       <select
         onChange={(e) => onChange(e.target.value)}
         value={value}
-        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
+        className="dark:text-white border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
       >
         <option value={"none"}>{t("none")}</option>
         {data.map((option, index) => (
@@ -221,12 +221,12 @@ function Select({ heading, value, onChange, data }) {
 function Calender({ heading, value, onChange }) {
   return (
     <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700">{heading}</a>
+      <a className="text-sm text-gray-700 dark:text-white">{heading}</a>
 
       <DatePicker
         selected={value}
         onChange={(date) => onChange(date)}
-        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
+        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full dark:bg-gray-800 dark:text-white"
         showYearDropdown
         showMonthDropdown
         dropdownMode="select" // Can be "scroll" or "select"
@@ -241,13 +241,13 @@ function Calender({ heading, value, onChange }) {
 function InputField({ heading, value, onChange, type }) {
   return (
     <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700">{heading}</a>
+      <a className="text-sm text-gray-700 dark:text-white">{heading}</a>
 
       <input
         type={type || "text"}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
+        className="dark:bg-gray-800  dark:text-white  dark:placeholder:text-white border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
       />
     </div>
   );

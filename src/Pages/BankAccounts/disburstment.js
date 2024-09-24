@@ -156,7 +156,7 @@ function Disbursement() {
         action2={() => deleteAccount()}
         action1={() => setModelOpen(!modelOpen)}
       >
-        <a className=" text-xl text-gray-800 ">
+        <a className=" text-xl text-gray-800 dark:text-white ">
           {t("Are you sure to delete ?")}
         </a>
       </Model>

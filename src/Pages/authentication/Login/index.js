@@ -103,7 +103,7 @@ function Login() {
             <div className="w-full flex flex-row justify-between px-10 items-center ">
               {active === "otp" ? (
                 <IoChevronBackCircleOutline
-                  className="text-3xl text-gray-600 hover:text-gray-800 cursor-pointer duration-300"
+                  className="text-3xl text-gray-600 hover:text-gray-800  dark:hover:text-gray-300 cursor-pointer duration-300 dark:text-white"
                   onClick={() => backFunction()}
                 />
               ) : (
@@ -133,8 +133,9 @@ function Login() {
                     id="idNumber"
                     onChange={(e) => setIdNumber(e.target.value)}
                     value={idNumber}
-                    className="bg-gray-50 border border-primary text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:placeholder-gray-400 dark:text-white outline-none"
+                    className="dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 bg-gray-50 border border-primary text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5   dark:text-white outline-none"
                     required={true}
+                    placeholder={t("Enter Your Id Number")}
                   />
                 </div>
                 <div>
@@ -144,24 +145,26 @@ function Login() {
                   >
                     {t("Password")}
                   </label>
-                  <div className="bg-gray-50 border border-primary text-gray-900 sm:text-sm rounded-lg   items-center  w-full    overflow-hidden flex flex-row justify-between">
+                  <div className="bg-gray-50 border border-primary text-gray-900 sm:text-sm rounded-lg   items-center  w-full    overflow-hidden flex flex-row justify-between dark:bg-gray-800">
                     <input
                       type={eye ? "text" : "password"}
                       name="password"
                       id="password"
                       onChange={(e) => setPassword(e.target.value)}
                       value={password}
-                      className="py-3 px-2.5 w-10/12 bg-gray-50 dark:placeholder-gray-200 dark:text-white outline-none autofill:bg-red-500"
+                      className="py-3 px-2.5 w-10/12 bg-gray-50 text-gray-800 dark:bg-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 outline-none"
+                      placeholder={t("Enter your password")}
                       required={true}
                     />
+
                     {eye === true ? (
                       <IoEyeOutline
-                        className="text-xl cursor-pointer text-gray-600 mx-2"
+                        className="text-xl cursor-pointer  text-gray-600 mx-2 dark:text-white"
                         onClick={() => setEye(!eye)}
                       />
                     ) : (
                       <IoEyeOffOutline
-                        className="text-xl cursor-pointer text-gray-600 mx-2"
+                        className="text-xl cursor-pointer text-gray-600 mx-2 dark:text-white"
                         onClick={() => setEye(!eye)}
                       />
                     )}
@@ -189,7 +192,7 @@ function Login() {
                   </div>
                   <a
                     onClick={() => navigate("/forget-password")}
-                    className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500 cursor-pointer"
+                    className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500 cursor-pointer dark:text-white"
                   >
                     {t("Forgot password?")}
                   </a>

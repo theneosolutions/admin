@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import Model from "../Model2";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 function Component({ setModelOpen, modelOpen, GetAllRoles }) {
+  const error = useSelector((state) => state.error);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [role, setRole] = useState("");
@@ -18,8 +20,14 @@ function Component({ setModelOpen, modelOpen, GetAllRoles }) {
         },
       });
       setModelOpen(false);
-      setTimeout(() => GetAllRoles(), 500);
+      setTimeout(() => CheckError(), 1000);
       setRole("");
+    }
+  }
+  function CheckError() {
+    if (error) {
+    } else {
+      GetAllRoles();
     }
   }
 
@@ -54,17 +62,17 @@ function AddRole({ setRole, role, AddNewRole }) {
   const { t } = useTranslation();
   return (
     <div className="px-5 py-5">
-      <a> {t("Add New Role")}</a>
+      <a className="dark:text-white"> {t("Add New Role")}</a>
       <input
         onChange={(e) => setRole(e.target.value)}
         value={role}
-        className="mt-2 bg-gray-50 border border-gray-200 text-gray-900 sm:text-sm rounded-lg  block w-96 p-2.5  dark:placeholder-gray-200 dark:text-white outline-none"
+        className="dark:bg-gray-800 mt-2 bg-gray-50 border dark:border-primary border-gray-200 text-gray-900 sm:text-sm rounded-lg  block w-96 p-2.5  dark:placeholder-gray-200 dark:text-white outline-none"
         required={true}
       />
       <div
         onClick={() => AddNewRole()}
         className={`mb-3 text-center mt-10 rounded-md text-white text-sm px-5 py-2 h-min  duration-300 ${
-          role ? "bg-blue-500 hover:bg-blue-600 cursor-pointer" : "bg-gray-300"
+          role ? "bg-primary hover:bg-opacity-80 cursor-pointer" : "bg-gray-300"
         }`}
       >
         <a> {t("Add New Role")}</a>

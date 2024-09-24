@@ -1623,13 +1623,13 @@ function* GetSimahReport({ payload }) {
     yield put(action.GetSimahReport(response1?.data));
 
     yield put(action.Loading({ Loading: false }));
-    yield put(
-      action.Message({
-        message: response1.data.message,
-        open: true,
-        error: false,
-      })
-    );
+    // yield put(
+    //   action.Message({
+    //     message: response1.data.message,
+    //     open: true,
+    //     error: false,
+    //   })
+    // );
   } catch (error) {
     yield put(action.Loading({ Loading: false }));
     const message = error.response.data.message;

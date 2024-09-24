@@ -18,6 +18,7 @@ code {
 .header-input::placeholder {
   color: white; /* Replace 'gray' with the color of your choice */
 }
+
 select {
   -webkit-appearance: none; /* Remove default arrow for Webkit browsers */
   -moz-appearance: none; /* Remove default arrow for Mozilla browsers */

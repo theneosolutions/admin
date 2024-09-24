@@ -49,11 +49,13 @@ function CreateTermsAndRates({ setModelOpen, data }) {
           type: "UPDATE_TERM_AND_RATES",
           payload: updatedTemp,
         });
+        setTimeout(() => setModelOpen(false), 700);
       } else {
         dispatch({
           type: "ADD_NEW_TERM_AND_RATES",
           payload: temp,
         });
+        setTimeout(() => setModelOpen(false), 700);
       }
     } else {
       dispatch(
