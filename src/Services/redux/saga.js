@@ -1476,7 +1476,7 @@ function* AddNewRoleName({ payload }) {
     yield put(action.Loading({ Loading: false }));
     yield put(
       action.Message({
-        message: response1.data.message,
+        message: response1.data.message || "Role Added!",
         open: true,
         error: false,
       })

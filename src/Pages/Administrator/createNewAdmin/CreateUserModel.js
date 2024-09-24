@@ -64,7 +64,7 @@ function CreateUserModel({ getAllUsers, setModel }) {
         })
       );
     }
-    return console.log("validate", role);
+    console.log("validate", role);
     dispatch({
       type: "Add_NEW_USER",
       payload: {

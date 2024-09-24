@@ -3,31 +3,51 @@ import { useDispatch } from "react-redux";
 import Model from "../Model2";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import * as action from "Services/redux/reducer";
 function Component({ setModelOpen, modelOpen, GetAllRoles }) {
   const error = useSelector((state) => state.error);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [role, setRole] = useState("");
+  const getAllRolesData = useSelector((state) => state.getAllRoles);
+  console.log("getAllRolesData", getAllRolesData);
   function reset() {
     setModelOpen(false);
   }
   function AddNewRole() {
-    if (role) {
-      dispatch({
-        type: "ADD_NEW_ROLE_NAME",
-        payload: {
-          name: role,
-        },
-      });
-      setModelOpen(false);
-      setTimeout(() => CheckError(), 1000);
-      setRole("");
+    let temp = getAllRolesData?.some(
+      (item) => item.name.toLowerCase() === role.toLowerCase()
+    );
+    if (!temp) {
+      console.log("hosakta hai");
+      if (role) {
+        dispatch({
+          type: "ADD_NEW_ROLE_NAME",
+          payload: {
+            name: role,
+          },
+        });
+        setTimeout(() => {
+          Func();
+        }, 1000);
+
+        setRole("");
+      }
+    } else {
+      dispatch(
+        action.Message({
+          message: "Role with Same Name Already Exists!",
+          open: true,
+          error: true,
+        })
+      );
     }
   }
-  function CheckError() {
+  function Func() {
     if (error) {
     } else {
       GetAllRoles();
+      setModelOpen(false);
     }
   }
 
