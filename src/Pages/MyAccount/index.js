@@ -81,7 +81,7 @@ function MyAccount() {
               onChange={(e) => setName(e)}
             />
             <InputField
-              disabled={disabled}
+              disabled={true}
               heading={t("Email")}
               value={email}
               onChange={(e) => setEmail(e)}

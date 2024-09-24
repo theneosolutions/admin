@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "Components";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-
+import * as action from "Services/redux/reducer";
 function CreateAddSMS({ setModelOpen, selectedData }) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -45,7 +45,13 @@ function CreateAddSMS({ setModelOpen, selectedData }) {
 
       setTimeout(() => setModelOpen(false), 500);
     } else {
-      alert("All fields are required!");
+      dispatch(
+        action.Message({
+          message: "All fields are required!",
+          open: true,
+          error: true,
+        })
+      );
     }
   }
 

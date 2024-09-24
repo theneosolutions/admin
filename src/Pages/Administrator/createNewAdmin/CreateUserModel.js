@@ -64,7 +64,7 @@ function CreateUserModel({ getAllUsers, setModel }) {
         })
       );
     }
-    console.log("validate", role);
+    return console.log("validate", role);
     dispatch({
       type: "Add_NEW_USER",
       payload: {
@@ -131,6 +131,7 @@ function CreateUserModel({ getAllUsers, setModel }) {
                 onChange={(e) => setFirstName(e)}
               />
               <InputField
+                type={"email"}
                 heading={t("Email")}
                 value={email}
                 onChange={(e) => setEmail(e)}
@@ -244,6 +245,7 @@ function InputField({ heading, value, onChange, type }) {
       <a className="text-sm text-gray-700 dark:text-white">{heading}</a>
 
       <input
+        required={true}
         type={type || "text"}
         value={value}
         onChange={(e) => onChange(e.target.value)}

@@ -25,9 +25,9 @@ function AllUsers() {
         heading={t("Selaa Transaction")}
         iconStyle="text-3xl text-primary"
       >
-        <div className="overflow-x-auto relative  mt-4">
+        <div className="overflow-x-scroll  mt-4 relative h-[70vh]">
           <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
+            <thead className=" text-xs text-gray-400 bg-white uppercase  font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Amount")}
@@ -78,7 +78,7 @@ function AllUsers() {
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className=" ">
               {data?.map((v, k) => (
                 <tr
                   key={k}
