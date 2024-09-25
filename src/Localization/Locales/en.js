@@ -423,7 +423,7 @@ export default {
   Save: "Save",
   "Delete Bank": "Delete Bank",
   "Add SMS And OTP": "Add SMS And OTP",
-  "": "",
+  Username: "Username",
   "": "",
   "": "",
   "": "",

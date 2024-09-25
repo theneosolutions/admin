@@ -43,7 +43,7 @@ function App() {
             <tbody>
               {questionsData?.map((v, k) => {
                 return (
-                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <tr className="bg-white border-b dark:border-gray-200">
                     <td className="px-2 py-4"> {v?.question}</td>
                     <td className="px-6 py-3 flex flex-row space-x-4">
                       {[1, 1, 1, 1].map((l, s) => {

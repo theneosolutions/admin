@@ -106,7 +106,7 @@ function MyAccount() {
             />
             <InputField
               disabled={true}
-              heading={t("ID number")}
+              heading={t("Username")}
               value={stateUser?.idNumber}
               onChange={(e) => console.log("helo", e)}
             />

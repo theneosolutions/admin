@@ -98,7 +98,7 @@ function Login() {
     <section className="bg-fixed-full h-screen w-full">
       <LanguageCom />
       <div className="-mt-14 flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className=" w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div className=" w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:border-gray-200">
           <a className="flex flex-col items-center mb-2 mt-8 text-2xl font-semibold text-gray-900 dark:text-white">
             <div className="w-full flex flex-row justify-between px-10 items-center ">
               {active === "otp" ? (
@@ -125,7 +125,7 @@ function Login() {
                     htmlFor="idNumber"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    {t("ID number")}
+                    {t("Username")}
                   </label>
                   <input
                     type="text"

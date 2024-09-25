@@ -95,7 +95,7 @@ function AllUsers() {
         iconStyle="text-3xl text-primary"
       >
         <div className="overflow-x-auto relative  mt-4">
-          <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+          <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500">
             <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
@@ -143,7 +143,7 @@ function AllUsers() {
               {newUsersData?.map((v, k) => (
                 <tr
                   key={k}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  className="bg-white border-b dark:bg-white dark:border-gray-200"
                 >
                   <td
                     scope="row"

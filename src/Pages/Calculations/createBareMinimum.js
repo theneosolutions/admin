@@ -84,7 +84,7 @@ function CreateUser({ setModelOpen, data }) {
               onChange={(e) => setTitle(e)}
             />
 
-            <InputField
+            <InputField2
               heading={t("Bare Minimum Value")}
               value={value}
               onChange={(e) => setValue(e)}
@@ -118,6 +118,33 @@ function InputField({ heading, value, onChange, type }) {
         type={type || "text"}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
+      />
+    </div>
+  );
+}
+function InputField2({ heading, value, onChange, type }) {
+  // Function to handle change and convert negative values to positive
+  const handleChange = (e) => {
+    let newValue = e.target.value;
+
+    // Check if the input is not empty before applying Math.abs
+    if (newValue !== "") {
+      newValue = Math.abs(newValue); // Convert negative number to positive
+    }
+
+    // Call the onChange handler with the updated value
+    onChange(newValue);
+  };
+
+  return (
+    <div className="flex flex-col w-full">
+      <a className="text-sm text-gray-700">{heading}</a>
+
+      <input
+        type={type || "number"}
+        value={value}
+        onChange={handleChange} // Attach the new handler
         className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
       />
     </div>

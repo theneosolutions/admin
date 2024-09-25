@@ -170,7 +170,7 @@ function CreateQuestionsSet() {
                   return (
                     <tr
                       key={k}
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                      className="bg-white border-b dark:border-gray-200"
                     >
                       <td className="px-3 py-4 cursor-pointer text-primary">
                         {getLanguage() === "ar" ? (
@@ -258,7 +258,7 @@ function CreateQuestionsSet() {
                   return (
                     <tr
                       key={k}
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                      className="bg-white border-b dark:border-gray-200"
                     >
                       <td className="px-3 py-4">
                         {getLanguage() === "ar" ? (

@@ -289,7 +289,7 @@ function AllUsers() {
                     {getTermRatesCalculations?.table?.map((v, k) => (
                       <tr
                         key={k}
-                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                        className="bg-white border-b dark:border-gray-200"
                       >
                         <td
                           scope="row"

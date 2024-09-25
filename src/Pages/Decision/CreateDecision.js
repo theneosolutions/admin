@@ -132,7 +132,7 @@ const CreateDesicion = () => {
                       {setData?.Other_Question?.map((v, k) => (
                         <tr
                           key={k}
-                          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                          className="bg-white border-b dark:border-gray-200"
                         >
                           <td className="px-2 py-4">
                             {v?.eligibilityQuestions.id}
@@ -249,7 +249,7 @@ const CreateDesicion = () => {
                   {setData?.Text_Question?.map((v, k) => (
                     <tr
                       key={k}
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                      className="bg-white border-b dark:border-gray-200"
                     >
                       <td className="px-2 py-4">{v?.id}</td>
                       <td className="px-6 py-4">

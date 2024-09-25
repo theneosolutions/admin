@@ -14,11 +14,8 @@ function Awareness() {
     (state) => state.getNotificationHeadings || []
   );
 
-  const [checked, setChecked] = useState(false);
-
   const [type, setType] = useState("");
   const [language, setLanguage] = useState("none");
-  const [role, setRole] = useState("none");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
 
@@ -28,6 +25,10 @@ function Awareness() {
         type: "SEND_NOTIFICATION_SMS",
         payload: { type, language, phone, message },
       });
+      setType("");
+      setLanguage("none");
+      setPhone("");
+      setMessage("");
     } else {
       alert("All fields are required!");
     }
@@ -88,6 +89,7 @@ function Awareness() {
               <Description
                 heading={t("Message")}
                 handleChange={(e) => setMessage(e)}
+                value={message}
               />
             </div>
           </div>
@@ -146,7 +148,7 @@ function InputField({ heading, value, onChange, type }) {
   );
 }
 
-function Description({ heading, handleChange }) {
+function Description({ heading, handleChange, value }) {
   return (
     <div className="flex flex-col w-full">
       <div className=" flex flex-row  ">
@@ -154,6 +156,7 @@ function Description({ heading, handleChange }) {
       </div>
       <div className="	w-full mt-2">
         <textarea
+          value={value}
           onChange={(e) => handleChange(e.target.value)}
           className="border-gray-300 border min-h-32 max-h-44 rounded-md px-3 py-1.5 outline-none mt-2 	w-full	"
         />

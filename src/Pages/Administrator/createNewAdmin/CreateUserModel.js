@@ -120,53 +120,49 @@ function CreateUserModel({ getAllUsers, setModel }) {
       onSubmit={handleSubmit}
       className="items-center justify-center flex flex-col"
     >
-      <div className="dark:bg-gray-800 bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-20 px-4 py-5 ">
+      <div className="dark:bg-gray-800 bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-10 px-4 py-5 ">
         <div className="flex flex-col ">
-          <div className=" w-full  flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
-            <div className=" md:w-1/2 w-full space-y-5">
-              <InputField
-                id="firstName"
-                heading={t("First Name")}
-                value={firstName}
-                onChange={(e) => setFirstName(e)}
-              />
-              <InputField
-                type={"email"}
-                heading={t("Email")}
-                value={email}
-                onChange={(e) => setEmail(e)}
-              />
-              {/* <InputField
-                heading={t("ID number")}
-                value={idNumber}
-                onChange={(e) => setIdNumber(e)}
-              /> */}
-              <InputField
-                type="number"
-                heading={t("Mobile Number")}
-                value={number}
-                onChange={(e) => setNumber(e)}
-              />
-            </div>
-            <div className="md:w-1/2 w-full md:mt-0 mt-3 space-y-5">
-              <InputField
-                heading={t("Last Name")}
-                value={lastName}
-                onChange={(e) => setLastName(e)}
-              />
-              <InputField
-                heading={t("User Name")}
-                value={username}
-                onChange={(e) => setUserName(e)}
-              />
-              <Calender
-                type="calendar"
-                heading={t("DOB")}
-                value={date}
-                onChange={(e) => setDate(e)}
-              />
-            </div>
+          <div className="  w-full space-x-10  flex flex-row">
+            <InputField
+              id="firstName"
+              heading={t("First Name")}
+              value={firstName}
+              onChange={(e) => setFirstName(e)}
+            />
+            <InputField
+              heading={t("Last Name")}
+              value={lastName}
+              onChange={(e) => setLastName(e)}
+            />
           </div>
+          <div className="  w-full space-x-10  flex flex-row mt-5">
+            <InputField
+              type={"email"}
+              heading={t("Email")}
+              value={email}
+              onChange={(e) => setEmail(e)}
+            />
+            <InputField
+              type="number"
+              heading={t("Mobile Number")}
+              value={number}
+              onChange={(e) => setNumber(e)}
+            />
+          </div>
+          <div className="  w-full space-x-10  flex flex-row mt-5">
+            <InputField
+              heading={t("User Name")}
+              value={username}
+              onChange={(e) => setUserName(e)}
+            />
+            <Calender
+              type="calendar"
+              heading={t("DOB")}
+              value={date}
+              onChange={(e) => setDate(e)}
+            />
+          </div>
+
           <div className="mt-3">
             <Select
               data={getAllRolesData.filter((item) => item.name != "User")}

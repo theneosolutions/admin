@@ -74,10 +74,7 @@ function Calculations() {
           </thead>
           <tbody>
             {data?.map((v, k) => (
-              <tr
-                key={k}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-              >
+              <tr key={k} className="bg-white border-b dark:border-gray-200">
                 <td scope="row" className="px-3 py-4">
                   {v?.userId}
                 </td>

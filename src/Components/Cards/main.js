@@ -17,7 +17,7 @@ function CardMain({
 }) {
   return (
     <div
-      className={`dark:bg-gray-800 bg-white rounded shadow-sm px-5 py-4 rtl:space-x-reverse  ${width}`}
+      className={`dark:bg-white bg-white rounded shadow-sm px-5 py-4 rtl:space-x-reverse  ${width}`}
     >
       {!headerDisable && (
         <div
@@ -25,9 +25,7 @@ function CardMain({
         >
           <div className="flex flex-row space-x-2 rtl:space-x-reverse items-center pb-4">
             <div className="flex flex-row space-x-2 rtl:space-x-reverse items-center">
-              <h1 className="font-semibold text-lg text-black dark:text-white">
-                {heading}
-              </h1>
+              <h1 className="font-semibold text-lg text-black ">{heading}</h1>
               <div className={`${iconStyle}`}>{icon}</div>
             </div>
             <h1 className="font-semibold text-md text-gray-400 mt-0.5">

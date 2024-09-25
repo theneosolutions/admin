@@ -97,10 +97,7 @@ function AllPolicies() {
             </thead>
             <tbody>
               {getAllPolicies?.map((v, k) => (
-                <tr
-                  key={k}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                >
+                <tr key={k} className="bg-white border-b dark:border-gray-200">
                   <td className="px-3">{t(v?.id)}</td>
                   <td className="px-3">{t(v?.policyName)}</td>
                   <td className="px-3">{t(v?.policyValue)}</td>

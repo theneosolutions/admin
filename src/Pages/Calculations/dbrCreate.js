@@ -80,6 +80,30 @@ function CreateUser({ setModelOpen, data }) {
       setGdbrInclude(data?.gdbrIncludingMtg);
     }
   }, [data]);
+
+  const handleChange1 = (e) => {
+    let newValue = e.target.value;
+
+    // Check if the input is not empty before applying Math.abs
+    if (newValue !== "") {
+      newValue = Math.abs(newValue); // Convert negative number to positive
+    }
+
+    // Call the onChange handler with the updated value
+    setBracketStart(newValue);
+  };
+  const handleChange2 = (e) => {
+    let newValue = e.target.value;
+
+    // Check if the input is not empty before applying Math.abs
+    if (newValue !== "") {
+      newValue = Math.abs(newValue); // Convert negative number to positive
+    }
+
+    // Call the onChange handler with the updated value
+    setBracketEnd(newValue);
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -93,14 +117,14 @@ function CreateUser({ setModelOpen, data }) {
               <input
                 type="number"
                 value={bracketStart}
-                onChange={(e) => setBracketStart(e.target.value)}
+                onChange={handleChange1}
                 className="bg-gray-100 rounded-md px-3 py-1 outline-none w-5/12	"
               />
               <a className="text-sm">{t("TO")}</a>
               <input
                 type="number"
                 value={bracketEnd}
-                onChange={(e) => setBracketEnd(e.target.value)}
+                onChange={handleChange2}
                 className="bg-gray-100 rounded-md px-3 py-1 outline-none w-5/12	"
               />
             </div>
@@ -148,6 +172,19 @@ function CreateUser({ setModelOpen, data }) {
 export default CreateUser;
 
 function InputField({ heading, value, onChange, type }) {
+  // Function to handle change and convert negative values to positive
+  const handleChange = (e) => {
+    let newValue = e.target.value;
+
+    // Check if the input is not empty before applying Math.abs
+    if (newValue !== "") {
+      newValue = Math.abs(newValue); // Convert negative number to positive
+    }
+
+    // Call the onChange handler with the updated value
+    onChange(newValue);
+  };
+
   return (
     <div className="flex flex-col w-full">
       <a className="text-sm text-gray-700">{heading}</a>
@@ -155,7 +192,7 @@ function InputField({ heading, value, onChange, type }) {
       <input
         type={type || "number"}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={handleChange} // Attach the new handler
         className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
       />
     </div>

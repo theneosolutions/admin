@@ -74,7 +74,7 @@ function App() {
     });
     setTimeout(() => {
       getAllReasons();
-    }, 1000);
+    }, 2000);
   };
 
   const fileInputRef = useRef(null);

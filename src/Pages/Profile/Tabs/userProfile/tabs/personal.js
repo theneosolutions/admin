@@ -28,10 +28,7 @@ function PersonalDetailCard({ data = [] }) {
         <tbody>
           {data?.length > 0 &&
             data?.map((v, k) => (
-              <tr
-                key={k}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-              >
+              <tr key={k} className="bg-white border-b dark:border-gray-200">
                 <td className="px-2 py-4 overflow-wrap text-sky-700">
                   {v?.question}
                 </td>
