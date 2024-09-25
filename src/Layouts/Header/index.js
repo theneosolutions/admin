@@ -52,10 +52,10 @@ function Header({ isOpen, toggleSidebar, className }) {
               {user?.firstName}
             </a>
           </div>
-          <img
+          {/* <img
             className="md:h-10 md:w-10 h-6 w-6 rounded-full border border-white"
             src="https://e7.pngegg.com/pngimages/304/305/png-clipart-man-with-formal-suit-illustration-web-development-computer-icons-avatar-business-user-profile-child-face.png"
-          />{" "}
+          />{" "} */}
           <Dropdown />
         </div>
       </div>

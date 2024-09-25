@@ -74,7 +74,7 @@ function Accomodity() {
         heading={t("All Ownership Id")}
         iconStyle="text-3xl text-primary"
       >
-        <div className="overflow-x-auto relative  mt-4">
+        <div className="overflow-x-scroll  mt-4 relative h-[70vh] ">
           <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
               <tr>

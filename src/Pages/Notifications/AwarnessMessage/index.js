@@ -26,7 +26,7 @@ function Awareness() {
     if (type != "" && language != "none") {
       dispatch({
         type: "SEND_NOTIFICATION_SMS",
-        payload: { type, language, role, phone, message },
+        payload: { type, language, phone, message },
       });
     } else {
       alert("All fields are required!");
@@ -61,7 +61,7 @@ function Awareness() {
               />
             </div>
             <div className="flex flex-row space-x-10 w-full mt-7 rtl:space-x-reverse">
-              <div className="w-1/2">
+              {/* <div className="w-1/2">
                 <Select
                   disabled={checked}
                   data={data2}
@@ -70,28 +70,14 @@ function Awareness() {
                   value={role}
                   onChange={(e) => setRole(e)}
                 />
-              </div>
+              </div> */}
 
               <div className="flex flex-row  w-1/2 space-x-8 rtl:space-x-reverse">
-                {checked && (
-                  <InputField
-                    heading={t("Phone Number")}
-                    value={phone}
-                    onChange={(e) => setPhone(e)}
-                  />
-                )}
-
-                <div className="flex flex-col w-32 ">
-                  <a className="text-sm text-gray-700 ">{t("Phone")}</a>
-                  <input
-                    type="checkbox"
-                    className="h-5 w-5 mt-3"
-                    value={checked}
-                    onChange={() => (
-                      setChecked(!checked), setRole("none"), setPhone("")
-                    )}
-                  />
-                </div>
+                <InputField
+                  heading={t("Phone Number")}
+                  value={phone}
+                  onChange={(e) => setPhone(e)}
+                />
               </div>
             </div>
             <div className=" w-full space-y-7">

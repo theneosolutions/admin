@@ -43,7 +43,6 @@ function CreateUser() {
     if (
       subject != "" &&
       description != "" &&
-      image != null &&
       navigation != "" &&
       navigation !== "none"
     ) {
@@ -53,9 +52,8 @@ function CreateUser() {
         const tempp = {
           subject: subject,
           content: description,
-          image: image,
           navigation: navigation,
-          topic: checked ? allTokens : [mainUserId],
+          tokens: checked ? allTokens : [mainUserId],
         };
         dispatch({
           type: "CREATE_NOTIFICATION",
@@ -96,9 +94,9 @@ function CreateUser() {
     getAllUsersData();
   }, []);
   function getAllUsersData() {
-    dispatch({
-      type: "GET_ALL_USERS_ALL",
-    });
+    // dispatch({
+    //   type: "GET_ALL_USERS_ALL",
+    // });
     dispatch({
       type: "GET_ALL_DEVICES_TOKENS",
     });
@@ -111,8 +109,8 @@ function CreateUser() {
   return (
     <div className="items-center flex flex-col ">
       <div className="md:mt-0 mt-5 bg-gray-200 xl:w-2/5 lg:w-1/2 md:w-full">
-        <CardMain width="w-full" heading={t("Create Notification")}>
-          <div className="flex  flex-col ">
+        <CardMain width="w-full" heading={t("Create Notificationnnnnnnn")}>
+          {/* <div className="flex  flex-col ">
             <div
               onClick={handleClick}
               className="h-32 w-32 overflow-hidden rounded-full border border-primary text-center justify-center flex  flex-row items-center text-primary hover:bg-gray-100 duration-200 cursor-pointer"
@@ -121,7 +119,7 @@ function CreateUser() {
               {imageBlob && <img src={imageBlob} className="h-full w-full " />}
             </div>
             <a>{t("Notification Icon")}</a>
-          </div>
+          </div> */}
           <div className="flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
             <div className=" w-full space-y-7">
               <InputField

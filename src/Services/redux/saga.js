@@ -654,23 +654,22 @@ function* CreateNotification({ payload }) {
   try {
     yield put(action.Loading({ Loading: true }));
 
-    const formData = new FormData();
-    formData.append("subject", payload.subject);
-    formData.append("content", payload.content);
-    formData.append("file", payload.image);
-    formData.append("topic", payload.topic);
-    formData.append("navigation", payload.navigation);
+    // const formData = new FormData();
+    // formData.append("subject", payload.subject);
+    // formData.append("content", payload.content);
+    // formData.append("tokens", payload.token);
+    // formData.append("navigation", payload.navigation);
     const response = yield call(
       axiosInstance.post,
       baseUrlSMS + `/notifications/sendNotificationToAllUsers`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
+      payload
+      // {
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //   },
+      // }
     );
-
+    console.log("responseresponse", response);
     yield put(
       action.Message({
         message: "Notification Sent!",
@@ -1939,12 +1938,12 @@ function* GetNotificationsHeadings() {
 function* SendNotificationSms({ payload }) {
   let { type, language, role, phone, message } = payload;
 
-  let url;
-  if (role === "none") {
-    url = `/sendCustomSms?mobileNumber=${phone}&languageCode=${language}&heading=${type}&messageBody=${message}`;
-  } else {
-    url = `/sendCustomSms?languageCode=${language}&heading=${type}&messageBody=${message}&userRole=${role}`;
-  }
+  let url = `/sendCustomSms?mobileNumber=${phone}&languageCode=${language}&heading=${type}&messageBody=${message}`;
+  // if (role === "none") {
+  //   url = `/sendCustomSms?mobileNumber=${phone}&languageCode=${language}&heading=${type}&messageBody=${message}`;
+  // } else {
+  //   url = `/sendCustomSms?languageCode=${language}&heading=${type}&messageBody=${message}&userRole=${role}`;
+  // }
 
   try {
     yield put(action.Loading({ Loading: true }));
@@ -1953,7 +1952,7 @@ function* SendNotificationSms({ payload }) {
     yield put(action.Loading({ Loading: false }));
     yield put(
       action.Message({
-        message: "Success",
+        message: "Message Sent!",
         open: true,
         error: false,
       })
