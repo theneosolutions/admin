@@ -122,7 +122,7 @@ function CreateUserModel({ getAllUsers, setModel }) {
     >
       <div className="dark:bg-gray-800 bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-10 px-4 py-5 ">
         <div className="flex flex-col ">
-          <div className="  w-full space-x-10  flex flex-row">
+          <div className="  w-full space-x-5 bg-red-400 flex flex-row">
             <InputField
               id="firstName"
               heading={t("First Name")}
@@ -135,7 +135,7 @@ function CreateUserModel({ getAllUsers, setModel }) {
               onChange={(e) => setLastName(e)}
             />
           </div>
-          <div className="  w-full space-x-10  flex flex-row mt-5">
+          <div className="  w-full space-x-5 bg-red-400 flex flex-row mt-5">
             <InputField
               type={"email"}
               heading={t("Email")}
@@ -149,7 +149,7 @@ function CreateUserModel({ getAllUsers, setModel }) {
               onChange={(e) => setNumber(e)}
             />
           </div>
-          <div className="  w-full space-x-10  flex flex-row mt-5">
+          <div className="  w-full space-x-5 bg-red-400 flex flex-row mt-5">
             <InputField
               heading={t("User Name")}
               value={username}
@@ -202,7 +202,7 @@ function Select({ heading, value, onChange, data }) {
       <select
         onChange={(e) => onChange(e.target.value)}
         value={value}
-        className="dark:text-white border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
+        className="dark:text-white border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full dark:bg-gray-500"
       >
         <option value={"none"}>{t("none")}</option>
         {data.map((option, index) => (
