@@ -198,7 +198,7 @@ function Select({ heading, value, onChange, data }) {
 
   return (
     <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700 dark:text-white">{heading}</a>{" "}
+      <a className="text-sm text-gray-700 dark:text-white">ssss{heading}</a>{" "}
       <select
         onChange={(e) => onChange(e.target.value)}
         value={value}
