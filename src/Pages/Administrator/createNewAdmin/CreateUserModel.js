@@ -122,7 +122,7 @@ function CreateUserModel({ getAllUsers, setModel }) {
     >
       <div className="dark:bg-gray-800 bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-10 px-4 py-5 ">
         <div className="flex flex-col ">
-          <div className="  w-full space-x-5 bg-red-400 flex flex-row">
+          <div className="  w-full space-x-5  flex flex-row">
             <InputField
               id="firstName"
               heading={t("First Name")}
@@ -198,7 +198,7 @@ function Select({ heading, value, onChange, data }) {
 
   return (
     <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700 dark:text-white">ssss{heading}</a>{" "}
+      <a className="text-sm text-gray-700 dark:text-white">{heading}</a>{" "}
       <select
         onChange={(e) => onChange(e.target.value)}
         value={value}

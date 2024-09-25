@@ -64,7 +64,7 @@ function Login() {
     <section className="bg-fixed-full h-screen w-full">
       <LanguageCom />
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:border-gray-200">
+        <div className="w-full bg-red-400 dark:bg-gray-800 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:border-gray-800 ">
           <a
             href="#"
             className="flex flex-col items-center mb-2 mt-8 text-2xl font-semibold text-gray-900 dark:text-white"
@@ -74,7 +74,7 @@ function Login() {
           {active === "login" && (
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8 ">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                {t("Enter Your ID Number")}
+                {t("Enter Your Username")}
               </h1>
               <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                 <div>
@@ -90,7 +90,7 @@ function Login() {
                     id="idNumber"
                     onChange={(e) => setIdNumber(e.target.value)}
                     value={idNumber}
-                    className="bg-gray-50 border border-primary text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:placeholder-gray-400 dark:text-white outline-none"
+                    className="bg-gray-50 border border-primary text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:placeholder-gray-400 dark:bg-gray-800 dark:text-white outline-none"
                     required={true}
                   />
                 </div>
