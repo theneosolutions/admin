@@ -66,7 +66,7 @@ function OptScreen({ otp, LoginFunction, resendOtp }) {
       <div className="mx-auto flex w-full max-w-md flex-col space-y-16 ">
         <div className="flex flex-col items-center justify-center text-center space-y-2">
           <div className="font-semibold text-3xl dark:text-white">
-            <p>{t("ID Number Verification")}</p>
+            <p>{t("Username Verification")}</p>
           </div>
           <div className="flex flex-row text-sm font-medium text-gray-400">
             <p>{t("We have sent a code to your ID Number")}</p>
