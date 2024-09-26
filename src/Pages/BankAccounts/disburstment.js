@@ -183,7 +183,7 @@ function Disbursement() {
         </div>
 
         <Model
-          heading={t("Delete Bank")}
+          heading={t("Delete Account Details")}
           isOpen={modelOpen}
           style="w-1/3"
           innerStyle="py-10"
@@ -194,7 +194,7 @@ function Disbursement() {
           action1={() => setModelOpen(!modelOpen)}
         >
           <a className=" text-xl text-gray-800 dark:text-white ">
-            {t("Are you sure to delete ?")}
+            {t("Are you sure you want to delete ?")}
           </a>
         </Model>
       </div>

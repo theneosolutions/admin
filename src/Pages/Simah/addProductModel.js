@@ -77,45 +77,44 @@ function CreateUser({ setModelOpen, data }) {
       onSubmit={handleSubmit}
       className="items-center justify-center flex flex-col"
     >
-      <div className=" bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-20 px-4 py-5 ">
+      <div className=" bg-white rounded shadow-sm  rtl:space-x-reverse flex flex-col lg:flex-row   w-full lg:w-max lg:space-x-20 lg:px-8 px-4 py-5 ">
         <div className="flex flex-col ">
-          <div className=" w-full  flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
-            <div className=" md:w-1/2 w-full space-y-5">
-              <InputField
-                type="number"
-                heading={t("Serial Number")}
-                value={serialNumber}
-                onChange={(e) => setSerialNumber(e)}
-              />
-              <InputField
-                heading={t("Code")}
-                value={code}
-                onChange={(e) => setCode(e)}
-              />
-
-              <InputField
-                heading={t("Description")}
-                value={discription}
-                onChange={(e) => setDiscription(e)}
-              />
-            </div>
-            <div className="md:w-1/2 w-full md:mt-0 mt-3 space-y-5">
-              <InputField
-                heading={t("Arabic")}
-                value={arabic}
-                onChange={(e) => setArabic(e)}
-              />
-              <InputField
-                heading={t("Product Group")}
-                value={productGroup}
-                onChange={(e) => setProductGroup(e)}
-              />
-              <InputField
-                heading={t("Product Category")}
-                value={productCategory}
-                onChange={(e) => setProductCategory(e)}
-              />
-            </div>
+          <div className="flex flex-row w-full space-x-8">
+            <InputField
+              type="number"
+              heading={t("Serial Number")}
+              value={serialNumber}
+              onChange={(e) => setSerialNumber(e)}
+            />
+            <InputField
+              heading={t("Code")}
+              value={code}
+              onChange={(e) => setCode(e)}
+            />
+          </div>
+          <div className="flex flex-row w-full space-x-8 mt-5">
+            <InputField
+              heading={t("Description")}
+              value={discription}
+              onChange={(e) => setDiscription(e)}
+            />
+            <InputField
+              heading={t("Arabic")}
+              value={arabic}
+              onChange={(e) => setArabic(e)}
+            />
+          </div>
+          <div className="flex flex-row w-full space-x-8 mt-5">
+            <InputField
+              heading={t("Product Group")}
+              value={productGroup}
+              onChange={(e) => setProductGroup(e)}
+            />
+            <InputField
+              heading={t("Product Category")}
+              value={productCategory}
+              onChange={(e) => setProductCategory(e)}
+            />
           </div>
 
           <div className="flex flex-row justify-end mt-10 mb-5 px-14">
@@ -141,7 +140,7 @@ function InputField({ heading, value, onChange, type }) {
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
+        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-60"
       />
     </div>
   );

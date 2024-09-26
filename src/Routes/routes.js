@@ -2,13 +2,13 @@ import { Route } from "react-router-dom";
 import appRoutes from "./appRoutes";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { SetAppState } from "../Services/redux/reducer";
+import * as action from "Services/redux/reducer";
 const PageWrapper = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (props.state) {
-      dispatch(SetAppState(props.state));
+      dispatch(action.SetAppState(props.state));
     }
   }, [dispatch, props]);
 

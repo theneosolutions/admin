@@ -10,6 +10,9 @@ import * as action from "Services/redux/reducer";
 function CreateUserModel({ getAllUsers, setModel }) {
   const dispatch = useDispatch();
 
+  const error = useSelector((state) => state.error);
+  const open = useSelector((state) => state.open);
+  const message = useSelector((state) => state.message);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -79,9 +82,16 @@ function CreateUserModel({ getAllUsers, setModel }) {
         dateOfBirth: date,
       },
     });
-    setModel(false);
-    setTimeout(() => getAllUsers(), 500);
   }
+  useEffect(() => {
+    if (error && message != "" && open) {
+      // setModel(false);
+      // setTimeout(() => getAllUsers(), 500);
+    } else if (!error && message && open) {
+      setModel(false);
+      setTimeout(() => getAllUsers(), 500);
+    }
+  }, [error, message, open]);
 
   const validatePassword = () => {
     const minLength = 8;

@@ -200,7 +200,7 @@ export default {
   "Monthly installment": "القسط الشهري",
   "Vat Fee": "رسوم القيمة المضافة",
   "Interest Ammount": "مبلغ الفائدة",
-  "Are you sure to delete ?": "هل أنت متأكد من الحذف؟",
+  "Are you sure you want to delete ?": "هل أنت متأكد من الحذف؟",
   "Delete User": "حذف المستخدم",
   Cancel: "حذف المستخدم",
   Delete: "حذف",
@@ -422,7 +422,7 @@ export default {
   "Delete Bank": "حذف البنك",
   "Add SMS And OTP": "إضافة رسالة جديدة أو رمز تحقق",
   Username: "اسم المستخدم",
-  "": "",
+  "Delete Account Details": "حذف تفاصيل الحساب",
   "": "",
   "": "",
 };

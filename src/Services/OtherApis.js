@@ -182,7 +182,7 @@ async function BankCreate(payload) {
       baseUrlLos + `/seulah/bank`,
       payload
     );
-    console.log("rssss", response);
+
     return response;
   } catch (error) {
     const message = error.response
@@ -195,7 +195,7 @@ async function BankCreate(payload) {
 async function GetBankList() {
   try {
     const response = await axiosInstance.get(baseUrlLos + `/seulah/bank`);
-    console.log("rssss", response);
+
     return response.data;
   } catch (error) {
     const message = error.response
@@ -210,7 +210,7 @@ async function DeleteBank(payload) {
     const response = await axiosInstance.delete(
       baseUrlLos + `/seulah/bank?accountType=${payload}`
     );
-    console.log("rssss", response);
+
     return response.data;
   } catch (error) {
     const message = error.response

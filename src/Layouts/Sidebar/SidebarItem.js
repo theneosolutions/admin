@@ -5,7 +5,7 @@ import colorConfigs from "../../configs/colorConfigs";
 import { useTranslation } from "react-i18next";
 
 const SidebarItem = ({ item }) => {
-  const { appState } = useSelector((state) => state.appState);
+  const appState = useSelector((state) => state.appState);
   const { t } = useTranslation();
 
   return item.sidebarProps && item.path ? (
@@ -20,14 +20,16 @@ const SidebarItem = ({ item }) => {
           appState === item.state ? colorConfigs.sidebar.activeBg : "unset",
         paddingY: "12px",
         paddingX: "24px",
-      }}>
+      }}
+    >
       <ListItemIcon
         sx={{
           color: colorConfigs.sidebar.color,
-        }}>
+        }}
+      >
         {item.sidebarProps.icon && item.sidebarProps.icon}
       </ListItemIcon>
-      <a className="text-slate-400 text-sm">
+      <a className="text-slate-400 text-sm ">
         {t(item.sidebarProps.displayText)}
       </a>
     </ListItemButton>

@@ -129,32 +129,30 @@ function CreateUser({ setModelOpen, data }) {
               />
             </div>
           </div>
-          <div className=" w-full  flex md:flex-row flex-col md:space-x-20 mt-5 rtl:space-x-reverse">
-            <div className=" md:w-1/2 w-full space-y-5">
-              <InputField
-                id="firstName"
-                heading={t("Product Level")}
-                value={level}
-                onChange={(e) => setLevel(e)}
-              />
-              <InputField
-                heading={t("Customer DBR")}
-                value={dbr}
-                onChange={(e) => setDbr(e)}
-              />
-            </div>
-            <div className="md:w-1/2 w-full md:mt-0 mt-3 space-y-5">
-              <InputField
-                heading={t("GDBR (Without MTG)")}
-                value={gdbrWithout}
-                onChange={(e) => setGdbrWithout(e)}
-              />
-              <InputField
-                heading={t("GDBR (Include MTG)")}
-                value={gdbrInclude}
-                onChange={(e) => setGdbrInclude(e)}
-              />
-            </div>
+          <div className="flex flex-row w-full space-x-8 mt-5">
+            <InputField
+              id="firstName"
+              heading={t("Product Level")}
+              value={level}
+              onChange={(e) => setLevel(e)}
+            />
+            <InputField
+              heading={t("Customer DBR")}
+              value={dbr}
+              onChange={(e) => setDbr(e)}
+            />
+          </div>
+          <div className="flex flex-row w-full space-x-8 mt-5">
+            <InputField
+              heading={t("GDBR (Without MTG)")}
+              value={gdbrWithout}
+              onChange={(e) => setGdbrWithout(e)}
+            />
+            <InputField
+              heading={t("GDBR (Include MTG)")}
+              value={gdbrInclude}
+              onChange={(e) => setGdbrInclude(e)}
+            />
           </div>
 
           <div className="flex flex-row justify-end mt-10 mb-5 px-14">

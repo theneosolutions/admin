@@ -158,7 +158,7 @@ function AllPolicies() {
         action1={() => setModelOpen(!modelOpen)}
       >
         <a className=" text-xl text-gray-800 ">
-          {t("Are you sure to delete ?")}
+          {t("Are you sure you want to delete ?")}
           <span className="font-semibold"> Ali Imtayaz</span>
         </a>
       </Model>

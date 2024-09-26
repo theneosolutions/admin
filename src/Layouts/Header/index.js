@@ -15,7 +15,6 @@ import { useDispatch, useSelector } from "react-redux";
 function Header({ isOpen, toggleSidebar, className }) {
   const { t } = useTranslation();
   const user = useSelector((state) => state?.user);
-  console.log("state user", user);
 
   return (
     <div
