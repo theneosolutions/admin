@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { BankCreate, DeleteBank, GetBankList } from "Services/OtherApis";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
@@ -10,6 +10,7 @@ function Disbursement() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const ACCOUNT_TYPE = "SEULAH_LOAN";
+  const formRef = useRef(null); // Ref for the form
 
   const {
     register,
@@ -109,82 +110,95 @@ function Disbursement() {
     });
   }
 
+  const triggerSubmit = () => {
+    if (isValid) {
+      handleSubmit(onSubmit)(); // Programmatically trigger form submit
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="justify-center flex items-center mt-20">
-        <div className="shadow-lg items-center justify-center flex flex-col w-8/12 px-14 py-6 rounded-xl max-w-[600px]">
-          <div className="flex flex-row justify-center items-center text-center w-full">
-            <a className="text-2xl font-semibold">
-              {t("Disbursement Account")}
-            </a>
-          </div>
-          <div className="w-full space-y-4 pt-10 pb-10">
-            <InputTitle
-              disabled={disable}
-              title="Account Title"
-              name="title"
-              register={register}
-              errors={errors}
-              required
-            />
-            <Input
-              disabled={disable}
-              title="Account Number"
-              name="accountNumber"
-              register={register}
-              errors={errors}
-              required
-            />
-            <InputIBAN
-              disabled={disable}
-              title="IBAN"
-              name="iban"
-              register={register}
-              errors={errors}
-              required
-            />
-          </div>
-          <div className="space-x-10 rtl:space-x-reverse flex flex-row">
-            <button
-              type={!disable && isValid ? "submit" : "button"}
-              disabled={!isValid || disable}
-              className={`${
-                disable || !isValid
-                  ? "bg-gray-400"
-                  : "bg-primary cursor-pointer duration-300 hover:bg-opacity-85"
-              }  w-44 text-center text-white py-2 rounded-lg mb-4  `}
-            >
-              {t("Save")}
-            </button>
-            <div
-              onClick={() => (disable ? setModelOpen(true) : null)}
-              className={`${
-                !disable
-                  ? "bg-red-300"
-                  : " bg-red-400 duration-300 hover:bg-opacity-85 cursor-pointer"
-              }   w-44 text-center text-white py-2 rounded-lg mb-4   `}
-            >
-              {t("Delete")}
+    <div className="w-full items-center justify-center flex  mt-14">
+      <div className="shadow-lg items-center justify-center flex flex-col w-8/12 px-14 py-6 rounded-xl max-w-[600px]  bg-white">
+        <form ref={formRef} className="w-full max-w-[600px]">
+          <div className="">
+            <div className="flex flex-row justify-center items-center text-center w-full">
+              <a className="text-2xl font-semibold">
+                {t("Disbursement Account")}
+              </a>
+            </div>
+            <div className="w-full space-y-4 pt-10 pb-10">
+              <InputTitle
+                disabled={disable}
+                title="Account Title"
+                name="title"
+                register={register}
+                errors={errors}
+                required
+              />
+              <Input
+                disabled={disable}
+                title="Account Number"
+                name="accountNumber"
+                register={register}
+                errors={errors}
+                required
+              />
+              <InputIBAN
+                disabled={disable}
+                title="IBAN"
+                name="iban"
+                register={register}
+                errors={errors}
+                required
+              />
             </div>
           </div>
+        </form>
+
+        {/* Buttons are now outside the form */}
+        <div className="flex flex-row rtl:space-x-reverse mt-4 space-x-10">
+          <button
+            type="button" // Prevent form submission on save button
+            disabled={!isValid || disable}
+            onClick={triggerSubmit} // Trigger submit programmatically
+            className={`${
+              disable || !isValid
+                ? "bg-gray-400"
+                : "bg-primary cursor-pointer duration-300 hover:bg-opacity-85"
+            } w-44 text-center text-white py-2 rounded-lg mb-4`}
+          >
+            {t("Save")}
+          </button>
+          <button
+            type="button" // Prevent form submission on delete button
+            onClick={() => (disable ? setModelOpen(true) : null)}
+            className={`${
+              !disable
+                ? "bg-red-300"
+                : " bg-red-400 duration-300 hover:bg-opacity-85 cursor-pointer"
+            } w-44 text-center text-white py-2 rounded-lg mb-4`}
+          >
+            {t("Delete")}
+          </button>
         </div>
+
+        <Model
+          heading={t("Delete Bank")}
+          isOpen={modelOpen}
+          style="w-1/3"
+          innerStyle="py-10"
+          setState={() => setModelOpen(!modelOpen)}
+          action1Value={t("Cancel")}
+          action2Value={t("Delete")}
+          action2={() => deleteAccount()}
+          action1={() => setModelOpen(!modelOpen)}
+        >
+          <a className=" text-xl text-gray-800 dark:text-white ">
+            {t("Are you sure to delete ?")}
+          </a>
+        </Model>
       </div>
-      <Model
-        heading={t("Delete Bank")}
-        isOpen={modelOpen}
-        style="w-1/3"
-        innerStyle="py-10"
-        setState={() => setModelOpen(!modelOpen)}
-        action1Value={t("Cancel")}
-        action2Value={t("Delete")}
-        action2={() => deleteAccount()}
-        action1={() => setModelOpen(!modelOpen)}
-      >
-        <a className=" text-xl text-gray-800 dark:text-white ">
-          {t("Are you sure to delete ?")}
-        </a>
-      </Model>
-    </form>
+    </div>
   );
 }
 
