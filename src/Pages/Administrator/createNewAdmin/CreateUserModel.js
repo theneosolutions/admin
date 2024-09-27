@@ -48,8 +48,17 @@ function CreateUserModel({ getAllUsers, setModel }) {
         })
       );
     }
+    console.log(number, number.length);
+    if (number.length !== 9) {
+      return dispatch(
+        action.Message({
+          message: "Invalid Mobile Number",
+          open: true,
+          error: true,
+        })
+      );
+    }
     if (!validatePassword()) {
-      console.log("errrororor", role);
       return dispatch(
         action.Message({
           message: "Password does not meet requirements ",
@@ -58,6 +67,7 @@ function CreateUserModel({ getAllUsers, setModel }) {
         })
       );
     }
+
     if (role === "none") {
       return dispatch(
         action.Message({
@@ -67,7 +77,7 @@ function CreateUserModel({ getAllUsers, setModel }) {
         })
       );
     }
-    console.log("validate", role);
+
     dispatch({
       type: "Add_NEW_USER",
       payload: {
@@ -134,12 +144,15 @@ function CreateUserModel({ getAllUsers, setModel }) {
         <div className="flex flex-col ">
           <div className="  w-full space-x-5  flex flex-row">
             <InputField
+              style="w-1/2"
               id="firstName"
               heading={t("First Name")}
               value={firstName}
               onChange={(e) => setFirstName(e)}
             />
+
             <InputField
+              style="w-1/2"
               heading={t("Last Name")}
               value={lastName}
               onChange={(e) => setLastName(e)}
@@ -147,12 +160,14 @@ function CreateUserModel({ getAllUsers, setModel }) {
           </div>
           <div className="  w-full space-x-5 flex flex-row mt-5">
             <InputField
+              style="w-1/2"
               type={"email"}
               heading={t("Email")}
               value={email}
               onChange={(e) => setEmail(e)}
             />
-            <InputField
+            <InputFieldMobile
+              style="w-1/2"
               type="number"
               heading={t("Mobile Number")}
               value={number}
@@ -161,6 +176,7 @@ function CreateUserModel({ getAllUsers, setModel }) {
           </div>
           <div className="  w-full space-x-5  flex flex-row mt-5">
             <InputField
+              style="w-1/2"
               heading={t("User Name")}
               value={username}
               onChange={(e) => setUserName(e)}
@@ -227,7 +243,7 @@ function Select({ heading, value, onChange, data }) {
 
 function Calender({ heading, value, onChange }) {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-1/2">
       <a className="text-sm text-gray-700 dark:text-white">{heading}</a>
 
       <DatePicker
@@ -245,10 +261,10 @@ function Calender({ heading, value, onChange }) {
   );
 }
 
-function InputField({ heading, value, onChange, type }) {
+function InputField({ heading, value, onChange, type, style }) {
   return (
-    <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700 dark:text-white">{heading}</a>
+    <div className={`flex flex-col ${style} `}>
+      <a className="text-sm  text-gray-700 dark:text-white">{heading}</a>
 
       <input
         required={true}
@@ -257,6 +273,37 @@ function InputField({ heading, value, onChange, type }) {
         onChange={(e) => onChange(e.target.value)}
         className="dark:bg-gray-800  dark:text-white  dark:placeholder:text-white border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
       />
+    </div>
+  );
+}
+
+function InputFieldMobile({ heading, value, style, onChange, type }) {
+  const validateMobileNumber = (input) => {
+    const sanitizedValue = input.replace(/\D/g, ""); // Remove non-numeric characters
+    if (sanitizedValue.length <= 9) {
+      onChange(sanitizedValue); // Allow only up to 9 digits
+    } else {
+      onChange(sanitizedValue.slice(0, 9)); // Restrict to 9 digits
+    }
+  };
+
+  return (
+    <div className={`flex flex-col ${style}`}>
+      <label className="text-sm text-gray-700 dark:text-white">{heading}</label>
+
+      <div className="flex flex-row dark:bg-gray-800 dark:text-white dark:placeholder:text-white border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full">
+        <span className="text-gray-600">966</span>
+        <input
+          minLength="9"
+          required={true}
+          type={type || "text"}
+          value={value}
+          onChange={(e) => validateMobileNumber(e.target.value)}
+          className="px-1 outline-none w-28"
+          pattern="\d{9}" // Require exactly 9 digits after the prefix
+          title="Please enter exactly 9 digits after 966"
+        />
+      </div>
     </div>
   );
 }

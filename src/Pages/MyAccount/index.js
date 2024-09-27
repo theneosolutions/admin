@@ -37,7 +37,7 @@ function MyAccount() {
       setName(stateUser?.firstName);
       setEmail(stateUser?.email);
       setLastName(stateUser?.lastName);
-      setMobile(stateUser?.mobileNumber);
+      setMobile(stateUser?.mobileNumber?.replace("966", ""));
       // setUserName(stateUser?.username);
     }
   }, [stateUser]);
@@ -49,7 +49,7 @@ function MyAccount() {
         firstName: name,
         lastName: lastName,
         email: email,
-        mobileNumber: mobile,
+        mobileNumber: "966" + mobile,
       };
       console.log("temp", temp);
       dispatch({
@@ -149,30 +149,38 @@ function InputField({ heading, type, value, disabled, onChange }) {
   );
 }
 
-function InputFieldMobile({
-  heading,
-  type,
-  value,
-  disabled,
-  onChange,
-  validate,
-}) {
+function InputFieldMobile({ heading, value, style, onChange, type, disabled }) {
+  const validateMobileNumber = (input) => {
+    const sanitizedValue = input.replace(/\D/g, ""); // Remove non-numeric characters
+    if (sanitizedValue.length <= 9) {
+      onChange(sanitizedValue); // Allow only up to 9 digits
+    } else {
+      onChange(sanitizedValue.slice(0, 9)); // Restrict to 9 digits
+    }
+  };
+
   return (
-    <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700">{heading}</a>
-      <input
-        onChange={(e) => {
-          const mobileNumber = e.target.value;
-          onChange(mobileNumber);
-          validate(mobileNumber); // Call the validation function
-        }}
-        disabled={disabled}
-        value={value}
-        type={type}
-        className={`rounded-md h-10 py-2 outline-none mt-2 w-full px-3 ${
-          disabled ? "bg-gray-100" : "white border bordr-gray-200"
+    <div className={`flex flex-col ${style}`}>
+      <label className="text-sm text-gray-700 dark:text-white">{heading}</label>
+
+      <div
+        className={`flex flex-row  border rounded-md px-3 py-1.5 outline-none mt-2 w-full ${
+          disabled ? "bg-gray-100" : "bg-white dark:bg-gray-800 dark:text-white"
         }`}
-      />
+      >
+        <span className="text-gray-600">966</span>
+        <input
+          disabled={disabled}
+          minLength="9"
+          required={true}
+          type={type || "text"}
+          value={value}
+          onChange={(e) => validateMobileNumber(e.target.value)}
+          className="px-1 outline-none w-full"
+          pattern="\d{9}" // Require exactly 9 digits after the prefix
+          title="Please enter exactly 9 digits after 966"
+        />
+      </div>
     </div>
   );
 }

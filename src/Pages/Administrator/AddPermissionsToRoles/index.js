@@ -31,6 +31,7 @@ function AddPermissionsToRoles() {
   };
 
   const handleParentChange = (module) => {
+    console.log("helooooooo", module);
     setSelectedItems((prevSelectedItems) => {
       const isSelected = prevSelectedItems.some(
         (item) => item.id === module.id
@@ -40,10 +41,13 @@ function AddPermissionsToRoles() {
         // If the module is already selected, remove it
         return prevSelectedItems.filter((item) => item.id !== module.id);
       } else {
+        const filteredSubMenus = (module.subMenus || []).filter(
+          (subMenu) => ![19, 20, 21].includes(subMenu.id)
+        );
         // Add the module along with its submenus if not already selected
         return [
           ...prevSelectedItems,
-          { ...module, subMenus: module.subMenus || [] },
+          { ...module, subMenus: filteredSubMenus },
         ];
       }
     });
