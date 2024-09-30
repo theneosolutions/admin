@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { TransferRajhi } from "Services/OtherApis";
 import * as action from "Services/redux/reducer";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
+import withAuthorization from "constants/authorization";
 
 function LaonApplication() {
   const { t } = useTranslation();
@@ -419,7 +420,7 @@ function LaonApplication() {
     </div>
   );
 }
-export default LaonApplication;
+export default withAuthorization(LaonApplication);
 
 function Button({ value, icon, active, setActive }) {
   return (

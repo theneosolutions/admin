@@ -80,9 +80,11 @@ function App() {
             />
             <Route path="/add-Product" element={<AddNewProduct />} />
             <Route path="/add-sms" element={<AddSms />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </MainTemplate>

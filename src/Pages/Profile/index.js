@@ -14,6 +14,7 @@ import UserInfo from "./Tabs/userInfo";
 import { useTranslation } from "react-i18next";
 import { ResetFailedAttemps } from "Services/OtherApis";
 import * as action from "Services/redux/reducer";
+import withAuthorization from "constants/authorization";
 
 function Template() {
   const dispatch = useDispatch();
@@ -149,7 +150,7 @@ function Template() {
     </div>
   );
 }
-export default Template;
+export default withAuthorization(Template);
 
 const data = [
   {

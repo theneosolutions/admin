@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import * as action from "../../Services/redux/reducer";
 import { useDispatch } from "react-redux";
 import { Model, Avatar } from "Components";
+import withAuthorization from "constants/authorization";
 
 function Disbursement() {
   const dispatch = useDispatch();
@@ -202,7 +203,7 @@ function Disbursement() {
   );
 }
 
-export default Disbursement;
+export default withAuthorization(Disbursement);
 
 function InputTitle({ title, name, register, errors, disabled }) {
   const { t } = useTranslation();

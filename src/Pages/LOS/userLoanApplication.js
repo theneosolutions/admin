@@ -8,6 +8,7 @@ import moment from "moment";
 import { useEffect } from "react";
 import LoanForm from "Components/loanForms";
 import { useTranslation } from "react-i18next";
+import withAuthorization from "constants/authorization";
 
 function LaonApplication() {
   const { t } = useTranslation();
@@ -189,7 +190,7 @@ function LaonApplication() {
     </div>
   );
 }
-export default LaonApplication;
+export default withAuthorization(LaonApplication);
 function ShowValues({ keyValue, value, bold }) {
   return (
     <div className="flex flex-row my-2">

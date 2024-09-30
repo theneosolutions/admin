@@ -6,6 +6,7 @@ import CardMain from "../../Components/Cards/main";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { getLanguage } from "functions/getLanguage";
+import withAuthorization from "constants/authorization";
 
 function CreateQuestionsSet() {
   const { t } = useTranslation();
@@ -69,4 +70,4 @@ function CreateQuestionsSet() {
   );
 }
 
-export default CreateQuestionsSet;
+export default withAuthorization(CreateQuestionsSet);

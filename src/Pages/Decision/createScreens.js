@@ -10,6 +10,7 @@ import { CheckQuestionStatusInScreen } from "Services/OtherApis";
 import { MdDeleteOutline } from "react-icons/md";
 import { getLanguage } from "functions/getLanguage";
 import Model2 from "Components/Model2";
+import withAuthorization from "constants/authorization";
 
 function CreateQuestionsSet() {
   const { t } = useTranslation();
@@ -342,4 +343,4 @@ function CreateQuestionsSet() {
   );
 }
 
-export default CreateQuestionsSet;
+export default withAuthorization(CreateQuestionsSet);

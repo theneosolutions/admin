@@ -4,6 +4,7 @@ import { Button } from "Components";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import * as action from "Services/redux/reducer";
+import withAuthorization from "constants/authorization";
 function CreateAddSMS({ setModelOpen, selectedData }) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -42,8 +43,11 @@ function CreateAddSMS({ setModelOpen, selectedData }) {
           },
         });
       }
+      // setTimeout(() => {
+      //   setModelOpen(false);
+      // }, 500);
 
-      setTimeout(() => setModelOpen(false), 500);
+      // setTimeout(() => , 500);
     } else {
       dispatch(
         action.Message({
@@ -107,7 +111,7 @@ function CreateAddSMS({ setModelOpen, selectedData }) {
     </div>
   );
 }
-export default CreateAddSMS;
+export default withAuthorization(CreateAddSMS);
 
 function Select({ heading, value, onChange, data }) {
   const { t } = useTranslation();

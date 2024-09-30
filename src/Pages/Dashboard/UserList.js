@@ -167,7 +167,7 @@ function App() {
   );
 }
 
-export default withAuthorization(App, CODE.OVERVIEW_ACCOUNT);
+export default withAuthorization(App);
 
 function ActionCenter({ icon, heading, des }) {
   return (

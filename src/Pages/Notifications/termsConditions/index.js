@@ -41,4 +41,4 @@ function TermsConditions() {
     </div>
   );
 }
-export default withAuthorization(TermsConditions, "terms_and_conditions");
+export default withAuthorization(TermsConditions);

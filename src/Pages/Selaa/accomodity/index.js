@@ -144,4 +144,4 @@ function Accomodity() {
     </div>
   );
 }
-export default withAuthorization(Accomodity, "seela_commodity");
+export default withAuthorization(Accomodity);

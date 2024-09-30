@@ -105,9 +105,10 @@ function AllUsers() {
                   </td>
                   <td className="px-3">{v?.wallet}</td>
                   <td className="px-3">
-                    {console.log("v?.ownershipFileUrl", v?.ownershipFileUrl)}
                     <div
-                      onClick={() => window.open(v?.ownershipFileUrl, "_blank")}
+                      onClick={() =>
+                        window.open(v?.ownershipFileUrl, "_blank", "noopener")
+                      }
                       className="w-max px-3 py-1 rounded-md text-white bg-green-500 cursor-pointer hover:opacity-80 duration-200"
                     >
                       {t("Owner Ship File")}
@@ -122,4 +123,4 @@ function AllUsers() {
     </div>
   );
 }
-export default withAuthorization(AllUsers, "seela_transaction");
+export default withAuthorization(AllUsers);

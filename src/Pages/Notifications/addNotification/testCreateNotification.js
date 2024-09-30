@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 
 import TextEditor from "./textEditor";
+import withAuthorization from "constants/authorization";
 function CreateUser() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -140,7 +141,7 @@ function CreateUser() {
     </div>
   );
 }
-export default CreateUser;
+export default withAuthorization(CreateUser);
 
 function Select({ heading, value, onChange, data }) {
   const { t } = useTranslation();

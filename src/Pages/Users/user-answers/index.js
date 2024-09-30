@@ -3,6 +3,7 @@ import CardMain from "Components/Cards/main";
 import { useTranslation } from "react-i18next";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import withAuthorization from "constants/authorization";
 
 function App() {
   const dispatch = useDispatch();
@@ -92,4 +93,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthorization(App);

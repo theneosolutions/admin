@@ -205,7 +205,7 @@ function LaonApplication() {
   );
 }
 
-export default withAuthorization(LaonApplication, "loan_applications");
+export default withAuthorization(LaonApplication);
 
 function Notifications({ heading, value, color, onClick, active }) {
   return (

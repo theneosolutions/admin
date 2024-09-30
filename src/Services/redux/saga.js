@@ -1221,13 +1221,13 @@ function* LogoutUser({ payload }) {
       axiosInstance.post,
       baseUrlUser + `/user/signout?userId=${payload}`
     );
+    localStorage.removeItem("user");
+    window.location.href = "/login";
     yield put(
       action.Auth({ user: null, islogin: false, role: null, token: null })
     );
-
-    localStorage.removeItem("user");
-    window.location.href = "/login";
     yield put(action.Loading({ Loading: false }));
+
     yield put(
       action.Message({
         message: response1.data.message,
@@ -1235,6 +1235,7 @@ function* LogoutUser({ payload }) {
         error: false,
       })
     );
+    console.log("helo%%%%%%%%%%%%%%%%");
   } catch (error) {
     yield put(action.Loading({ Loading: false }));
     const message = error.response.data.message;

@@ -119,11 +119,11 @@ function NotificationsScreen() {
         >
           <AddSms
             selectedData={selectedData}
-            setModelOpen={(e) => (setModelOpen(e), getAllSmsOtp())}
+            setModelOpen={(e) => console.log("helo", e)}
           />
         </Model2>
       ) : null}
     </div>
   );
 }
-export default withAuthorization(NotificationsScreen, "add_sms");
+export default withAuthorization(NotificationsScreen);

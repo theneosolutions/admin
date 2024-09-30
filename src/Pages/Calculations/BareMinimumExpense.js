@@ -148,7 +148,4 @@ function BareMinimumExpense() {
     </div>
   );
 }
-export default withAuthorization(
-  BareMinimumExpense,
-  "calculations_bare_minimum_expenses"
-);
+export default withAuthorization(BareMinimumExpense);

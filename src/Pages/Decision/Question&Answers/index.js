@@ -117,4 +117,4 @@ function App() {
     </div>
   );
 }
-export default withAuthorization(App, "questions");
+export default withAuthorization(App);

@@ -170,7 +170,7 @@ function App() {
   );
 }
 
-export default withAuthorization(App, "customers_dashboard");
+export default withAuthorization(App);
 
 function ActionCenter({ icon, heading, des, image }) {
   return (

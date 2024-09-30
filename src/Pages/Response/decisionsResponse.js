@@ -228,7 +228,7 @@ function CreateUser() {
     </div>
   );
 }
-export default withAuthorization(CreateUser, "notifications_dashboard");
+export default withAuthorization(CreateUser);
 function InputField({ heading, value, onChange, type, style }) {
   const { t } = useTranslation();
 

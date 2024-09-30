@@ -290,7 +290,4 @@ function AddPermissionsToRoles() {
   );
 }
 
-export default withAuthorization(
-  AddPermissionsToRoles,
-  "assign_permissions_to_roles"
-);
+export default withAuthorization(AddPermissionsToRoles);

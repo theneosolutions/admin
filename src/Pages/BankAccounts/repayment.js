@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import * as action from "../../Services/redux/reducer";
 import { useDispatch } from "react-redux";
 import { Model, Avatar } from "Components";
+import withAuthorization from "constants/authorization";
 
 function Repayment() {
   const dispatch = useDispatch();
@@ -200,7 +201,7 @@ function Repayment() {
   );
 }
 
-export default Repayment;
+export default withAuthorization(Repayment);
 
 // Input Components
 function InputTitle({ title, name, register, errors, disabled }) {

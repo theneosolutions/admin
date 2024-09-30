@@ -3,6 +3,7 @@ import CardMain from "../../Components/Cards/main";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import withAuthorization from "constants/authorization";
 
 function App() {
   const { t } = useTranslation();
@@ -166,7 +167,7 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthorization(App);
 function Fees({
   processingFee,
   vatFee,

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
+import withAuthorization from "constants/authorization";
 function AllUsers() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -164,4 +165,4 @@ function AllUsers() {
     </div>
   );
 }
-export default AllUsers;
+export default withAuthorization(AllUsers);

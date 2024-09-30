@@ -179,7 +179,7 @@ function CreateQuestionsSet() {
   );
 }
 
-export default withAuthorization(CreateQuestionsSet, "create_set");
+export default withAuthorization(CreateQuestionsSet);
 
 function InputField({ name, setName, placeholder }) {
   const { t } = useTranslation();

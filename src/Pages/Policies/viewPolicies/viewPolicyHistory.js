@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "Components";
 import { CODE } from "constants/codes";
+import withAuthorization from "constants/authorization";
 function ViewPolicyHistory() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -190,4 +191,4 @@ function ViewPolicyHistory() {
     </div>
   );
 }
-export default ViewPolicyHistory;
+export default withAuthorization(ViewPolicyHistory);

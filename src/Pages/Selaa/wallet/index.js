@@ -98,7 +98,7 @@ function Wallet() {
     </div>
   );
 }
-export default withAuthorization(Wallet, "seela_wallet");
+export default withAuthorization(Wallet);
 function InputField({ heading, value, onChange, type }) {
   return (
     <div className="flex flex-col w-full">

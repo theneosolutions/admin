@@ -142,4 +142,4 @@ function AllUsers() {
     </div>
   );
 }
-export default withAuthorization(AllUsers, "seela_history");
+export default withAuthorization(AllUsers);

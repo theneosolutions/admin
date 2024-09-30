@@ -262,4 +262,4 @@ function VerifiedUsers() {
   );
 }
 
-export default withAuthorization(VerifiedUsers, "verified_customers");
+export default withAuthorization(VerifiedUsers);

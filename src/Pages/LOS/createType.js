@@ -272,4 +272,4 @@ function App() {
   );
 }
 
-export default withAuthorization(App, "create_type");
+export default withAuthorization(App);

@@ -103,4 +103,4 @@ function CreateNewAdmin() {
   );
 }
 
-export default withAuthorization(CreateNewAdmin, "create_admin");
+export default withAuthorization(CreateNewAdmin);

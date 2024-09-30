@@ -294,7 +294,7 @@ const CreateDesicion = () => {
   );
 };
 
-export default withAuthorization(CreateDesicion, "create_decisions");
+export default withAuthorization(CreateDesicion);
 
 function Checboxes({ singleQuestion, checkedValues, setCheckedValues }) {
   const { t } = useTranslation();

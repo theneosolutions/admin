@@ -12,6 +12,7 @@ import generatePDF from "react-to-pdf";
 import { useRef } from "react";
 
 import LoanApplicationForm from "../../Components/loanForms";
+import withAuthorization from "constants/authorization";
 function AllUsers() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -335,4 +336,4 @@ function AllUsers() {
     </div>
   );
 }
-export default AllUsers;
+export default withAuthorization(AllUsers);

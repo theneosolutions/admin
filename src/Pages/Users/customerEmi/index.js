@@ -110,4 +110,4 @@ function VerifiedUsers() {
   );
 }
 
-export default withAuthorization(VerifiedUsers, "customer_emi");
+export default withAuthorization(VerifiedUsers);

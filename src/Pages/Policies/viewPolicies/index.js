@@ -165,4 +165,4 @@ function AllPolicies() {
     </div>
   );
 }
-export default withAuthorization(AllPolicies, "view_policies");
+export default withAuthorization(AllPolicies);

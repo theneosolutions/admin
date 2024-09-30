@@ -149,7 +149,7 @@ function Simah() {
   );
 }
 
-export default withAuthorization(Simah, "simah_dashboard");
+export default withAuthorization(Simah);
 const data = [
   {
     label: "SIMAH Product List",

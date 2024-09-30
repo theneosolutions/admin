@@ -6,10 +6,10 @@ function NotFound() {
       <div className=" text-white">
         <div className="flex h-screen">
           <div className="m-auto text-center">
-            <div>
+            <div className="">
               <svg
                 width="631"
-                height="379"
+                height="250"
                 viewBox="0 0 631 379"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -266,7 +266,7 @@ function NotFound() {
                 </defs>
               </svg>
             </div>
-            <p className="text-sm md:text-base text-yellow-500 p-2 mb-4">
+            <p className="text-sm md:text-base text-yellow-500 p-2 mt-10 mb-4">
               The stuff you were looking for doesn't exist
             </p>
             <a

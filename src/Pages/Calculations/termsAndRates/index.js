@@ -167,4 +167,4 @@ function TermAndRates() {
     </div>
   );
 }
-export default withAuthorization(TermAndRates, "calculations_terms_and_rates");
+export default withAuthorization(TermAndRates);

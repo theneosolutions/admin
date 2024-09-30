@@ -106,7 +106,7 @@ function Awareness() {
     </div>
   );
 }
-export default withAuthorization(Awareness, "awareness_messages");
+export default withAuthorization(Awareness);
 
 function Select({ heading, value, onChange, data, disabled = false }) {
   const { t } = useTranslation();

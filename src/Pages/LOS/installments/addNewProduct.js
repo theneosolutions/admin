@@ -5,6 +5,7 @@ import { Button } from "Components";
 import { RiImageAddLine } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import withAuthorization from "constants/authorization";
 
 function CreateUser() {
   const dispatch = useDispatch();
@@ -142,7 +143,7 @@ function CreateUser() {
     </div>
   );
 }
-export default CreateUser;
+export default withAuthorization(CreateUser);
 
 function InputField({ heading, value, onChange, type }) {
   return (

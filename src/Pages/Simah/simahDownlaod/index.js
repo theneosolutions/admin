@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import * as action from "../../../Services/redux/reducer";
+import withAuthorization from "constants/authorization";
 
 function DownloadPDF() {
   const dispatch = useDispatch();
@@ -124,4 +125,4 @@ function DownloadPDF() {
     </div>
   );
 }
-export default DownloadPDF;
+export default withAuthorization(DownloadPDF);

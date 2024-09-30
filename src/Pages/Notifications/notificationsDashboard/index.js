@@ -97,10 +97,7 @@ function NotificationsScreen() {
     </div>
   );
 }
-export default withAuthorization(
-  NotificationsScreen,
-  "notifications_dashboard"
-);
+export default withAuthorization(NotificationsScreen);
 function Notifications({ heading, value, color }) {
   return (
     <div className="flex font-semibold flex-col bg-gray-300  px-10 py-8 text-center rounded-md md:w-1/4 w-full md:mt-0 mt-4 hover:bg-opacity-70 cursor-pointer shadow-xl duration-300">

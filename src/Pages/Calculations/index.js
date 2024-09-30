@@ -168,4 +168,4 @@ function Calculations() {
     </div>
   );
 }
-export default withAuthorization(Calculations, "calculations_dbr");
+export default withAuthorization(Calculations);

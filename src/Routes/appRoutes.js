@@ -7,6 +7,7 @@ import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { TbMoneybag } from "react-icons/tb";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { AiOutlineCalculator } from "react-icons/ai";
+import NotFound from "Pages/NotFound";
 import DashboardIndex from "../Pages/Dashboard/DashboardIndex";
 import DashboardPageLayout from "../Pages/Dashboard/DashboardPageLayout";
 import UserList from "../Pages/Dashboard/UserList";
@@ -72,7 +73,7 @@ const appRoutes = [
         id: 2,
         code: CODE.OVERVIEW_ACCOUNT,
         index: true,
-        element: <DashboardIndex />,
+        element: <UserList />,
         state: "dashboard.index",
       },
       {
@@ -573,6 +574,10 @@ const appRoutes = [
         },
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ];
 export default appRoutes;

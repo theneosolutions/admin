@@ -268,4 +268,4 @@ function AllUsers() {
     </div>
   );
 }
-export default withAuthorization(AllUsers, "all_customers");
+export default withAuthorization(AllUsers);
