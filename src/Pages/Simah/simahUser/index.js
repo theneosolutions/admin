@@ -16,7 +16,7 @@ import Disclaimer from "./disclaimer";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
-function UserSimah({ active }) {
+function UserSimah({ active, setDownloadButtonDisable }) {
   const dispatch = useDispatch();
   const location = useLocation();
   const [state, setState] = useState();
@@ -35,6 +35,10 @@ function UserSimah({ active }) {
   }, []);
 
   useEffect(() => {
+    if (data?.length > 0) {
+      console.log("data simah", data?.length);
+      setDownloadButtonDisable(false);
+    }
     if (data?.creditInstrumentDetails) {
     }
     if (data?.creditInstrumentDetails && active === "All") {

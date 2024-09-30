@@ -4,7 +4,7 @@ import { Button } from "Components";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-
+import * as action from "Services/redux/reducer";
 function MyAccount() {
   const dispatch = useDispatch();
 
@@ -43,6 +43,15 @@ function MyAccount() {
   }, [stateUser]);
 
   function update() {
+    if (mobile === "" || mobile.length !== 9) {
+      return dispatch(
+        action.Message({
+          message: "Wrong Format of mobile number!",
+          open: true,
+          error: true,
+        })
+      );
+    }
     if (!disabled) {
       var temp = {
         idNumber: user?.idNumber,

@@ -116,18 +116,22 @@ function AllUsers() {
                   </td>
                   <td className="px-3">{v?.transaction?.wallet}</td>
                   <td className="px-3">
-                    <div
-                      onClick={() =>
-                        window.open(
-                          v?.transaction?.ownershipFileUrl,
-                          "_blank",
-                          "noopener"
-                        )
-                      }
-                      className="w-max px-3 py-1 rounded-md text-white bg-green-500 cursor-pointer hover:opacity-80 duration-200"
-                    >
-                      {t("Owner Ship File")}
-                    </div>
+                    {v?.transaction ? (
+                      <div
+                        onClick={() =>
+                          window.open(
+                            v?.transaction?.ownershipFileUrl,
+                            "_blank",
+                            "noopener"
+                          )
+                        }
+                        className="w-max px-3 py-1 rounded-md text-white bg-green-500 cursor-pointer hover:opacity-80 duration-200"
+                      >
+                        {t("Owner Ship File")}
+                      </div>
+                    ) : (
+                      "Not Found"
+                    )}
                   </td>
                 </tr>
               ))}
