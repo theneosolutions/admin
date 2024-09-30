@@ -180,13 +180,13 @@ const appRoutes = [
       icon: <MdOutlineAdminPanelSettings />,
     },
     child: [
-      {
-        id: 10,
-        code: CODE.CREATE_ADMIN,
-        index: true,
-        element: <AddRoles />,
-        state: "admin.index",
-      },
+      // {
+      //   id: 10,
+      //   code: CODE.CREATE_ADMIN,
+      //   index: true,
+      //   element: <AddRoles />,
+      //   state: "admin.index",
+      // },
       {
         id: 10,
         code: CODE.CREATE_ADMIN,
