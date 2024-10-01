@@ -48,7 +48,6 @@ import SelaaWallet from "Pages/Selaa/wallet";
 import AwareNessMessage from "Pages/Notifications/AwarnessMessage";
 import { CODE } from "../constants/codes";
 import BankAccountPageLayout from "Pages/BankAccounts/bankAccountPageLayout";
-
 import Disbursement from "Pages/BankAccounts/disburstment";
 import RepaymentAccount from "Pages/BankAccounts/repayment";
 
@@ -69,13 +68,13 @@ const appRoutes = [
       icon: <GrOverview />,
     },
     child: [
-      {
-        id: 2,
-        code: CODE.OVERVIEW_ACCOUNT,
-        index: true,
-        element: <UserList />,
-        state: "dashboard.index",
-      },
+      // {
+      //   id: 2,
+      //   code: CODE.OVERVIEW_ACCOUNT,
+      //   index: true,
+      //   element: <UserList />,
+      //   state: "dashboard.index",
+      // },
       {
         id: 2,
         code: CODE.OVERVIEW_ACCOUNT,
@@ -99,13 +98,13 @@ const appRoutes = [
       icon: <LuLayoutDashboard />,
     },
     child: [
-      {
-        id: 4,
-        code: CODE.LOAN_APPLICATIONS,
-        index: true,
-        element: <LoanApplications />,
-        state: "applications.index",
-      },
+      // {
+      //   id: 4,
+      //   code: CODE.LOAN_APPLICATIONS,
+      //   index: true,
+      //   element: <LoanApplications />,
+      //   state: "applications.index",
+      // },
       {
         id: 4,
         code: CODE.LOAN_APPLICATIONS,
@@ -129,13 +128,13 @@ const appRoutes = [
       icon: <FaUser />,
     },
     child: [
-      {
-        id: 6,
-        code: CODE.CUSTOMER_DASHBOARD,
-        index: true,
-        element: <UserDashboard />,
-        state: "customers.index",
-      },
+      // {
+      //   id: 6,
+      //   code: CODE.CUSTOMER_DASHBOARD,
+      //   index: true,
+      //   element: <UserDashboard />,
+      //   state: "customers.index",
+      // },
 
       {
         id: 6,
@@ -221,13 +220,13 @@ const appRoutes = [
       icon: <MdOutlineAdminPanelSettings />,
     },
     child: [
-      {
-        id: 13,
-        code: CODE.SEELA_HISTORY,
-        index: true,
-        element: <SelaaHistory />,
-        state: "selaa.index",
-      },
+      // {
+      //   id: 13,
+      //   code: CODE.SEELA_HISTORY,
+      //   index: true,
+      //   element: <SelaaHistory />,
+      //   state: "selaa.index",
+      // },
       {
         id: 13,
         code: CODE.SEELA_HISTORY,
@@ -281,13 +280,13 @@ const appRoutes = [
       icon: <MdOutlineAdminPanelSettings />,
     },
     child: [
-      {
-        id: 18,
-        code: CODE.VIEW_POLICIES,
-        index: true,
-        element: <ViewPolicies />,
-        state: "policies.index",
-      },
+      // {
+      //   id: 18,
+      //   code: CODE.VIEW_POLICIES,
+      //   index: true,
+      //   element: <ViewPolicies />,
+      //   state: "policies.index",
+      // },
       {
         id: 18,
         code: CODE.VIEW_POLICIES,
@@ -311,13 +310,13 @@ const appRoutes = [
       icon: <TbMoneybag />,
     },
     child: [
-      {
-        id: 23,
-        code: CODE.CREATE_TYPE,
-        index: true,
-        element: <LosPageLayout />,
-        state: "los.index",
-      },
+      // {
+      //   id: 23,
+      //   code: CODE.CREATE_TYPE,
+      //   index: true,
+      //   element: <LosPageLayout />,
+      //   state: "los.index",
+      // },
       {
         id: 23,
         code: CODE.CREATE_TYPE,
@@ -351,13 +350,13 @@ const appRoutes = [
       icon: <IoMdCheckboxOutline />,
     },
     child: [
-      {
-        id: 26,
-        code: CODE.QUESTIONS,
-        index: true,
-        element: <QuestionsAnswers />,
-        state: "decisions.index",
-      },
+      // {
+      //   id: 26,
+      //   code: CODE.QUESTIONS,
+      //   index: true,
+      //   element: <QuestionsAnswers />,
+      //   state: "decisions.index",
+      // },
       {
         id: 26,
         code: CODE.QUESTIONS,
@@ -402,13 +401,13 @@ const appRoutes = [
       icon: <IoNotificationsSharp />,
     },
     child: [
-      {
-        id: 30,
-        code: CODE.NOTIFICATIONS_DASHBOARD,
-        index: true,
-        element: <Response />,
-        state: "response.index",
-      },
+      // {
+      //   id: 30,
+      //   code: CODE.NOTIFICATIONS_DASHBOARD,
+      //   index: true,
+      //   element: <Response />,
+      //   state: "response.index",
+      // },
 
       {
         id: 30,
@@ -465,13 +464,13 @@ const appRoutes = [
       icon: <MdOutlineQuestionAnswer />,
     },
     child: [
-      {
-        id: 35,
-        code: CODE.SIMAH_DASHBOARD,
-        index: true,
-        element: <Simah />,
-        state: "simah.index",
-      },
+      // {
+      //   id: 35,
+      //   code: CODE.SIMAH_DASHBOARD,
+      //   index: true,
+      //   element: <Simah />,
+      //   state: "simah.index",
+      // },
       {
         id: 35,
         code: CODE.SIMAH_DASHBOARD,
@@ -495,13 +494,13 @@ const appRoutes = [
       icon: <AiOutlineCalculator />,
     },
     child: [
-      {
-        id: 37,
-        code: CODE.CALCULATIONS_DBR,
-        index: true,
-        element: <Calculations />,
-        state: "calculations.index",
-      },
+      // {
+      //   id: 37,
+      //   code: CODE.CALCULATIONS_DBR,
+      //   index: true,
+      //   element: <Calculations />,
+      //   state: "calculations.index",
+      // },
       {
         id: 37,
         code: CODE.CALCULATIONS_DBR,
@@ -546,13 +545,13 @@ const appRoutes = [
       icon: <MdOutlineQuestionAnswer />,
     },
     child: [
-      {
-        id: 41,
-        code: CODE.DISBURSEMENT_ACCOUNT,
-        index: true,
-        element: <Disbursement />,
-        state: "seulah_bank_details.index",
-      },
+      // {
+      //   id: 41,
+      //   code: CODE.DISBURSEMENT_ACCOUNT,
+      //   index: true,
+      //   element: <Disbursement />,
+      //   state: "seulah_bank_details.index",
+      // },
       {
         id: 41,
         code: CODE.DISBURSEMENT_ACCOUNT,

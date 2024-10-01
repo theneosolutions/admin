@@ -1,19 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
-
 import { GiHamburgerMenu } from "react-icons/gi"; // You can use other icons from react-icons
 import * as action from "../../Services/redux/reducer";
-
-import Alarm from "../../Assets/Images/alarm.svg";
-import Message from "../../Assets/Images/message.svg";
 import Chevron from "../../Assets/Images/chevron.svg";
 import Globe from "../../Assets/Images/globe.svg";
-import SearchIcon from "../../Assets/Images/searchIcon.svg";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 
 function Header({ isOpen, toggleSidebar, className }) {
-  const { t } = useTranslation();
   const user = useSelector((state) => state?.user);
 
   return (
@@ -30,18 +24,10 @@ function Header({ isOpen, toggleSidebar, className }) {
             />
           </div>
         )}
-        <div className=" flex-row items-center space-x-2 rtl:space-x-reverse md:flex hidden">
-          {/* <img src={SearchIcon} />
-          <input
-            placeholder={t("Search")}
-            className="header-input bg-transparent outline-none text-white"
-          /> */}
-        </div>
+        <div className=" flex-row items-center space-x-2 rtl:space-x-reverse md:flex hidden"></div>
       </div>
       <div className="flex flex-row md:space-x-3 space-x-1 rtl:space-x-reverse items-center">
         <div className="flex flex-row md:space-x-3 space-x-1 rtl:space-x-reverse md:px-5 px-1">
-          {/* <Icons icon={Alarm} />
-          <Icons icon={Message} notification={true} /> */}
           <Icons2 icon={Globe} />
         </div>
         <div className="flex flex-row text-sm text-white items-center space-x-3 rtl:space-x-reverse">
@@ -51,10 +37,7 @@ function Header({ isOpen, toggleSidebar, className }) {
               {user?.firstName}
             </a>
           </div>
-          {/* <img
-            className="md:h-10 md:w-10 h-6 w-6 rounded-full border border-white"
-            src="https://e7.pngegg.com/pngimages/304/305/png-clipart-man-with-formal-suit-illustration-web-development-computer-icons-avatar-business-user-profile-child-face.png"
-          />{" "} */}
+
           <Dropdown />
         </div>
       </div>
@@ -168,21 +151,6 @@ const Dropdown = () => {
       type: "LOGOUT_USER",
       payload: user?.id,
     });
-
-    setTimeout(() => {
-      // dispatch(
-      //   action.Auth({
-      //     user: null,
-      //     islogin: false,
-      //     role: null,
-      //     token: null,
-      //   })
-      // );
-
-      // localStorage.removeItem("user");
-      navigate("/login");
-      dispatch(action.Loading({ Loading: false }));
-    }, 500);
   }
 
   return (

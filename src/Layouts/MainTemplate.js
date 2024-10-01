@@ -70,16 +70,6 @@ function MainTemplate({ children }) {
       type: "LOGOUT_USER",
       payload: id,
     });
-    // dispatch(
-    //   action.Auth({
-    //     islogin: false,
-    //     user: null,
-    //     role: null,
-    //     token: null,
-    //   })
-    // );
-    // localStorage.removeItem("user");
-    // window.location.href = "/login";
   }
 
   return (

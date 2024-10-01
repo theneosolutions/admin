@@ -18,7 +18,7 @@ function App() {
   }, [lng, dir]);
 
   LocalesConfig(lng);
-  console.log("languageeee ==== ", lng);
+
   return (
     <Provider store={store}>
       <html dir={dir} className={lng === "ar" && `amiri-regular`}>

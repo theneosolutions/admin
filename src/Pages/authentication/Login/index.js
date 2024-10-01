@@ -11,14 +11,15 @@ import { useTranslation } from "react-i18next";
 import LanguageCom from "Components/LanguageCom";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
-import { CODE } from "../../../constants/codes";
+import appRoutes from "Routes/appRoutes";
+
 function Login() {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [idNumber, setIdNumber] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("Seulah@123");
   const [active, setActive] = useState("login");
   const message = useSelector((state) => state.message);
   const error = useSelector((state) => state.error);
@@ -203,12 +204,6 @@ function Login() {
                 >
                   {t("Sign in")}
                 </button>
-                {/* <p className="space-x-1 rtl:space-x-reverse text-sm font-light text-gray-500 dark:text-gray-400">
-                  <a>{t("Don’t have an account yet?")}</a>
-                  <a className="font-medium text-primary-600 hover:underline dark:text-primary-500">
-                    {t("Sign up")}
-                  </a>
-                </p> */}
               </form>
             </div>
           )}
@@ -225,181 +220,3 @@ function Login() {
   );
 }
 export default Login;
-const appRoutes = [
-  {
-    code: CODE.OVERVIEW,
-    path: "/dashboard",
-
-    child: [
-      {
-        code: CODE.OVERVIEW_ACCOUNT,
-        path: "/dashboard/account",
-      },
-    ],
-  },
-
-  {
-    code: CODE.APPLICATIONS,
-    path: "/applications",
-
-    child: [
-      {
-        code: CODE.LOAN_APPLICATIONS,
-        path: "/applications/loan",
-      },
-    ],
-  },
-
-  {
-    code: CODE.CUSTOMERS,
-    path: "/customers",
-
-    child: [
-      {
-        code: CODE.CUSTOMER_DASHBOARD,
-        path: "/customers/dashboard",
-      },
-      {
-        code: CODE.ALL_CUSTOMERS,
-        path: "/customers/allcustomers",
-      },
-      {
-        code: CODE.VERIFIED_CUSTOMERS,
-        path: "/customers/verified",
-      },
-    ],
-  },
-  {
-    code: CODE.ADMINISTRATOR,
-    path: "/admin",
-
-    child: [
-      {
-        code: CODE.CREATE_ADMIN,
-        path: "/admin/create-admin",
-      },
-      {
-        code: CODE.ASSIGN_PERMISSIONS_TO_ROLE,
-        path: "/admin/add-roles",
-      },
-    ],
-  },
-  {
-    code: CODE.SEELA,
-    path: "/selaa",
-
-    child: [
-      {
-        code: CODE.SEELA_HISTORY,
-        path: "/selaa/history",
-      },
-      {
-        code: CODE.SEELA_TRANSACTION,
-        path: "/selaa/transaction",
-      },
-      {
-        code: CODE.SEELA_COMMODITY,
-        path: "/selaa/commodity",
-      },
-      {
-        code: CODE.SEELA_WALLET,
-        path: "/selaa/wallet",
-      },
-    ],
-  },
-  {
-    code: CODE.POLICIES,
-    path: "/policies",
-
-    child: [
-      {
-        code: CODE.VIEW_POLICIES,
-        path: "/policies/view-policies",
-      },
-    ],
-  },
-  {
-    code: CODE.LOAN_MANAGEMENT,
-    path: "/los",
-    child: [
-      {
-        code: CODE.CREATE_TYPE,
-        path: "/los/create-type",
-      },
-      {
-        code: CODE.CUSTOMER_EMI,
-        path: "/los/emi",
-      },
-    ],
-  },
-  {
-    code: CODE.DECISIONS,
-    path: "/decisions",
-
-    child: [
-      {
-        code: CODE.QUESTIONS,
-        path: "/decisions/q/a",
-      },
-      {
-        code: CODE.CREATE_SET,
-        path: "/decisions/create-set",
-      },
-
-      {
-        code: CODE.CREATE_DECISION,
-        path: "/decisions/create-decision",
-      },
-    ],
-  },
-  {
-    code: CODE.NOTIFICATIONS,
-    path: "/response",
-    child: [
-      {
-        code: CODE.NOTIFICATIONS_DASHBOARD,
-        path: "/response/notifications",
-      },
-      {
-        code: CODE.TERMS_AND_CONDITIONS,
-        path: "/response/term-conditions",
-      },
-      {
-        code: CODE.AWARNESS_MESSAGE,
-        path: "/response/awareness-messages",
-      },
-      {
-        code: CODE.ADD_SMS,
-        path: "/response/sms",
-      },
-    ],
-  },
-  {
-    code: CODE.SIMAH,
-    path: "/simah",
-    child: [
-      {
-        code: CODE.SIMAH_DASHBOARD,
-        path: "/simah/codes",
-      },
-    ],
-  },
-  {
-    code: CODE.CALCULATIONS,
-    path: "/calculations",
-    child: [
-      {
-        code: CODE.CALCULATIONS_DBR,
-        path: "/calculations/dbr",
-      },
-      {
-        code: CODE.CALCULATION_BARE_MINIMUM_EXPENSE,
-        path: "/calculations/bare-minimum-expense",
-      },
-      {
-        code: CODE.CALCULATIONS_TERMS_AND_RATES,
-        path: "/calculations/terms-rates",
-      },
-    ],
-  },
-];

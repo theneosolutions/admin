@@ -103,7 +103,7 @@ function LaonApplication() {
             <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
-                  {t("User Id")}
+                  {t("User")}
                 </th>
                 <th scope="col" className="px-3 py-3 cursor-pointer">
                   {t("Monthly installment")}
