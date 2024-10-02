@@ -292,16 +292,16 @@ function InputFieldMobile({ heading, value, style, onChange, type }) {
       <label className="text-sm text-gray-700 dark:text-white">{heading}</label>
 
       <div className="flex flex-row dark:bg-gray-800 dark:text-white dark:placeholder:text-white border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full">
-        <span className="text-gray-600">966</span>
+        <span className="text-gray-600 dark:text-gray-300">+966</span>
         <input
           minLength="9"
           required={true}
           type={type || "text"}
           value={value}
           onChange={(e) => validateMobileNumber(e.target.value)}
-          className="px-1 outline-none w-28"
+          className="px-1 outline-none w-28  dark:bg-gray-800 "
           pattern="\d{9}" // Require exactly 9 digits after the prefix
-          title="Please enter exactly 9 digits after 966"
+          title="Please enter exactly 9 digits after +966"
         />
       </div>
     </div>

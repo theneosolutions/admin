@@ -50,7 +50,7 @@ function CreateUser({ getTerms }) {
                 </div>
               </div>
               <div className="flex flex-row justify-end mt-20">
-                <div className="flex flex-row space-x-4">
+                <div className="flex flex-row space-x-4 rtl:space-x-reverse">
                   <Button
                     onButtonClick={() => setEdit(false)}
                     type="button"
@@ -74,7 +74,7 @@ function CreateUser({ getTerms }) {
             width="w-full"
             heading={conditions?.title}
             showButton
-            buttonValue="Edit"
+            buttonValue={t("Edit")}
             onButtonClick={() => (
               setDescription(conditions?.desc), setEdit(true)
             )}

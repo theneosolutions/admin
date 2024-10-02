@@ -423,6 +423,13 @@ export default {
   "Add SMS And OTP": "إضافة رسالة جديدة أو رمز تحقق",
   Username: "اسم المستخدم",
   "Delete Account Details": "حذف تفاصيل الحساب",
+  "Save Changes": "حفظ التغييرات",
+  "Discard Changes": "تجاهل التغييرات",
+  "": "",
+  "": "",
+  "": "",
+  "": "",
+  "": "",
   "": "",
   "": "",
 };

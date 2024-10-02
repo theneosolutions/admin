@@ -425,6 +425,8 @@ export default {
   "Add SMS And OTP": "Add SMS And OTP",
   Username: "Username",
   "Delete Account Details": "Delete Account Details",
+  "Save Changes": "Save Changes",
+  "Discard Changes": "Discard Changes",
   "": "",
   "": "",
   "": "",

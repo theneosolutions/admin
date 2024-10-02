@@ -170,14 +170,14 @@ function InputFieldMobile({ heading, value, style, onChange, type, disabled }) {
 
   return (
     <div className={`flex flex-col ${style}`}>
-      <label className="text-sm text-gray-700 dark:text-white">{heading}</label>
+      <label className="text-sm text-gray-700 ">{heading}</label>
 
       <div
         className={`flex flex-row  border rounded-md px-3 py-1.5 outline-none mt-2 w-full ${
-          disabled ? "bg-gray-100" : "bg-white dark:bg-gray-800 dark:text-white"
+          disabled ? "bg-gray-100" : "bg-white  "
         }`}
       >
-        <span className="text-gray-600">966</span>
+        <span className="text-gray-600">+966</span>
         <input
           disabled={disabled}
           minLength="9"
@@ -187,7 +187,7 @@ function InputFieldMobile({ heading, value, style, onChange, type, disabled }) {
           onChange={(e) => validateMobileNumber(e.target.value)}
           className="px-1 outline-none w-full"
           pattern="\d{9}" // Require exactly 9 digits after the prefix
-          title="Please enter exactly 9 digits after 966"
+          title="Please enter exactly 9 digits after +966"
         />
       </div>
     </div>
