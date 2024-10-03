@@ -220,8 +220,25 @@ async function DeleteBank(payload) {
   }
 }
 
+async function AsyncCountries(payload) {
+  console.log("Async Couintries", payload);
+  try {
+    const response = await axiosInstance.put(
+      baseUrlLos + `/simah/countries/sync`
+    );
+
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return error.response;
+  }
+}
+
 export {
   // EditBankDetail,
+  AsyncCountries,
   DeleteBank,
   CheckQuestionStatusInScreen,
   UpdateDbr,

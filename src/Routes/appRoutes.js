@@ -28,6 +28,7 @@ import Notifications from "Pages/Notifications/notificationsDashboard";
 import UserDashboard from "Pages/Users/dashboard";
 import TermAndConditions from "Pages/Notifications/termsConditions";
 import Simah from "Pages/Simah/simah";
+import BlackListCountries from "Pages/Simah/blackListCountries";
 import SimahPageLayout from "Pages/Simah/SimahLayout";
 import CalculationsPageLayout from "Pages/Calculations/Layout";
 import Calculations from "Pages/Calculations";
@@ -479,6 +480,16 @@ const appRoutes = [
         state: "simah.codes",
         sidebarProps: {
           displayText: "Simah",
+        },
+      },
+      {
+        id: 43,
+        code: CODE.SIMAH_BLACKLISTED_COIUNTRIES,
+        path: "/simah/blacklist",
+        element: <BlackListCountries />,
+        state: "simah.blacklist",
+        sidebarProps: {
+          displayText: "Black List Countries",
         },
       },
     ],

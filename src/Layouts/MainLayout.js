@@ -31,21 +31,21 @@ const MainLayout = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []); // Empty dependency array means this effect runs only once after initial render
-  useEffect(() => {
-    if (islogin && role && token) {
-      const value = appRoutes.find((item) =>
-        item?.child?.find(
-          (sub) => sub.code === role?.permissions[0]?.subMenus[0]?.code
-        )
-      );
+  // useEffect(() => {
+  //   if (islogin && role && token) {
+  //     const value = appRoutes.find((item) =>
+  //       item?.child?.find(
+  //         (sub) => sub.code === role?.permissions[0]?.subMenus[0]?.code
+  //       )
+  //     );
 
-      if (value?.child[0]?.path) {
-        navigate(value?.child[0]?.path);
-      } else {
-        navigate("/dashboard/account");
-      }
-    }
-  }, [islogin, role, token]);
+  //     if (value?.child[0]?.path) {
+  //       navigate(value?.child[0]?.path);
+  //     } else {
+  //       navigate("/dashboard/account");
+  //     }
+  //   }
+  // }, [islogin, role, token]);
   return (
     <div className={` bg-gray-200 flex flex-row fixed w-full `}>
       <Sidebar isOpen={isOpen} toggleSidebar={() => toggleSidebar()} />

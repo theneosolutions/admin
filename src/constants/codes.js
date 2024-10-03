@@ -34,6 +34,7 @@ export const CODE = {
   ADD_SMS: "add_sms",
   SIMAH: "simah",
   SIMAH_DASHBOARD: "simah_dashboard",
+  SIMAH_BLACKLISTED_COIUNTRIES: "simah_blacklisted_countries",
   CALCULATIONS: "calculations",
   CALCULATIONS_DBR: "calculations_dbr",
   CALCULATION_BARE_MINIMUM_EXPENSE: "calculations_bare_minimum_expenses",
