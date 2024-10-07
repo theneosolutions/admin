@@ -221,10 +221,43 @@ async function DeleteBank(payload) {
 }
 
 async function AsyncCountries(payload) {
-  console.log("Async Couintries", payload);
   try {
     const response = await axiosInstance.put(
       baseUrlLos + `/simah/countries/sync`
+    );
+
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return error.response;
+  }
+}
+async function AddBlackListCountry(payload) {
+  console.log("black list Couintries api", payload, User()?.user?.id);
+  try {
+    const response = await axiosInstance.put(
+      baseUrlLos +
+        `/country/${payload.country}/blacklist?blacklistReason=${
+          payload?.discription
+        }&blacklistedById=${User()?.user?.id}`
+    );
+
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return error.response;
+  }
+}
+
+async function DeleteCountryFromBlackList(payload) {
+  console.log("dlete country from balcklist", payload);
+  try {
+    const response = await axiosInstance.put(
+      baseUrlLos + `/country/${payload}/whitelist`
     );
 
     return response.data;
@@ -253,4 +286,20 @@ export {
   UpdatePermissions,
   BankCreate,
   GetBankList,
+  AddBlackListCountry,
+  DeleteCountryFromBlackList,
 };
+function User() {
+  const storage = localStorage.getItem("user");
+  if (storage) {
+    const user = JSON.parse(storage);
+
+    if (user?.data) {
+      return user?.data;
+    } else {
+      return null;
+    }
+  } else {
+    return null;
+  }
+}

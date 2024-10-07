@@ -1961,6 +1961,40 @@ function* SendNotificationSms({ payload }) {
   }
 }
 
+function* GetBlackListCounties() {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlLos + `/country/blacklisted`
+    );
+    console.log("response of blacklist", response);
+
+    yield put(action.GetBlackListCountriesdata(response));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    console.log("error", error);
+  }
+}
+function* GetAllCounties() {
+  try {
+    yield put(action.Loading({ Loading: true }));
+
+    const response = yield call(
+      axiosInstance.get,
+      baseUrlLos + `/simah/countries`
+    );
+    console.log("All Countries", response);
+
+    yield put(action.GetCountriesdata(response));
+
+    yield put(action.Loading({ Loading: false }));
+  } catch (error) {
+    console.log("error", error);
+  }
+}
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -2055,4 +2089,6 @@ export default function* HomeSaga() {
   yield takeLatest("GET_ALL_PERMISSIONS", GetAllPermissions);
   yield takeLatest("GET_ALL_ROLES", GetAllRoles);
   yield takeLatest("GET_PERMISSIONS_OF_ROLE", GetPermissionsOfRole);
+  yield takeLatest("GET_BLACK_LIST_COUNTRIES", GetBlackListCounties);
+  yield takeLatest("GET_ALL_COUNTRIES", GetAllCounties);
 }

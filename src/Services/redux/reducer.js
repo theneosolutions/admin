@@ -62,6 +62,8 @@ const initialState = {
   getNotificationHeadings: [],
   permissions: [],
   userPermissions: [],
+  blackListCountries: [],
+  getCountries: [],
 };
 const Reducer = createSlice({
   name: "seulah",
@@ -293,6 +295,14 @@ const Reducer = createSlice({
       const { data } = action.payload;
       state.userPermissions = data;
     },
+    GetBlackListCountriesdata: (state, action) => {
+      const { data } = action.payload;
+      state.blackListCountries = data;
+    },
+    GetCountriesdata: (state, action) => {
+      const { data } = action.payload;
+      state.getCountries = data;
+    },
   },
 });
 export const {
@@ -353,6 +363,8 @@ export const {
   GetNotificationHeadings,
   GetPermissions,
   GetUserPermissions,
+  GetBlackListCountriesdata,
+  GetCountriesdata,
 } = Reducer.actions;
 
 export default Reducer.reducer;
