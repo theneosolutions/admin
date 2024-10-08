@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
-
-import { useTranslation } from "react-i18next";
 import { Button } from "Components";
 import Model2 from "Components/Model2";
 import AddProductModel from "../addProductModel";
@@ -10,24 +7,25 @@ import withAuthorization from "constants/authorization";
 import AddCountry from "./addCountryModel";
 import { AsyncCountries, DeleteCountryFromBlackList } from "Services/OtherApis";
 import * as action from "Services/redux/reducer";
-
+import { useTranslation } from "react-i18next";
 function BlackListCountries() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [modelOpen, setModelOpen] = useState(false);
 
   const blackListCountries = useSelector((state) => state.blackListCountries);
-  console.log("blackListCountries", blackListCountries);
+
   function reset() {
     setModelOpen(false);
   }
 
   function funcAsyncCountries() {
     AsyncCountries().then((res) => {
-      if (res === "Saved") {
+      console.log("helo", res);
+      if (res.status === 200) {
         dispatch(
           action.Message({
-            message: "Countries Sync Successfully",
+            message: res?.data,
             open: true,
             error: false,
           })
@@ -41,7 +39,6 @@ function BlackListCountries() {
           })
         );
       }
-      console.log("helllo from sync", res);
     });
   }
   useEffect(() => {
@@ -54,10 +51,10 @@ function BlackListCountries() {
   }
   function DeleteCountry(id) {
     DeleteCountryFromBlackList(id).then((res) => {
-      if (res === "Deleted") {
+      if (res.status === 200) {
         dispatch(
           action.Message({
-            message: "Country Deleted Successfully",
+            message: res?.data,
             open: true,
             error: false,
           })
@@ -78,7 +75,7 @@ function BlackListCountries() {
   return (
     <div className="  bg-white  border border-primary w-full rounded-lg mt-4 md:mt-0 p-4">
       <div className="flex flex-row  overflow-x-auto  justify-between items-center">
-        <h1>Black List Countries</h1>
+        <h1>{t("Black List Countries")}</h1>
         <div className="space-x-4">
           <Button
             onButtonClick={() => setModelOpen(true)}
@@ -131,7 +128,7 @@ function BlackListCountries() {
                     onClick={() => DeleteCountry(v?.id)}
                   >
                     <div className="bg-red-500 rounded-md px-4 py-1 text-white text-center items-center w-min hover:bg-opacity-80 cursor-pointer duration-300">
-                      Delete
+                      {t("Delete")}
                     </div>
                   </td>
                 </tr>
@@ -145,7 +142,7 @@ function BlackListCountries() {
         <Model2
           setModelOpen={(e) => setModelOpen(e)}
           reset={() => reset()}
-          heading="Add Country"
+          heading={t("Add Country")}
         >
           <AddCountry
             setModelOpen={(e) => setModelOpen(e)}

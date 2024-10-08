@@ -34,10 +34,10 @@ function CreateUser({ setModelOpen, data, getBlackListCountries }) {
       );
     } else {
       AddBlackListCountry({ country, discription }).then((res) => {
-        if (res === "Saved") {
+        if (res.status === 200) {
           dispatch(
             action.Message({
-              message: "Black List Successfully",
+              message: res?.data,
               open: true,
               error: false,
             })

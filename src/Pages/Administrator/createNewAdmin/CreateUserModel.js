@@ -48,7 +48,7 @@ function CreateUserModel({ getAllUsers, setModel }) {
         })
       );
     }
-    console.log(number, number.length);
+
     if (number.length !== 9) {
       return dispatch(
         action.Message({

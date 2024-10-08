@@ -176,7 +176,6 @@ async function UpdatePermissions(id, permissions) {
 }
 
 async function BankCreate(payload) {
-  console.log("50 50 ", payload);
   try {
     const response = await axiosInstance.post(
       baseUrlLos + `/seulah/bank`,
@@ -205,7 +204,6 @@ async function GetBankList() {
   }
 }
 async function DeleteBank(payload) {
-  console.log("payload  delete", payload);
   try {
     const response = await axiosInstance.delete(
       baseUrlLos + `/seulah/bank?accountType=${payload}`
@@ -226,7 +224,7 @@ async function AsyncCountries(payload) {
       baseUrlLos + `/simah/countries/sync`
     );
 
-    return response.data;
+    return response;
   } catch (error) {
     const message = error.response
       ? error.response.data.message
@@ -235,7 +233,6 @@ async function AsyncCountries(payload) {
   }
 }
 async function AddBlackListCountry(payload) {
-  console.log("black list Couintries api", payload, User()?.user?.id);
   try {
     const response = await axiosInstance.put(
       baseUrlLos +
@@ -244,7 +241,7 @@ async function AddBlackListCountry(payload) {
         }&blacklistedById=${User()?.user?.id}`
     );
 
-    return response.data;
+    return response;
   } catch (error) {
     const message = error.response
       ? error.response.data.message
@@ -254,13 +251,12 @@ async function AddBlackListCountry(payload) {
 }
 
 async function DeleteCountryFromBlackList(payload) {
-  console.log("dlete country from balcklist", payload);
   try {
     const response = await axiosInstance.put(
       baseUrlLos + `/country/${payload}/whitelist`
     );
 
-    return response.data;
+    return response;
   } catch (error) {
     const message = error.response
       ? error.response.data.message
