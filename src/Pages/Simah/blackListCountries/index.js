@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "Components";
+import { Button, Model } from "Components";
 import Model2 from "Components/Model2";
 import AddProductModel from "../addProductModel";
 import withAuthorization from "constants/authorization";
@@ -12,7 +12,8 @@ function BlackListCountries() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [modelOpen, setModelOpen] = useState(false);
-
+  const [modelOpen2, setModelOpen2] = useState(false);
+  const [activeDelete, setActiveDelete] = useState();
   const blackListCountries = useSelector((state) => state.blackListCountries);
 
   function reset() {
@@ -50,7 +51,7 @@ function BlackListCountries() {
     });
   }
   function DeleteCountry(id) {
-    DeleteCountryFromBlackList(id).then((res) => {
+    DeleteCountryFromBlackList(activeDelete).then((res) => {
       if (res.status === 200) {
         dispatch(
           action.Message({
@@ -59,6 +60,7 @@ function BlackListCountries() {
             error: false,
           })
         );
+        setModelOpen2(false);
         getList();
       } else {
         dispatch(
@@ -75,8 +77,8 @@ function BlackListCountries() {
   return (
     <div className="  bg-white  border border-primary w-full rounded-lg mt-4 md:mt-0 p-4">
       <div className="flex flex-row  overflow-x-auto  justify-between items-center">
-        <h1>{t("Black List Countries")}</h1>
-        <div className="space-x-4">
+        <h1>{t("Blacklisted countries")}</h1>
+        <div className="space-x-4 rtl:space-x-reverse">
           <Button
             onButtonClick={() => setModelOpen(true)}
             buttonValue={t("Add Country")}
@@ -125,7 +127,9 @@ function BlackListCountries() {
 
                   <td
                     className="px-3 py-4"
-                    onClick={() => DeleteCountry(v?.id)}
+                    onClick={() => (
+                      setModelOpen2(true), setActiveDelete(v?.id)
+                    )}
                   >
                     <div className="bg-red-500 rounded-md px-4 py-1 text-white text-center items-center w-min hover:bg-opacity-80 cursor-pointer duration-300">
                       {t("Delete")}
@@ -150,6 +154,23 @@ function BlackListCountries() {
           />
         </Model2>
       ) : null}
+
+      <Model
+        heading={t("Delete Country")}
+        isOpen={modelOpen2}
+        style="w-1/3"
+        innerStyle="py-10"
+        setState={() => setModelOpen2(!modelOpen2)}
+        action1Value={t("Cancel")}
+        action2Value={t("Delete")}
+        action2={() => DeleteCountry()}
+        action1={() => setModelOpen2(!modelOpen)}
+      >
+        <a className=" text-xl text-gray-800 dark:text-white">
+          {t("Are you sure to delete this ?")}
+          <span className="font-semibold"> </span>
+        </a>
+      </Model>
     </div>
   );
 }

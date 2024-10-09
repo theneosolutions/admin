@@ -24,7 +24,7 @@ function CreateUser({ setModelOpen, data, getBlackListCountries }) {
   const [discription, setDiscription] = useState("");
 
   function addCountry() {
-    if (discription === "" || country === "none") {
+    if (country === "none") {
       dispatch(
         action.Message({
           message: "All fields are required!",
@@ -110,7 +110,6 @@ function InputField({ heading, value, onChange, type }) {
       <a className="text-sm text-gray-700 dark:text-gray-700">{heading}</a>
 
       <textarea
-        required={true}
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}

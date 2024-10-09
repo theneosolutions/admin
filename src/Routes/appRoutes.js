@@ -489,7 +489,7 @@ const appRoutes = [
         element: <BlackListCountries />,
         state: "simah.blacklist",
         sidebarProps: {
-          displayText: "Black List Countries",
+          displayText: "Blacklisted countries",
         },
       },
     ],

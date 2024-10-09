@@ -233,13 +233,19 @@ async function AsyncCountries(payload) {
   }
 }
 async function AddBlackListCountry(payload) {
+  let temp;
+  if (payload?.discription) {
+    temp = `/country/${payload.country}/blacklist?blacklistReason=${
+      payload?.discription
+    }&blacklistedById=${User()?.user?.id}`;
+  }
+  if (!payload?.discription) {
+    temp = `/country/${payload.country}/blacklist?blacklistedById=${
+      User()?.user?.id
+    }`;
+  }
   try {
-    const response = await axiosInstance.put(
-      baseUrlLos +
-        `/country/${payload.country}/blacklist?blacklistReason=${
-          payload?.discription
-        }&blacklistedById=${User()?.user?.id}`
-    );
+    const response = await axiosInstance.put(baseUrlLos + temp);
 
     return response;
   } catch (error) {
