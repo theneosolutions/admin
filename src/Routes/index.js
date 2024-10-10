@@ -2,11 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainLayout from "../Layouts/MainLayout";
 import { routes } from "./routes";
 import Profile from "Pages/Profile";
-import Applications from "Pages/Applications/Layout";
 import MyAccount from "Pages/MyAccount";
 import Login from "Pages/authentication/Login";
 import ForgetPassword from "Pages/authentication/resetpassword";
-import UserAnswer from "../Pages/Users/user-answers";
 import CreateScreens from "../Pages/Decision/createScreens";
 import CreateLaonTax from "Pages/LOS/CreateTypeTax";
 import ViewScreen from "Pages/Decision/ViewScreens";
@@ -14,13 +12,10 @@ import UserLoanApplications from "Pages/LOS/userLoanApplication";
 import CreateNotification from "Pages/Notifications/addNotification/createNotification";
 import CreateNotificationTest from "Pages/Notifications/addNotification/testCreateNotification";
 import UserProfile from "Pages/Users/userProfile";
-import AddNewProduct from "Pages/LOS/installments/addNewProduct";
-import AddSms from "Pages/Notifications/sms/addSms";
 import MainTemplate from "Layouts/MainTemplate";
 import NotFound from "Pages/NotFound";
 import UserSimah from "Pages/Simah/simahDownlaod";
 import UserEligibility from "Pages/userEligibility";
-import FinanceAmountCalculations from "Pages/financeAmountCalculations";
 import ViewPolicyHistory from "Pages/Policies/viewPolicies/viewPolicyHistory";
 
 function App() {
@@ -35,9 +30,7 @@ function App() {
               element={<Profile />}
             />
             <Route path="/customers/verified/profile" element={<Profile />} />
-            <Route path="/applications" element={<Applications />} />
             <Route path="/my-account" element={<MyAccount />} />
-            <Route path="/user-answers" element={<UserAnswer />} />
             <Route
               path="/decisions/create-set/create-screen"
               element={<CreateScreens />}
@@ -52,11 +45,11 @@ function App() {
               path="/customers/verified/simah/usercodes"
               element={<UserSimah />}
             />
-            <Route path="/user-eligibility" element={<UserEligibility />} />
             <Route
-              path="/finance-amount-calculations"
-              element={<FinanceAmountCalculations />}
+              path="/customers/allcustomers/user-eligibility"
+              element={<UserEligibility />}
             />
+
             <Route
               path="/policies/view-policies/view-policy-history"
               element={<ViewPolicyHistory />}
@@ -78,8 +71,7 @@ function App() {
               path="/applications/loan/user-profile"
               element={<UserProfile />}
             />
-            <Route path="/add-Product" element={<AddNewProduct />} />
-            <Route path="/add-sms" element={<AddSms />} />
+
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="/login" element={<Login />} />

@@ -17,7 +17,7 @@ function CardMain({
 }) {
   return (
     <div
-      className={`dark:bg-white bg-white rounded shadow-sm px-5 py-4 rtl:space-x-reverse  ${width}`}
+      className={` bg-white rounded shadow-sm px-5 py-4 rtl:space-x-reverse  ${width}`}
     >
       {!headerDisable && (
         <div

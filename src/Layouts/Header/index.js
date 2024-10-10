@@ -6,10 +6,12 @@ import Globe from "../../Assets/Images/globe.svg";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useTheme } from "Theme";
+import { MdDarkMode } from "react-icons/md";
+import { MdOutlineDarkMode } from "react-icons/md";
 function Header({ isOpen, toggleSidebar, className }) {
   const user = useSelector((state) => state?.user);
-
+  const { theme, toggleTheme } = useTheme();
   return (
     <div
       className={`px-3 md:px-10 py-4 flex flex-row justify-between  rtl:space-x-reverse ${className} `}
@@ -26,10 +28,26 @@ function Header({ isOpen, toggleSidebar, className }) {
         )}
         <div className=" flex-row items-center space-x-2 rtl:space-x-reverse md:flex hidden"></div>
       </div>
-      <div className="flex flex-row md:space-x-3 space-x-1 rtl:space-x-reverse items-center">
-        <div className="flex flex-row md:space-x-3 space-x-1 rtl:space-x-reverse md:px-5 px-1">
-          <Icons2 icon={Globe} />
+      <div className="flex   flex-row space-x-5 rtl:space-x-reverse items-center">
+        <div className="flex flex-row ">
+          <div className={`relative inline-block text-left`}>
+            <div
+              className="h-6 w-6 md:h-8 md:w-8 cursor-pointer bg-white rounded-full items-center text-center justify-center flex"
+              onClick={toggleTheme}
+            >
+              {theme === "dark" ? (
+                <MdDarkMode className="text-2xl text-gray-600" />
+              ) : (
+                <MdOutlineDarkMode className="text-2xl text-gray-600" />
+              )}
+            </div>
+          </div>
+          {/* <button onClick={toggleTheme}>{theme}</button> */}
+          <div className="flex flex-row md:space-x-3 space-x-1 rtl:space-x-reverse md:px-4 px-1">
+            <Icons2 icon={Globe} />
+          </div>
         </div>
+
         <div className="flex flex-row text-sm text-white items-center space-x-3 rtl:space-x-reverse">
           <div className="flex flex-col items-end">
             <a className="text-xs">{user?.roles[0]?.name}</a>

@@ -72,10 +72,7 @@ function NotificationsScreen() {
             </thead>
             <tbody>
               {getSmsOtp?.map((v, k) => (
-                <tr
-                  key={k}
-                  className="bg-white border-b dark:bg-white dark:border-gray-200"
-                >
+                <tr key={k} className=" border-b  dark:border-gray-200">
                   <td
                     scope="row"
                     className="px-3 py-4  w-1/3 overflow-hidden text-wrap whitespace"

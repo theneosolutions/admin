@@ -33,6 +33,7 @@ function AllPolicies() {
     setModelOpen2(false);
     setSelectedData({});
   }
+  console.log("selectedData", selectedData);
   useEffect(() => {
     if (role) {
       CheckPermission();

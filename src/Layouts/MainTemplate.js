@@ -4,10 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import * as action from "../Services/redux/reducer";
 import { jwtDecode } from "jwt-decode";
 import { Alert, Snackbar } from "@mui/material";
-
+import { useTheme } from "Theme";
 function MainTemplate({ children }) {
   const dispatch = useDispatch();
-
+  const { theme } = useTheme();
   const loading = useSelector((state) => state.Loading);
 
   const message = useSelector((state) => state.message);
@@ -73,7 +73,7 @@ function MainTemplate({ children }) {
   }
 
   return (
-    <div>
+    <div className={theme === "dark" ? "dark" : ""}>
       <WaveAnimation show={loading} />
       <div>{children}</div>
       <Snackbar

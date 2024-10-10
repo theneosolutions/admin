@@ -182,7 +182,9 @@ function AllUsers() {
                   <td className="px-3 py-4">
                     <div
                       onClick={() =>
-                        navigate(`/user-eligibility?user=${v?.id}`)
+                        navigate(
+                          `/customers/allcustomers/user-eligibility?user=${v?.id}`
+                        )
                       }
                       className="  px-3 py-1 w-max rounded-md cursor-pointer  duration-300 bg-blue-400  text-white"
                     >

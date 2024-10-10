@@ -3,7 +3,7 @@ import LocalesConfig from "./Localization/LocalesConfig";
 import { store } from "./Services/redux/store";
 import { Provider } from "react-redux";
 import Routes from "./Routes";
-
+import { ThemeProvider } from "Theme";
 function App() {
   let lng = localStorage.getItem("preferredLanguage");
   let dir = localStorage.getItem("direction");
@@ -20,11 +20,13 @@ function App() {
   LocalesConfig(lng);
 
   return (
-    <Provider store={store}>
-      <html dir={dir} className={lng === "ar" && `amiri-regular`}>
-        <Routes />
-      </html>
-    </Provider>
+    <ThemeProvider>
+      <Provider store={store}>
+        <html dir={dir} className={lng === "ar" && `amiri-regular`}>
+          <Routes />
+        </html>
+      </Provider>
+    </ThemeProvider>
   );
 }
 

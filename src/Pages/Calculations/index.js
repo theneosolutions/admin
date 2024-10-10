@@ -149,7 +149,7 @@ function Calculations() {
         action2={() => DeleteUser()}
         action1={() => setModelOpen2(!modelOpen2)}
       >
-        <a className=" text-xl text-gray-800 ">
+        <a className=" text-xl text-gray-800 dark:text-white ">
           {t("Are you sure to delete this ?")}
         </a>
       </Model>
