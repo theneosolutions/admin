@@ -19,7 +19,7 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [idNumber, setIdNumber] = useState("");
-  const [password, setPassword] = useState("Seulah@123");
+  const [password, setPassword] = useState("");
   const [active, setActive] = useState("login");
   const message = useSelector((state) => state.message);
   const error = useSelector((state) => state.error);
