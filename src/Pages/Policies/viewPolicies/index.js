@@ -10,12 +10,17 @@ import Model2 from "Components/Model2";
 import UpdatePolicy from "./updatePolicy";
 import { Button } from "Components";
 import { CODE } from "constants/codes";
+import UpdateWriteOff from "./updateModel_WriteOff";
+import UpdateModelDelinquency from "./updateModel_Delinquency";
+import PublicNotice from "./updateModel_PublicNotice";
 function AllPolicies() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const [modelWriteOff, setModelWriteOff] = useState(false);
+  const [modelDelinquency, setModelDelinquency] = useState(false);
+  const [modelPublicNotice, setModelPublicNotice] = useState(false);
   const [modelOpen, setModelOpen] = useState(false);
-  const [modelOpen2, setModelOpen2] = useState(false);
   const [selectedData, setSelectedData] = useState();
   const getAllPolicies = useSelector((state) => state.getAllPolicies);
   const role = useSelector((state) => state.role);
@@ -30,7 +35,10 @@ function AllPolicies() {
   }
   function DeleteUser() {}
   function reset() {
-    setModelOpen2(false);
+    setModelOpen(false);
+    setModelWriteOff(false);
+    setModelDelinquency(false);
+    setModelPublicNotice(false);
     setSelectedData({});
   }
   console.log("selectedData", selectedData);
@@ -54,6 +62,33 @@ function AllPolicies() {
       }
     } else {
       setUpdateButton(false);
+    }
+  }
+  function CheckPolicy(v) {
+    if (v?.policyName === "write_off") {
+      setModelWriteOff(true);
+      setModelDelinquency(false);
+      setModelPublicNotice(false);
+      setModelOpen(false);
+      setSelectedData(v);
+    } else if (v?.policyName === "delinquency") {
+      setModelWriteOff(false);
+      setModelDelinquency(true);
+      setModelPublicNotice(false);
+      setModelOpen(false);
+      setSelectedData(v);
+    } else if (v?.policyName === "public_notices") {
+      setModelWriteOff(false);
+      setModelDelinquency(false);
+      setModelPublicNotice(true);
+      setModelOpen(false);
+      setSelectedData(v);
+    } else {
+      setModelWriteOff(false);
+      setModelDelinquency(false);
+      setModelPublicNotice(false);
+      setModelOpen(true);
+      setSelectedData(v);
     }
   }
 
@@ -110,9 +145,7 @@ function AllPolicies() {
                       <Button
                         buttonStyle="font-medium py-1"
                         buttonValue={t("Update")}
-                        onButtonClick={() => (
-                          setModelOpen2(true), setSelectedData(v)
-                        )}
+                        onButtonClick={() => CheckPolicy(v)}
                       />
                     </th>
                   )}
@@ -135,34 +168,61 @@ function AllPolicies() {
           </table>
         </div>
       </CardMain>
-      {modelOpen2 ? (
+      {modelOpen ? (
         <Model2
-          setModelOpen2={(e) => setModelOpen2(e)}
+          setModelOpen={(e) => setModelOpen(e)}
           reset={() => reset()}
           heading={t("Update Policy")}
         >
           <UpdatePolicy
             data={selectedData}
-            setModelOpen={(e) => (setModelOpen2(e), getAllPoliciesFunction())}
+            setModelOpen={(e) => (setModelOpen(e), getAllPoliciesFunction())}
           />
         </Model2>
       ) : null}
-      <Model
-        heading={t("Delete User")}
-        isOpen={modelOpen}
-        style="w-1/3"
-        innerStyle="py-10"
-        setState={() => setModelOpen(!modelOpen)}
-        action1Value={t("Cancel")}
-        action2Value={t("Delete")}
-        action2={() => DeleteUser()}
-        action1={() => setModelOpen(!modelOpen)}
-      >
-        <a className=" text-xl text-gray-800 ">
-          {t("Are you sure you want to delete ?")}
-          <span className="font-semibold"> Ali Imtayaz</span>
-        </a>
-      </Model>
+
+      {modelWriteOff ? (
+        <Model2
+          setModelOpen={(e) => setModelWriteOff(e)}
+          reset={() => reset()}
+          heading={t("Update Policy")}
+        >
+          <UpdateWriteOff
+            data={selectedData}
+            setModelOpen={(e) => (
+              setModelWriteOff(e), getAllPoliciesFunction()
+            )}
+          />
+        </Model2>
+      ) : null}
+      {modelDelinquency ? (
+        <Model2
+          setModelOpen={(e) => setModelDelinquency(e)}
+          reset={() => reset()}
+          heading={t("Update Policy")}
+        >
+          <UpdateModelDelinquency
+            data={selectedData}
+            setModelOpen={(e) => (
+              setModelDelinquency(e), getAllPoliciesFunction()
+            )}
+          />
+        </Model2>
+      ) : null}
+      {modelPublicNotice ? (
+        <Model2
+          setModelOpen={(e) => setModelPublicNotice(e)}
+          reset={() => reset()}
+          heading={t("Update Policy")}
+        >
+          <PublicNotice
+            data={selectedData}
+            setModelOpen={(e) => (
+              setModelPublicNotice(e), getAllPoliciesFunction()
+            )}
+          />
+        </Model2>
+      ) : null}
     </div>
   );
 }
