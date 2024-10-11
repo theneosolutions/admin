@@ -297,6 +297,7 @@ export default {
   max_loan_tenure: "Max Loan Tenure",
   delinquency: "Delinquency",
   write_off: "Write Off",
+  public_notices: "Public Notice",
   price_by_tenure: "السعر حسب المدة",
   "Policy Name": "اسم السياسة",
   "Policy Value": "قيمة السياسة",

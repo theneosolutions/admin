@@ -24,32 +24,51 @@ function CreateUser({ setModelOpen, data }) {
   }
 
   function validatePolicyValue(e) {
-    const inputVal = parseInt(e, 10);
+    const inputVal = e.trim();
 
     // Handle empty input case
-    if (e.trim() === "") {
+    if (inputVal === "") {
       setErrorMessage("This field is required.");
       setFormValid(false);
       return;
     }
 
-    // Check if the data type requires numeric input and validate accordingly
-    if (data?.policyDataType === "INTEGER" && isNaN(inputVal)) {
-      setErrorMessage("Please enter a valid number.");
-      setFormValid(false);
-      return;
+    let numericValue;
+    switch (data?.policyDataType) {
+      case "INTEGER":
+        numericValue = parseInt(inputVal, 10);
+        if (isNaN(numericValue) || inputVal.includes(".")) {
+          // Checks for non-integers (e.g., decimals)
+          setErrorMessage("Please enter a valid integer.");
+          setFormValid(false);
+          return;
+        }
+        break;
+      case "DOUBLE":
+        numericValue = parseFloat(inputVal);
+        if (String(numericValue) !== inputVal) {
+          // Ensure parsed value matches the input to exclude non-numeric strings
+          setErrorMessage("Please enter a valid number.");
+          setFormValid(false);
+          return;
+        }
+        break;
+      default:
+        // For STRING or any other types, all inputs are valid
+        numericValue = inputVal; // Direct assignment as validation is irrelevant for strings
+        break;
     }
 
-    const referenceVal = parseInt(data?.policyReferenceValue, 10);
-    if (
-      (data?.policyName === "min_age" && inputVal < referenceVal) ||
-      (data?.policyName === "max_age" && inputVal > referenceVal)
-    ) {
-      setErrorMessage(
-        `Value must be ${
-          data?.policyName === "min_age" ? "at least" : "no more than"
-        } ${referenceVal}.`
-      );
+    // Continue validation if numeric constraints exist
+    const referenceVal = parseFloat(data?.policyReferenceValue);
+    const isMinConstraint = data?.policyName.toLowerCase().includes("min");
+    const isMaxConstraint = data?.policyName.toLowerCase().includes("max");
+
+    if (isMinConstraint && numericValue < referenceVal) {
+      setErrorMessage(`Value must be at least ${referenceVal}.`);
+      setFormValid(false);
+    } else if (isMaxConstraint && numericValue > referenceVal) {
+      setErrorMessage(`Value must be no more than ${referenceVal}.`);
       setFormValid(false);
     } else {
       setErrorMessage("");
@@ -108,14 +127,14 @@ function CreateUser({ setModelOpen, data }) {
             <InputField
               disabled={true}
               heading={t("Policy Name")}
-              value={policyName}
+              value={t(policyName)}
               onChange={(e) => setPolicyName(e)}
               style="text-gray-500"
             />
             <InputField
               type={data?.policyDataType === "INTEGER" ? "number" : ""}
               heading={t("Policy Value")}
-              value={policyValue}
+              value={t(policyValue)}
               onChange={(e) => handleChange(e.target.value)}
               errorMessage={errorMessage}
             />
