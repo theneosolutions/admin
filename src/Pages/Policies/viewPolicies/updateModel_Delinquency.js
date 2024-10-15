@@ -1,76 +1,110 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "Components";
 import { useTranslation } from "react-i18next";
-import * as action from "Services/redux/reducer";
+import { AiOutlineDelete } from "react-icons/ai";
+import { UpdatePolicyOther } from "Services/OtherApis";
 import { useDispatch, useSelector } from "react-redux";
+import * as action from "Services/redux/reducer";
 
-function WriteOffModel({ setModelOpen, data }) {
-  const dispatch = useDispatch();
+function DelinquencyModel({ setModelOpen, data, viewMode }) {
   const { t } = useTranslation();
-  const message = useSelector((state) => state.message);
-  const error = useSelector((state) => state.error);
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-
   const [policyName, setPolicyName] = useState("");
-  const [policyValue, setPolicyValue] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [formValid, setFormValid] = useState(true);
-  const [period, setPeriod] = useState("");
-  const [status, setStatus] = useState("");
-  const [count, setCount] = useState("");
+  const [rows, setRows] = useState([{ period: "", bucket: "", count: "" }]);
+  const [formValid, setFormValid] = useState(false); // Track overall form validity
+  const [errorMessages, setErrorMessages] = useState([]); // Track row-level error messages
+
+  useEffect(() => {
+    if (data?.policyValue) {
+      const temp = JSON.parse(data?.policyValue);
+      setPolicyName(data?.policyName);
+      setRows(temp);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    validateForm();
+  }, [rows]);
+
+  const handleAddRow = () => {
+    if (rows.length < 6) {
+      setRows([...rows, { period: "", bucket: "", count: "" }]);
+    }
+  };
+
+  const handleRemoveRow = (index) => {
+    const newRows = rows.filter((_, idx) => idx !== index);
+    setRows(newRows);
+  };
+
+  const handleSelectChange = (index, field, value) => {
+    const newRows = rows.map((row, idx) => {
+      if (idx === index) {
+        return { ...row, [field]: value };
+      }
+      return row;
+    });
+    setRows(newRows);
+  };
+
+  function validateForm() {
+    const errors = rows.map((row) => {
+      let rowErrors = {};
+      if (!row.period) rowErrors.period = "Period is required.";
+      if (!row.bucket) rowErrors.bucket = "Bucket is required.";
+      if (!row.count || isNaN(row.count) || row.count <= 0)
+        rowErrors.count = "Valid count is required.";
+      return rowErrors;
+    });
+
+    setErrorMessages(errors);
+    const allFieldsValid = errors.every(
+      (error) => Object.keys(error).length === 0
+    );
+    setFormValid(allFieldsValid);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
     if (formValid) {
       UpdatePolicy();
-    }
-  }
-
-  function validatePolicyValue(e) {
-    const inputVal = parseInt(e, 10);
-
-    // Handle empty input case
-    if (e.trim() === "") {
-      setErrorMessage("This field is required.");
-      setFormValid(false);
-      return;
-    }
-
-    // Check if the data type requires numeric input and validate accordingly
-    if (data?.policyDataType === "INTEGER" && isNaN(inputVal)) {
-      setErrorMessage("Please enter a valid number.");
-      setFormValid(false);
-      return;
-    }
-
-    const referenceVal = parseInt(data?.policyReferenceValue, 10);
-    if (
-      (data?.policyName === "min_age" && inputVal < referenceVal) ||
-      (data?.policyName === "max_age" && inputVal > referenceVal)
-    ) {
-      setErrorMessage(
-        `Value must be ${
-          data?.policyName === "min_age" ? "at least" : "no more than"
-        } ${referenceVal}.`
-      );
-      setFormValid(false);
     } else {
-      setErrorMessage("");
-      setFormValid(true);
+      dispatch(
+        action.Message({
+          message: "Please fill all fields correctly before submitting.",
+          open: true,
+          error: true,
+        })
+      );
     }
   }
 
   function UpdatePolicy() {
-    if (policyValue !== "" && user?.id && data?.id) {
-      var temp = {
-        newValue: policyValue,
+    if (user?.id && data?.id) {
+      const temp = {
         policyId: data?.id,
         userId: user?.id,
+        data: rows,
       };
-      dispatch({
-        type: "UPDATE_POLICY",
-        payload: temp,
-      });
+      UpdatePolicyOther(temp).then((res) =>
+        res?.status === 200
+          ? (setModelOpen(false),
+            dispatch(
+              action.Message({
+                message: res?.data?.message,
+                open: true,
+                error: false,
+              })
+            ))
+          : dispatch(
+              action.Message({
+                message: "Error",
+                open: true,
+                error: true,
+              })
+            )
+      );
     } else {
       dispatch(
         action.Message({
@@ -82,97 +116,148 @@ function WriteOffModel({ setModelOpen, data }) {
     }
   }
 
-  useEffect(() => {
-    if (message === "Success" && error === false) {
-      setModelOpen(false);
-    }
-  }, [message, error]);
-
-  useEffect(() => {
-    if (data) {
-      setPolicyName(data?.policyName);
-      setCount(data?.policyValue);
-    }
-  }, [data]);
-
-  function handleChange(e) {
-    setCount(e);
-    // validatePolicyValue(e);
-  }
+  const getAvailableBuckets = (currentIndex) => {
+    const selectedBuckets = new Set(rows.map((row) => row.bucket));
+    return StatusData.filter(
+      (bucket) =>
+        !selectedBuckets.has(bucket.name) ||
+        bucket.name === rows[currentIndex].bucket
+    );
+  };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="items-center justify-center flex flex-col"
+      className="flex flex-col items-center justify-center w-[900px] pb-6"
     >
-      <div className="bg-white rounded shadow-sm rtl:space-x-reverse flex flex-col lg:flex-row w-full lg:w-max lg:px-6 px-4 py-5">
-        <div className="md:w-80 flex flex-col">
-          <div className="w-full space-y-5">
+      <div className="flex flex-col lg:flex-row w-full px-4 py-5 lg:px-6 space-y-5 rtl:space-x-reverse">
+        <div className="w-full">
+          <div className="flex flex-row justify-between">
             <InputField
               disabled={true}
               heading={t("Policy Name")}
-              value={t(policyName)}
-              onChange={(e) => setPolicyName(e)}
-              style="text-gray-500"
+              value={policyName}
+              onChange={(e) => setPolicyName(e.target.value)}
+              style="text-gray-500 w-64"
             />
-            <Select
-              data={periods}
-              heading={t("Period")}
-              type="select"
-              value={t(period)}
-              onChange={(e) => setPeriod(e)}
-            />
-
-            <Select
-              data={StatusData}
-              heading={t("Bucket")}
-              type="select"
-              value={t(status)}
-              onChange={(e) => setStatus(e)}
-            />
-            <InputField
-              type={"number"}
-              heading={t("Counts")}
-              value={count}
-              onChange={(e) => handleChange(e.target.value)}
-              errorMessage={errorMessage}
-            />
+            {!viewMode && rows.length < 6 && (
+              <div className="flex justify-between mt-6">
+                <Button
+                  type="button"
+                  buttonValue={"Add New Bucket"}
+                  onButtonClick={handleAddRow}
+                  buttonStyle="py-1 px-0 w-40 h-min"
+                  disabled={rows.length >= 6}
+                />
+              </div>
+            )}
           </div>
-          <Button
-            // type="submit"
-            type="button"
-            buttonValue={data ? t("Update") : t("Submit")}
-            // buttonStyle={`px-20 py-2 w-full mt-14 mb-4 ${
-            //   !formValid ? "opacity-50 cursor-not-allowed" : ""
-            // }`}
-            // disabled={!formValid}
-            disabled={true}
-            buttonStyle={`px-20 py-2 w-full mt-14 mb-4 opacity-50 cursor-not-allowed
-              }`}
-          />
+          <div className="flex flex-row justify-between space-x-8 mt-3">
+            <div className="items-start w-1/4">
+              <a>Period</a>
+            </div>
+            <div className="items-start w-1/4">
+              <a>Bucket</a>
+            </div>
+            <div className="items-start w-1/4">
+              <a>Count</a>
+            </div>
+            <div className="items-start w-1/5">
+              <a>Action</a>
+            </div>
+          </div>
+          {rows.map((row, index) => (
+            <div key={index} className="flex flex-row space-x-4 items-end">
+              <Select
+                disabled={viewMode}
+                data={periods}
+                value={row.period}
+                onChange={(value) => handleSelectChange(index, "period", value)}
+                errorMessage={errorMessages[index]?.period}
+              />
+              <Select
+                disabled={viewMode}
+                data={getAvailableBuckets(index)}
+                value={row.bucket}
+                onChange={(value) => handleSelectChange(index, "bucket", value)}
+                errorMessage={errorMessages[index]?.bucket}
+              />
+              <InputField
+                disabled={viewMode}
+                type="number"
+                value={row.count}
+                onChange={(e) =>
+                  handleSelectChange(index, "count", e.target.value)
+                }
+                style="w-1/4"
+                errorMessage={errorMessages[index]?.count}
+              />
+              {rows.length > 0 && (
+                <div className="w-1/5 items-center justify-center px-5 pb-6">
+                  <AiOutlineDelete
+                    onClick={() =>
+                      rows.length === 1 || viewMode
+                        ? ""
+                        : handleRemoveRow(index)
+                    }
+                    className={`text-2xl mb-1.5 ${
+                      !viewMode && rows.length !== 1
+                        ? "text-red-400 hover:text-red-600 hover:text-3xl cursor-pointer duration-300"
+                        : "text-gray-400"
+                    }`}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+
+          {!viewMode && (
+            <div className="flex w-full items-center justify-center">
+              {" "}
+              <Button
+                type="submit"
+                buttonValue={data ? t("Update") : t("Submit")}
+                buttonStyle={`mt-14 mb-4 w-80 px-20 py-2 ${
+                  !formValid ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                disabled={!formValid} // Disable button if form is not valid
+              />
+            </div>
+          )}
         </div>
       </div>
     </form>
   );
 }
-function Select({ heading, value, onChange, data }) {
+
+export default DelinquencyModel;
+
+function Select({ heading, value, onChange, data, errorMessage, disabled }) {
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col w-full">
-      <a className="text-sm text-gray-700 dark:text-white">{heading}</a>{" "}
+    <div className="flex flex-col w-1/4">
+      <label className="text-sm text-gray-700 dark:text-white">
+        {t(heading)}
+      </label>
       <select
+        disabled={disabled}
         onChange={(e) => onChange(e.target.value)}
         value={value}
         className="dark:text-white border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full dark:bg-gray-800"
       >
-        <option value={"none"}>{t("none")}</option>
+        {value === "" && <option value="">{t("Select")}</option>}
         {data.map((option, index) => (
           <option key={index} value={option.id}>
             {t(option.name)}
           </option>
         ))}
       </select>
+      <div className="h-5">
+        {errorMessage && (
+          <div className="text-red-500 text-xs mt-1">{errorMessage}</div>
+        )}
+      </div>
     </div>
   );
 }
@@ -187,106 +272,35 @@ function InputField({
   errorMessage,
 }) {
   return (
-    <div className="flex flex-col w-full">
+    <div className={`flex flex-col ${style}`}>
       <a className="text-sm text-gray-700">{heading}</a>
       <input
         disabled={disabled}
         type={type}
         value={value}
         onChange={onChange}
-        className={`border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full ${style}`}
+        className="border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full"
       />
-      {errorMessage && (
-        <div className="text-red-500 text-xs mt-1">{errorMessage}</div>
-      )}
+      <div className="h-5">
+        {errorMessage && (
+          <div className="text-red-500 text-xs mt-1">{errorMessage}</div>
+        )}
+      </div>
     </div>
   );
 }
 
-export default WriteOffModel;
-
 const periods = [
-  {
-    id: 1,
-    name: 6,
-  },
-  {
-    id: 2,
-    name: 12,
-  },
-  {
-    id: 3,
-    name: 24,
-  },
-  {
-    id: 4,
-    name: "Latest",
-  },
+  { id: 1, name: 6 },
+  { id: 2, name: 12 },
+  { id: 3, name: 24 },
+  { id: 4, name: "Latest" },
 ];
 const StatusData = [
-  {
-    id: 1,
-    name: "N",
-  },
-  {
-    id: 2,
-    name: "Q",
-  },
-  {
-    id: 3,
-    name: "0",
-  },
-  {
-    id: 4,
-    name: "1",
-  },
-  {
-    id: 5,
-    name: "2",
-  },
-  {
-    id: 6,
-    name: "3",
-  },
-  {
-    id: 7,
-    name: "4",
-  },
-  {
-    id: 8,
-    name: "5",
-  },
-  {
-    id: 9,
-    name: "6",
-  },
-  {
-    id: 10,
-    name: "W",
-  },
-
-  {
-    id: 11,
-    name: "F",
-  },
-  {
-    id: 12,
-    name: "C",
-  },
-  {
-    id: 13,
-    name: "M",
-  },
-  {
-    id: 14,
-    name: "D",
-  },
-  {
-    id: 15,
-    name: "V",
-  },
-  {
-    id: 16,
-    name: "R",
-  },
+  { id: 1, name: "1" },
+  { id: 2, name: "2" },
+  { id: 3, name: "3" },
+  { id: 4, name: "4" },
+  { id: 5, name: "5" },
+  { id: 6, name: "6" },
 ];

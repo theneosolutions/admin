@@ -271,8 +271,27 @@ async function DeleteCountryFromBlackList(payload) {
   }
 }
 
+async function UpdatePolicyOther(payload) {
+  console.log("payload", payload);
+  try {
+    const response = await axiosInstance.post(
+      baseUrlDecisions +
+        `/policy/update?policyId=${payload?.policyId}&userId=${payload?.userId}`,
+      payload?.data
+    );
+
+    return response;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return error.response;
+  }
+}
+
 export {
   // EditBankDetail,
+  UpdatePolicyOther,
   AsyncCountries,
   DeleteBank,
   CheckQuestionStatusInScreen,

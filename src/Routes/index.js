@@ -17,6 +17,7 @@ import NotFound from "Pages/NotFound";
 import UserSimah from "Pages/Simah/simahDownlaod";
 import UserEligibility from "Pages/userEligibility";
 import ViewPolicyHistory from "Pages/Policies/viewPolicies/viewPolicyHistory";
+import ViewPolicyHistoryOther from "Pages/Policies/viewPolicies/viewPolicyHistoryOthers";
 
 function App() {
   return (
@@ -53,6 +54,10 @@ function App() {
             <Route
               path="/policies/view-policies/view-policy-history"
               element={<ViewPolicyHistory />}
+            />
+            <Route
+              path="/policies/view-policies/view-history"
+              element={<ViewPolicyHistoryOther />}
             />
 
             <Route

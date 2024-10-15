@@ -119,7 +119,9 @@ function BlackListCountries() {
               {blackListCountries?.map((v, k) => (
                 <tr key={k} className="bg-white border-b dark:border-gray-200">
                   <td className="px-3 py-4">{v?.countryDetails.nameEN}</td>
-                  <td className="px-3 py-4">{v?.countryDetails?.nameAR}</td>
+                  <td className="px-3 py-4 amiri-regular">
+                    {v?.countryDetails?.nameAR}
+                  </td>
                   <td className="px-3 py-4">
                     {v?.countryDetails?.countryCode}
                   </td>

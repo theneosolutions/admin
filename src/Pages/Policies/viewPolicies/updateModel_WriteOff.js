@@ -3,21 +3,30 @@ import { Button } from "Components";
 import { useTranslation } from "react-i18next";
 import * as action from "Services/redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
-
-function WriteOffModel({ setModelOpen, data }) {
+import { UpdatePolicyOther } from "Services/OtherApis";
+function WriteOffModel({ setModelOpen, data, viewMode }) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const message = useSelector((state) => state.message);
-  const error = useSelector((state) => state.error);
   const user = useSelector((state) => state.user);
 
   const [policyName, setPolicyName] = useState("");
-  const [policyValue, setPolicyValue] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+
   const [formValid, setFormValid] = useState(true);
   const [period, setPeriod] = useState("");
   const [status, setStatus] = useState("");
   const [amount, setAmount] = useState("");
+
+  useEffect(() => {
+    validateForm();
+  }, [period, status, amount]);
+
+  function validateForm() {
+    if (period && status && amount && !isNaN(amount) && amount > 0) {
+      setFormValid(true);
+    } else {
+      setFormValid(false);
+    }
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -25,52 +34,42 @@ function WriteOffModel({ setModelOpen, data }) {
       UpdatePolicy();
     }
   }
-
-  function validatePolicyValue(e) {
-    const inputVal = parseInt(e, 10);
-
-    // Handle empty input case
-    if (e.trim() === "") {
-      setErrorMessage("This field is required.");
-      setFormValid(false);
-      return;
-    }
-
-    // Check if the data type requires numeric input and validate accordingly
-    if (data?.policyDataType === "INTEGER" && isNaN(inputVal)) {
-      setErrorMessage("Please enter a valid number.");
-      setFormValid(false);
-      return;
-    }
-
-    const referenceVal = parseInt(data?.policyReferenceValue, 10);
-    if (
-      (data?.policyName === "min_age" && inputVal < referenceVal) ||
-      (data?.policyName === "max_age" && inputVal > referenceVal)
-    ) {
-      setErrorMessage(
-        `Value must be ${
-          data?.policyName === "min_age" ? "at least" : "no more than"
-        } ${referenceVal}.`
-      );
-      setFormValid(false);
-    } else {
-      setErrorMessage("");
-      setFormValid(true);
-    }
-  }
-
+  console.log("data write off", JSON.parse(data?.policyValue));
   function UpdatePolicy() {
-    if (policyValue !== "" && user?.id && data?.id) {
-      var temp = {
-        newValue: policyValue,
+    if (
+      period !== "" &&
+      status !== "" &&
+      amount !== "" &&
+      user?.id &&
+      data?.id
+    ) {
+      const temp = {
         policyId: data?.id,
         userId: user?.id,
+        data: {
+          period,
+          amount,
+          status,
+        },
       };
-      dispatch({
-        type: "UPDATE_POLICY",
-        payload: temp,
-      });
+      UpdatePolicyOther(temp).then((res) =>
+        res?.status === 200
+          ? (setModelOpen(false),
+            dispatch(
+              action.Message({
+                message: res?.data?.message,
+                open: true,
+                error: false,
+              })
+            ))
+          : dispatch(
+              action.Message({
+                message: "Error",
+                open: true,
+                error: true,
+              })
+            )
+      );
     } else {
       dispatch(
         action.Message({
@@ -83,22 +82,14 @@ function WriteOffModel({ setModelOpen, data }) {
   }
 
   useEffect(() => {
-    if (message === "Success" && error === false) {
-      setModelOpen(false);
-    }
-  }, [message, error]);
-
-  useEffect(() => {
-    if (data) {
+    if (data?.policyValue) {
+      const temp = JSON.parse(data?.policyValue);
       setPolicyName(data?.policyName);
-      setAmount(data?.policyValue);
+      setPeriod(temp?.period);
+      setAmount(temp?.amount);
+      setStatus(temp?.status);
     }
   }, [data]);
-
-  function handleChange(e) {
-    setAmount(e);
-    // validatePolicyValue(e);
-  }
 
   return (
     <form
@@ -117,6 +108,7 @@ function WriteOffModel({ setModelOpen, data }) {
             />
 
             <Select
+              disabled={viewMode}
               data={periods}
               heading={t("Period")}
               type="select"
@@ -124,13 +116,14 @@ function WriteOffModel({ setModelOpen, data }) {
               onChange={(e) => setPeriod(e)}
             />
             <InputField
+              disabled={viewMode}
               type={"number"}
               heading={t("Amount")}
               value={amount}
-              onChange={(e) => handleChange(e.target.value)}
-              errorMessage={errorMessage}
+              onChange={(e) => setAmount(e.target.value)}
             />
             <Select
+              disabled={viewMode}
               data={StatusData}
               heading={t("Status")}
               type="select"
@@ -138,37 +131,36 @@ function WriteOffModel({ setModelOpen, data }) {
               onChange={(e) => setStatus(e)}
             />
           </div>
-          <Button
-            // type="submit"
-            type="button"
-            buttonValue={data ? t("Update") : t("Submit")}
-            // buttonStyle={`px-20 py-2 w-full mt-14 mb-4 ${
-            //   !formValid ? "opacity-50 cursor-not-allowed" : ""
-            // }`}
-            // disabled={!formValid}
-            disabled={true}
-            buttonStyle={`px-20 py-2 w-full mt-14 mb-4 opacity-50 cursor-not-allowed
+          {!viewMode && (
+            <Button
+              type="submit"
+              buttonValue={data ? t("Update") : t("Submit")}
+              buttonStyle={`px-20 py-2 w-full mt-14 mb-4 ${
+                !formValid ? "opacity-50 cursor-not-allowed" : ""
               }`}
-          />
+              disabled={!formValid} // Disable button if form is not valid
+            />
+          )}
         </div>
       </div>
     </form>
   );
 }
-function Select({ heading, value, onChange, data }) {
+function Select({ heading, value, onChange, data, disabled }) {
   const { t } = useTranslation();
 
   return (
     <div className="flex flex-col w-full">
       <a className="text-sm text-gray-700 dark:text-white">{heading}</a>{" "}
       <select
+        disabled={disabled}
         onChange={(e) => onChange(e.target.value)}
         value={value}
         className="dark:text-white border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full dark:bg-gray-800"
       >
-        <option value={"none"}>{t("none")}</option>
+        {value === "" && <option value="">{t("Select")}</option>}
         {data.map((option, index) => (
-          <option key={index} value={option.id}>
+          <option key={index} value={option.name}>
             {t(option.name)}
           </option>
         ))}
@@ -177,15 +169,7 @@ function Select({ heading, value, onChange, data }) {
   );
 }
 
-function InputField({
-  heading,
-  value,
-  onChange,
-  type,
-  disabled,
-  style,
-  errorMessage,
-}) {
+function InputField({ heading, value, onChange, type, disabled, style }) {
   return (
     <div className="flex flex-col w-full">
       <a className="text-sm text-gray-700">{heading}</a>
@@ -196,9 +180,6 @@ function InputField({
         onChange={onChange}
         className={`border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-full ${style}`}
       />
-      {errorMessage && (
-        <div className="text-red-500 text-xs mt-1">{errorMessage}</div>
-      )}
     </div>
   );
 }

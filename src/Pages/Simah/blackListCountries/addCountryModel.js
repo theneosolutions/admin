@@ -127,12 +127,13 @@ function Select({ heading, value, onChange, data }) {
       <select
         onChange={(e) => onChange(e.target.value)}
         value={value}
-        className=" border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-[500px]"
+        className=" border-gray-300 border rounded-md px-3 py-1.5 outline-none mt-2 w-[500px] "
       >
         <option value={"none"}>{t("none")}</option>
         {data.map((option, index) => (
           <option key={index} value={option.id}>
-            {t(option.nameEN)} , {option.nameAR}
+            {t(option.nameEN)} ,{" "}
+            <a className="amiri-regular"> {option.nameAR}</a>
           </option>
         ))}
       </select>
