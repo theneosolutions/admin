@@ -83,6 +83,7 @@ function PublicNotice({ setModelOpen, data, viewMode }) {
   useEffect(() => {
     if (data?.policyValue) {
       const temp = JSON.parse(data?.policyValue);
+      console.log("temp", temp);
       setPolicyName(data?.policyName);
       setPeriod(temp?.period);
       setAmount(temp?.amount);
@@ -159,7 +160,7 @@ function Select({ heading, value, onChange, data, disabled }) {
       >
         {value === "" && <option value="">{t("Select")}</option>}
         {data.map((option, index) => (
-          <option key={index} value={option.name}>
+          <option key={index} value={option.id}>
             {t(option.name)}
           </option>
         ))}
@@ -185,15 +186,26 @@ function InputField({ heading, value, onChange, type, disabled, style }) {
 
 export default PublicNotice;
 
-const periods = [
-  { id: 1, name: 3 },
-  { id: 2, name: 6 },
-  { id: 3, name: 9 },
-  { id: 4, name: 12 },
-  { id: 5, name: 24 },
-];
 const StatusData = [
-  { id: 1, name: "Executed" },
-  { id: 2, name: "Not Executed" },
-  { id: 3, name: "Doesn't Matter" },
+  { id: "EXECUTED", name: "Executed" },
+  { id: "NOT_EXECUTED", name: "Not Executed" },
+  { id: "NOT_APPLICABLE", name: "Not Applicable" },
+];
+const periods = [
+  {
+    id: 3,
+    name: "3 Months",
+  },
+  {
+    id: 6,
+    name: "6 Months",
+  },
+  {
+    id: 12,
+    name: "12 Months",
+  },
+  {
+    id: 24,
+    name: "24 Months",
+  },
 ];

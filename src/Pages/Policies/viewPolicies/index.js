@@ -146,7 +146,7 @@ function AllPolicies() {
                         onClick={() => (CheckPolicy(v), setViewMode(true))}
                         className="text-blue-600 cursor-pointer underline hover:text-blue-400 duration-200"
                       >
-                        View
+                        {t("View")}
                       </button>
                     ) : (
                       t(v?.policyValue)

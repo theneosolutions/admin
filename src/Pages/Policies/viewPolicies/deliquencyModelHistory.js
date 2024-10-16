@@ -38,16 +38,18 @@ function DeliquencyModelHistory({
                 </tr>
               </thead>
               <tbody>
-                {priviousValue?.map((v, k) => (
-                  <tr
-                    key={k}
-                    className="bg-white border-b dark:border-gray-200"
-                  >
-                    <td className=" py-2">{t(v?.period)}</td>
-                    <td className="">{t(v?.bucket)}</td>
-                    <td className="">{t(v?.count)}</td>
-                  </tr>
-                ))}
+                {priviousValue
+                  ?.sort((a, b) => a.bucket - b.bucket) // Sort by the bucket value
+                  .map((v, k) => (
+                    <tr
+                      key={k}
+                      className="bg-white border-b dark:border-gray-200"
+                    >
+                      <td className="py-2">{t(v?.period)}</td>
+                      <td className="">{t(v?.bucket)}</td>
+                      <td className="">{t(v?.count)}</td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
@@ -69,16 +71,18 @@ function DeliquencyModelHistory({
                 </tr>
               </thead>
               <tbody>
-                {newValue?.map((v, k) => (
-                  <tr
-                    key={k}
-                    className="bg-white border-b dark:border-gray-200"
-                  >
-                    <td className=" py-2">{t(v?.period)}</td>
-                    <td className="">{t(v?.bucket)}</td>
-                    <td className="">{t(v?.count)}</td>
-                  </tr>
-                ))}
+                {newValue
+                  ?.sort((a, b) => a.bucket - b.bucket)
+                  ?.map((v, k) => (
+                    <tr
+                      key={k}
+                      className="bg-white border-b dark:border-gray-200"
+                    >
+                      <td className=" py-2">{t(v?.period)}</td>
+                      <td className="">{t(v?.bucket)}</td>
+                      <td className="">{t(v?.count)}</td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

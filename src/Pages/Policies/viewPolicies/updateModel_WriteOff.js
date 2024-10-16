@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import * as action from "Services/redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { UpdatePolicyOther } from "Services/OtherApis";
+
 function WriteOffModel({ setModelOpen, data, viewMode }) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -52,6 +53,7 @@ function WriteOffModel({ setModelOpen, data, viewMode }) {
           status,
         },
       };
+      console.log("temp", temp);
       UpdatePolicyOther(temp).then((res) =>
         res?.status === 200
           ? (setModelOpen(false),
@@ -160,7 +162,7 @@ function Select({ heading, value, onChange, data, disabled }) {
       >
         {value === "" && <option value="">{t("Select")}</option>}
         {data.map((option, index) => (
-          <option key={index} value={option.name}>
+          <option key={index} value={option.id}>
             {t(option.name)}
           </option>
         ))}
@@ -188,37 +190,33 @@ export default WriteOffModel;
 
 const periods = [
   {
-    id: 1,
-    name: 3,
-  },
-  {
-    id: 2,
-    name: 6,
-  },
-  {
     id: 3,
-    name: 9,
+    name: "3 Months",
   },
   {
-    id: 4,
-    name: 12,
+    id: 6,
+    name: "6 Months",
   },
   {
-    id: 5,
-    name: 24,
+    id: 12,
+    name: "12 Months",
+  },
+  {
+    id: 24,
+    name: "24 Months",
   },
 ];
 const StatusData = [
   {
-    id: 1,
+    id: "ACTIVE",
     name: "Active",
   },
   {
-    id: 2,
+    id: "CLOSED",
     name: "Closed",
   },
   {
-    id: 3,
-    name: "Does't Matter",
+    id: "NOT_APPLICABLE",
+    name: "Not Applicable",
   },
 ];

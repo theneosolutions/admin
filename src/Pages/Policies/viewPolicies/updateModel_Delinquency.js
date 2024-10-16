@@ -19,6 +19,7 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
     if (data?.policyValue) {
       const temp = JSON.parse(data?.policyValue);
       setPolicyName(data?.policyName);
+      console.log("tempppp", temp);
       setRows(temp);
     }
   }, [data]);
@@ -128,7 +129,9 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col items-center justify-center w-[900px] pb-6"
+      className={`flex flex-col items-center justify-center  pb-6 ${
+        viewMode ? "w-[700px]" : "w-[800px]"
+      }`}
     >
       <div className="flex flex-col lg:flex-row w-full px-4 py-5 lg:px-6 space-y-5 rtl:space-x-reverse">
         <div className="w-full">
@@ -141,7 +144,7 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
               style="text-gray-500 w-64"
             />
             {!viewMode && rows.length < 6 && (
-              <div className="flex justify-between mt-6">
+              <div className="flex justify-between mt-7">
                 <Button
                   type="button"
                   buttonValue={"Add New Bucket"}
@@ -152,61 +155,93 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
               </div>
             )}
           </div>
-          <div className="flex flex-row justify-between space-x-8 mt-3">
-            <div className="items-start w-1/4">
-              <a>Period</a>
+          <div className="flex flex-row justify-between space-x-4 mt-3">
+            <div
+              className={`${
+                viewMode ? "w-full" : "w-11/12"
+              } flex flex-row justify-between  space-x-6`}
+            >
+              <div className={`items-start  ${viewMode ? "w-1/3" : "w-1/3"}`}>
+                <a>Period</a>
+              </div>
+              <div className={`items-start  ${viewMode ? "w-1/3" : "w-1/3"}`}>
+                <a>Bucket</a>
+              </div>
+              <div className={`items-start  ${viewMode ? "w-1/3" : "w-1/3"}`}>
+                <a>Count</a>
+              </div>
             </div>
-            <div className="items-start w-1/4">
-              <a>Bucket</a>
-            </div>
-            <div className="items-start w-1/4">
-              <a>Count</a>
-            </div>
-            <div className="items-start w-1/5">
-              <a>Action</a>
-            </div>
+            {viewMode ? (
+              ""
+            ) : (
+              <div className="items-start w-1/12 ">
+                <a>Action</a>
+              </div>
+            )}
           </div>
           {rows.map((row, index) => (
             <div key={index} className="flex flex-row space-x-4 items-end">
-              <Select
-                disabled={viewMode}
-                data={periods}
-                value={row.period}
-                onChange={(value) => handleSelectChange(index, "period", value)}
-                errorMessage={errorMessages[index]?.period}
-              />
-              <Select
-                disabled={viewMode}
-                data={getAvailableBuckets(index)}
-                value={row.bucket}
-                onChange={(value) => handleSelectChange(index, "bucket", value)}
-                errorMessage={errorMessages[index]?.bucket}
-              />
-              <InputField
-                disabled={viewMode}
-                type="number"
-                value={row.count}
-                onChange={(e) =>
-                  handleSelectChange(index, "count", e.target.value)
-                }
-                style="w-1/4"
-                errorMessage={errorMessages[index]?.count}
-              />
-              {rows.length > 0 && (
-                <div className="w-1/5 items-center justify-center px-5 pb-6">
-                  <AiOutlineDelete
-                    onClick={() =>
-                      rows.length === 1 || viewMode
-                        ? ""
-                        : handleRemoveRow(index)
-                    }
-                    className={`text-2xl mb-1.5 ${
-                      !viewMode && rows.length !== 1
-                        ? "text-red-400 hover:text-red-600 hover:text-3xl cursor-pointer duration-300"
-                        : "text-gray-400"
-                    }`}
-                  />
-                </div>
+              {console.log("rowwwwwwwww", row)}
+              <div
+                className={`  ${
+                  viewMode ? "w-full" : "w-11/12"
+                } flex flex-row justify-between  space-x-6`}
+              >
+                <Select
+                  style={viewMode ? "w-1/3" : "w-1/3"}
+                  disabled={viewMode}
+                  data={periods}
+                  value={row.period}
+                  onChange={(value) =>
+                    handleSelectChange(index, "period", value)
+                  }
+                  errorMessage={errorMessages[index]?.period}
+                />
+
+                <Select
+                  style={viewMode ? "w-1/3" : "w-1/3"}
+                  disabled={viewMode}
+                  data={getAvailableBuckets(index)}
+                  value={row.bucket}
+                  onChange={(value) =>
+                    handleSelectChange(index, "bucket", value)
+                  }
+                  errorMessage={errorMessages[index]?.bucket}
+                />
+
+                <InputField
+                  style={viewMode ? "w-1/3" : "w-1/3"}
+                  disabled={viewMode}
+                  type="number"
+                  value={row.count}
+                  onChange={(e) =>
+                    handleSelectChange(index, "count", e.target.value)
+                  }
+                  errorMessage={errorMessages[index]?.count}
+                />
+              </div>
+
+              {viewMode ? (
+                ""
+              ) : (
+                <>
+                  {rows.length > 0 && (
+                    <div className="w-1/12 items-center justify-center  pb-5">
+                      <AiOutlineDelete
+                        onClick={() =>
+                          rows.length === 1 || viewMode
+                            ? ""
+                            : handleRemoveRow(index)
+                        }
+                        className={`text-2xl mb-1.5 ${
+                          !viewMode && rows.length !== 1
+                            ? "text-red-400 hover:text-red-600 hover:text-3xl cursor-pointer duration-300"
+                            : "text-gray-400"
+                        }`}
+                      />
+                    </div>
+                  )}
+                </>
               )}
             </div>
           ))}
@@ -217,7 +252,7 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
               <Button
                 type="submit"
                 buttonValue={data ? t("Update") : t("Submit")}
-                buttonStyle={`mt-14 mb-4 w-80 px-20 py-2 ${
+                buttonStyle={`mt-6 mb-4 w-80 px-20 py-2 ${
                   !formValid ? "opacity-50 cursor-not-allowed" : ""
                 }`}
                 disabled={!formValid} // Disable button if form is not valid
@@ -232,11 +267,19 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
 
 export default DelinquencyModel;
 
-function Select({ heading, value, onChange, data, errorMessage, disabled }) {
+function Select({
+  heading,
+  value,
+  onChange,
+  data,
+  errorMessage,
+  disabled,
+  style,
+}) {
   const { t } = useTranslation();
-
+  console.log("period", value);
   return (
-    <div className="flex flex-col w-1/4">
+    <div className={`flex flex-col ${style}`}>
       <label className="text-sm text-gray-700 dark:text-white">
         {t(heading)}
       </label>
@@ -291,11 +334,28 @@ function InputField({
 }
 
 const periods = [
-  { id: 1, name: 6 },
-  { id: 2, name: 12 },
-  { id: 3, name: 24 },
-  { id: 4, name: "Latest" },
+  {
+    id: "3",
+    name: "3 Months",
+  },
+  {
+    id: "6",
+    name: "6 Months",
+  },
+  {
+    id: "12",
+    name: "12 Months",
+  },
+  {
+    id: "24",
+    name: "24 Months",
+  },
+  {
+    id: "0",
+    name: "Latest",
+  },
 ];
+
 const StatusData = [
   { id: 1, name: "1" },
   { id: 2, name: "2" },
