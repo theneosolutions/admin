@@ -47,7 +47,7 @@ const MainLayout = () => {
       }
     }
   }, [islogin, role, token]);
-  return (
+  return islogin ? (
     <div className={` bg-gray-200 flex flex-row fixed w-full `}>
       <Sidebar isOpen={isOpen} toggleSidebar={() => toggleSidebar()} />
       <div className="w-full bg-gray-200 h-screen  relative overflow-scroll">
@@ -55,6 +55,8 @@ const MainLayout = () => {
         <div className="md:px-10 px-3 pb-8  md:pt-6">{<Outlet />}</div>
       </div>
     </div>
+  ) : (
+    <Outlet />
   );
 };
 

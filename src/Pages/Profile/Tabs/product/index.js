@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import EmiDetail from "./tabs/EmiDetail";
 import LoanHistory from "./tabs/LoanHistory";
 import TransactionHistory from "./tabs/transactionHistory";
+import SeelaInvestment from "./tabs/seelaInvestment";
 import { useTranslation } from "react-i18next";
 
 function Template() {
@@ -64,5 +65,9 @@ const data = [
   {
     label: "Transaction History",
     tab: <TransactionHistory />,
+  },
+  {
+    label: "Seela Investment",
+    tab: <SeelaInvestment />,
   },
 ];

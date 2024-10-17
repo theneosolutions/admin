@@ -83,7 +83,7 @@ function PublicNotice({ setModelOpen, data, viewMode }) {
   useEffect(() => {
     if (data?.policyValue) {
       const temp = JSON.parse(data?.policyValue);
-      console.log("temp", temp);
+
       setPolicyName(data?.policyName);
       setPeriod(temp?.period);
       setAmount(temp?.amount);

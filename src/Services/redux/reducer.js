@@ -18,6 +18,7 @@ const initialState = {
   error: false,
   Notifications: [],
   Loading: false,
+  // showModel: true,
   islogin: false,
   user: null,
   role: null,
@@ -97,6 +98,10 @@ const Reducer = createSlice({
       const { Loading } = action.payload;
       state.Loading = Loading;
     },
+    // ShowModel: (state, action) => {
+    //   const { showModel } = action.payload;
+    //   state.showModel = showModel;
+    // },
     SetAppState: (state, action) => {
       state.appState = action.payload;
     },
@@ -306,6 +311,7 @@ const Reducer = createSlice({
   },
 });
 export const {
+  // ShowModel,
   Message,
   AddQuestions,
   GetAllQuestions,

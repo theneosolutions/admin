@@ -272,7 +272,6 @@ async function DeleteCountryFromBlackList(payload) {
 }
 
 async function UpdatePolicyOther(payload) {
-  console.log("payload", payload);
   try {
     const response = await axiosInstance.post(
       baseUrlDecisions +
@@ -288,9 +287,22 @@ async function UpdatePolicyOther(payload) {
     return error.response;
   }
 }
-
+async function GetSeelaInvestMent(id) {
+  try {
+    const response = await axiosInstance.get(
+      baseUrlCms + `/selaApi/buy-ownerships-by_user?userId=${id}`
+    );
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return message;
+  }
+}
 export {
   // EditBankDetail,
+  GetSeelaInvestMent,
   UpdatePolicyOther,
   AsyncCountries,
   DeleteBank,

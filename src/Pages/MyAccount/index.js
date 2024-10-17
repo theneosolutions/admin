@@ -60,7 +60,7 @@ function MyAccount() {
         email: email,
         mobileNumber: "966" + mobile,
       };
-      console.log("temp", temp);
+
       dispatch({
         type: "UPDATE_USER_DATA",
         payload: temp,

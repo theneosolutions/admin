@@ -10,7 +10,7 @@ function Component({ setModelOpen, modelOpen, GetAllRoles }) {
   const { t } = useTranslation();
   const [role, setRole] = useState("");
   const getAllRolesData = useSelector((state) => state.getAllRoles);
-  console.log("getAllRolesData", getAllRolesData);
+
   function reset() {
     setModelOpen(false);
   }
@@ -19,7 +19,6 @@ function Component({ setModelOpen, modelOpen, GetAllRoles }) {
       (item) => item.name.toLowerCase() === role.toLowerCase()
     );
     if (!temp) {
-      console.log("hosakta hai");
       if (role) {
         dispatch({
           type: "ADD_NEW_ROLE_NAME",

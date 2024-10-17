@@ -24,7 +24,6 @@ function Wallet() {
     });
   }
   function reset(data) {
-    console.log("datatatata", data);
     if (data?.error === false) {
       dispatch(
         action.Message({ open: true, message: "Success", error: false })

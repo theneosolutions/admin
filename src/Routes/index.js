@@ -41,7 +41,6 @@ function App() {
               path="/decisions/create-set/view-screen"
               element={<ViewScreen />}
             />
-            <Route path="/404" element={<NotFound />} />
             <Route
               path="/customers/verified/simah/usercodes"
               element={<UserSimah />}

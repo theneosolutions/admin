@@ -83,7 +83,6 @@ function Template() {
             payload: userId,
           });
         }
-        console.log("helo", data);
       })
       .catch(
         (error) => console.log("error")
@@ -165,7 +164,7 @@ const data = [
   },
 
   {
-    label: "User Info",
+    label: "Audit Log",
     tab: <UserInfo />,
     icon: <RiHistoryFill className="text-sm" />,
   },

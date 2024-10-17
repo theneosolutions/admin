@@ -36,7 +36,6 @@ function UserSimah({ active, setDownloadButtonDisable }) {
 
   useEffect(() => {
     if (data?.length > 0) {
-      console.log("data simah", data?.length);
       setDownloadButtonDisable(false);
     }
     if (data?.creditInstrumentDetails) {

@@ -31,7 +31,6 @@ function AddPermissionsToRoles() {
   };
 
   const handleParentChange = (module) => {
-    console.log("helooooooo", module);
     setSelectedItems((prevSelectedItems) => {
       const isSelected = prevSelectedItems.some(
         (item) => item.id === module.id
@@ -91,7 +90,6 @@ function AddPermissionsToRoles() {
           // If the parent is already selected, update its subMenus
           updatedItems[parentIndex].subMenus.push(subModule);
         } else {
-          // console.log("tum tum ");
           // If the parent is not selected, add the parent with the submodule
           updatedItems.push({ ...module, subMenus: [subModule] });
         }

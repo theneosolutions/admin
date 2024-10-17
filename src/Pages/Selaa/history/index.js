@@ -22,12 +22,7 @@ function AllUsers() {
       .then(
         (data) => (setData(data), dispatch(action.Loading({ Loading: false })))
       )
-      .catch(
-        (error) => (
-          console.error("Error received:", error),
-          dispatch(action.Loading({ Loading: true }))
-        )
-      );
+      .catch((error) => dispatch(action.Loading({ Loading: true })));
   }
 
   return (

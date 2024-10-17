@@ -35,7 +35,7 @@ function WriteOffModel({ setModelOpen, data, viewMode }) {
       UpdatePolicy();
     }
   }
-  console.log("data write off", JSON.parse(data?.policyValue));
+
   function UpdatePolicy() {
     if (
       period !== "" &&
@@ -53,7 +53,7 @@ function WriteOffModel({ setModelOpen, data, viewMode }) {
           status,
         },
       };
-      console.log("temp", temp);
+
       UpdatePolicyOther(temp).then((res) =>
         res?.status === 200
           ? (setModelOpen(false),

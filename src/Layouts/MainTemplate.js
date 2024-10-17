@@ -9,6 +9,7 @@ function MainTemplate({ children }) {
   const dispatch = useDispatch();
   const { theme } = useTheme();
   const loading = useSelector((state) => state.Loading);
+  const showModel = useSelector((state) => state.showModel);
 
   const message = useSelector((state) => state.message);
   const open = useSelector((state) => state.open);
@@ -66,6 +67,7 @@ function MainTemplate({ children }) {
   }, []);
 
   function Logout(id) {
+    // dispatch(action.Loading({ Loading: true }));
     dispatch({
       type: "LOGOUT_USER",
       payload: id,
@@ -75,6 +77,7 @@ function MainTemplate({ children }) {
   return (
     <div className={theme === "dark" ? "dark" : ""}>
       <WaveAnimation show={loading} />
+      <WaveAnimation show={showModel} />
       <div>{children}</div>
       <Snackbar
         open={open}

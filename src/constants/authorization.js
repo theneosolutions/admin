@@ -31,7 +31,8 @@ const withAuthorization = (WrappedComponent, code) => {
     }
     // If no matching code is found, return null (or a fallback component)
     if (!newPermission) {
-      return <NotFound />; // Or you could return a <NotFound /> component or redirect
+      return;
+      // <NotFound />; // Or you could return a <NotFound /> component or redirect
     }
 
     // If the user has the correct permission, render the WrappedComponent

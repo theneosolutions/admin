@@ -654,20 +654,10 @@ function* CreateNotification({ payload }) {
   try {
     yield put(action.Loading({ Loading: true }));
 
-    // const formData = new FormData();
-    // formData.append("subject", payload.subject);
-    // formData.append("content", payload.content);
-    // formData.append("tokens", payload.token);
-    // formData.append("navigation", payload.navigation);
     const response = yield call(
       axiosInstance.post,
       baseUrlSMS + `/notifications/sendNotificationToAllUsers`,
       payload
-      // {
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      // }
     );
     console.log("responseresponse", response);
     yield put(
@@ -912,8 +902,9 @@ function* GetEmdahReport({ payload }) {
 
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
+    console.log("rrorr", error);
     yield put(action.Loading({ Loading: false }));
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.url;
     yield put(action.Message({ message: message, open: true, error: true }));
   }
 }
@@ -1213,6 +1204,7 @@ function* UpdateDbr({ payload }) {
 }
 
 function* LogoutUser({ payload }) {
+  yield put(action.Loading({ Loading: true }));
   try {
     const response1 = yield call(
       axiosInstance.post,
@@ -1336,16 +1328,7 @@ function* ResetOtpVerification({ payload }) {
         })
       );
     }
-    // if (response?.da) {
-    //   // yield put(action.ForgetVerificationOtp(response.data));
-    //   yield put(
-    //     action.Message({
-    //       message: "reset Otp Success",
-    //       open: false,
-    //       error: false,
-    //     })
-    //   );
-    // }
+
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     const message = error.response.data.message;
@@ -1969,7 +1952,6 @@ function* GetBlackListCounties() {
       axiosInstance.get,
       baseUrlLos + `/country/blacklisted`
     );
-    console.log("response of blacklist", response);
 
     yield put(action.GetBlackListCountriesdata(response));
 
@@ -1986,8 +1968,6 @@ function* GetAllCounties() {
       axiosInstance.get,
       baseUrlLos + `/simah/countries`
     );
-    console.log("All Countries", response);
-
     yield put(action.GetCountriesdata(response));
 
     yield put(action.Loading({ Loading: false }));

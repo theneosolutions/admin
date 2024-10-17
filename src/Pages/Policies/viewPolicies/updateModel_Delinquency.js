@@ -19,7 +19,7 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
     if (data?.policyValue) {
       const temp = JSON.parse(data?.policyValue);
       setPolicyName(data?.policyName);
-      console.log("tempppp", temp);
+
       setRows(temp);
     }
   }, [data]);
@@ -181,7 +181,6 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
           </div>
           {rows.map((row, index) => (
             <div key={index} className="flex flex-row space-x-4 items-end">
-              {console.log("rowwwwwwwww", row)}
               <div
                 className={`  ${
                   viewMode ? "w-full" : "w-11/12"
@@ -277,7 +276,7 @@ function Select({
   style,
 }) {
   const { t } = useTranslation();
-  console.log("period", value);
+
   return (
     <div className={`flex flex-col ${style}`}>
       <label className="text-sm text-gray-700 dark:text-white">

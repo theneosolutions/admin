@@ -22,7 +22,6 @@ function BlackListCountries() {
 
   function funcAsyncCountries() {
     AsyncCountries().then((res) => {
-      console.log("helo", res);
       if (res.status === 200) {
         dispatch(
           action.Message({
