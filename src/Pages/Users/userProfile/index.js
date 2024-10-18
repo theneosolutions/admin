@@ -59,6 +59,7 @@ function LaonApplication() {
     });
     setTimeout(() => getUserLoanDetail(), 500);
   }
+  console.log("user?.user?.", user?.user);
   function getUserLoanDetail() {
     dispatch({
       type: "GET_USER_APPLICATION_DATA",
@@ -102,9 +103,29 @@ function LaonApplication() {
       applicationId: data?.id,
       internalId: user?.user?.idNumber,
       userId: data?.userId,
+      applicationReview: true,
     };
     console.log("helo", temp);
-    SeelaOperationBuy(temp).then((res) => console.log("helo", res));
+    SeelaOperationBuy(temp).then((res) => {
+      if (res.status === 200 || res.status === "201") {
+        getUserLoanDetail();
+        dispatch(
+          action.Message({
+            open: true,
+            message: "Selaa investment certificate purchased successfully",
+            error: false,
+          })
+        );
+      } else {
+        dispatch(
+          action.Message({
+            open: true,
+            message: JSON.parse(res?.message)?.message || "Server Error",
+            error: true,
+          })
+        );
+      }
+    });
   }
 
   return (
@@ -336,14 +357,17 @@ function LaonApplication() {
                     </div>
                   </div>
                 ) : null}
-                <div
-                  onClick={() => SeelaOeration()}
-                  className={` w-max text-white bg-blue-500 hover:opacity-80 duration-200 cursor-pointer  border px-8 py-2 rounded-md  items-center flex flex-col   `}
-                >
-                  <div className="uppercase text-xs font-semibold">
-                    Seela Operation
+                {data?.status === "SELAA_BUY_FAILED" && (
+                  <div
+                    onClick={() => SeelaOeration()}
+                    className={` w-max text-white bg-blue-500 hover:opacity-80 duration-200 cursor-pointer  border px-8 py-2 rounded-md  items-center flex flex-col   `}
+                  >
+                    <div className="uppercase text-xs font-semibold">
+                      Selaa Buy Investment
+                    </div>
                   </div>
-                </div>
+                )}
+
                 <Progress
                   heading="Eligibility Loan Amount"
                   value={data?.totalAmount}
