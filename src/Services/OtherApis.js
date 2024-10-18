@@ -300,8 +300,24 @@ async function GetSeelaInvestMent(id) {
     return message;
   }
 }
+async function SeelaOperationBuy(payload) {
+  console.log("payload seela", payload);
+  try {
+    const response = await axiosInstance.post(
+      baseUrlCms + `/selaApi/buy`,
+      payload
+    );
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return message;
+  }
+}
 export {
   // EditBankDetail,
+  SeelaOperationBuy,
   GetSeelaInvestMent,
   UpdatePolicyOther,
   AsyncCountries,

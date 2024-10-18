@@ -7,7 +7,7 @@ import { RxCross2 } from "react-icons/rx";
 import { CgArrowsExchange } from "react-icons/cg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { TransferRajhi } from "Services/OtherApis";
+import { SeelaOperationBuy, TransferRajhi } from "Services/OtherApis";
 import * as action from "Services/redux/reducer";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
 import withAuthorization from "constants/authorization";
@@ -94,6 +94,17 @@ function LaonApplication() {
         }
       })
       .catch((error) => dispatch(action.Loading({ Loading: false })));
+  }
+  function SeelaOeration() {
+    console.log("helo");
+    let temp = {
+      amount: data?.financeAmount,
+      applicationId: data?.id,
+      internalId: user?.user?.idNumber,
+      userId: data?.userId,
+    };
+    console.log("helo", temp);
+    SeelaOperationBuy(temp).then((res) => console.log("helo", res));
   }
 
   return (
@@ -325,7 +336,14 @@ function LaonApplication() {
                     </div>
                   </div>
                 ) : null}
-
+                <div
+                  onClick={() => SeelaOeration()}
+                  className={` w-max text-white bg-blue-500 hover:opacity-80 duration-200 cursor-pointer  border px-8 py-2 rounded-md  items-center flex flex-col   `}
+                >
+                  <div className="uppercase text-xs font-semibold">
+                    Seela Operation
+                  </div>
+                </div>
                 <Progress
                   heading="Eligibility Loan Amount"
                   value={data?.totalAmount}
