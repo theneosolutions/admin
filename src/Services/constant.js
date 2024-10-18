@@ -2,6 +2,7 @@ import axios from "axios";
 import { store } from "./redux/store";
 import * as action from "./redux/reducer";
 import appRoutes from "Routes/appRoutes";
+import { GetEncryptUser } from "functions/encryption";
 const RouteId = () => {
   const currentPath = window.location.pathname; // Get current path, e.g., '/admin/add-roles'
 
@@ -83,10 +84,9 @@ axiosInstance.interceptors.response.use(
 );
 
 function token() {
-  const storage = localStorage.getItem("user");
-  if (storage) {
-    const user = JSON.parse(storage);
+  const user = GetEncryptUser();
 
+  if (user) {
     if (user?.data?.token) {
       return user?.data?.token;
     } else {

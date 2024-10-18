@@ -5,6 +5,7 @@ import * as action from "../Services/redux/reducer";
 import { jwtDecode } from "jwt-decode";
 import { Alert, Snackbar } from "@mui/material";
 import { useTheme } from "Theme";
+import { GetEncryptUser } from "functions/encryption";
 function MainTemplate({ children }) {
   const dispatch = useDispatch();
   const { theme } = useTheme();
@@ -37,11 +38,12 @@ function MainTemplate({ children }) {
   }
 
   useEffect(() => {
-    const storage = localStorage.getItem("user");
-    if (storage) {
-      const user = JSON.parse(storage);
+    const user = GetEncryptUser();
 
+    if (user) {
       const isTokenExpired = checkTokenExpiration(user?.data?.token);
+      console.log("user %%%%%% isTokenExpired", isTokenExpired);
+
       if (!isTokenExpired) {
         dispatch(
           action.Auth({

@@ -1,5 +1,6 @@
 import { axiosInstance } from "./constant";
 import config from "../config";
+import { GetEncryptUser } from "functions/encryption";
 
 var baseUrlUser = `${config.API_URL}/api/v1/auth`;
 var baseUrlDecisions = `${config.API_URL}/api/v1/dms`;
@@ -339,10 +340,9 @@ export {
   DeleteCountryFromBlackList,
 };
 function User() {
-  const storage = localStorage.getItem("user");
-  if (storage) {
-    const user = JSON.parse(storage);
+  const user = GetEncryptUser();
 
+  if (user) {
     if (user?.data) {
       return user?.data;
     } else {

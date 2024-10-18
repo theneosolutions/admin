@@ -4,15 +4,16 @@ import { useLocation } from "react-router-dom";
 import appRoutes from "Routes/appRoutes";
 // This HOC checks if the user is authorized to access the component
 import NotFound from "Pages/NotFound";
+import { GetEncryptUser } from "functions/encryption";
 const withAuthorization = (WrappedComponent, code) => {
   return () => {
     const roles = useSelector((state) => state?.role);
     const path = useLocation().pathname;
 
     useEffect(() => {
-      const storage = localStorage.getItem("user");
-      if (!storage) {
-        const user = JSON.parse(storage);
+      const user = GetEncryptUser();
+
+      if (!user) {
         if (!user?.islogin) {
           const origin = window.location.origin + "/login";
           window.location.href = origin;

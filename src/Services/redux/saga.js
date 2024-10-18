@@ -3,6 +3,7 @@ import * as action from "./reducer";
 import { axiosInstance } from "../constant";
 import { getLanguage } from "functions/getLanguage";
 import config from "../../config";
+import { HandleEncryptUser } from "functions/encryption";
 
 var baseUrlSMS = `${config.API_URL}/api/v1/sms`;
 var baseUrlUser = `${config.API_URL}/api/v1/auth`;
@@ -357,10 +358,10 @@ function* UserLogin({ payload }) {
           token: response?.data?.token,
         })
       );
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ islogin: true, data: response.data })
-      );
+
+      var data = HandleEncryptUser({ islogin: true, data: response.data });
+      localStorage.setItem("user", data);
+
       yield put(
         action.Message({ message: "Login Success", open: true, error: false })
       );
