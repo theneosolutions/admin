@@ -302,18 +302,22 @@ async function GetSeelaInvestMent(id) {
   }
 }
 async function SeelaOperationBuy(payload) {
-  console.log("payload seela", payload);
   try {
     const response = await axiosInstance.post(
       baseUrlCms + `/selaApi/buy`,
       payload
     );
-    return response.data;
+    // console.log("Response status:", response.status); // Success status code
+    // console.log("Response data:", response.data);
+    return { status: response?.status, message: response?.data?.messsage };
   } catch (error) {
+    const status = error.response ? error.response.status : null; // Error status code
     const message = error.response
       ? error.response.data.message
       : "An error occurred";
-    return message;
+    // console.log("Error status:", status);
+    // console.log("Error message:", message);
+    return { status: status, message: message };
   }
 }
 export {
