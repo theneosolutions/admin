@@ -5,7 +5,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { UpdatePolicyOther } from "Services/OtherApis";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "Services/redux/reducer";
-
+import { DeliquencyPeriods, Buckets } from "./json";
 function DelinquencyModel({ setModelOpen, data, viewMode }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -42,6 +42,10 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
   const handleSelectChange = (index, field, value) => {
     const newRows = rows.map((row, idx) => {
       if (idx === index) {
+        if (field === "period" && value === "0") {
+          // "0" is the ID for "Latest"
+          return { ...row, period: value, count: "1" }; // Set count to 1 for "Latest"
+        }
         return { ...row, [field]: value };
       }
       return row;
@@ -119,7 +123,7 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
 
   const getAvailableBuckets = (currentIndex) => {
     const selectedBuckets = new Set(rows.map((row) => row.bucket));
-    return StatusData.filter(
+    return Buckets.filter(
       (bucket) =>
         !selectedBuckets.has(bucket.name) ||
         bucket.name === rows[currentIndex].bucket
@@ -129,7 +133,8 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className={`flex flex-col items-center justify-center  pb-6 ${
+      style={{ maxHeight: "85vh" }}
+      className={`flex flex-col items-center justify-center  pb-6 overflow-auto ${
         viewMode ? "w-[700px]" : "w-[800px]"
       }`}
     >
@@ -189,7 +194,7 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
                 <Select
                   style={viewMode ? "w-1/3" : "w-1/3"}
                   disabled={viewMode}
-                  data={periods}
+                  data={DeliquencyPeriods}
                   value={row.period}
                   onChange={(value) =>
                     handleSelectChange(index, "period", value)
@@ -207,17 +212,20 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
                   }
                   errorMessage={errorMessages[index]?.bucket}
                 />
-
-                <InputField
-                  style={viewMode ? "w-1/3" : "w-1/3"}
-                  disabled={viewMode}
-                  type="number"
-                  value={row.count}
-                  onChange={(e) =>
-                    handleSelectChange(index, "count", e.target.value)
-                  }
-                  errorMessage={errorMessages[index]?.count}
-                />
+                <div className={`${viewMode ? "w-1/3" : "w-1/3"}`}>
+                  {row.period !== "0" && (
+                    <InputField
+                      style="w-full"
+                      disabled={viewMode}
+                      type="number"
+                      value={row.count}
+                      onChange={(e) =>
+                        handleSelectChange(index, "count", e.target.value)
+                      }
+                      errorMessage={errorMessages[index]?.count}
+                    />
+                  )}
+                </div>
               </div>
 
               {viewMode ? (
@@ -331,35 +339,3 @@ function InputField({
     </div>
   );
 }
-
-const periods = [
-  {
-    id: "3",
-    name: "3 Months",
-  },
-  {
-    id: "6",
-    name: "6 Months",
-  },
-  {
-    id: "12",
-    name: "12 Months",
-  },
-  {
-    id: "24",
-    name: "24 Months",
-  },
-  {
-    id: "0",
-    name: "Latest",
-  },
-];
-
-const StatusData = [
-  { id: 1, name: "1" },
-  { id: 2, name: "2" },
-  { id: 3, name: "3" },
-  { id: 4, name: "4" },
-  { id: 5, name: "5" },
-  { id: 6, name: "6" },
-];

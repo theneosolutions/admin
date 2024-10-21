@@ -301,6 +301,19 @@ async function GetSeelaInvestMent(id) {
     return message;
   }
 }
+async function GetSelaaSellRadeemValues(id) {
+  try {
+    const response = await axiosInstance.get(
+      baseUrlCms + `/selaApi/transfer-redeem-status?userId=${id}`
+    );
+    return response.data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "An error occurred";
+    return message;
+  }
+}
 async function SeelaOperationBuy(payload) {
   try {
     const response = await axiosInstance.post(
@@ -322,6 +335,7 @@ async function SeelaOperationBuy(payload) {
 }
 export {
   // EditBankDetail,
+  GetSelaaSellRadeemValues,
   SeelaOperationBuy,
   GetSeelaInvestMent,
   UpdatePolicyOther,

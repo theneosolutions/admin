@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import * as action from "Services/redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { UpdatePolicyOther } from "Services/OtherApis";
-
+import { StatusDataWriteOff, periods } from "./json";
 function WriteOffModel({ setModelOpen, data, viewMode }) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -126,7 +126,7 @@ function WriteOffModel({ setModelOpen, data, viewMode }) {
             />
             <Select
               disabled={viewMode}
-              data={StatusData}
+              data={StatusDataWriteOff}
               heading={t("Status")}
               type="select"
               value={t(status)}
@@ -187,36 +187,3 @@ function InputField({ heading, value, onChange, type, disabled, style }) {
 }
 
 export default WriteOffModel;
-
-const periods = [
-  {
-    id: 3,
-    name: "3 Months",
-  },
-  {
-    id: 6,
-    name: "6 Months",
-  },
-  {
-    id: 12,
-    name: "12 Months",
-  },
-  {
-    id: 24,
-    name: "24 Months",
-  },
-];
-const StatusData = [
-  {
-    id: "ACTIVE",
-    name: "Active",
-  },
-  {
-    id: "CLOSED",
-    name: "Closed",
-  },
-  {
-    id: "NOT_APPLICABLE",
-    name: "Not Applicable",
-  },
-];

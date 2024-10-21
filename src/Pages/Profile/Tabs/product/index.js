@@ -3,6 +3,7 @@ import EmiDetail from "./tabs/EmiDetail";
 import LoanHistory from "./tabs/LoanHistory";
 import TransactionHistory from "./tabs/transactionHistory";
 import SeelaInvestment from "./tabs/seelaInvestment";
+import SelaSellRadeem from "./tabs/SellRadeemSelaa";
 import { useTranslation } from "react-i18next";
 
 function Template() {
@@ -20,7 +21,7 @@ function Template() {
   }
 
   return (
-    <div className=" bg-white  border border-primary w-full rounded-lg ">
+    <div className=" bg-white  border border-primary w-full rounded-lg overflow-x-scroll">
       <div className="flex flex-row  ">
         {data?.map((v, k) => {
           return (
@@ -42,7 +43,7 @@ function Template() {
         })}
       </div>
       <div
-        className=" w-full bg-gray-200 "
+        className=" w-full bg-gray-200  "
         style={{ height: 1, marginTop: -1 }}
       ></div>
       <div className=" rtl:space-x-reverse  w-full px-4 flex flex-col justify-center rounded-lg  ">
@@ -67,7 +68,11 @@ const data = [
     tab: <TransactionHistory />,
   },
   {
-    label: "Seela Investment",
+    label: "Seela Investment Transaction",
     tab: <SeelaInvestment />,
+  },
+  {
+    label: "Selaa Sell and Redeem Transactions",
+    tab: <SelaSellRadeem />,
   },
 ];

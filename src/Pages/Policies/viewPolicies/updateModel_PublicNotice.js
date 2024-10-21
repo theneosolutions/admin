@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import * as action from "Services/redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { UpdatePolicyOther } from "Services/OtherApis";
-
+import { periods, StatusDataPublicNotice } from "./json";
 function PublicNotice({ setModelOpen, data, viewMode }) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -123,7 +123,7 @@ function PublicNotice({ setModelOpen, data, viewMode }) {
             />
             <Select
               disabled={viewMode}
-              data={StatusData}
+              data={StatusDataPublicNotice}
               heading={t("Status")}
               type="select"
               value={status}
@@ -185,27 +185,3 @@ function InputField({ heading, value, onChange, type, disabled, style }) {
 }
 
 export default PublicNotice;
-
-const StatusData = [
-  { id: "EXECUTED", name: "Executed" },
-  { id: "NOT_EXECUTED", name: "Not Executed" },
-  { id: "NOT_APPLICABLE", name: "Not Applicable" },
-];
-const periods = [
-  {
-    id: 3,
-    name: "3 Months",
-  },
-  {
-    id: 6,
-    name: "6 Months",
-  },
-  {
-    id: 12,
-    name: "12 Months",
-  },
-  {
-    id: 24,
-    name: "24 Months",
-  },
-];

@@ -149,8 +149,8 @@ function ViewPolicyHistory() {
                         setSelectedId(v?.id)
                       )}
                     >
-                      {role?.code === "policy_checker" &&
-                      v?.status === "PENDING"
+                      {(approve && v?.status === "PENDING") ||
+                      (reject && v?.status === "PENDING")
                         ? "Review"
                         : "View"}
                     </div>

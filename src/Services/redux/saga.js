@@ -1976,6 +1976,7 @@ function* GetAllCounties() {
     console.log("error", error);
   }
 }
+
 export default function* HomeSaga() {
   yield takeLatest("ADD_QUESTION", AddQuestions);
   yield takeLatest("GET_ALL_QUESTIONS", GetAllQuestionsData);
@@ -2043,11 +2044,9 @@ export default function* HomeSaga() {
   yield takeLatest("UPDATE_TERM_AND_RATES", UpdateTermAndRates);
   yield takeLatest("DELETE_TERMS_AND_RATES", DeleteTermsAndRate);
   yield takeLatest("ADD_NEW_ROLE_NAME", AddNewRoleName);
-
   yield takeLatest("ADD_MODULES_TO_ROLES", AddModulesToRole);
   yield takeLatest("DELETE_SET", DeleteSet);
   yield takeLatest("CREATE_SMS", CreateSMS);
-
   yield takeLatest("GET_SIMAH_REPORT", GetSimahReport);
   yield takeLatest("ADD_PRODUCT_IN_SIMAH", AddProductInSimah);
   yield takeLatest("UPDATE_PRODUCT_STATUS", UpdateSimahProduct);

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "Components";
 import { useTranslation } from "react-i18next";
-
+import { DeliquencyPeriods } from "./json";
 function DeliquencyModelHistory({
   data,
   priviousValue,
@@ -11,7 +11,10 @@ function DeliquencyModelHistory({
   reject,
 }) {
   const { t } = useTranslation();
-
+  const getPeriodName = (periodId) => {
+    const period = DeliquencyPeriods.find((p) => p.id === periodId);
+    return period ? period.name : periodId; // Return the name if found, otherwise return the ID as a fallback
+  };
   return (
     <div className="items-center justify-center flex flex-col  w-[500px]">
       <div className=" rtl:space-x-reverse flex flex-col lg:flex-row w-full lg:px-6 px-4 py-5">
@@ -45,7 +48,7 @@ function DeliquencyModelHistory({
                       key={k}
                       className="bg-white border-b dark:border-gray-200"
                     >
-                      <td className="py-2">{t(v?.period)}</td>
+                      <td className="py-2">{t(getPeriodName(v?.period))}</td>
                       <td className="">{t(v?.bucket)}</td>
                       <td className="">{t(v?.count)}</td>
                     </tr>
@@ -78,7 +81,7 @@ function DeliquencyModelHistory({
                       key={k}
                       className="bg-white border-b dark:border-gray-200"
                     >
-                      <td className=" py-2">{t(v?.period)}</td>
+                      <td className="py-2">{t(getPeriodName(v?.period))}</td>
                       <td className="">{t(v?.bucket)}</td>
                       <td className="">{t(v?.count)}</td>
                     </tr>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "Components";
 import { useTranslation } from "react-i18next";
-
+import { periods } from "./json";
 function WriteOffModel({
   setModelOpen,
   data,
@@ -12,7 +12,10 @@ function WriteOffModel({
   reject,
 }) {
   const { t } = useTranslation();
-
+  const getPeriodName = (periodId) => {
+    const period = periods.find((p) => p.id === parseInt(periodId));
+    return period ? period.name : periodId; // Return the name if found, otherwise return the ID as a fallback
+  };
   return (
     <div className="items-center justify-center flex flex-col  w-[500px]">
       <div className=" rtl:space-x-reverse flex flex-col lg:flex-row w-full lg:px-6 px-4 py-5">
@@ -39,7 +42,9 @@ function WriteOffModel({
               </thead>
               <tbody>
                 <tr className="bg-white border-b dark:border-gray-200">
-                  <td className="py-3">{t(priviousValue?.period) || "None"}</td>
+                  <td className="py-3">
+                    {t(getPeriodName(priviousValue?.period)) || "None"}
+                  </td>
                   <td className="">{t(priviousValue?.amount) || "None"}</td>
                   <td className="">{t(priviousValue?.status) || "None"}</td>
                 </tr>
@@ -65,7 +70,7 @@ function WriteOffModel({
               </thead>
               <tbody>
                 <tr className="bg-white border-b dark:border-gray-200">
-                  <td className="py-3">{t(newValue?.period)}</td>
+                  <td className="py-3">{t(getPeriodName(newValue?.period))}</td>
                   <td className="">{t(newValue?.amount)}</td>
                   <td className="">{t(newValue?.status)}</td>
                 </tr>
