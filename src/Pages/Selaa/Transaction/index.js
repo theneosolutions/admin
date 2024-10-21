@@ -22,7 +22,7 @@ function AllUsers() {
     <div className="py-5">
       <CardMain
         width="w-full"
-        heading={t("Selaa Transaction")}
+        heading={t("Customer Transaction")}
         iconStyle="text-3xl text-primary"
       >
         <div className="overflow-x-scroll  mt-4 relative h-[70vh]">

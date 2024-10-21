@@ -29,7 +29,7 @@ function AllUsers() {
     <div className="py-5">
       <CardMain
         width="w-full"
-        heading={t("Selaa History")}
+        heading={t("Investment and topup transactions history")}
         iconStyle="text-3xl text-primary"
       >
         <div className="overflow-x-scroll  mt-4 relative h-[70vh]">

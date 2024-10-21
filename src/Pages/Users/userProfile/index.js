@@ -7,7 +7,13 @@ import { RxCross2 } from "react-icons/rx";
 import { CgArrowsExchange } from "react-icons/cg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { SeelaOperationBuy, TransferRajhi } from "Services/OtherApis";
+import {
+  SeelaOperationBuy,
+  TransferRajhi,
+  TransferInvetmentCertificate,
+  RadeemInvestmentSelaa,
+  GetOwnerShipIdOfApplication,
+} from "Services/OtherApis";
 import * as action from "Services/redux/reducer";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
 import withAuthorization from "constants/authorization";
@@ -21,7 +27,7 @@ function LaonApplication() {
   const [modelOpen, setModelOpen] = useState(false);
   const [active, setActive] = useState("Pending_Cashout");
   const [data, setData] = useState("");
-
+  const [ownerId, setOnwerShipId] = useState();
   const getUserApplication = useSelector((state) => state.getUserApplication);
 
   const user = useSelector((state) => state.getUserById);
@@ -70,34 +76,62 @@ function LaonApplication() {
       payload: userId,
     });
   }
+  useEffect(() => {
+    if (data?.userId && data?.id) {
+      GetOwnerShipId();
+    }
+  }, [data?.userId, data?.id]);
+  function GetOwnerShipId() {
+    dispatch(action.Loading({ Loading: true }));
+    let temp = {
+      userId: data?.userId,
+      applicationId: data?.id,
+      status: "BUY_SUCCESS",
+    };
+    GetOwnerShipIdOfApplication(temp).then((data) => {
+      if (data?.status === 200 || data?.status === 201) {
+        if (data?.response?.data.length > 0) {
+          setOnwerShipId(data?.response?.data[0]);
+        }
+        dispatch(action.Loading({ Loading: false }));
+      } else {
+        dispatch(
+          action.Message({
+            open: true,
+            message: data?.message || "Error",
+            error: true,
+          })
+        );
+        dispatch(action.Loading({ Loading: false }));
+      }
+    });
+  }
+
   function Transfer() {
     dispatch(action.Loading({ Loading: true }));
-    TransferRajhi(userId)
-      .then((data) => {
-        if (data?.error === false) {
-          dispatch(
-            action.Message({
-              open: true,
-              message: "Payment transaction successful",
-              error: false,
-            })
-          );
-          dispatch(action.Loading({ Loading: false }));
-        } else {
-          dispatch(
-            action.Message({
-              open: true,
-              message: data?.message || "Error",
-              error: true,
-            })
-          );
-          dispatch(action.Loading({ Loading: false }));
-        }
-      })
-      .catch((error) => dispatch(action.Loading({ Loading: false })));
+    TransferRajhi(userId).then((data) => {
+      if (data?.error === false) {
+        dispatch(
+          action.Message({
+            open: true,
+            message: "Payment transaction successful",
+            error: false,
+          })
+        );
+        dispatch(action.Loading({ Loading: false }));
+      } else {
+        dispatch(
+          action.Message({
+            open: true,
+            message: data?.message || "Error",
+            error: true,
+          })
+        );
+        dispatch(action.Loading({ Loading: false }));
+      }
+    });
   }
   function SeelaOeration() {
-    console.log("helo");
     let temp = {
       amount: data?.financeAmount,
       applicationId: data?.id,
@@ -105,7 +139,7 @@ function LaonApplication() {
       userId: data?.userId,
       applicationReview: true,
     };
-    console.log("helo", temp);
+
     SeelaOperationBuy(temp).then((res) => {
       if (res.status === 200 || res.status === "201") {
         getUserLoanDetail();
@@ -121,6 +155,63 @@ function LaonApplication() {
           action.Message({
             open: true,
             message: JSON.parse(res?.message)?.message || "Server Error",
+            error: true,
+          })
+        );
+      }
+    });
+  }
+
+  function TransferInvestment() {
+    const temp = {
+      name: user?.user?.firstName + " " + user?.user?.lastName,
+      civilId: user?.user?.idNumber,
+      userId: user?.user?.id,
+      crNumber: user?.user?.idNumber,
+      phone: user?.user?.mobileNumber,
+      ownershipId: ownerId?.ownershipId,
+    };
+
+    TransferInvetmentCertificate(temp).then((data) => {
+      if (data?.status === 200 || data?.status === 201) {
+        dispatch(
+          action.Message({
+            open: true,
+            message: data?.response?.message || "Success",
+            error: false,
+          })
+        );
+      } else {
+        dispatch(
+          action.Message({
+            open: true,
+            message: data?.message || "Error",
+            error: true,
+          })
+        );
+      }
+    });
+  }
+  function RadeemInvestment() {
+    const temp = {
+      userId: user?.user?.id,
+      ownershipId: ownerId?.ownershipId,
+    };
+
+    RadeemInvestmentSelaa(temp).then((data) => {
+      if (data?.status === 200 || data?.status === 201) {
+        dispatch(
+          action.Message({
+            open: true,
+            message: data?.message || "Success",
+            error: false,
+          })
+        );
+      } else {
+        dispatch(
+          action.Message({
+            open: true,
+            message: data?.message || "Error",
             error: true,
           })
         );
@@ -340,6 +431,27 @@ function LaonApplication() {
                     </div>
                   </div>
                 ) : null}
+
+                {data?.status === "SELAA_TRANSFER_FAILED" && (
+                  <div
+                    onClick={() => TransferInvestment()}
+                    className={`  text-white bg-blue-500 hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-2 rounded-md  items-center flex flex-col   `}
+                  >
+                    <div className="uppercase text-xs font-semibold">
+                      Transfer Investment
+                    </div>
+                  </div>
+                )}
+                {data?.status === "SELAA_REDEEM_FAILED" && (
+                  <div
+                    onClick={() => RadeemInvestment()}
+                    className={` text-white bg-blue-500 hover:opacity-80 duration-200 cursor-pointer border-blue-400 border px-8 py-2 rounded-md  items-center flex flex-col   `}
+                  >
+                    <div className="uppercase text-xs font-semibold">
+                      Redeem Investment
+                    </div>
+                  </div>
+                )}
 
                 {data?.status === "Approved_CashOut" ? (
                   <div

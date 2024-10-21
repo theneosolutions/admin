@@ -42,7 +42,6 @@ function MainTemplate({ children }) {
 
     if (user) {
       const isTokenExpired = checkTokenExpiration(user?.data?.token);
-      console.log("user %%%%%% isTokenExpired", isTokenExpired);
 
       if (!isTokenExpired) {
         dispatch(

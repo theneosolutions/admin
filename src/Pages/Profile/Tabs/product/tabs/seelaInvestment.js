@@ -157,7 +157,10 @@ function Response({ data }) {
   const { t } = useTranslation();
 
   return (
-    <div className="px-5 py-4 flex flex-row pb-7">
+    <div
+      className="px-5 py-4 flex flex-row pb-7 overflow-auto"
+      style={{ maxHeight: "85vh" }}
+    >
       <div className="w-44 space-y-4 flex flex-col opacity-80">
         {Object.keys(data || {}).map((key, index) => (
           <a key={index}>{t(key)} :</a>

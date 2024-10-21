@@ -71,7 +71,7 @@ function Wallet() {
           {t("Locked")} : {balance?.locked}
         </a>
       </div>
-      <div className="w-1/2 border border-gray-300 rounded-xl px-4 py-4">
+      {/* <div className="w-1/2 border border-gray-300 rounded-xl px-4 py-4">
         <div className=" w-full md:mt-0 mt-3 space-y-5">
           <InputField
             heading={t("Amount")}
@@ -93,7 +93,7 @@ function Wallet() {
             buttonStyle="px-20 py-2 w-full "
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -61,20 +61,20 @@ async function UpdateDbr(data) {
   }
 }
 
-async function TransferMoney(data) {
-  try {
-    const response = await axiosInstance.post(
-      baseUrlCms + `/selaApi/transfer`,
-      data
-    );
-    return response.data;
-  } catch (error) {
-    const message = error.response
-      ? error.response.data.message
-      : "An error occurred";
-    return message;
-  }
-}
+// async function TransferMoney(data) {
+//   try {
+//     const response = await axiosInstance.post(
+//       baseUrlCms + `/selaApi/transfer`,
+//       data
+//     );
+//     return response.data;
+//   } catch (error) {
+//     const message = error.response
+//       ? error.response.data.message
+//       : "An error occurred";
+//     return message;
+//   }
+// }
 async function RadeemMoney(id) {
   try {
     const response = await axiosInstance.post(
@@ -333,8 +333,73 @@ async function SeelaOperationBuy(payload) {
     return { status: status, message: message };
   }
 }
+
+async function TransferInvetmentCertificate(data) {
+  try {
+    const response = await axiosInstance.post(
+      baseUrlCms + `/selaApi/transfer`,
+      data
+    );
+    return {
+      status: response?.status,
+      message: response?.data?.messsage,
+      response: response?.data,
+    };
+  } catch (error) {
+    const status = error.response ? error.response.status : null; // Error status code
+    const message = error.response
+      ? error.response.data.message || error?.message
+      : "An error occurred";
+
+    return { status: status, message: message };
+  }
+}
+async function RadeemInvestmentSelaa(data) {
+  try {
+    const response = await axiosInstance.post(
+      baseUrlCms +
+        `/selaApi/redeem?ownershipId=${data?.ownershipId}&userId=${data?.userId}`
+    );
+    return {
+      status: response?.status,
+      message: response?.data?.messsage,
+      response: response?.data,
+    };
+  } catch (error) {
+    const status = error.response ? error.response.status : null; // Error status code
+    const message = error.response
+      ? error.response.data.message || error?.message
+      : "An error occurred";
+
+    return { status: status, message: message };
+  }
+}
+async function GetOwnerShipIdOfApplication(data) {
+  try {
+    const response = await axiosInstance.post(
+      baseUrlCms + `/selaApi/buy-ownerships`,
+      data
+    );
+
+    return {
+      status: response?.status,
+      message: response?.data?.messsage,
+      response: response?.data,
+    };
+  } catch (error) {
+    const status = error.response ? error.response.status : null; // Error status code
+    const message = error.response
+      ? error.response.data.message || error?.message
+      : "An error occurred";
+
+    return { status: status, message: message };
+  }
+}
+
 export {
-  // EditBankDetail,
+  GetOwnerShipIdOfApplication,
+  RadeemInvestmentSelaa,
+  TransferInvetmentCertificate,
   GetSelaaSellRadeemValues,
   SeelaOperationBuy,
   GetSeelaInvestMent,
@@ -344,7 +409,6 @@ export {
   CheckQuestionStatusInScreen,
   UpdateDbr,
   GetSeelahHistory,
-  TransferMoney,
   RadeemMoney,
   GetAllOwnersShipIds,
   TopUpWalletFunction,

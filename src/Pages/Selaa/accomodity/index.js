@@ -7,7 +7,7 @@ import withAuthorization from "../../../constants/authorization";
 import * as action from "../../../Services/redux/reducer";
 
 import {
-  TransferMoney,
+  // TransferMoney,
   RadeemMoney,
   GetAllOwnersShipIds,
 } from "Services/OtherApis";
@@ -53,17 +53,17 @@ function Accomodity() {
           phone: userData?.mobileNumber,
         };
 
-        TransferMoney(temp)
-          .then((data) =>
-            dispatch(
-              action.Message({ open: true, message: "Success", error: false })
-            )
-          )
-          .catch((error) =>
-            dispatch(
-              action.Message({ open: true, message: "Error", error: true })
-            )
-          );
+        // TransferMoney(temp)
+        //   .then((data) =>
+        //     dispatch(
+        //       action.Message({ open: true, message: "Success", error: false })
+        //     )
+        //   )
+        //   .catch((error) =>
+        //     dispatch(
+        //       action.Message({ open: true, message: "Error", error: true })
+        //     )
+        //   );
       }
     }
   }

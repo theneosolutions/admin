@@ -245,19 +245,19 @@ const appRoutes = [
         element: <SelaaTransaction />,
         state: "selaa.transaction",
         sidebarProps: {
-          displayText: "Transaction",
+          displayText: "Customer Transaction",
         },
       },
-      {
-        id: 15,
-        code: CODE.SEELA_COMMODITY,
-        path: "/selaa/commodity",
-        element: <SelaaAccomodity />,
-        state: "selaa.commodity",
-        sidebarProps: {
-          displayText: "Commodity",
-        },
-      },
+      // {
+      //   id: 15,
+      //   code: CODE.SEELA_COMMODITY,
+      //   path: "/selaa/commodity",
+      //   element: <SelaaAccomodity />,
+      //   state: "selaa.commodity",
+      //   sidebarProps: {
+      //     displayText: "Commodity",
+      //   },
+      // },
       {
         id: 16,
         code: CODE.SEELA_WALLET,
