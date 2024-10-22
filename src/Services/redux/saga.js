@@ -1779,7 +1779,8 @@ function* UpdatePolicy({ payload }) {
     const response = yield call(
       axiosInstance.post,
       baseUrlDecisions +
-        `/policy/update?newValue=${payload?.newValue}&policyId=${payload?.policyId}&userId=${payload?.userId}`
+        `/policy/update?policyId=${payload?.policyId}&userId=${payload?.userId}`,
+      payload?.newValue
     );
 
     const message = response.data.message;

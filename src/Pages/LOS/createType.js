@@ -6,6 +6,8 @@ import UplaodIcon from "Assets/Images/upload.svg";
 import { CiCircleRemove } from "react-icons/ci";
 import withAuthorization from "../../constants/authorization";
 import TermsAndRates from "Pages/Calculations/termsAndRates";
+import { GetPoliciesSpecificValues } from "Services/OtherApis";
+
 function App() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -14,15 +16,27 @@ function App() {
   const message = useSelector((state) => state.message);
   const error = useSelector((state) => state.error);
 
-  const [formData, setFormData] = useState([{ key: null, value: 0 }]);
+  const [formData, setFormData] = useState([
+    { key: null, value: 0, error: "" },
+  ]);
   const [image, setImage] = useState(null);
   const [image2, setImage2] = useState(null);
   const [reason, setReason] = useState("");
   const [language, setLanguage] = useState("ar");
 
+  const [policyMinValue, setPolicyMinValue] = useState("");
+  const [policyMaxValue, setPolicyMaxValue] = useState("");
+  const [isFormValid, setIsFormValid] = useState(false);
+
   useEffect(() => {
     getAllReasons();
+    GetPolicies();
   }, []);
+
+  useEffect(() => {
+    validateForm();
+  }, [formData, image, reason]);
+
   function getAllReasons() {
     dispatch({
       type: "GET_ALL_LOAN_REASONS",
@@ -30,15 +44,33 @@ function App() {
   }
 
   const handleChange = (index, field, newValue) => {
+    const parsedValue = parseInt(newValue);
+    let errorMessage = "";
+
+    if (
+      parsedValue < parseInt(policyMinValue) ||
+      parsedValue > parseInt(policyMaxValue)
+    ) {
+      errorMessage = `Value should be between ${policyMinValue} and ${policyMaxValue}`;
+    } else if (
+      formData.some((item, idx) => item.key === parsedValue && idx !== index)
+    ) {
+      errorMessage = "Duplicate values are not allowed.";
+    }
+
     setFormData((prevData) => {
       const newData = [...prevData];
-      newData[index][field] = newValue;
+      newData[index][field] = parsedValue;
+      newData[index].error = errorMessage;
       return newData;
     });
   };
 
   const handleAddMore = () => {
-    setFormData((prevData) => [...prevData, { key: null, value: 0 }]);
+    setFormData((prevData) => [
+      ...prevData,
+      { key: null, value: 0, error: "" },
+    ]);
   };
 
   const transformList = (originalList) => {
@@ -48,10 +80,11 @@ function App() {
   };
 
   const handleSubmit = () => {
-    if (!image || !reason || formData.some((item) => !item.key)) {
+    if (!image || !reason || formData.some((item) => !item.key || item.error)) {
       alert("Please fill in all required fields.");
       return;
     }
+
     const mergedObject = {};
     const temp = transformList(formData);
 
@@ -62,7 +95,6 @@ function App() {
     });
 
     const transformedObject = {};
-
     for (const key in mergedObject) {
       const newKey = key + " Months";
       transformedObject[newKey] = mergedObject[key];
@@ -72,9 +104,16 @@ function App() {
       type: "CREATE_LOAN_TYPE",
       payload: { reason, image, language, transformedObject },
     });
+
     setTimeout(() => {
       getAllReasons();
     }, 2000);
+  };
+
+  const validateForm = () => {
+    const isValid =
+      image && reason && formData.every((item) => item.key && !item.error);
+    setIsFormValid(isValid);
   };
 
   const fileInputRef = useRef(null);
@@ -82,6 +121,7 @@ function App() {
   function handleClick() {
     fileInputRef.current.click();
   }
+
   function handleSelectImage(e) {
     if (e.target.files && e.target.files[0]) {
       const selectedImage = e.target.files[0];
@@ -102,18 +142,19 @@ function App() {
         setImage2(URL.createObjectURL(selectedImage));
       } else {
         alert("Please upload a PNG or ICO file.");
-        // Optionally, you can reset the file input to clear the selected file
         e.target.value = null;
       }
     }
   }
+
   useEffect(() => {
     if (error === false) {
       reset();
     }
   }, [message]);
+
   function reset() {
-    setFormData([{ key: null, value: 0 }]);
+    setFormData([{ key: null, value: 0, error: "" }]);
     setReason("");
     setImage(null);
     setImage2(null);
@@ -123,6 +164,23 @@ function App() {
     const temp = formData.filter((item, index) => index !== key);
     setFormData(temp);
   }
+
+  function GetPolicies() {
+    let temp = "policies=min_loan_tenure&policies=max_loan_tenure";
+    GetPoliciesSpecificValues(temp).then((res) => {
+      if (res.status === 200) {
+        const min = res?.response?.data.find(
+          (name) => name.policyName === "min_loan_tenure"
+        );
+        const max = res?.response?.data.find(
+          (name) => name.policyName === "max_loan_tenure"
+        );
+        setPolicyMinValue(min?.policyValue);
+        setPolicyMaxValue(max?.policyValue);
+      }
+    });
+  }
+
   return (
     <div className="container mx-auto mt-5 space-y-6">
       <div className="flex flex-col   w-full ">
@@ -191,33 +249,23 @@ function App() {
                       key={index}
                       className="mb-4 flex  flex-row justify-between items-end "
                     >
-                      <div className="flex flex-row w-11/12	space-x-2 rtl:space-x-reverse">
-                        <div className="flex flex-col w-full	 ">
-                          <a className="text-sm text-gray-700">{t("Months")}</a>
-
-                          <input
-                            type="number"
-                            value={data.key || ""}
-                            onChange={(e) =>
-                              handleChange(index, "key", e.target.value)
-                            }
-                            className="border-primary border rounded-md  px-3 py-1.5 outline-none mt-2 w-full"
-                            placeholder="Key"
-                          />
-                        </div>
-                        {/* <div className="flex flex-col w-1/2	 ">
-                          <a className="text-sm text-gray-700"> {t("Ratio")}</a>
-
-                          <input
-                            type="number"
-                            value={data.value || ""}
-                            onChange={(e) =>
-                              handleChange(index, "value", e.target.value)
-                            }
-                            className="border-primary border rounded-md  px-3 py-1.5 outline-none mt-2 w-full"
-                            placeholder="Value"
-                          />
-                        </div> */}
+                      <div className="flex flex-col w-full">
+                        <input
+                          type="number"
+                          value={data.key || ""}
+                          onChange={(e) =>
+                            handleChange(index, "key", e.target.value)
+                          }
+                          className={`border-primary border rounded-md px-3 py-1.5 outline-none mt-2 w-full ${
+                            data.error ? "border-red-500" : ""
+                          }`}
+                          placeholder="Months"
+                        />
+                        {data.error && (
+                          <span className="text-red-500 text-sm mt-1">
+                            {data.error}
+                          </span>
+                        )}
                       </div>
                       <CiCircleRemove
                         className="mb-1 text-3xl text-red-700 cursor-pointer hover:text-red-400 duration-300"
@@ -240,7 +288,12 @@ function App() {
               <div className="flex flex-col">
                 <button
                   onClick={handleSubmit}
-                  className={`w-max mt-5 rounded-lg text-white text-sm px-10 py-2   hover:bg-opacity-90 bg-primary`}
+                  disabled={!isFormValid}
+                  className={`w-max mt-5 rounded-lg text-white text-sm px-10 py-2 bg-primary ${
+                    !isFormValid
+                      ? "opacity-50 cursor-not-allowed"
+                      : "hover:bg-opacity-90"
+                  }`}
                 >
                   {t("Submit")}
                 </button>

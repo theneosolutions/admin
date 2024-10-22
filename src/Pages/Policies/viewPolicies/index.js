@@ -67,6 +67,7 @@ function AllPolicies() {
     }
   }
   function CheckPolicy(v) {
+    console.log("helo", v);
     if (v?.policyName === "write_off") {
       setModelWriteOff(true);
       setModelDelinquency(false);

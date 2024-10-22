@@ -14,11 +14,13 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
   const [rows, setRows] = useState([{ period: "", bucket: "", count: "" }]);
   const [formValid, setFormValid] = useState(false); // Track overall form validity
   const [errorMessages, setErrorMessages] = useState([]); // Track row-level error messages
-
+  console.log("data dequency", data);
   useEffect(() => {
+    if (data?.policyName) {
+      setPolicyName(data?.policyName);
+    }
     if (data?.policyValue) {
       const temp = JSON.parse(data?.policyValue);
-      setPolicyName(data?.policyName);
 
       setRows(temp);
     }
@@ -199,7 +201,7 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
                   onChange={(value) =>
                     handleSelectChange(index, "period", value)
                   }
-                  errorMessage={errorMessages[index]?.period}
+                  errorMessage={viewMode ? null : errorMessages[index]?.period}
                 />
 
                 <Select
@@ -210,7 +212,8 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
                   onChange={(value) =>
                     handleSelectChange(index, "bucket", value)
                   }
-                  errorMessage={errorMessages[index]?.bucket}
+                  errorMessage={viewMode ? null : errorMessages[index]?.bucket}
+                  // err orMessage={errorMessages[index]?.bucket}
                 />
                 <div className={`${viewMode ? "w-1/3" : "w-1/3"}`}>
                   {row.period !== "0" && (
@@ -222,7 +225,9 @@ function DelinquencyModel({ setModelOpen, data, viewMode }) {
                       onChange={(e) =>
                         handleSelectChange(index, "count", e.target.value)
                       }
-                      errorMessage={errorMessages[index]?.count}
+                      errorMessage={
+                        viewMode ? null : errorMessages[index]?.count
+                      }
                     />
                   )}
                 </div>

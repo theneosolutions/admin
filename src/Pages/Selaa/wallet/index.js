@@ -60,8 +60,9 @@ function Wallet() {
     }
   }, [selaBalance?.data]);
   return (
-    <div className="py-5 flex flex-row space-x-4">
-      <div className="w-1/2 border border-gray-300 rounded-xl px-4 py-4">
+    <div className="py-5 flex flex-col">
+      <h1 className="font-semibold">Selaa Account Balance</h1>
+      <div className="w-1/2 border mt-6 border-gray-300 rounded-xl px-4 py-4">
         <div>
           <a className="text-lg">
             {t("Balance")} : {balance?.amount}

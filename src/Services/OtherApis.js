@@ -396,7 +396,29 @@ async function GetOwnerShipIdOfApplication(data) {
   }
 }
 
+async function GetPoliciesSpecificValues(data) {
+  try {
+    const response = await axiosInstance.get(
+      baseUrlDecisions + `/policy/fetchPoliciesByName?${data}`
+    );
+
+    return {
+      status: response?.status,
+      message: response?.data?.messsage,
+      response: response?.data,
+    };
+  } catch (error) {
+    const status = error.response ? error.response.status : null; // Error status code
+    const message = error.response
+      ? error.response.data.message || error?.message
+      : "An error occurred";
+
+    return { status: status, message: message };
+  }
+}
+
 export {
+  GetPoliciesSpecificValues,
   GetOwnerShipIdOfApplication,
   RadeemInvestmentSelaa,
   TransferInvetmentCertificate,
