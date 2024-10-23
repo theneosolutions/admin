@@ -96,7 +96,7 @@ function SeelaInvestment() {
                       }
                       className="w-max px-3 py-1 rounded-md text-white bg-green-500 cursor-pointer hover:opacity-80 duration-200"
                     >
-                      {t("View Investment Cirtificate")}
+                      {t("View Investment Certificate")}
                     </div>
                   ) : (
                     "Not Found"
