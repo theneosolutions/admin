@@ -21,18 +21,18 @@ function Template() {
   }
 
   return (
-    <div className=" bg-white  border border-primary w-full rounded-lg overflow-x-scroll">
-      <div className="flex flex-row  ">
+    <div className="bg-white   border border-primary w-full rounded-lg overflow-x-scroll ">
+      <div className="flex flex-row   w-max border-b border-gray-300">
         {data?.map((v, k) => {
           return (
             <div
               onClick={() => setNavigation(v.label)}
-              className={`px-4 cursor-pointer ${
+              className={`px-2 cursor-pointer ${
                 state === v.label ? "text-primary " : "text-gray-600 "
               }`}
             >
               <div
-                className={`px-3 py-4  w-max  ${
+                className={`px-2 py-4  w-max  ${
                   state === v.label ? "border-primary border-b-2" : " "
                 }`}
               >
@@ -42,11 +42,8 @@ function Template() {
           );
         })}
       </div>
-      <div
-        className=" w-full bg-gray-200  "
-        style={{ height: 1, marginTop: -1 }}
-      ></div>
-      <div className=" rtl:space-x-reverse  w-full px-4 flex flex-col justify-center rounded-lg  ">
+
+      <div className="  rtl:space-x-reverse  w-full px-4 flex flex-col justify-center rounded-lg  ">
         <div className="flex flex-row space-x-5 mt-5 ">{getTab()}</div>
       </div>
     </div>
@@ -68,7 +65,7 @@ const data = [
     tab: <TransactionHistory />,
   },
   {
-    label: "Seela Investment Transaction",
+    label: "Selaa Investment Transaction",
     tab: <SeelaInvestment />,
   },
   {

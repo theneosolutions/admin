@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-
+import { HiOutlineInformationCircle } from "react-icons/hi2";
+import { Tooltip } from "Components";
 function SimahProductList({ data, GetSimahCodes }) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -39,10 +40,10 @@ function SimahProductList({ data, GetSimahCodes }) {
   };
 
   return (
-    <div className="py-5 w-full">
-      <div className="overflow-x-auto relative">
-        <table className="w-full whitespace-nowrap text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-400 uppercase bg-gray-200 font-normal">
+    <div className="w-full">
+      <div className="overflow-x-auto relative py-5">
+        <table className="w-full whitespace-nowrap overflow-visible  text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead className="overflow-visible text-xs text-gray-400 uppercase bg-gray-200 font-normal">
             <tr>
               <th scope="col" className="px-10 py-3 cursor-pointer">
                 {t("Id")}
@@ -65,14 +66,34 @@ function SimahProductList({ data, GetSimahCodes }) {
               <th scope="col" className="px-3 py-3 cursor-pointer">
                 {t("Product Category")}
               </th>
-              <th scope="col" className="px-3 py-3 cursor-pointer">
-                {t("Dbr")}
+
+              <th
+                scope="col"
+                className="px-3 py-3 cursor-pointer flex flex-row items-center space-x-1"
+              >
+                <div>{t("Dbr")}</div>
+                <Tooltip text="Dbr">
+                  <HiOutlineInformationCircle className="text-lg" />
+                </Tooltip>
               </th>
               <th scope="col" className="px-3 py-3 cursor-pointer">
-                {t("Performance")}
+                <div className="flex flex-row cursor-pointer items-center space-x-1">
+                  <div>{t("Performance")}</div>
+                  <Tooltip text="Performance">
+                    <HiOutlineInformationCircle className="text-lg" />
+                  </Tooltip>
+                </div>
               </th>
               <th scope="col" className="px-3 py-3 cursor-pointer">
-                {t("Enable")}
+                <div className="flex flex-row cursor-pointer items-center space-x-1">
+                  <div>{t("Enable")}</div>
+                  <Tooltip text="Enable hbhg gy">
+                    <HiOutlineInformationCircle className="text-lg" />
+                  </Tooltip>
+                </div>
+              </th>
+              <th scope="col" className="px-10 py-3 cursor-pointer">
+                {t("Action")}
               </th>
             </tr>
           </thead>
@@ -104,7 +125,7 @@ function SimahProductList({ data, GetSimahCodes }) {
                     />
                   </div>
                 </td>
-                <td className="px-3 py-4">
+                <td className="px-3 py-4 flex items-center  justify-center">
                   <div
                     onClick={() => handleToggle(v.id, "performance")}
                     className={`w-12 h-6 flex items-center rounded-full p-1 cursor-pointer ${
@@ -138,6 +159,11 @@ function SimahProductList({ data, GetSimahCodes }) {
                           : "translate-x-0"
                       }`}
                     />
+                  </div>
+                </td>
+                <td className="px-10">
+                  <div className="px-4 py-1.5  text-white rounded-md bg-green-600 cursor-pointer duration-300 hover:opacity-80">
+                    Save
                   </div>
                 </td>
               </tr>

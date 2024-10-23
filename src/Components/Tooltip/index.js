@@ -4,15 +4,16 @@ const Tooltip = ({ text, children }) => {
   const [showTooltip, setShowTooltip] = React.useState(false);
 
   return (
-    <div className="relative inline-block">
+    <div className="relative">
       <span
         className="cursor-pointer"
         onMouseEnter={() => setShowTooltip(true)}
-        onMouseLeave={() => setShowTooltip(false)}>
+        onMouseLeave={() => setShowTooltip(false)}
+      >
         {children}
       </span>
       {showTooltip && (
-        <div className="bg-black text-white text-xs rounded p-2 absolute bottom-full left-1/2 transform -translate-x-1/2 opacity-100 transition-opacity duration-300">
+        <div className="z-50 bg-gray-300 text-gray-600 text-[10px] rounded px-2 py-1 absolute bottom-full left-1/2 transform -translate-x-1/2 opacity-100 transition-opacity duration-300 normal-case">
           {text}
         </div>
       )}

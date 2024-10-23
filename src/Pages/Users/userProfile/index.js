@@ -95,13 +95,13 @@ function LaonApplication() {
         }
         dispatch(action.Loading({ Loading: false }));
       } else {
-        dispatch(
-          action.Message({
-            open: true,
-            message: data?.message || "Error",
-            error: true,
-          })
-        );
+        // dispatch(
+        //   action.Message({
+        //     open: true,
+        //     message: data?.message || "Error",
+        //     error: true,
+        //   })
+        // );
         dispatch(action.Loading({ Loading: false }));
       }
     });
@@ -240,7 +240,14 @@ function LaonApplication() {
 
               <div className="flex flex-col mx-3 space-y-0.5">
                 <a className="text-xs text-gray-400">Name</a>
-                <a className="text-sm text-gray-700 font-semibold">
+                <a
+                  className="text-sm text-gray-700 font-semibold hover:underline cursor-pointer"
+                  onClick={() =>
+                    navigate(
+                      `/customers/verified/profile?id=${user?.user?.idNumber}&name=Profile&user=${user?.user?.id}`
+                    )
+                  }
+                >
                   {user?.user?.firstName + " " + user?.user?.lastName}
                 </a>
                 <a

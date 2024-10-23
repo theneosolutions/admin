@@ -110,7 +110,7 @@ function SeelaInvestment() {
                       setModelOpen2(true)
                     )}
                   >
-                    {t("Request Content")}
+                    {t("View Request")}
                   </div>
                 </td>
                 <td className="px-3">
@@ -121,7 +121,7 @@ function SeelaInvestment() {
                       setModelOpen(true)
                     )}
                   >
-                    {t("Response Content")}
+                    {t("View Response")}
                   </div>
                 </td>
               </tr>
@@ -134,7 +134,7 @@ function SeelaInvestment() {
         <Model
           setModelOpen={(e) => setModelOpen(e)}
           reset={() => (setModelOpen(false), setActiveData(""))}
-          heading="Response Content"
+          heading="View Response"
         >
           <Response data={activeData} />
         </Model>
@@ -143,7 +143,7 @@ function SeelaInvestment() {
         <Model
           setModelOpen={(e) => setModelOpen2(e)}
           reset={() => (setModelOpen2(false), setActiveData2(""))}
-          heading="Request Content"
+          heading="View Request"
         >
           <Response data={activeData2} />
         </Model>
