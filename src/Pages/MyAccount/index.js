@@ -12,12 +12,14 @@ function MyAccount() {
 
   const [disabled, setDisabled] = useState(true);
   const { t } = useTranslation();
-  const stateUser = useSelector((state) => state.getUserById?.user);
+  const stateUser = useSelector((state) => state.getUserById);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobile, setMobile] = useState("");
+  const [idNumber, setIdNumber] = useState("");
+  const [role, setRole] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -31,14 +33,16 @@ function MyAccount() {
       payload: user?.id,
     });
   }
-
   useEffect(() => {
     if (stateUser) {
       setName(stateUser?.firstName);
       setEmail(stateUser?.email);
       setLastName(stateUser?.lastName);
       setMobile(stateUser?.mobileNumber?.replace("966", ""));
-      // setUserName(stateUser?.username);
+      setIdNumber(stateUser?.idNumber);
+      if (stateUser?.roles) {
+        setRole(stateUser?.roles[0]?.name);
+      }
     }
   }, [stateUser]);
 
@@ -54,7 +58,6 @@ function MyAccount() {
     }
     if (!disabled) {
       var temp = {
-        idNumber: user?.idNumber,
         firstName: name,
         lastName: lastName,
         email: email,
@@ -113,17 +116,18 @@ function MyAccount() {
               value={lastName}
               onChange={(e) => setLastName(e)}
             />
+
             <InputField
               disabled={true}
               heading={t("Username")}
-              value={stateUser?.idNumber}
+              value={idNumber}
               onChange={(e) => console.log("helo", e)}
             />
 
             <InputField
               disabled={true}
               heading={t("Role")}
-              value={stateUser?.roles[0]?.name}
+              value={role}
               onChange={(e) => console.log("helo", e)}
             />
           </div>

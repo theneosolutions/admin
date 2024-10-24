@@ -71,13 +71,18 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
+    console.log("errorrrrr", error);
     // Check if the error response status is 401
     if (error.response && error.response.status === 401) {
       // Handle the 401 error (e.g., log out the user, redirect to login, etc.)
       console.log("Unauthorized access - maybe redirect to login?");
 
       // Logout();
-      // store.dispatch({ islogin: false });
+      store.dispatch(
+        action.Auth({ user: null, islogin: false, role: null, token: null })
+      );
+      localStorage.removeItem("user");
+      window.location.href = "/login";
     }
     return Promise.reject(error);
   }

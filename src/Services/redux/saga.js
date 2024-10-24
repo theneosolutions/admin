@@ -268,10 +268,12 @@ function* GetAllUsers(payload) {
     yield put(action.GetAllUsers(response.data));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
+    console.log("error", error);
     const message = error.response.data.message;
     yield put(action.Loading({ Loading: false }));
 
     yield put(action.Message({ message: message, open: true, error: true }));
+    return error;
   }
 }
 function* GetAllUsersEmi(payload) {
@@ -771,9 +773,10 @@ function* GetUserById({ payload }) {
 
     const response = yield call(
       axiosInstance.get,
-      baseUrlUser + `/user/getUserById?userId=${payload}`
+      baseUrlUser + `/user/admin/profile`
     );
-    yield put(action.GetUserById(response));
+    console.log("response profile", response?.data);
+    yield put(action.GetUserById(response?.data));
     yield put(action.Loading({ Loading: false }));
   } catch (error) {
     yield put(action.Loading({ Loading: false }));

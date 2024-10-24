@@ -65,7 +65,6 @@ function LaonApplication() {
     });
     setTimeout(() => getUserLoanDetail(), 500);
   }
-  console.log("user?.user?.", user?.user);
   function getUserLoanDetail() {
     dispatch({
       type: "GET_USER_APPLICATION_DATA",
@@ -135,7 +134,7 @@ function LaonApplication() {
     let temp = {
       amount: data?.financeAmount,
       applicationId: data?.id,
-      internalId: user?.user?.idNumber,
+      internalId: user?.idNumber,
       userId: data?.userId,
       applicationReview: true,
     };
@@ -164,11 +163,11 @@ function LaonApplication() {
 
   function TransferInvestment() {
     const temp = {
-      name: user?.user?.firstName + " " + user?.user?.lastName,
-      civilId: user?.user?.idNumber,
-      userId: user?.user?.id,
-      crNumber: user?.user?.idNumber,
-      phone: user?.user?.mobileNumber,
+      name: user?.firstName + " " + user?.lastName,
+      civilId: user?.idNumber,
+      userId: user?.id,
+      crNumber: user?.idNumber,
+      phone: user?.mobileNumber,
       ownershipId: ownerId?.ownershipId,
     };
 
@@ -194,7 +193,7 @@ function LaonApplication() {
   }
   function RadeemInvestment() {
     const temp = {
-      userId: user?.user?.id,
+      userId: user?.id,
       ownershipId: ownerId?.ownershipId,
     };
 
@@ -244,18 +243,18 @@ function LaonApplication() {
                   className="text-sm text-gray-700 font-semibold hover:underline cursor-pointer"
                   onClick={() =>
                     navigate(
-                      `/customers/verified/profile?id=${user?.user?.idNumber}&name=Profile&user=${user?.user?.id}`
+                      `/customers/verified/profile?id=${user?.idNumber}&name=Profile&user=${user?.id}`
                     )
                   }
                 >
-                  {user?.user?.firstName + " " + user?.user?.lastName}
+                  {user?.firstName + " " + user?.lastName}
                 </a>
                 <a
                   className={`text-xs ${
-                    user?.user?.active ? "text-green-500" : "text-red-500"
+                    user?.active ? "text-green-500" : "text-red-500"
                   }`}
                 >
-                  {user?.user?.active ? "Active" : "Not Active"}
+                  {user?.active ? "Active" : "Not Active"}
                 </a>
               </div>
             </div>
@@ -296,7 +295,7 @@ function LaonApplication() {
                   <div className="flex flex-col">
                     <a className="text-xs text-gray-400">Iqama Number</a>
                     <a className="text-sm text-gray-700 font-semibold opacity-90">
-                      {user?.user?.idNumber}
+                      {user?.idNumber}
                     </a>
                   </div>
                   <div className="flex flex-col">
@@ -308,7 +307,7 @@ function LaonApplication() {
                   <div className="flex flex-col ">
                     <a className="text-xs text-gray-400 ">Account Locked</a>
                     <a className="text-sm text-gray-700  opacity-90">
-                      {user?.user?.accountNonLocked ? "Locked" : "Not Locked"}
+                      {user?.accountNonLocked ? "Locked" : "Not Locked"}
                     </a>
                   </div>
                   <div className="flex flex-col ">
@@ -316,27 +315,25 @@ function LaonApplication() {
                       Absher Verified{" "}
                     </a>
                     <a className="text-sm text-gray-700  opacity-90">
-                      {user?.user?.ownerVerification
-                        ? "Verified"
-                        : "Not Verified"}
+                      {user?.ownerVerification ? "Verified" : "Not Verified"}
                     </a>
                   </div>
                   <div className="flex flex-col ">
                     <a className="text-xs text-gray-400 ">Name </a>
                     <a className="text-sm text-gray-700  opacity-90">
-                      {user?.user?.firstName + " " + user?.user?.lastName}
+                      {user?.firstName + " " + user?.lastName}
                     </a>
                   </div>
                   <div className="flex flex-col ">
                     <a className="text-xs text-gray-400 ">Email</a>
                     <a className="text-sm text-gray-700  opacity-90">
-                      {user?.user?.email}
+                      {user?.email}
                     </a>
                   </div>
                   <div className="flex flex-col ">
                     <a className="text-xs text-gray-400 ">Gender</a>
                     <a className="text-sm text-gray-700  opacity-90">
-                      {user?.user?.gender}
+                      {user?.gender}
                     </a>
                   </div>
                   <div className="flex flex-col ">
@@ -344,13 +341,13 @@ function LaonApplication() {
                       Date Of Birth In Hijri
                     </a>
                     <a className="text-sm text-gray-700  opacity-90">
-                      {user?.user?.hijriDateOfBirth}
+                      {user?.hijriDateOfBirth}
                     </a>
                   </div>{" "}
                   <div className="flex flex-col ">
                     <a className="text-xs text-gray-400 ">Mobile Number</a>
                     <a className="text-sm text-gray-700  opacity-90">
-                      {user?.user?.mobileNumber}
+                      {user?.mobileNumber}
                     </a>
                   </div>
                 </div>
