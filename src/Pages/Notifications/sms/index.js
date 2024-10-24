@@ -116,7 +116,7 @@ function NotificationsScreen() {
         >
           <AddSms
             selectedData={selectedData}
-            setModelOpen={(e) => console.log("helo", e)}
+            setModelOpen={(e) => setModelOpen(false)}
           />
         </Model2>
       ) : null}
