@@ -9,6 +9,7 @@ import Edit from "../../Assets/Images/edit.svg";
 import Delete from "../../Assets/Images/delete.svg";
 import { Model } from "../../Components";
 import Model2 from "Components/Model2";
+import { getLanguage } from "functions/getLanguage";
 
 function BareMinimumExpense() {
   const dispatch = useDispatch();
@@ -58,7 +59,11 @@ function BareMinimumExpense() {
         onButtonClick={() => (setModelOpen(true), setSelectedData(null))}
       >
         <div className="overflow-x-auto relative  mt-4">
-          <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+          <table
+            className={`w-full whitespace-nowrap  text-sm  text-gray-500 dark:text-gray-400 ${
+              getLanguage() === "ar" ? "text-right" : "text-left"
+            }`}
+          >
             <thead className="text-xs text-gray-400 bg-gray-200 uppercase  font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">

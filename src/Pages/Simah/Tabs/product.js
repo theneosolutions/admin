@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { HiOutlineInformationCircle } from "react-icons/hi2";
 import { Tooltip } from "Components";
+import { getLanguage } from "functions/getLanguage";
 function SimahProductList({ data, GetSimahCodes }) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -42,7 +43,11 @@ function SimahProductList({ data, GetSimahCodes }) {
   return (
     <div className="w-full">
       <div className="overflow-x-auto relative py-5">
-        <table className="w-full whitespace-nowrap overflow-visible  text-sm text-left text-gray-500 dark:text-gray-400">
+        <table
+          className={`w-full whitespace-nowrap  text-sm  text-gray-500 dark:text-gray-400 ${
+            getLanguage() === "ar" ? "text-right" : "text-left"
+          }`}
+        >
           <thead className="overflow-visible text-xs text-gray-400 uppercase bg-gray-200 font-normal">
             <tr>
               <th scope="col" className="px-10 py-3 cursor-pointer">

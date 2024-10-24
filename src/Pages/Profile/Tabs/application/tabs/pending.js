@@ -7,6 +7,7 @@ import { Model, Avatar } from "Components";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useEffect } from "react";
+import { getLanguage } from "functions/getLanguage";
 function LaonApplication() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,7 +30,11 @@ function LaonApplication() {
   return (
     <div className="py-5  w-full">
       <div className="overflow-x-auto relative">
-        <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+        <table
+          className={`w-full whitespace-nowrap  text-sm  text-gray-500 dark:text-gray-400 ${
+            getLanguage() === "ar" ? "text-right" : "text-left"
+          }`}
+        >
           <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
             <tr>
               <th scope="col" className="px-3 py-3 cursor-pointer">

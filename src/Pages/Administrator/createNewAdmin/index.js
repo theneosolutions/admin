@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import User from "./CreateUserModel";
 import Model2 from "Components/Model2";
 import withAuthorization from "../../../constants/authorization";
+import { getLanguage } from "functions/getLanguage";
 
 function CreateNewAdmin() {
   const { t } = useTranslation();
@@ -43,7 +44,11 @@ function CreateNewAdmin() {
         onButtonClick={() => setModelOpen(true)}
       >
         <div className="overflow-x-auto relative  mt-4">
-          <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+          <table
+            className={`w-full whitespace-nowrap  text-sm  text-gray-500 dark:text-gray-400 ${
+              getLanguage() === "ar" ? "text-right" : "text-left"
+            }`}
+          >
             <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">

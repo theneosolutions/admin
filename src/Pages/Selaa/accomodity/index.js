@@ -11,6 +11,7 @@ import {
   RadeemMoney,
   GetAllOwnersShipIds,
 } from "Services/OtherApis";
+import { getLanguage } from "functions/getLanguage";
 function Accomodity() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -75,7 +76,11 @@ function Accomodity() {
         iconStyle="text-3xl text-primary"
       >
         <div className="overflow-x-scroll  mt-4 relative h-[70vh] ">
-          <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+          <table
+            className={`w-full whitespace-nowrap  text-sm  text-gray-500 dark:text-gray-400 ${
+              getLanguage() === "ar" ? "text-right" : "text-left"
+            }`}
+          >
             <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">

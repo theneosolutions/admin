@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+import { getLanguage } from "functions/getLanguage";
 
 function PersonalDetailCard() {
   const user = useSelector((state) => state.getUserById?.userMonitoring);
@@ -9,7 +10,11 @@ function PersonalDetailCard() {
 
   return (
     <div className="overflow-x-auto relative   w-full">
-      <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+      <table
+        className={`w-full whitespace-nowrap  text-sm  text-gray-500 dark:text-gray-400 ${
+          getLanguage() === "ar" ? "text-right" : "text-left"
+        }`}
+      >
         <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
           <tr>
             <th scope="col" className="px-3 py-3 cursor-pointer">

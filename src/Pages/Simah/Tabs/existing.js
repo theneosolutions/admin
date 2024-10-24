@@ -1,3 +1,4 @@
+import { getLanguage } from "functions/getLanguage";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -10,7 +11,11 @@ function SimahExisting() {
   return (
     <div className="py-5  w-full">
       <div className="overflow-x-auto relative">
-        <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+        <table
+          className={`w-full whitespace-nowrap  text-sm  text-gray-500 dark:text-gray-400 ${
+            getLanguage() === "ar" ? "text-right" : "text-left"
+          }`}
+        >
           <thead className="text-xs text-gray-400 uppercase bg-gray-200 font-normal">
             <tr>
               <th scope="col" className="px-10 py-3 cursor-pointer">

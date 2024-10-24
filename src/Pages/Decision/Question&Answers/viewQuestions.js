@@ -3,6 +3,7 @@ import CardMain from "Components/Cards/main";
 import { useTranslation } from "react-i18next";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import { getLanguage } from "functions/getLanguage";
 
 function ViewQuestions({ getAllQuestion }) {
   const dispatch = useDispatch();
@@ -25,7 +26,11 @@ function ViewQuestions({ getAllQuestion }) {
         width="w-full  h-max mt-4 md:mt-5"
       >
         <div className="w-full flex flex-col mt-3 overflow-x-auto">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <table
+            className={`w-full text-sm  text-gray-500 dark:text-gray-400 ${
+              getLanguage() === "ar" ? "text-right" : "text-left"
+            }`}
+          >
             <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
               <tr>
                 <th scope="col" className="px-2 py-3">

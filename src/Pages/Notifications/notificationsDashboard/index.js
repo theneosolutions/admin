@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../../Services/redux/reducer";
 
 import withAuthorization from "../../../constants/authorization";
+import { getLanguage } from "functions/getLanguage";
 function NotificationsScreen() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -58,7 +59,11 @@ function NotificationsScreen() {
         }
       >
         <div className="overflow-x-auto relative  mt-4">
-          <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+          <table
+            className={`w-full whitespace-nowrap  text-sm  text-gray-500 dark:text-gray-400 ${
+              getLanguage() === "ar" ? "text-right" : "text-left"
+            }`}
+          >
             <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">

@@ -3,6 +3,7 @@ import Team from "../../Teams";
 import Data from "./_data";
 import { useTranslation } from "react-i18next";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { getLanguage } from "functions/getLanguage";
 
 function MyApplication() {
   const { t } = useTranslation();
@@ -48,7 +49,11 @@ function MyApplication() {
   return (
     <div className="">
       <div className="relative overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table
+          className={`w-full text-sm text-left text-gray-500 dark:text-gray-400 ${
+            getLanguage() === "ar" ? "text-right" : "text-left"
+          }`}
+        >
           <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
             <tr>
               <th

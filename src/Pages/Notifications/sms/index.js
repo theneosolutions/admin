@@ -8,6 +8,7 @@ import Model2 from "Components/Model2";
 import AddSms from "../sms/addSms";
 import Delete from "../../../Assets/Images/delete.svg";
 import Edit from "../../../Assets/Images/edit.svg";
+import { getLanguage } from "functions/getLanguage";
 
 function NotificationsScreen() {
   const { t } = useTranslation();
@@ -50,7 +51,11 @@ function NotificationsScreen() {
         onButtonClick={() => (setModelOpen(true), setSelectedData(null))}
       >
         <div className="overflow-x-auto relative  mt-4">
-          <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+          <table
+            className={`w-full whitespace-nowrap  text-sm  text-gray-500 dark:text-gray-400 ${
+              getLanguage() === "ar" ? "text-right" : "text-left"
+            }`}
+          >
             <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">

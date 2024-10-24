@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import { Button } from "Components";
 import { CODE } from "constants/codes";
 import withAuthorization from "constants/authorization";
+import { getLanguage } from "functions/getLanguage";
 function ViewPolicyHistory() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -100,7 +101,11 @@ function ViewPolicyHistory() {
         iconStyle="text-3xl text-primary"
       >
         <div className="overflow-x-auto relative  mt-4">
-          <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+          <table
+            className={`w-full whitespace-nowrap  text-sm  text-gray-500 dark:text-gray-400 ${
+              getLanguage() === "ar" ? "text-right" : "text-left"
+            }`}
+          >
             <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">

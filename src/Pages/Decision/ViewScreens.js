@@ -36,7 +36,11 @@ function CreateQuestionsSet() {
           {Object.entries(getScreensSets).map(([category, items]) => (
             <div className="p-2 md:w-1/3 w-full h-min md:flex-shrink-0">
               <CardMain key={category} heading={category} width=" ">
-                <table className="mt-4 w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <table
+                  className={`mt-4 w-full text-sm  text-gray-500 dark:text-gray-400 ${
+                    getLanguage() === "ar" ? "text-right" : "text-left"
+                  }`}
+                >
                   <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
                     <tr>
                       <th scope="col" className="px-3 py-3 cursor-pointer">

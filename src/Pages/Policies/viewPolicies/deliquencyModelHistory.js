@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "Components";
 import { useTranslation } from "react-i18next";
 import { DeliquencyPeriods } from "./json";
+import { getLanguage } from "functions/getLanguage";
 function DeliquencyModelHistory({
   data,
   priviousValue,
@@ -25,7 +26,11 @@ function DeliquencyModelHistory({
 
           <div className="w-full mt-4 ">
             <a className="opacity-60 text-md">Previous Values</a>
-            <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+            <table
+              className={`w-full whitespace-nowrap  text-sm  text-gray-500 dark:text-gray-400 ${
+                getLanguage() === "ar" ? "text-right" : "text-left"
+              }`}
+            >
               <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
                 <tr>
                   <th scope="col" className=" py-2 cursor-pointer">
@@ -58,7 +63,11 @@ function DeliquencyModelHistory({
           </div>
           <div className="w-full mt-5">
             <a className="opacity-60 text-md">New Values</a>
-            <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+            <table
+              className={`w-full whitespace-nowrap  text-sm  text-gray-500 dark:text-gray-400 ${
+                getLanguage() === "ar" ? "text-right" : "text-left"
+              }`}
+            >
               <thead className="text-xs text-gray-400 bg-white uppercase  font-normal">
                 <tr>
                   <th scope="col" className=" py-2 cursor-pointer">

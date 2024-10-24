@@ -152,7 +152,11 @@ function CreateQuestionsSet() {
           } // Attach click handler
         >
           <div className="w-full flex flex-col mt-3 overflow-x-auto">
-            <table className="mt-4 w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <table
+              className={`mt-4 w-full text-sm text-gray-500 dark:text-gray-400 ${
+                getLanguage() === "ar" ? "text-right" : "text-left"
+              }`}
+            >
               <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
                 <tr>
                   <th scope="col" className="px-3 py-3 cursor-pointer">
@@ -240,7 +244,11 @@ function CreateQuestionsSet() {
               </div>
             }
           >
-            <table className="mt-4 w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <table
+              className={`mt-4 w-full text-sm text-gray-500 dark:text-gray-400 ${
+                getLanguage() === "ar" ? "text-right" : "text-left"
+              }`}
+            >
               <thead className="text-xs text-gray-400 uppercase bg-gray-50 font-normal">
                 <tr>
                   <th scope="col" className="px-3 py-3 cursor-pointer">

@@ -4,6 +4,7 @@ import CardMain from "../../../Components/Cards/main";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import withAuthorization from "../../../constants/authorization";
+import { getLanguage } from "functions/getLanguage";
 
 function AllUsers() {
   const dispatch = useDispatch();
@@ -26,7 +27,11 @@ function AllUsers() {
         iconStyle="text-3xl text-primary"
       >
         <div className="overflow-x-scroll  mt-4 relative h-[70vh]">
-          <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+          <table
+            className={`w-full whitespace-nowrap  text-sm  text-gray-500 dark:text-gray-400 ${
+              getLanguage() === "ar" ? "text-right" : "text-left"
+            }`}
+          >
             <thead className=" text-xs text-gray-400 bg-white uppercase  font-normal">
               <tr>
                 <th scope="col" className="px-3 py-3 cursor-pointer">

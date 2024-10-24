@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import * as action from "Services/redux/reducer";
 
 import { GetSelaaSellRadeemValues } from "Services/OtherApis";
+import { getLanguage } from "functions/getLanguage";
 function SelaSellRadeem() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -39,7 +40,11 @@ function SelaSellRadeem() {
   return (
     <div className="p-1 w-full pb-10">
       <div className="overflow-x-auto relative  ">
-        <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+        <table
+          className={`w-full whitespace-nowrap  text-sm  text-gray-500 dark:text-gray-400 ${
+            getLanguage() === "ar" ? "text-right" : "text-left"
+          }`}
+        >
           <thead className="text-xs text-gray-400 uppercase bg-gray-200 font-normal">
             <tr>
               <th scope="col" className="px-3 py-3 cursor-pointer">

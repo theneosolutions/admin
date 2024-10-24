@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { getLanguage } from "functions/getLanguage";
 
 function Calculations() {
   const dispatch = useDispatch();
@@ -34,7 +35,11 @@ function Calculations() {
   return (
     <div className="p-1 w-full pb-10">
       <div className="overflow-x-auto relative  ">
-        <table className="w-full whitespace-nowrap  text-sm text-left text-gray-500 dark:text-gray-400">
+        <table
+          className={`w-full whitespace-nowrap  text-sm  text-gray-500 dark:text-gray-400 ${
+            getLanguage() === "ar" ? "text-right" : "text-left"
+          }`}
+        >
           <thead className="text-xs text-gray-400 uppercase bg-gray-200 font-normal">
             <tr>
               <th scope="col" className="px-3 py-3 cursor-pointer">
